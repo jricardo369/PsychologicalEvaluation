@@ -1,0 +1,9 @@
+<app-login-form (onLogin)='cerrar()'>
+</app-login-form>
+<p *ngIf="!recuperarPasswordOnly" style="
+    margin: 24px 0 5px 0;
+    max-width: 240px;
+    padding-top: 12px;
+    border-top: solid 1px rgba(0,0,0,0.1);
+" i18n="">It looks like your session has expired, enter your credentials and press Login to continue using the system.</p>
+<span (click)="salir()" class="link">End the session</span>

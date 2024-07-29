@@ -1,0 +1,166 @@
+<app-workspace-nav>
+    <app-general-nav></app-general-nav>
+</app-workspace-nav>
+<div class='workspace'>
+    <div class='main'>
+
+        <app-experimental-menu titulo="Users" i18n-titulo="">
+
+            <button (click)='crearUsuario()'
+                style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;">
+                <mat-icon svgIcon="add-box"></mat-icon>
+                <label i18n="">New User</label>
+            </button>
+
+            <button (click)='refrescar()' style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px;">
+                <mat-icon svgIcon="refresh"></mat-icon>
+                <label i18n="">Refresh</label>
+            </button>
+
+            <button (click)='eliminar()' [disabled]='seleccion.length == 0'
+                style="color: #CB4335;background: #FDEDEC;border-radius: 5px; height: 28px;">
+                <mat-icon svgIcon="delete"></mat-icon>
+                <label i18n="">Delete</label>
+            </button>
+
+        </app-experimental-menu>
+
+        <div class='content'>
+
+            <!-- FILTRO -->
+            <div style="margin-bottom: 20px;">
+
+                <h5 *ngIf="filters.length < 1" style="margin: 0 0 3px 0;" i18n="">Search</h5>
+                <h5 *ngIf="filters.length > 0" style="margin: 0 0 12px 0;" i18n="">Search</h5>
+
+                <div *ngFor="let f of filters">
+
+                    <div class="iigwo-input inline">
+                        <select [(ngModel)]="f.campo">
+                            <option i18n="" value="usuario">User</option>
+                            <option i18n="" value="nombre">Name</option>
+                            <option i18n="" value="direccion">Address</option>
+                            <option i18n="" value="telefono">Phone</option>
+                            <option i18n="" value="tipo">Type</option>
+                        </select>
+                    </div>
+
+                    <div class="iigwo-input inline">
+                        <select [(ngModel)]="f.operador">
+                            <option value="==" i18n="">Same</option>
+                            <option value=">" i18n="">Higher</option>
+                            <option value=">=" i18n="">Greater or Equal</option>
+                            <option value="<" i18n="">Less</option>
+                            <option value="<=" i18n="">Minor or Equal</option>
+                            <option value="startsWith" i18n="">Start with</option>
+                            <option value="endsWith" i18n="">Ends with</option>
+                            <option value="includes" i18n="">It contains</option>
+                        </select>
+                    </div>
+
+                    <div class="iigwo-input inline">
+                        <input placeholder="Text / Number" i18n-placeholder="Text / Number" [(ngModel)]="f.valor">
+                    </div>
+
+                    <button class="iigwo small" style="padding:0;min-height: 26px;" (click)="agregarFiltro()">
+                        <mat-icon svgIcon="add"></mat-icon>
+                    </button>
+
+                    <button class="iigwo small" style="padding:0;min-height: 26px;" (click)="eliminarFiltro(f)">
+                        <mat-icon svgIcon="remove"></mat-icon>
+                    </button>
+
+                    <br>
+
+                </div>
+
+
+                <button *ngIf='filters.length > 0' class="accent iigwo small" (click)="aplicarFiltros()">Apply filters</button>
+                <button *ngIf='filters.length > 0' class="iigwo small" (click)="limpiarFiltros()">Clean filters</button>
+                <p *ngIf='filters.length == 0' style="font-size:11px;">
+                  Add one or more filters to facilitate the search for users
+                </p>
+                <button *ngIf='filters.length == 0' class="iigwo small" (click)="agregarFiltro()">Add filter</button>
+
+
+            </div>
+
+            <!-- TABLA CON REGISTROS -->
+            <div style="display:flex; flex-flow: column; overflow: auto;">
+                <table class='big' *ngIf="!(usuarios.length == 0)">
+                    <tr>
+                        <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()"
+                                (change)="checkAll($event)"></th>
+                        <th class='' i18n="">User</th>
+                        <th class='' i18n="">Name</th>
+                        <th class='' i18n="">Address</th>
+                        <th class='' i18n="">Phone</th>
+                        <th class='' i18n="">Type</th>
+                    </tr>
+                    <tr *ngFor='let e of usuarios | slice:paginacion.begin:paginacion.end'>
+                        <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idUsuario)"
+                                (change)="check($event, e.idUsuario)"></td>
+                        <td class=''><a (click)="editarUsuario(e.idUsuario)">{{e.usuario}}</a></td>
+                        <td class=''><a (click)="editarUsuario(e.idUsuario)">{{e.nombre}}</a></td>
+                        <td class='accent'>{{e.direccion}}</td>
+                        <td class='accent'>{{e.telefono}}</td>
+                        <td class='accent' [ngSwitch]="e.rol">
+                            <label *ngSwitchCase="1">Administrator</label>
+                            <label *ngSwitchCase="2">Master</label>
+                            <label *ngSwitchCase="3">Vendor</label>
+                            <label *ngSwitchCase="4">BackOffice</label>
+                            <label *ngSwitchCase="5">Interviewer</label>
+                            <label *ngSwitchCase="6">VOC</label>
+                            <label *ngSwitchCase="7">Template Creator</label>
+                            <label *ngSwitchDefault>{{e.rol}}</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="99" style="text-align: right;line-height: 24px;" class="mini">
+                            <label i18n="">Records per page</label>
+                            <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
+                                style="margin: 0 8px; font-family: regular; height: 24px;">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}
+                            <button class="iigwo small"
+                                style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+                                (click)="paginacion.back();">
+                                <mat-icon svgIcon="arrow-back"></mat-icon>
+                            </button>
+                            <button class="iigwo small"
+                                style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+                                (click)="paginacion.forward();">
+                                <mat-icon svgIcon="arrow-forward"></mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <!-- MENSAJE DE NO HAY REGISTROS -->
+            <div *ngIf="usuarios.length == 0">
+                <h3 style="margin:12px 0 6px 0" i18n="">No results</h3>
+                <p style="max-width:396px;" i18n="">There are no users within the search criteria. Make sure that the names are correct and that they are searching in the appropriate field.</p>
+            </div>
+
+            <!-- <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;">
+                <span i18n="@@siNecesitaAyudaPuedeLeerEl">Si necesita ayuda puede leer el
+                </span>
+                <a target="_blank" [href]='utilService.rutaManual("ManualAdministracionGeneral")'
+                    i18n="@@manualAdministracionGeneral">manual de Administración General</a>
+            </p> -->
+
+        </div>
+
+        <!--Cargando-->
+        <div class='iigwo-loading' *ngIf="cargando">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>

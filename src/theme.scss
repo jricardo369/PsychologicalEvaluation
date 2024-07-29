@@ -1,0 +1,104 @@
+/* ================================================================================================== */
+
+@import '~@angular/material/theming';
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+/* ============================================================================ */
+
+// COLORFUL
+$app-primary: mat-palette($mat-purple, Dark_Lavender);
+$app-accent:  mat-palette($mat-purple, Eminence);
+$app-secondary:  mat-palette($mat-green, Viridian_Green);
+
+/* ============================================================================ */
+
+// The warn palette is optional (defaults to red).
+$app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+/* ============================================================================ */
+/*
+$mat-primary: (
+    main: #696158,
+    lighter: #d2d0cd,
+    darker: #4c453d,
+    200: #696158, // For slide toggle,
+    contrast : (
+        main: $light-primary-text,
+        lighter: $dark-primary-text,
+        darker: $light-primary-text,
+    )
+);
+$app-primary: mat-palette($mat-primary, main, lighter, darker);
+
+$app-secondary:  mat-palette($mat-orange, 700);
+
+$mat-accent: (
+    main: #b9b100,
+    lighter: #eae8b3,
+    darker: #a29800,
+    200: #b9b100, // For slide toggle,
+    contrast : (
+        main: $dark-primary-text,
+        lighter: $dark-primary-text,
+        darker: $dark-primary-text,
+    )
+);
+$app-accent: mat-palette($mat-accent, main, lighter, darker);
+
+$mat-warn: (
+    main: #ff0000,
+    lighter: #ffb3b3,
+    darker: #ff0000,
+    200: #ff0000, // For slide toggle,
+    contrast : (
+        main: $light-primary-text,
+        lighter: $dark-primary-text,
+        darker: $light-primary-text,
+    )
+);
+$app-warn: mat-palette($mat-warn, main, lighter, darker);;
+
+*/
+/* ============================================================================ */
+
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+$app-alt-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
+
+// Theme Init
+@include angular-material-theme($app-theme);
+
+.theme-alternate {
+    @include angular-material-theme($app-alt-theme);
+}
+
+/* ============================================================================ */
+
+$primary-color: mat-color($app-primary);
+$primary-color-darker: mat-color($app-primary, darker);
+$secondary-color: mat-color($app-secondary);
+$accent-color: mat-color($app-accent);
+
+/* ============================================================================ */
+
+/* CUSTOM TYPOGRAPHY */
+
+$custom-typography: mat-typography-config(
+    $font-family: 'regular',
+    $headline: mat-typography-level(24px, 32px, 700),
+    $body-1: mat-typography-level(13px, 16px, 500)
+);
+@include angular-material-typography($custom-typography);
+@include mat-core($custom-typography);

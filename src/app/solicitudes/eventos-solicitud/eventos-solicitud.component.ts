@@ -1,0 +1,57 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EventoSolicitudService } from 'src/app/services/evento-solicitud.service';
+import { UtilService } from 'src/app/services/util.service';
+import { EventoSolicitud } from 'src/model/evento-solicitud';
+import { DialogoEventoSolicitudComponent } from '../dialogo-evento-solicitud/dialogo-evento-solicitud.component';
+
+@Component({
+    selector: 'app-eventos-solicitud',
+    templateUrl: './eventos-solicitud.component.html',
+    styleUrls: ['./eventos-solicitud.component.css']
+})
+export class EventosSolicitudComponent implements OnInit {
+
+    @Input() idSolicitud: string;
+    @Input() idEstatusSolicitud: number;
+
+    mostrarEventos: boolean = true;
+    arrEventoSolicitud: EventoSolicitud[] = [];
+
+    cargando: boolean = false;
+
+    constructor(
+        private eventoSolicitudService: EventoSolicitudService,
+        private utilService: UtilService,
+        private dialog: MatDialog) {
+        this.mostrarEventos = true;
+    }
+
+    ngOnInit(): void {
+        this.refresh();
+        this.mostrarEventos = true;
+    }
+
+
+    refresh() {
+        this.cargando = true;
+        this.eventoSolicitudService
+            .obtenerEventosSolicitud(Number.parseInt(this.idSolicitud))
+            .then(response => {
+                this.arrEventoSolicitud = response;
+            })
+            .catch(reason => this.utilService.manejarError(reason))
+            .then(() => this.cargando = false)
+    }
+
+    crearEvento() {
+        this.dialog.open(DialogoEventoSolicitudComponent, {
+            data: {
+                idSolicitud: this.idSolicitud
+            },
+            disableClose: true,
+        }).afterClosed().toPromise().then(valor => {
+            if (valor == 'creado') this.refresh();
+        }).catch(reason => this.utilService.manejarError(reason));
+    }
+}

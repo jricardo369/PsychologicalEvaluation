@@ -1,0 +1,83 @@
+<app-workspace-nav>
+  <app-reportes-nav></app-reportes-nav>
+</app-workspace-nav>
+<div class='workspace'>
+  <div class='main'>
+
+    <app-experimental-menu titulo="Payments" i18n-titulo="">
+
+      <button (click)='obtenerMovimientosUsuario()'
+        style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
+        <mat-icon svgIcon="refresh"></mat-icon>
+        <label i18n="">Refresh</label>
+      </button>
+
+    </app-experimental-menu>
+
+    <div class='content'>
+      <div style="display: inline-flex;">
+        <div style="display: inline-flex;">
+          <div class="iigwo-input">
+            <label i18n="">Start Date</label>
+            <input type="date" [(ngModel)]="fechaI" (change)="obtenerMovimientosUsuario()">
+          </div>
+          <div class="iigwo-input">
+            <label i18n="">End Date</label>
+            <input type="date" [(ngModel)]="fechaF" (change)="obtenerMovimientosUsuario()">
+          </div>
+          <div class="iigwo-input">
+            <label i18n="">Customer</label>
+            <input type="text" [(ngModel)]="inputCliente" (ngModelChange)="obtenerMovimientosUsuario()">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='content' style="margin-top: 80px;padding-top: 0;">
+
+      <div style="display: flex;">
+        <div class="mb-20">
+          <h4 class="mb-0" style="color: green;">{{reporteMovimientos.cargos | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <p class="text-body-secondary fs-9 mb-0">Charges</p>
+        </div>
+        <div class="ml-25 mb-20">
+          <h4 class="mb-0" style="color: red;">{{reporteMovimientos.abonos | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <p class="text-body-secondary fs-9 mb-0">Payments</p>
+        </div>
+        <div class="ml-25 mb-20">
+          <h4 class="mb-0" style="color: blue;">{{reporteMovimientos.balance | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <p class="text-body-secondary fs-9 mb-0">Balance</p>
+        </div>
+      </div>
+
+      <table class="informative">
+        <tr>
+          <th>Folio</th>
+          <th>Customer</th>
+          <th>Payment Type</th>
+          <th>Move Type</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Discount</th>
+          <th>Description</th>
+        </tr>
+        <tr *ngFor='let e of reporteMovimientos.movimientos'>
+          <td class='accent'>{{e.folio}}</td>
+          <td class='accent'>{{e.cliente}}</td>
+          <td class='accent'>{{e.descripcionTipoPago}}</td>
+          <td style="text-align: center;"><span class="badge-status badge-color-payment" style="margin: 0;">{{e.tipoMovimiento}}</span></td>
+          <td class='accent'>{{e.fecha | dateYYYYMMDD}}</td>
+          <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+          <td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+          <td class='accent'>{{e.descripcion}}</td>
+        </tr>
+      </table>
+
+    </div>
+
+    <!--Cargando-->
+    <div class='iigwo-loading' *ngIf="cargando">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>

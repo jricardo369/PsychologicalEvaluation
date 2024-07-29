@@ -1,0 +1,53 @@
+<app-workspace-nav>
+  <app-reportes-nav></app-reportes-nav>
+</app-workspace-nav>
+<div class='workspace'>
+  <div class='main'>
+
+    <app-experimental-menu titulo="Sent Emails" i18n-titulo="">
+
+      <button (click)='obtenerCorreosEnviados()'
+        style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
+        <mat-icon svgIcon="refresh"></mat-icon>
+        <label i18n="">Refresh</label>
+      </button>
+
+    </app-experimental-menu>
+
+    <div class='content'>
+      <div style="display: inline-flex;">
+          <div style="display: inline-flex;">
+              <div class="iigwo-input">
+                  <label i18n="">Start Date</label>
+                  <input type="date" [(ngModel)]="fechaI" (change)="obtenerCorreosEnviados()">
+              </div>
+              <div class="iigwo-input">
+                  <label i18n="">End Date </label>
+                  <input type="date" [(ngModel)]="fechaF" (change)="obtenerCorreosEnviados()">
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <div class='content' style="margin-top: 80px;padding-top: 0;">
+
+      <table class="informative">
+        <tr>
+          <th>Lawyer</th>
+          <th>Number of Emails</th>
+        </tr>
+        <tr *ngFor='let e of arrReporteCorreosEnviados'>
+          <td class='accent'>{{e.nombre}}</td>
+          <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.numero == 0,
+            'badge-color-1': e.numero >= 1}">{{e.numero}}</span></td>
+        </tr>
+      </table>
+
+    </div>
+
+    <!--Cargando-->
+    <div class='iigwo-loading' *ngIf="cargando">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>

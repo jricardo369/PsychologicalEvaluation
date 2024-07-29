@@ -1,0 +1,2250 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$contelec-app-primary: mat-palette($mat-indigo);
+$contelec-app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$contelec-app-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$contelec-app-theme: mat-light-theme((color: (primary: $contelec-app-primary,
+				accent: $contelec-app-accent,
+				warn: $contelec-app-warn,
+			)));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($contelec-app-theme);
+
+@import './theme.scss';
+
+/* ============================================================================ */
+
+/* ============================================================================ */
+/* ODL CSS STARTS */
+/* ============================================================================ */
+
+@font-face {
+	font-family: 'Quicksand';
+	src: url('assets/font/Quicksand-Regular.ttf');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Quicksand';
+	src: url('assets/font/Quicksand-Bold.ttf');
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Quicksand';
+	src: url('assets/font/Quicksand-Medium.ttf');
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'Quicksand';
+	src: url('assets/font/Quicksand-Light.ttf');
+	font-weight: 200;
+}
+
+@font-face {
+	font-family: regular;
+	src: url('assets/font/RobotoCondensed-Regular.ttf');
+}
+
+@font-face {
+	font-family: light;
+	src: url('assets/font/RobotoCondensed-Light.ttf');
+}
+
+@font-face {
+	font-family: bold;
+	src: url('assets/font/RobotoCondensed-Bold.ttf');
+}
+
+.link {
+	color: $secondary-color;
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+body {
+	margin: 0;
+	font-family: regular;
+	font-size: 13px;
+}
+
+.flex1 {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+}
+
+b {
+	font-weight: normal;
+	font-family: bold;
+}
+
+hr {
+	margin: 12px 0;
+	border: none;
+	height: 1px;
+	background: rgba(0, 0, 0, 0.2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+}
+
+h1 {
+	font-size: 32px;
+	font-family: light;
+}
+
+h2 {
+	font-size: 24px;
+	font-family: light;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+h4 {
+	font-size: 16px;
+}
+
+h5 {
+	font-size: 13px;
+	margin-top: auto;
+}
+
+h6 {
+	font-size: 11px;
+}
+
+ul,
+ol {
+	font-size: 13px;
+	line-height: 18px;
+	color: rgba(0, 0, 0, 0.75);
+	max-width: 396px;
+}
+
+li {
+	margin: 0 0 6px 0;
+}
+
+p a {
+	text-decoration: underline;
+}
+
+.important-header {
+	background: mat-color($app-primary);
+	color: white;
+	padding: 6px;
+}
+
+/* ----------------------------------------------------- */
+/* ----------------------------------------------------- */
+
+app-bar {
+	position: fixed;
+	width: 100%;
+	height: 48px;
+	background: mat-color($app-primary);
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.666);
+	z-index: 3;
+	display: flex;
+}
+
+app-bar button.iigwo.menu-button {
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	margin: 4px;
+	border: none;
+	position: absolute;
+	border-radius: 50%;
+	margin-left: 12px;
+	background: none;
+}
+
+app-bar button.iigwo.menu-button:hover {
+	background: rgba(255, 255, 255, 0.125);
+}
+
+app-bar button.iigwo.menu-button:active {
+	background: rgba(255, 255, 255, 0.250);
+}
+
+app-bar button.iigwo.menu-button mat-icon,
+app-bar button.iigwo.menu-button svg {
+	margin: 0 auto;
+	width: 24px;
+	height: 100%;
+	padding: 0;
+	display: block;
+}
+
+app-bar button.iigwo.menu-button svg * {
+	fill: white;
+}
+
+
+
+app-bar #user-button {
+	padding: 0;
+	width: 32px;
+	height: 32px;
+	margin: 8px;
+	border-radius: 50%;
+	border: none;
+	position: absolute;
+	right: 0;
+}
+
+app-bar #user-button mat-icon,
+app-bar #user-button svg {
+	margin: 0;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	display: block;
+}
+
+app-bar .app-nav-user {
+	background: white;
+	width: 0;
+	height: 0;
+	top: 100%;
+	position: absolute;
+	margin: 12px;
+	right: 0;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+	overflow: hidden;
+	transition: 0.25s;
+}
+
+app-bar .app-nav-user .container {
+	padding: 12px;
+	// min-height:112px;
+	min-height: 177px;
+	min-width: 284px;
+	box-sizing: border-box;
+	position: relative;
+}
+
+app-bar .app-nav-user:focus {
+	height: 148px;
+	width: 196px;
+	outline: none;
+}
+
+app-bar .app-nav-user svg {
+	background: rgba(0, 0, 0, 0.05);
+	fill: rgba(0, 0, 0, 0.25);
+	height: 96px;
+	width: 96px;
+}
+
+app-bar .app-nav-right {
+	position: absolute;
+	top: 0;
+	//right:0;
+	margin: 12px;
+	//left:calc(96px + 12px);
+}
+
+app-bar .app-nav-right label:first-of-type {
+	font-size: 16px;
+	font-family: regular;
+}
+
+app-bar .app-nav-right label {
+	margin-bottom: 6px;
+	display: block;
+	font-size: 13px;
+	font-family: light;
+	color: rgba(0, 0, 0, 0.85);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* ----------------------------------------------------- */
+
+.workspace-nav {
+	/*background:pink;*/
+	background: hsla(0, 0%, 97%, 1);
+	width: 245px;
+	height: calc(100% - 48px);
+	top: 48px;
+	position: fixed;
+	border-right: solid 1px rgba(0, 0, 0, 0.2);
+	z-index: 0;
+	box-sizing: border-box;
+	transition: 0.20s transform, 0.20s width;
+}
+
+/* ----------------------------------------------------- */
+
+.workspace-nav button.iigwo:focus {
+	border: none;
+}
+
+.workspace-nav button.iigwo.home {
+	margin: 0;
+	border: 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	height: 64px;
+	border-radius: 0;
+	font-size: 18px;
+	background: none;
+	padding: 0;
+	line-height: 64px;
+	color: rgba(0, 0, 0, 0.5);
+	margin-bottom: 8px;
+	height: 64px;
+}
+
+.workspace-nav button.iigwo.home img,
+.workspace-nav button.iigwo.home svg {
+	width: 32px;
+	height: 32px;
+	margin: 16px;
+	left: 0;
+}
+
+.workspace-nav button.iigwo {
+	background: none;
+	margin: 0;
+	border-radius: 0;
+	border: none;
+	height: 36px;
+	width: 100%;
+	border: none;
+	padding: 0 0 0 15px;
+	color: rgba(0, 0, 0, 0.5);
+	line-height: 36px;
+
+	position: relative;
+	display: block;
+}
+
+.workspace-nav button.iigwo img,
+.workspace-nav button.iigwo svg {
+	width: 18px;
+	height: 18px;
+	margin-top: 9px;
+	margin-right: 24px;
+	margin-left: 8px;
+
+	position: absolute;
+	left: 15px;
+	top: 0;
+}
+
+.workspace-nav button.iigwo label {
+	position: absolute;
+	left: 65px;
+	top: 0;
+	text-align: left;
+}
+
+.workspace-nav button.iigwo:hover {
+	background: rgba(156, 156, 156, 0.2);
+}
+
+.workspace-nav button.iigwo.accent svg * {
+	fill: mat-color($app-accent)
+}
+
+.workspace-nav button.iigwo:active,
+.workspace-nav button.iigwo.accent {
+	background: mat-color($app-accent, lighter);
+	color: mat-color($app-accent, darker);
+}
+
+.workspace-nav button.iigwo.accent:active {
+	background: mat-color($app-accent, 100);
+}
+
+label.fake-button {
+	padding-left: 12px;
+	padding-top: 1px;
+	font-size: 13px !important;
+	display: inline-block !important;
+}
+
+.workspace-nav.shortened {
+	width: 64px;
+}
+
+.root-wrap.shortened .workspace {
+	left: 64px;
+}
+
+/* ----------------------------------------------------- */
+
+.workspace {
+	position: fixed;
+	left: 256px;
+	right: 0;
+	top: 48px;
+	transition: 0.2s;
+}
+
+.workspace .menu {
+	height: 64px;
+	border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	padding-left: 24px;
+}
+
+.workspace .menu label.home {
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.85);
+	margin-right: 64px;
+	flex-shrink: 0;
+	color: mat-color($app-accent, darker);
+}
+
+.workspace .menu button.iigwo {
+	color: mat-color($app-primary);
+	background: none;
+	text-transform: uppercase;
+	border: none;
+	margin: 0 12px 0 0;
+	position: relative;
+}
+
+.workspace .menu button.iigwo.primary svg * {
+	fill: white;
+}
+
+.workspace .menu button.iigwo.primary:hover,
+.workspace .menu button.iigwo.primary {
+	background: mat-color($app-primary);
+	color: white;
+}
+
+.workspace .menu button.iigwo.primary:active {
+	background: mat-color($app-primary, darker);
+}
+
+.workspace .menu button.iigwo.accent svg * {
+	fill: white;
+}
+
+.workspace .menu button.iigwo.accent:hover,
+.workspace .menu button.iigwo.accent {
+	background: mat-color($app-accent);
+	color: white;
+}
+
+.workspace .menu button.iigwo.accent:active {
+	background: mat-color($app-accent, darker);
+}
+
+.workspace .menu button.iigwo:focus {
+	border: none;
+}
+
+.workspace .menu button.iigwo:hover {
+	background: rgba(mat-color($app-primary), 0.05);
+}
+
+.workspace .menu button.iigwo:active {
+	background: rgba(mat-color($app-primary), 0.20);
+}
+
+.workspace .menu button.iigwo mat-icon {
+	width: 20px;
+	height: 20px;
+	margin: 6px 3px 6px -6px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 6px;
+}
+
+.workspace .menu button.iigwo img,
+.workspace .menu button.iigwo svg {
+	width: 20px;
+	height: 20px;
+	margin: 0;
+}
+
+.workspace .menu button.iigwo label {
+	line-height: 32px;
+	height: 32;
+	margin-top: 6px;
+	padding-left: 18px;
+	margin: 0;
+	/* vertical-align: text-top; */
+}
+
+.workspace .menu button.iigwo svg * {
+	fill: mat-color($app-primary);
+}
+
+.workspace .menu button.iigwo[disabled] {
+	background: none;
+	color: hsla(0, 0%, 75%, 1);
+}
+
+.workspace .menu button.iigwo.accent[disabled] {
+	background: none;
+	color: hsla(0, 0%, 75%, 1);
+}
+
+.workspace .menu button.iigwo[disabled] svg * {
+	fill: hsla(0, 0%, 75%, 1);
+}
+
+.workspace .alternative.menu button.iigwo {
+	color: white;
+}
+
+.workspace .alternative.menu {
+	background-color: darken(mat-color($app-primary), 5%);
+}
+
+.workspace .alternative.menu label.home {
+	color: white;
+}
+
+.workspace .alternative.menu button.iigwo:hover {
+	background: rgba(white, 0.15);
+}
+
+.workspace .alternative.menu button.iigwo:active {
+	background: rgba(white, 0.50);
+}
+
+.workspace .alternative.menu button.iigwo svg * {
+	fill: white;
+}
+
+/* ----------------------------------------------------- */
+
+.workspace {
+	display: flex;
+	bottom: 0;
+}
+
+.workspace .main {
+	flex: 1;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.workspace .aux {
+	flex-shrink: 0;
+	background: #fbfbfb;
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.workspace .content {
+	padding: 24px;
+	box-sizing: border-box;
+	position: absolute;
+	overflow: auto;
+	bottom: 0;
+	top: 64px;
+	left: 0;
+	right: 0;
+	overflow-x: hidden;
+}
+
+/* ----------------------------------------------------- */
+
+button.iigwo.small {
+	height: 24px;
+	min-width: 24px;
+	line-height: 30px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+button.iigwo.small svg {
+	margin: 3px;
+}
+
+button.iigwo * {
+	cursor: pointer;
+}
+
+.fake-button,
+button.iigwo {
+	height: 32px;
+	min-height: 32px;
+	line-height: 28px;
+	display: inline-flex;
+	flex-direction: row;
+	font-size: 13px;
+	font-family: regular;
+	padding: 0 12px 0 0;
+	border-radius: 2px;
+	cursor: pointer;
+	background: white;
+	color: hsla(0, 0%, 25%, 1);
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	outline: none;
+	overflow: hidden;
+	transition: 0.125s ease-out;
+	vertical-align: top;
+	margin: 0 12px 12px 0;
+	padding-left: 12px;
+}
+
+button.iigwo:active {
+	transition: 0.125s;
+}
+
+button.iigwo img,
+button.iigwo svg {
+	width: 16px;
+	height: 16px;
+	margin: 7px 7px 0 -5px;
+	flex-shrink: 0;
+}
+
+button.iigwo svg * {
+	fill: hsla(0, 0%, 50%, 1);
+}
+
+.fake-button:focus,
+button.iigwo:focus {
+	border: dashed 1px mat-color($app-primary);
+}
+
+.fake-button:active,
+button.iigwo:active {
+	background: hsla(0, 0%, 93%, 1);
+}
+
+/* BUTTON IIGWO PRIMARY */
+
+.fake-button.primary,
+button.iigwo.primary {
+	background: mat-color($app-primary);
+	color: white;
+}
+
+.fake-button.primary:focus,
+button.iigwo.primary:focus {
+	border: dashed 1px white;
+}
+
+.fake-button.primary:active,
+button.iigwo.primary:active {
+	background: mat-color($app-primary, 900);
+}
+
+.fake-button.accent:active,
+button.iigwo.accent:active {
+	background: mat-color($app-accent, darker);
+}
+
+/* BUTTON IIGWO ACCENT */
+
+.fake-button.accent,
+button.iigwo.accent {
+	background: mat-color($app-accent);
+	color: white;
+}
+
+button.iigwo.accent svg * {
+	fill: white;
+}
+
+.fake-button.accent:focus,
+button.iigwo.accent:focus {
+	border-color: #fbfbfb;
+}
+
+.fake-button.accent:active,
+button.iigwo.accent:active {
+	background: mat-color($app-accent, darker);
+}
+
+/* BUTTON IIGWO DISABLED */
+
+button.iigwo[disabled],
+button.iigwo[disabled] * {
+	cursor: default;
+}
+
+button.iigwo[disabled] {
+	background: hsla(0, 0%, 95%, 1) !important;
+	color: hsla(0, 0%, 75%, 1) !important;
+}
+
+button.iigwo[disabled] svg * {
+	fill: hsla(0, 0%, 75%, 1);
+}
+
+/* ----------------------------------------------------- */
+
+p {
+	font-size: 13px;
+	margin: 0 12px 12px 0;
+	color: rgba(0, 0, 0, 0.5);
+	max-width: 396px;
+}
+
+a {
+	text-decoration: none;
+	color: mat-color($app-primary);
+	cursor: pointer;
+}
+
+a.rec {
+	font-size: 13px;
+	font-family: regular;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* ----------------------------------------------------- */
+
+table {
+	background: none;
+	border-collapse: collapse;
+	color: rgba(0, 0, 0, 0.7);
+	margin: 0 12px 12px 0;
+}
+
+table tr td a {
+	text-decoration: underline;
+}
+
+th {
+	text-align: left;
+	font-weight: normal;
+	padding: 8px 18px 8px 6px;
+	/*border-bottom: 1px solid rgba(0,0,0,0.1);*/
+	font-size: 11px;
+	color: rgba(255, 255, 255, 0.95);
+	background: mat-color($app-primary);
+}
+
+td {
+	font-size: 12px;
+	line-height: 18px;
+	padding: 7px 18px 7px 6px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	background-color: white;
+	vertical-align: top;
+}
+
+th.accent {
+	font-weight: bold;
+}
+
+.number {
+	text-align: right;
+}
+
+/*table.big th {font-size:12px;padding-bottom:8px;}table.big td {font-size:13px;}
+
+/* ----------------------------------------------------- */
+
+barcode-scanner {
+	background: hsla(0, 0%, 93%, 1);
+	height: 100%;
+	display: flex;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+}
+
+#pos-input-window {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 48px;
+	padding-bottom: 16px;
+	z-index: 1;
+	position: relative;
+}
+
+#pos-input-window svg * {
+	fill: rgba(0, 0, 0, 0.5);
+}
+
+#pos-input-window svg {
+	width: 96px;
+	height: 96px;
+	flex-shrink: 0;
+}
+
+#pos-input-window h3 {
+	font-size: 18px;
+	font-family: light;
+	font-weight: normal;
+	color: rgba(0, 0, 0, 0.8);
+	margin: 12px 0 0 0;
+}
+
+#pos-input-window input {
+	font-size: 36px;
+	font-family: light;
+	font-weight: normal;
+	color: rgba(0, 0, 0, 0.2);
+	margin: 12px 0 0 0;
+	border: none;
+	width: 120%;
+	text-align: center;
+	background: none;
+}
+
+#pos-input-window p {
+	font-size: 13px;
+	color: rgba(0, 0, 0, 0.5);
+	text-align: center;
+	margin: 16px 0 0 0;
+	height: 5em;
+	/*para evitar relayout*/
+}
+
+#pos-input-background,
+#pos-input-background2 {
+	height: 128px;
+	width: 128px;
+	background: mat-color($app-primary);
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	border-radius: 50%;
+	transition: ease-in 0.333s;
+	transform: scale(10);
+	opacity: 0;
+}
+
+@keyframes pos-input-animation {
+	0% {
+		transform: scale(0);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(10);
+		opacity: 0.8;
+	}
+}
+
+#pos-input.active #pos-input-background {
+	transition: 0;
+	animation: pos-input-animation ease-in-out 0.5s;
+	transform: scale(10);
+	opacity: 0.8;
+}
+
+@keyframes pos-input-animation2 {
+	0% {
+		transform: scale(0);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(10);
+		opacity: 0;
+	}
+}
+
+#pos-input-background2.active {
+	animation: pos-input-animation2 ease-in-out 0.5s;
+	transform: scale(10);
+	opacity: 0;
+}
+
+
+
+#pos-input.active #pos-input-window svg * {
+	fill: rgba(255, 255, 255, 1.0);
+}
+
+#pos-input.active #pos-input-window h3,
+#pos-input.active #pos-input-window p {
+	color: white;
+}
+
+#pos-input.active #pos-input-window input {
+	background: white;
+	border-radius: 2px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+	color: rgba(0, 0, 0, 0.75);
+	outline: none;
+	transition: ease-in 0.25s;
+}
+
+/* ----------------------------------------------------- */
+
+.iigwo-input input[readOnly] {
+	border-color: rgba(0, 0, 0, 0.0);
+	border-left: rgba(0, 0, 0, 0.2) 1px solid;
+}
+
+.iigwo-input {
+	margin-bottom: 12px;
+	margin-right: 12px;
+}
+
+.iigwo-input.inline {
+	/*width: 160px;*/
+	display: inline-block;
+}
+
+.iigwo-input label {
+	display: block;
+	color: rgba(0, 0, 0, 0.7);
+	margin-bottom: 4px;
+	font-size: 12px;
+}
+
+.iigwo-input select,
+.iigwo-input textarea,
+.iigwo-input input {
+	color: rgba(0, 0, 0, 1);
+	padding: 0 6px;
+	border: solid 1px rgba(0, 0, 0, 0.2);
+	font-size: 13px;
+	border-radius: 1px;
+	width: 100%;
+	max-width: 320px;
+	font-family: regular;
+	box-sizing: border-box;
+	height: 24px;
+	vertical-align: top;
+}
+
+.iigwo-input textarea {
+	padding-top: 5px;
+	min-width: 307px;
+	max-width: 307px;
+	min-height: 36px;
+}
+
+.iigwo-input textarea[readOnly],
+.iigwo-input select[disabled] {
+	border-top: none;
+	border-bottom: none;
+	border-right: none;
+}
+
+.iigwo-input-date input:focus,
+.iigwo-input input:focus {
+	outline: none;
+	border-color: mat-color($app-primary);
+}
+
+.iigwo-input.error input {
+	border-color: #ef9a9a;
+}
+
+.iigwo-input.error input:focus {
+	border-color: #E57373;
+}
+
+.iigwo-input.error label {
+	color: #F44336;
+}
+
+.iigwo-input.error+p {
+	color: #D32F2F;
+}
+
+/* ------------------------------------------------------ */
+
+/* The switch - the box around the slider */
+.switch {
+	position: relative;
+	display: inline-block !important;
+	width: 48px;
+	height: 24px;
+	overflow: hidden;
+	background: none;
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	cursor: pointer;
+	line-height: 24px;
+	text-align: right;
+	padding-right: 6px;
+}
+
+.switch input {
+	display: none;
+}
+
+.switch .slider {
+	background: rgba(0, 0, 0, 0.1);
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 18px;
+	width: 18px;
+	margin: 2px;
+	border-radius: 1px;
+	transition: 0.1s;
+	transform: scale(0.85);
+}
+
+input:checked+.slider {
+	background: mat-color($app-primary);
+	opacity: 1;
+	transform: scale(1);
+}
+
+.switch:active input+.slider {
+	transform: scale(0.70);
+}
+
+.switch label {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 8;
+	line-height: 24px;
+	height: 24px;
+}
+
+/* ------------------------------------------------------ */
+
+@keyframes fadeinXXX {
+	0% {
+		background: rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		background: rgba(0, 0, 0, 0.333);
+	}
+}
+
+.iigwo-dialog-background {
+	animation: fadeinXXX 0.175s ease-out;
+	padding: 24px;
+	padding-top: 72px;
+	background: rgba(0, 0, 0, 0.333);
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+@keyframes popup {
+	0% {
+		transform: scale(0.85);
+		opacity: 0;
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.iigwo-dialog {
+	transform-origin: top center;
+	animation: popup 0.175s ease-out;
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	border-radius: 1px;
+	padding: 24px 12px 12px 24px;
+	/* position: fixed; */
+	background: white;
+	z-index: 2;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.iigwo-dialog h3 {
+	font-family: regular;
+	font-weight: normal;
+	font-size: 14px;
+	color: rgba(0, 0, 0, 0.85);
+	line-height: 14px;
+	margin: 0;
+	margin: 0 12px 12px 0;
+}
+
+.iigwo-dialog p {
+	color: rgba(0, 0, 0, 0.70);
+}
+
+/* -------- */
+
+.iigwo-loading {
+	background: rgba(255, 255, 255, 0.75);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	z-index: 6;
+}
+
+.iigwo-loading mat-spinner {
+	width: 64pt;
+	height: 64pt;
+	top: calc(38% - 32pt);
+	position: absolute;
+}
+
+/*
+@keyframes key-rot {
+    0% {transform:rotate(0deg);}
+	100% {transform:rotate(360deg);}
+}
+
+.iigwo-loading svg {
+    animation: key-rot 0.666s infinite linear;
+	fill: mat-color($app-primary);
+	width: 64pt;
+	height: 64pt;
+	top: calc(38% - 32pt);
+	position: absolute;
+}
+*/
+
+/* ------- */
+.iigwo-panel {
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+	padding: 12px 12px 0 12px;
+	margin: 0 0 24px 0;
+	width: 312px;
+}
+
+/* -------- */
+@keyframes login {
+	from {
+		opacity: 0;
+		transform: scale(1.0) translateY(12px)
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1.0) translateY(0);
+	}
+}
+
+login-component .magnus {
+	display: block;
+	padding: 16px;
+	box-sizing: border-box;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 32px;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+	animation: login 0.35s ease-out;
+}
+
+login-component .magnus h1,
+login-component .magnus h3,
+login-component .magnus h5 {
+	text-align: center;
+	font-family: light;
+	font-weight: normal;
+	margin: 0;
+	font-size: 42px;
+	margin: 16px;
+	color: rgba(0, 0, 0, 0.75);
+}
+
+login-component .magnus h3 {
+	font-size: 18px;
+	margin-top: 20px;
+}
+
+login-component .magnus h5 {
+	font-size: 16px
+}
+
+login-component .magnus {
+	perspective: 640px;
+}
+
+login-component .magnus form {
+	background: whitesmoke;
+	padding: 32px;
+	box-sizing: border-box;
+	max-width: 320px;
+	margin: auto;
+	margin-top: 24px;
+	border-radius: 4px;
+	position: relative;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+
+	transform-origin: top;
+	transform-style: preserve-3d;
+	transform: rotateX(0deg);
+}
+
+login-component .magnus input,
+login-component .magnus button.iigwo {
+	display: block;
+	margin: 0 0 12px 0;
+	height: 42px;
+	line-height: 0px;
+	box-sizing: border-box;
+	padding: 12px;
+	width: 100%;
+	border-radius: 2px;
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	display: block;
+}
+
+login-component .magnus button.iigwo {
+	margin-bottom: 0;
+}
+
+login-component .magnus form mat-icon {
+	display: block;
+	width: 96px;
+	height: 96px;
+	margin: 0 auto 32px auto;
+}
+
+login-component .magnus form svg {
+	background: rgba(0, 0, 0, 0.05);
+	display: block;
+	height: 96px;
+	width: 96px;
+	border-radius: 50%;
+	fill: rgba(0, 0, 0, 0.2);
+	padding: 8px;
+	box-sizing: border-box;
+}
+
+login-component img.logo {
+	display: block;
+	width: 192px;
+	margin: auto;
+	margin-bottom: 36px;
+}
+
+login-component .iigwo-input {
+	margin: 0;
+}
+
+not-found-component .workspace {
+	padding: 24px;
+	display: block;
+	height: 100vh;
+	box-sizing: border-box;
+	left: 0;
+}
+
+not-found-component h1 {
+	margin: 0 0 12px 0;
+	font-size: 48px;
+	color: rgba(0, 0, 0, 0.666);
+}
+
+not-found-component h3 {
+	color: rgba(0, 0, 0, 0.5);
+}
+
+not-found-component a {
+	display: block;
+	margin: 0 0 3px 0;
+	font-family: bold;
+}
+
+not-found-component p {
+	color: rgba(0, 0, 0, 0.333);
+}
+
+not-found-component ul li {
+	color: rgba(0, 0, 0, 0.666);
+}
+
+/*=======*/
+
+.iigwo-input-check {
+	margin-bottom: 12px;
+}
+
+.iigwo-input-check label {
+	display: block;
+	color: rgba(0, 0, 0, 0.85);
+	margin-bottom: 4px;
+	font-size: 12px;
+}
+
+.iigwo-input-check input {
+	color: rgba(0, 0, 0, 0.85);
+	padding: 4px 6px;
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	font-size: 13px;
+	border-radius: 1px;
+	max-width: 480px;
+	font-family: regular;
+}
+
+.iigwo-input-gasto {
+	margin-bottom: 12px;
+}
+
+.iigwo-input-gasto label {
+	color: rgba(0, 0, 0, 0.85);
+	margin-bottom: 4px;
+	font-size: 12px;
+}
+
+.iigwo-input-gasto input {
+	color: rgba(0, 0, 0, 0.85);
+	padding: 4px 6px;
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	font-size: 13px;
+	border-radius: 1px;
+	max-width: 480px;
+	font-family: regular;
+}
+
+/*-----------------*/
+.app-nav-menu {
+	position: fixed;
+}
+
+.app-nav-menu-bar {
+	position: fixed;
+	height: 48px;
+	top: 0;
+	width: 100%;
+	background: white;
+}
+
+.app-nav-menu-panel {
+	position: fixed;
+	top: 0;
+	width: 250px;
+	bottom: 0;
+	left: 0;
+	background: white;
+	box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.1666);
+}
+
+.app-nav-menu-panel-content {
+	background: white;
+	position: absolute;
+	top: 49px;
+	bottom: 12px;
+	width: 100%;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.app-nav-menu-panel button.iigwo {
+	width: 100%;
+	height: 45px;
+	border-radius: 0;
+	border-width: 0;
+	margin: 0;
+	font-size: 15px;
+	position: relative;
+	text-align: left;
+}
+
+.app-nav-menu-panel button.iigwo:hover {
+	background: rgba(0, 0, 0, 0.05);
+}
+
+.app-nav-menu-panel button.iigwo img,
+.app-nav-menu-panel button.iigwo svg {
+	position: absolute;
+	left: 24px;
+	top: 4px;
+	width: 24px;
+	height: 24px;
+}
+
+.app-nav-menu-panel button.iigwo label {
+	margin-left: 55px;
+	line-height: 48px;
+}
+
+.iigwo-pseudo {
+	height: 44px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	position: relative;
+	margin-bottom: 12px;
+}
+
+.iigwo-pseudo svg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin: 10px 18px;
+	height: 24px;
+	width: 24px;
+}
+
+.iigwo-pseudo svg * {
+	fill: rgba(0, 0, 0, 0.125);
+}
+
+.iigwo-pseudo input {
+	height: 44px;
+	padding: 0;
+	border: none;
+	margin-left: 64px;
+	font-size: 13px;
+	font-family: regular;
+	outline: none;
+}
+
+.app-nav-menu-panel-home {
+	height: 49px !important;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+button.iigwo.app-nav-menu-panel-home img {
+	width: 32px;
+	height: 32px;
+	margin-top: 4px;
+	left: 20px;
+}
+
+button.iigwo.app-nav-menu-panel-home label {
+	text-transform: uppercase;
+	font-size: 16px;
+	margin-left: 50px;
+}
+
+@keyframes fadeinXXX20 {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 0.2;
+	}
+}
+
+.app-nav-menu-hide {
+	animation: fadeinXXX20 0.333s ease-out;
+	position: fixed;
+	top: 48px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: black;
+	position: fixed;
+	opacity: 0.2;
+}
+
+.app-nav-menu-panel {
+	transition: ease-out 0.25s;
+}
+
+.hidden .app-nav-menu-bar {
+	display: none;
+}
+
+.hidden .app-nav-menu-hide {
+	display: none;
+}
+
+.hidden .app-nav-menu-panel {
+	transform: translate3d(calc(-100% - 8px), 0, 0);
+}
+
+.iigwo-input-date input {
+	color: rgba(0, 0, 0, 1);
+	padding: 0 6px;
+	border: solid 1px rgba(0, 0, 0, 0.2);
+	font-size: 13px;
+	border-radius: 1px;
+	max-width: 100px;
+	font-family: regular;
+	box-sizing: border-box;
+	height: 32px;
+	vertical-align: top;
+}
+
+.iigwo-item {
+	background: white;
+	border: solid 1px rgba(0, 0, 0, 0.15);
+	height: 40px;
+	display: flex;
+	margin-bottom: 12px;
+	border-radius: 1px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+	padding-left: 6px;
+	width: 312px;
+	margin-top: 12px;
+}
+
+.iigwo-item+.iigwo-item {
+	margin-bottom: 12px;
+	margin-top: -13px;
+}
+
+.iigwo-item-buttons {
+	height: 40px;
+	margin-left: auto;
+}
+
+.iigwo-item-buttons button {
+	margin: 0;
+	height: 40px !important;
+	border-color: transparent;
+	background: none;
+}
+
+.iigwo-item select {
+	border: none;
+	background: none;
+}
+
+
+
+.appNavSearchBar {
+	background: white;
+	width: 448px;
+	margin: 6px 0 6px 0;
+	height: 36px;
+	border-radius: 2px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+	position: relative;
+	overflow: hidden;
+	border-radius: 2px 2px 0 0;
+	overflow: visible;
+	z-index: 7;
+}
+
+.appNavSearchBar mat-icon {
+	height: 18px;
+	width: 56px;
+	margin-top: 10px;
+}
+
+.appNavSearchBar mat-icon svg {
+	fill: rgba(0, 0, 0, 0.666);
+}
+
+.appNavSearchBar input {
+	border: none;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	left: 56px;
+	right: 0px;
+	bottom: 0;
+	width: calc(100% - 56px);
+	font-family: regular;
+	font-size: 15px;
+	background: none;
+	outline: none;
+	height: 36px;
+}
+
+.appNavSearchBar.blured {
+	background: rgba(255, 255, 255, 0.2);
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.125);
+}
+
+.appNavSearchBar.blured svg {
+	fill: rgba(255, 255, 255, 0.8);
+}
+
+.appNavSearchBar+.appNavMenuSearchLock {
+	background: black;
+	padding: 1em;
+	position: fixed;
+	top: 48px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0.3333;
+}
+
+.appNavSearchBar.blured+.appNavMenuSearchLock {
+	display: none;
+}
+
+.searchBarResults {
+	background: white;
+	margin: 5px 0 0 0;
+	max-height: calc(100vh - 56px);
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+	overflow: auto;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	z-index: 50;
+}
+
+.iigwo-list-item {
+	margin: 0;
+	display: block;
+	height: 64px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	box-sizing: border-box;
+	transition: 0.125s;
+	position: relative;
+}
+
+.iigwo-list-item:hover {
+	background: rgba(0, 0, 0, 0.05);
+	cursor: pointer;
+}
+
+.iigwo-list-item mat-icon {
+	height: 24px;
+	width: 24px;
+	float: left;
+	margin: 20px 16px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.iigwo-list-item mat-icon.accent svg {
+	fill: mat-color($app-primary);
+	transform: scale(0.666)
+}
+
+.iigwo-list-item mat-icon svg {
+	fill: rgba(0, 0, 0, 0.666);
+}
+
+.iigwo-list-item mat-icon+h1 {
+	line-height: 40px;
+}
+
+.iigwo-list-item h3,
+.iigwo-list-item h2,
+.iigwo-list-item h1 {
+	padding-left: 56px;
+	margin: 0;
+	font-family: regular;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.999);
+	line-height: 20px;
+}
+
+.iigwo-list-item h3 {
+	font-size: 13px;
+	color: rgba(0, 0, 0, 0.666);
+
+}
+
+
+.carga-de-facturas {
+	display: flex;
+	min-height: 100%;
+}
+
+.pedido-div {
+	transition: 0.333s;
+	border: solid 1px rgba(0, 0, 0, 0);
+	flex: 1;
+	padding: 12px 12px 0 12px;
+	max-width: 320px;
+}
+
+.factura-div {
+	transition: 0.333s;
+	background: transparent;
+	margin-left: 24px;
+	padding: 12px 12px 0 12px;
+	flex: 1;
+	opacity: 0.25;
+}
+
+.factura-div.accent {
+	opacity: 1;
+}
+
+.entrada-de-mercancia {
+	margin-bottom: 12px;
+	position: relative;
+	height: 60px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+	background: white;
+}
+
+.entrada-de-mercancia label {
+	font-family: regular;
+	font-size: 12px;
+	line-height: 13px;
+	display: inline-block;
+	margin: 0;
+	position: absolute;
+}
+
+.entrada-de-mercancia label[name='docref'] {
+	top: 12px;
+	left: 12px;
+	font-size: 16px;
+}
+
+.entrada-de-mercancia label[name='docmat'] {
+	bottom: 12px;
+	left: 12px;
+	color: rgba(0, 0, 0, 0.5)
+}
+
+.entrada-de-mercancia label[name='fecha'] {
+	top: 12px;
+	right: 12px;
+	font-size: 11px;
+	opacity: 0.8
+}
+
+.entrada-de-mercancia label[name='denom'] {
+	bottom: 12px;
+	right: 12px;
+	opacity: 1;
+}
+
+.entrada-de-mercancia label[name='docmat'] span {
+	margin-left: 6px;
+	font-family: bold;
+}
+
+/**/
+.vendor-rating {
+	display: flex;
+	margin-top: 8px;
+	margin-bottom: 32px;
+}
+
+.vendor-rating mat-icon svg {
+	width: 24px;
+	height: 24px;
+	background: none;
+}
+
+.vendor-rating mat-icon.black svg * {
+	fill: rgba(0, 0, 0, 0.15);
+}
+
+.vendor-rating mat-icon svg * {
+	fill: mat-color($app-accent, darker);
+}
+
+/* ============================================================================ */
+/* ODL CSS END */
+/* ============================================================================ */
+
+.camarones {
+
+	mat-dialog-container {
+		overflow: hidden;
+	}
+}
+
+/* ============================================================================ */
+
+.table-wrapper {
+	overflow: auto;
+	border: solid rgba(0, 0, 0, 0.2) 0px;
+	//border-width: 0 1px;
+}
+
+.mobile-only-bar {
+	display: none;
+}
+
+// MOBILE
+@media (max-width: 480px) {
+
+	.workspace-nav {
+
+		transform: translateX(-100%);
+		z-index: 2;
+		top: 0;
+		bottom: 0;
+		height: auto;
+		box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0);
+
+		&.opened {
+			transform: translate(0);
+			box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.1666);
+		}
+
+		.mobile-only-bar {
+
+			height: 48px;
+			display: block;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+			margin-bottom: -1px;
+
+			#moduleMenu {
+				padding: 0;
+				width: 40px;
+				height: 40px;
+				margin: 4px;
+				border: none;
+				position: absolute;
+				border-radius: 50%;
+				margin-left: 12px;
+				background: none;
+
+				mat-icon {
+					margin: 0 0 0 8px;
+					display: block;
+
+					svg {
+						margin: 8px -7px;
+						width: 24px;
+						height: 24px;
+						padding: 0;
+						display: block;
+					}
+				}
+			}
+		}
+
+	}
+
+	.workspace-nav-mobile-shadow {
+		background: rgba(0, 0, 0, 0.54);
+		height: 100vh;
+		width: 100vw;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		position: fixed;
+	}
+
+	.workspace {
+		left: 0;
+	}
+
+	.appNavSearchBar {
+		display: none;
+	}
+
+}
+
+/* ============================================================================ */
+
+.side-sheet-content-wrap {
+
+	display: flex;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 64px;
+	bottom: 0;
+
+	.content {
+		position: initial;
+		overflow: auto;
+		flex: 1;
+	}
+}
+
+.header-panel {
+	background: white;
+	width: auto;
+	max-width: calc(100vw - 24px);
+	box-sizing: border-box;
+	transform: translate(0);
+	padding: 20px;
+	min-width: 180px;
+	order: 1;
+	border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+@media(max-width:480px) {
+	.header-panel {
+		transition: 0.2s ease-out transform;
+		margin: 0;
+		border-left: 1px solid rgba(0, 0, 0, 0.2);
+		border-right: none;
+		padding: 20px;
+		bottom: 0;
+		right: 0;
+		top: 0;
+		position: absolute;
+		box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+	}
+
+	.hidden.header-panel {
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+		transform: translateX(100%);
+	}
+
+	.workspace-nav.shortened {
+		width: 256px;
+	}
+
+	.root-wrap.shortened .workspace {
+		left: 0;
+	}
+}
+
+/* ============================================================================ */
+
+table.informative {
+	th {
+		background: rgba(0, 0, 0, 0.05);
+		color: #000;
+	}
+}
+
+// ----------------------- Currency Input -----------------------
+
+.currency {
+	position: relative;
+}
+
+.currency input {
+	padding-right: 27px;
+}
+
+.currency span {
+	position: absolute;
+	padding: 4px 9px 0 10px;
+	right: 2px;
+}
+
+.wrapper {
+	position: relative;
+}
+
+.wrapper span {
+	position: absolute;
+	right: 2px;
+}
+
+.wrapper a {
+	position: absolute;
+	right: 2px;
+}
+
+.badge {
+	display: inline-block;
+	min-width: 5px;
+	padding: 2px 5px;
+	font-size: 12px;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: mat-color($app-primary);
+	border-radius: 10px;
+	margin-left: 4px;
+}
+
+.badge-status {
+	display: inline-block;
+	min-width: 5px;
+	padding: 4px 9px;
+	font-size: 12px;
+	line-height: 1;
+	//color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: mat-color($app-secondary);
+	border-radius: 10px;
+	margin-left: 4px;
+}
+
+.renglon p {
+	margin: 0px;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+.mat_select_design {
+	color: #000;
+	padding: 4px 6px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	font-size: 13px;
+	border-radius: 1px;
+	width: 100%;
+	max-width: 320px;
+	font-family: regular;
+	box-sizing: border-box;
+	height: 24px;
+	vertical-align: top;
+}
+
+td.accent {
+	//color: mat-color($app-accent, darker);
+	color: #000;
+}
+
+p.accent {
+	color: mat-color($app-accent, darker);
+}
+
+.btn-search mat-icon svg {
+	margin-top: 3px !important;
+}
+
+.button-solo-icon {
+	background: none;
+	border: none;
+}
+
+.badge-status {
+	display: inline-block;
+	min-width: 5px;
+	padding: 4px 9px;
+	font-size: 12px;
+	line-height: 1;
+	//color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: mat-color($app-secondary);
+	border-radius: 10px;
+	margin-left: 4px;
+}
+
+.badge-color-blue {
+	background-color: transparent;
+	background-image: radial-gradient(transparent, rgba(30, 144, 255, 0.3));
+	color: rgb(30, 144, 255);
+}
+
+//ESTATUS DE SOLICITUD
+// 1 - Received - color fondo: B8E8B6 y letra 144C11
+.badge-color-received {
+	background-color: #B8E8B6;
+	color: #144C11;
+}
+// 2 - Reviewing - color fondo: 97E0FC y letra 2F687E
+.badge-color-reviewing {
+	background-color: #97E0FC;
+	color: #2F687E;
+}
+// 3 - Interview - color fondo FFCFE8 y letra 830E4C
+.badge-color-interview {
+	background-color: #FFCFE8;
+	color: #830E4C;
+}
+// 4 - Refused - color fondo FFE0C6 y letra AE6534
+.badge-color-refused {
+	background-color: #FFE0C6;
+	color: #AE6534;
+}
+// 5 - No show - color fondo C5F6E3 y letra 31453D
+.badge-color-no_show {
+	background-color: #C5F6E3;
+	color: #31453D;
+}
+// 6 - Case - color fondo ECFFBE y letra 6B9112
+.badge-color-case {
+	background-color: #ECFFBE;
+	color: #6B9112;
+}
+// 7 - Lost - - color fondo FFDBCC y letra AA7159
+.badge-color-lost {
+	background-color: #FFDBCC;
+	color: #AA7159;
+}
+// 8 - Won - color fondo B7E4CB y letra 3B7856
+.badge-color-won {
+	background-color: #B7E4CB;
+	color: #3B7856;
+}
+// 9 - Open - color fondo B5E2E9 y letra 088395
+.badge-color-open {
+	background-color: #B5E2E9;
+	color: #088395;
+}
+// 10 - Ready on draft - color fondo C5C0F1 y letra 4C3BCF
+.badge-color-ready_on_draft {
+	background-color: #C5C0F1;
+	color: #4C3BCF;
+}
+// 11 - Closed - color fondo AF47D2 y letra EFBFFF
+.badge-color-closed {
+	background-color: #AF47D2;
+	color: #EFBFFF;
+}
+
+//ESTATUS DE PAGO
+// 1 - Partially - color fondo FAC2FB y letra 744674
+.badge-color-partially {
+	background-color: #FAC2FB;
+	color: #744674;
+}
+// 2 - Complete - color fondo 72CBB8 y letra 3B5B54
+.badge-color-complete {
+	background-color: #72CBB8;
+	color: #3B5B54;
+}
+// 3 - Hold - color fondo F0EDCF y letra 49462E
+.badge-color-hold {
+	background-color: #F0EDCF;
+	color: #49462E;
+}
+// 4 - NA - color fondo B7B5B7 y letra negra
+.badge-color-na {
+	background-color: #B7B5B7;
+	color: #000000;
+}
+
+//EDAD
+// 1 - color fondo: D3D9FF y letra 263D9E
+.badge-color-1 {
+	background-color: #D3D9FF;
+	color: #263D9E;
+}
+// 2 - color fondo: F2E0A1 y letra 7A7B42
+.badge-color-2 {
+	background-color: #F2E0A1;
+	color: #7A7B42;
+}
+// 3 - color fondo: F77E7E y letra 9E2626
+.badge-color-3 {
+	background-color: #F77E7E;
+	color: #9E2626;
+}
+// 0
+.badge-color-0 {
+	background-color: #DCDCDC;
+	color: #333333;
+}
+
+//TIPO DE EVENTO
+// Info - color DBDBDB y letra negra
+.badge-color-info {
+	background-color: #DBDBDB;
+	color: #000000;
+}
+// Schedule - color 98DBC3 y letra 317059
+.badge-color-schedule {
+	background-color: #98DBC3;
+	color: #317059;
+}
+// Important - color FFB4B4 y letra BC1313
+.badge-color-important {
+	background-color: #FFB4B4;
+	color: #BC1313;
+}
+// Notification - color FDEBD0 y letra B9770E
+.badge-color-notification {
+	background-color: #FDEBD0;
+	color: #B9770E;
+}
+
+
+// Payment - color fondo B7E4CB y letra 3B7856
+.badge-color-payment {
+	background-color: #B7E4CB;
+	color: #3B7856;
+}
+
+.workspace .content-left {
+	padding: 24px;
+	box-sizing: border-box;
+	position: absolute;
+	overflow: auto;
+	bottom: 0;
+	top: 64px;
+	left: 0;
+	right: 250px;
+	overflow-x: hidden;
+
+	button {
+		width: fit-content;
+	}
+}
+
+.workspace .content-right {
+	padding: 24px;
+	box-sizing: border-box;
+	position: absolute;
+	overflow: auto;
+	bottom: 0;
+	top: 64px;
+	right: 0;
+	overflow-x: hidden;
+	width: 250px;
+}
+
+.btn {
+	cursor: pointer;
+    transition: 0.125s ease-out background-color;
+    height: 32px;
+    flex-shrink: 0;
+    background: white;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    font-family: regular;
+    color: #612c7e;
+    line-height: 32px;
+    margin-right: 12px;
+    border-radius: 2px;
+    padding: 0 12px 0 6px;
+    display: flex;
+    align-items: center;
+	* {
+		cursor: pointer;
+	}
+}
+
+.btn-icon {
+	cursor: pointer;
+    background: transparent;
+    border: none;
+    display: flex;
+	* {
+		cursor: pointer;
+	}
+}
+
+.m-l-40 {
+  margin-left: 40px;
+}
