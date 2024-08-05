@@ -218,7 +218,7 @@ export class SolicitudComponent implements OnInit {
     this.dialog.open(DialogoNotificacionesComponent, {
       data: {
         idSolicitud: this.solicitud.idSolicitud,
-        idUsuario: this.usuario.idUsuario
+        usuario: this.usuario
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {

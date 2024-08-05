@@ -39,6 +39,3 @@ testem.log
 Thumbs.db
 .vscode/launch.json
 debug.log
-src/app/app-routing.module.ts
-src/app/app.component.ts
-src/app/app.config.ts

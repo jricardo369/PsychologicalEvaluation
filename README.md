@@ -1,12 +1,13 @@
-# dental-portal
+# PsychologicalEvaluation
+Psychological Evaluation System
 
-Front end para el proyecto de Portal Dental
+Front end para el proyecto Psychological Evaluation System
 
 ## Configuración del proyecto
 
 ### Clonar Proyecto
 
-Clone el proyecto **dental-portal** del repositorio en git.
+Clone el proyecto **PsychologicalEvaluation** del repositorio en git.
 
 Ejecute el comando `npm install` para descargar e instalar las dependencias necesarias para el proyecto. 
 
@@ -31,7 +32,7 @@ Ejecutar `ng xi18n --output-path translate` para generar un archivo de traduccio
 
 Ejecutar `ng build` para construir el proyecto. Los artefactos de construcción se almacenarán en el `dist/` directorio. Usa la `-prod` bandera para una construcción de producción.
 
-+ Versión en español `ng build --prod --optimization --build-optimizer --aot --base-href /portal-dental/es/ --deploy-url /portal-dental/es/ --i18n-locale=es --output-path=dist/portal-dental/es`
++ Versión general `ng build --prod --optimization --build-optimizer --aot --base-href / --deploy-url / --i18n-locale=es --output-path=dist/ROOT`
 
 
 ---

@@ -4,6 +4,7 @@ import { EventoSolicitudService } from 'src/app/services/evento-solicitud.servic
 import { UtilService } from 'src/app/services/util.service';
 import { EventoSolicitud } from 'src/model/evento-solicitud';
 import { DialogoEventoSolicitudComponent } from '../dialogo-evento-solicitud/dialogo-evento-solicitud.component';
+import { Usuario } from 'src/model/usuario';
 
 @Component({
     selector: 'app-eventos-solicitud',
@@ -19,12 +20,14 @@ export class EventosSolicitudComponent implements OnInit {
     arrEventoSolicitud: EventoSolicitud[] = [];
 
     cargando: boolean = false;
+    usuario: Usuario = new Usuario();
 
     constructor(
         private eventoSolicitudService: EventoSolicitudService,
         private utilService: UtilService,
         private dialog: MatDialog) {
         this.mostrarEventos = true;
+        this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     }
 
     ngOnInit(): void {
@@ -36,7 +39,7 @@ export class EventosSolicitudComponent implements OnInit {
     refresh() {
         this.cargando = true;
         this.eventoSolicitudService
-            .obtenerEventosSolicitud(Number.parseInt(this.idSolicitud))
+            .obtenerEventosSolicitud(Number.parseInt(this.idSolicitud), this.usuario.idUsuario)
             .then(response => {
                 this.arrEventoSolicitud = response;
             })

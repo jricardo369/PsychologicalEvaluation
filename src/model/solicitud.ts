@@ -46,4 +46,9 @@ export class Solicitud {
     usuarioRevisando: string;
     idUsuarioRevisando: number;
 
+    idioma: string;
+    tipoEntrevista: string;
+    direccion: string;
+    estado: string;
+    referencia: string;
 }

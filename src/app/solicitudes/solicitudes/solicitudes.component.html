@@ -38,7 +38,7 @@
 
 					<div class="iigwo-input inline">
 						<select [(ngModel)]="f.campo">
-							<option i18n="" value="creationDate">Creation Date</option>
+							<option i18n="" value="creationDate" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</option>
 							<option i18n="" value="edad">Age</option>
 							<option i18n="" value="asignado" *ngIf="isMaster">Assigned</option>
 							<option i18n="" value="cliente">Customer</option>
@@ -48,7 +48,7 @@
 							<option i18n="" value="importancia">Importance</option>
 							<option i18n="" value="estatusPago">Payment Status</option>
 							<option i18n="" value="estatusSolicitud">Request Status</option>
-							<option i18n="" value="horario" *ngIf="isMaster">Schedule Time</option>
+							<option i18n="" value="horario" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</option>
 						</select>
 					</div>
 
@@ -107,7 +107,7 @@
 						<th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()"
 								(change)="checkAll($event)"></th>
 						<th class='' i18n="">ID</th>
-						<th class='' i18n="">Creation Date</th>
+						<th class='' i18n="" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</th>
 						<th class='' i18n="">Age</th>
 						<th class='' i18n="" *ngIf="isMaster">Assigned</th>
 						<th class='' i18n="">Customer</th>
@@ -117,13 +117,13 @@
 						<th class='' i18n="">Importance</th>
 						<th class='' i18n="" *ngIf="!(isInterviewer || isTemplateCreator || isVOC)">Payment Status</th>
 						<th class='' i18n="">Request Status</th>
-						<th class='' i18n="" *ngIf="isMaster || isBackOffice">Schedule Time</th>
+						<th class='' i18n="" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</th>
 					</tr>
 					<tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
 						<td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
 								(change)="check($event, e.idSolicitud)"></td>
 						<td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
-						<td class='accent'>{{e.fechaInicio | dateYYYYMMDD}}</td>
+						<td class='accent' *ngIf="!(isInterviewer || isTemplateCreator)">{{e.fechaInicio | dateYYYYMMDD}}</td>
 						<td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.age == 0,
                             'badge-color-1': e.age <= 1,
                             'badge-color-2': e.age == 2,
@@ -150,7 +150,7 @@
 								'badge-color-open': e.idEstatusSolicitud == 9,
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11}">{{e.estatusSolicitud}}</span></td>
-						<td class='accent' *ngIf="isMaster || isBackOffice">{{e.fecha_schedule}}</td>
+						<td class='accent' *ngIf="isMaster || isBackOffice || isInterviewer">{{e.fecha_schedule | dateYYYYMMDD}}</td>
 					</tr>
 
 					<tr>

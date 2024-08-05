@@ -2037,9 +2037,9 @@ p.accent {
 .badge-status {
 	display: inline-block;
 	min-width: 5px;
-	padding: 4px 9px;
+	padding: 5px 9px 4px;
 	font-size: 12px;
-	line-height: 1;
+	line-height: 10px;
 	//color: #fff;
 	text-align: center;
 	white-space: nowrap;
@@ -2177,12 +2177,23 @@ p.accent {
 	background-color: #FDEBD0;
 	color: #B9770E;
 }
+// Suicide - color FFCDB4 y letra 9D461A
+.badge-color-suicide {
+	background-color: #FFCDB4;
+	color: #9D461A;
+}
 
 
 // Payment - color fondo B7E4CB y letra 3B7856
 .badge-color-payment {
 	background-color: #B7E4CB;
 	color: #3B7856;
+}
+
+// Schedule Title - color FFE6B4 y letra A06A26
+.badge-color-schedule-title {
+	background-color: #FFE6B4;
+	color: #A06A26;
 }
 
 .workspace .content-left {

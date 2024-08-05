@@ -10,10 +10,10 @@ export class EventoSolicitudService {
 
     constructor(private http: HttpClient) { }
 
-    obtenerEventosSolicitud(idSolicitud: number): Promise<EventoSolicitud[]> {
+    obtenerEventosSolicitud(idSolicitud: number, idUsuario: number): Promise<EventoSolicitud[]> {
         return new Promise<EventoSolicitud[]>((resolve, reject) =>
             this.http
-                .get(API_URL + "eventos-solicitud/" + idSolicitud, {
+                .get(API_URL + "eventos-solicitud/" + idSolicitud + "?idUsuario=" + idUsuario, {
                     withCredentials: true,
                     observe: "response",
                     headers: new HttpHeaders()
