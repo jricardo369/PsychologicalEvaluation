@@ -4,7 +4,7 @@
 <div class='workspace'>
   <div class='main'>
     <app-experimental-menu [titulo]="titulo" i18n-titulo="" backButtonEnabled="true">
-      <span class="badge-status badge-color-schedule-title" *ngIf="isInterviewer">Schedule {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
+      <span class="badge-status badge-color-schedule-title" *ngIf="isInterviewer && solicitud.fecha_schedule">Schedule {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
     </app-experimental-menu>
 
     <div style="display:flex; flex-flow: row" *ngIf="creando || solicitud.idSolicitud">
