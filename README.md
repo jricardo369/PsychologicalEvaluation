@@ -11,6 +11,25 @@ Clone el proyecto **PsychologicalEvaluation** del repositorio en git.
 
 Ejecute el comando `npm install` para descargar e instalar las dependencias necesarias para el proyecto. 
 
+Dentro del archivo *_theming.scss* en la ruta **PsychologicalEvaluation\node_modules\\@angular\material** despues de la linea 683:
+~~~
+A700: #aa00ff,
+~~~
+agregar las siguientes lineas:
+~~~
+Dark_Lavender: #75518c,
+Eminence: #612C7E,
+~~~
+
+y, despues de la linea 916:
+~~~
+A700: #00c853,
+~~~
+agregar la siguiente linea:
+~~~
+Viridian_Green: #00949b,
+~~~
+
 ### Ejecutar en Desarrollo
 Ejecutar `ng serve` para un servidor de desarrollo:
 
