@@ -63,6 +63,25 @@ export class DisponibilidadUsuariosService {
 		);
 	}
 
+  cargarDisponibilidadMasiva(idUsuario: number, archivo: File): Promise<any> {
+    let formData = new FormData();
+    formData.append('archivo', archivo);
+
+    return new Promise((resolve, reject) => this.http
+      .post(API_URL + 'disponibilidad-usuarios/excel/' + idUsuario, formData,
+        {
+          withCredentials: true,
+          observe: 'response',
+          headers: new HttpHeaders().append('Authorization', localStorage.getItem('auth_token'))
+        })
+      .toPromise()
+      .then(response => {
+        resolve(response.body);
+      })
+      .catch(reason => reject(reason))
+    );
+  }
+
   eliminarDisponibilidadUsuario(idDisponibilidad: number) {
     return new Promise((resolve, reject) => this.http
         .delete(API_URL + 'disponibilidad-usuarios/' + idDisponibilidad,

@@ -68,4 +68,22 @@ export class MovimientoSolicitudService {
           .catch((reason) => reject(reason))
       );
     }
+
+    obtenerReporteAdeudos(cliente: string, fechaInicio: string, fechaFin: string): Promise<ReporteMovimientos> {
+      return new Promise<ReporteMovimientos>((resolve, reject) =>
+        this.http
+          .get(API_URL + "movimientos/reporte-pagos?cliente=" + cliente + "&fechai=" + fechaInicio + "&fechaf=" + fechaFin, {
+            withCredentials: true,
+            observe: "response",
+            headers: new HttpHeaders()
+              .append("Content-Type", "application/json")
+              .append("Authorization", localStorage.getItem("auth_token")),
+          })
+          .toPromise()
+          .then((response) => {
+            resolve(response.body as ReporteMovimientos);
+          })
+          .catch((reason) => reject(reason))
+      );
+    }
 }

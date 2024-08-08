@@ -17,7 +17,7 @@
         </label>
 
         <label style="display: inline-block; line-height: 32px; font-size: 13px; color:rgba(0,0,0,0.5);"
-            *ngIf="file==null">No files selected</label>
+            *ngIf="file.length == 0">No files selected</label>
         <div *ngFor="let f of file" style="display: inline-block;">
             <span class="badge-file-icon"><mat-icon svgIcon="attach_file"></mat-icon></span>
             <span class="badge-file" style="padding-right: 21px;">{{f.name}}</span>

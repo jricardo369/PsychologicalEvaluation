@@ -6,6 +6,7 @@ import { DisponibilidadUsuario } from 'src/model/disponibilidad-usuario';
 import { Usuario } from 'src/model/usuario';
 import { DialogoDisponibilidadUsuarioComponent } from '../dialogo-disponibilidad-usuario/dialogo-disponibilidad-usuario.component';
 import { PaginationManager } from 'src/util/pagination';
+import { DialogoCargaDisponibilidadMasivaComponent } from '../dialogo-carga-disponibilidad-masiva/dialogo-carga-disponibilidad-masiva.component';
 
 @Component({
 	selector: 'app-disponibilidad',
@@ -50,6 +51,15 @@ export class DisponibilidadComponent implements OnInit {
 			disableClose: true,
 		}).afterClosed().toPromise().then(valor => {
 			if (valor == 'agregada') this.obtenerDisponibilidadUsuario();
+		}).catch(reason => this.utilService.manejarError(reason));
+	}
+
+  agregarDisponibilidadMasiva() {
+		this.dialog.open(DialogoCargaDisponibilidadMasivaComponent, {
+			data: {},
+			disableClose: true,
+		}).afterClosed().toPromise().then(valor => {
+			if (valor == 'cargada') this.obtenerDisponibilidadUsuario();
 		}).catch(reason => this.utilService.manejarError(reason));
 	}
 

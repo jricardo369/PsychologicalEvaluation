@@ -11,6 +11,7 @@ import { PlanificacionNavComponent } from './planificacion-nav/planificacion-nav
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component';
 import { DialogoDisponibilidadUsuarioComponent } from './dialogo-disponibilidad-usuario/dialogo-disponibilidad-usuario.component';
+import { DialogoCargaDisponibilidadMasivaComponent } from './dialogo-carga-disponibilidad-masiva/dialogo-carga-disponibilidad-masiva.component';
 
 @NgModule({
   imports: [
@@ -25,12 +26,14 @@ import { DialogoDisponibilidadUsuarioComponent } from './dialogo-disponibilidad-
     MatCheckboxModule
 	],
 	entryComponents: [
-    DialogoDisponibilidadUsuarioComponent
+    DialogoDisponibilidadUsuarioComponent,
+    DialogoCargaDisponibilidadMasivaComponent
 	],
 	declarations: [
 		PlanificacionNavComponent,
     DisponibilidadComponent,
     DialogoDisponibilidadUsuarioComponent,
+    DialogoCargaDisponibilidadMasivaComponent,
 	],
 	exports: []
 })

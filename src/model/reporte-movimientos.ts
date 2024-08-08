@@ -1,3 +1,4 @@
+import { ReporteAdeudosUsuario } from "./reporte-adeudos-usuario";
 import { ReporteMovimientosUsuario } from "./reporte-movimientos-usuario"
 
 export class ReporteMovimientos {
@@ -5,5 +6,5 @@ export class ReporteMovimientos {
   abonos: number;
   balance: number;
   movimientos: ReporteMovimientosUsuario[];
-
+  adeudos: ReporteAdeudosUsuario[];
 }

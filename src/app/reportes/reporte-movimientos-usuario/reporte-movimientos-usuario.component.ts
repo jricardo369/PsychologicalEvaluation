@@ -16,6 +16,7 @@ export class ReporteMovimientosUsuarioComponent implements OnInit {
   fechaF: string;
   fechaI: string = '2020-01-01';
   inputCliente: string = "";
+  inputTipoReporte: string = "1";
 
   constructor(
     private movimientoSolicitudService: MovimientoSolicitudService,
@@ -35,13 +36,23 @@ export class ReporteMovimientosUsuarioComponent implements OnInit {
   }
 
   obtenerMovimientosUsuario() {
-    console.log(this.inputCliente)
-      this.cargando = true;
-      this.movimientoSolicitudService.obtenerReporteMovimientos(this.inputCliente, this.fechaI, this.fechaF)
-        .then((reporteMovimientos) => {
-          this.reporteMovimientos = reporteMovimientos;
-        })
-        .catch((reason) => this.utilService.manejarError(reason))
-        .then(() => (this.cargando = false));
+    let servicio: Promise<ReporteMovimientos> = null;
+    switch (this.inputTipoReporte) {
+      case "1":
+        servicio = this.movimientoSolicitudService.obtenerReporteAdeudos(this.inputCliente, this.fechaI, this.fechaF);
+        break;
+      case "2":
+        servicio = this.movimientoSolicitudService.obtenerReporteMovimientos(this.inputCliente, this.fechaI, this.fechaF);
+        break;
+      default:
+        break;
+    }
+    this.cargando = true;
+    servicio
+      .then((reporteMovimientos) => {
+        this.reporteMovimientos = reporteMovimientos;
+      })
+      .catch((reason) => this.utilService.manejarError(reason))
+      .then(() => (this.cargando = false));
   }
 }

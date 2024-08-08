@@ -18,6 +18,13 @@
       <div style="display: inline-flex;">
         <div style="display: inline-flex;">
           <div class="iigwo-input">
+            <label>Type</label>
+            <select [(ngModel)]="inputTipoReporte" (change)="obtenerMovimientosUsuario()">
+                <option ngValue="1" selected>Pending Payments</option>
+                <option ngValue="2">Payment Details</option>
+            </select>
+        </div>
+          <div class="iigwo-input">
             <label i18n="">Start Date</label>
             <input type="date" [(ngModel)]="fechaI" (change)="obtenerMovimientosUsuario()">
           </div>
@@ -35,7 +42,7 @@
 
     <div class='content' style="margin-top: 80px;padding-top: 0;">
 
-      <div style="display: flex;">
+      <div style="display: flex;" *ngIf="inputTipoReporte == '2'">
         <div class="mb-20">
           <h4 class="mb-0" style="color: green;">{{reporteMovimientos.cargos | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Charges</p>
@@ -50,28 +57,51 @@
         </div>
       </div>
 
-      <table class="informative">
+      <table class="informative" *ngIf="inputTipoReporte == '1' else elseTemplate">
         <tr>
-          <th>Folio</th>
-          <th>Customer</th>
-          <th>Payment Type</th>
-          <th>Move Type</th>
+          <th>ID</th>
           <th>Date</th>
+          <th>Customer</th>
+          <th>Phone</th>
+          <th>Email</th>
           <th>Amount</th>
-          <th>Discount</th>
-          <th>Description</th>
+          <th>Owe</th>
         </tr>
-        <tr *ngFor='let e of reporteMovimientos.movimientos'>
-          <td class='accent'>{{e.folio}}</td>
-          <td class='accent'>{{e.cliente}}</td>
-          <td class='accent'>{{e.descripcionTipoPago}}</td>
-          <td style="text-align: center;"><span class="badge-status badge-color-payment" style="margin: 0;">{{e.tipoMovimiento}}</span></td>
+        <tr *ngFor='let e of reporteMovimientos.adeudos'>
+          <td class='accent'>{{e.idSolicitud}}</td>
           <td class='accent'>{{e.fecha | dateYYYYMMDD}}</td>
-          <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
-          <td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
-          <td class='accent'>{{e.descripcion}}</td>
+          <td class='accent'>{{e.cliente}}</td>
+          <td class='accent'>{{e.telefono | phone}}</td>
+          <td class='accent'>{{e.email}}</td>
+          <td class="number">{{e.amount | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+          <td class="number">{{e.adeudo | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
         </tr>
       </table>
+
+      <ng-template #elseTemplate>
+        <table class="informative">
+          <tr>
+            <th>Folio</th>
+            <th>Customer</th>
+            <th>Payment Type</th>
+            <th>Move Type</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Discount</th>
+            <th>Description</th>
+          </tr>
+          <tr *ngFor='let e of reporteMovimientos.movimientos'>
+            <td class='accent'>{{e.folio}}</td>
+            <td class='accent'>{{e.cliente}}</td>
+            <td class='accent'>{{e.descripcionTipoPago}}</td>
+            <td style="text-align: center;"><span class="badge-status badge-color-payment" style="margin: 0;">{{e.tipoMovimiento}}</span></td>
+            <td class='accent'>{{e.fecha | dateYYYYMMDD}}</td>
+            <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+            <td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+            <td class='accent'>{{e.descripcion}}</td>
+          </tr>
+        </table>
+      </ng-template>
 
     </div>
 
