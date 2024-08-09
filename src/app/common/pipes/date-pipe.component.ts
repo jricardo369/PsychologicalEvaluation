@@ -5,6 +5,6 @@ import { Pipe } from "@angular/core";
 })
 export class DatePipe {
 	transform(value: string): string {
-    return value.split("T")[0].replace(/-/g, '/');
+    return value ? value.split("T")[0].replace(/-/g, '/') : "";
   }
 }

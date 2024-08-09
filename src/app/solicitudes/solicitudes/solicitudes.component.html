@@ -4,12 +4,12 @@
 <div class='workspace'>
 	<div class='main'>
 
-		<app-experimental-menu titulo="Requests" i18n-titulo="">
+		<app-experimental-menu titulo="Files" i18n-titulo="">
 
 			<button (click)='crearSolicitud()'
 				style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
 				<mat-icon svgIcon="add-box"></mat-icon>
-				<label i18n="">Create Request</label>
+				<label i18n="">Create File</label>
 			</button>
 
 			<button (click)='refrescar()'
@@ -21,7 +21,7 @@
       <button (click)='showClosedRequests()' *ngIf="isVendor || isBackOffice || isMaster"
 				style="color: #681C69;background: #E9E9E9;border-radius: 5px; height: 28px; line-height: 28px;">
 				<mat-icon svgIcon="closed"></mat-icon>
-				<label i18n="">Show Closed Requests</label>
+				<label i18n="">Show Closed Files</label>
 			</button>
 
 		</app-experimental-menu>
@@ -47,7 +47,7 @@
 							<option i18n="" value="email">Email</option>
 							<option i18n="" value="importancia">Importance</option>
 							<option i18n="" value="estatusPago">Payment Status</option>
-							<option i18n="" value="estatusSolicitud">Request Status</option>
+							<option i18n="" value="estatusSolicitud">File Status</option>
 							<option i18n="" value="horario" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</option>
 						</select>
 					</div>
@@ -85,7 +85,7 @@
 				<button *ngIf='filters.length > 0' class="accent iigwo small" (click)="aplicarFiltros()">Apply filters</button>
 				<button *ngIf='filters.length > 0' class="iigwo small" (click)="limpiarFiltros()">Clean filters</button>
 				<p *ngIf='filters.length == 0' style="font-size:11px;">
-					Add one or more filters to facilitate the search for requests
+					Add one or more filters to facilitate the search for files
 				</p>
 				<button *ngIf='filters.length == 0' class="iigwo small" (click)="agregarFiltro()">Add filter</button>
 
@@ -106,7 +106,7 @@
 					<tr>
 						<th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()"
 								(change)="checkAll($event)"></th>
-						<th class='' i18n="">ID</th>
+						<th class='' i18n="">File</th>
 						<th class='' i18n="" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</th>
 						<th class='' i18n="">Age</th>
 						<th class='' i18n="" *ngIf="isMaster">Assigned</th>
@@ -116,7 +116,7 @@
 						<th class='' i18n="">Email</th>
 						<th class='' i18n="">Importance</th>
 						<th class='' i18n="" *ngIf="!(isInterviewer || isTemplateCreator || isVOC)">Payment Status</th>
-						<th class='' i18n="">Request Status</th>
+						<th class='' i18n="">File Status</th>
 						<th class='' i18n="" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</th>
 					</tr>
 					<tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
@@ -184,7 +184,7 @@
 			<!-- MENSAJE DE NO HAY REGISTROS -->
 			<div *ngIf="solicitudes.length == 0">
 				<h3 style="margin:12px 0 6px 0" i18n="">No results</h3>
-				<p style="max-width:396px;" i18n="">There are no requests within the search criteria. Make sure that the names are correct and that they are searching in the appropriate field.</p>
+				<p style="max-width:396px;" i18n="">There are no files within the search criteria. Make sure that the names are correct and that they are searching in the appropriate field.</p>
 			</div>
 
 			<!-- <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;">

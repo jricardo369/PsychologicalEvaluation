@@ -16,7 +16,7 @@ const routes: Routes = [
 
 const MODULE: AppBarNavItem = {
 	module: null,
-	title: 'Requests',
+	title: 'Files',
 	subtitle: null,
 	uri: 'solicitudes',
 	svgName: 'assignment',
@@ -27,8 +27,8 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 	{
 		module: MODULE,
 		svgName: 'assignment-ind',
-		title: 'Requests',
-		subtitle: 'Manage requests',
+		title: 'Files',
+		subtitle: 'Manage Files',
 		uri: 'solicitudes',
 		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR].some(rol => rol == u.rol)
 	},

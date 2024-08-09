@@ -79,7 +79,7 @@ export class SolicitudComponent implements OnInit {
     route.params.subscribe((params) => {
       let codigo = params["id"];
       if (codigo.toString() == "nueva-solicitud") {
-        this.titulo = "New Request";
+        this.titulo = "New File";
         this.creando = true;
         this.obtenerTiposSolicitud();
       } else {
@@ -108,7 +108,7 @@ export class SolicitudComponent implements OnInit {
         this.inputTipoSolicitud = this.arrTipoSolicitud[this.arrTipoSolicitud.findIndex(tipo => tipo.idTipoSolicitud == this.solicitud.idTipoSolicitud)];
         //this.inputTipoPago = this.arrTipoPago[this.arrTipoPago.findIndex(tipo => tipo.idTipoPago == this.solicitud.id)];
         this.onPhoneNumberInput(this.solicitud.telefono);
-        this.titulo = "Request " + this.solicitud.idSolicitud;
+        this.titulo = "File " + this.solicitud.idSolicitud;
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));
@@ -231,8 +231,8 @@ export class SolicitudComponent implements OnInit {
       case 4: //Reject Request
         this.dialog.open(DialogoSimpleComponent, {
           data: {
-            titulo: 'Reject Request',
-            texto: 'Do you really want to reject the request?',
+            titulo: 'Reject File',
+            texto: 'Do you really want to reject the File?',
             botones: [
               { texto: 'Cancel', color: '', valor: '' },
               { texto: 'Reject', color: 'primary', valor: 'ok' },

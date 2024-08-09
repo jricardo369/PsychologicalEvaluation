@@ -5,13 +5,15 @@ import { BACKOFFICE, INTERVIEWER, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from '
 import { ReporteSolicitudesUsuariosComponent } from './reporte-solicitudes-usuarios/reporte-solicitudes-usuarios.component';
 import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/reporte-correos-enviados.component';
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
 	{ path: 'solicitudes-usuarios', component: ReporteSolicitudesUsuariosComponent, },
 	{ path: 'pagos', component: ReporteMovimientosUsuarioComponent, },
 	{ path: 'correos-enviados', component: ReporteCorreosEnviadosComponent, },
 
-	{ path: '', pathMatch: 'full', redirectTo: 'solicitudes-usuarios' },
+  { path: 'home', component: HomeComponent },
+	{ path: '', pathMatch: 'full', redirectTo: 'home' },
 ];
 
 const MODULE: AppBarNavItem = {
@@ -20,7 +22,7 @@ const MODULE: AppBarNavItem = {
 	subtitle: null,
 	uri: 'reportes',
 	svgName: 'reports',
-	isVisibleFor: u => [MASTER].some(rol => rol == u.rol)
+	isVisibleFor: u => [MASTER, BACKOFFICE].some(rol => rol == u.rol)
 };
 
 export const REPORTES_ITEMS: AppBarNavItem[] = [
@@ -38,7 +40,7 @@ export const REPORTES_ITEMS: AppBarNavItem[] = [
 		title: 'Payments',
 		subtitle: 'Payments report',
 		uri: 'pagos',
-		isVisibleFor: u => [MASTER].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER, BACKOFFICE].some(rol => rol == u.rol)
 	},
 	{
 		module: MODULE,

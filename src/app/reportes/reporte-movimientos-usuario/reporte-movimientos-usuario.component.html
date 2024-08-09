@@ -42,30 +42,30 @@
 
     <div class='content' style="margin-top: 80px;padding-top: 0;">
 
-      <div style="display: flex;" *ngIf="inputTipoReporte == '2'">
+      <div style="display: flex;">
         <div class="mb-20">
-          <h4 class="mb-0" style="color: green;">{{reporteMovimientos.cargos | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: green;">{{(reporteMovimientos.cargos ? reporteMovimientos.cargos : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Charges</p>
         </div>
         <div class="ml-25 mb-20">
-          <h4 class="mb-0" style="color: red;">{{reporteMovimientos.abonos | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: red;">{{(reporteMovimientos.abonos ? reporteMovimientos.abonos: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Payments</p>
         </div>
         <div class="ml-25 mb-20">
-          <h4 class="mb-0" style="color: blue;">{{reporteMovimientos.balance | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: blue;">{{(reporteMovimientos.balance ? reporteMovimientos.balance : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Balance</p>
         </div>
       </div>
 
       <table class="informative" *ngIf="inputTipoReporte == '1' else elseTemplate">
         <tr>
-          <th>ID</th>
+          <th>File</th>
           <th>Date</th>
           <th>Customer</th>
           <th>Phone</th>
           <th>Email</th>
           <th>Amount</th>
-          <th>Owe</th>
+          <th>Pending Payment</th>
         </tr>
         <tr *ngFor='let e of reporteMovimientos.adeudos'>
           <td class='accent'>{{e.idSolicitud}}</td>

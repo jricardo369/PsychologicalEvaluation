@@ -12,6 +12,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ReporteSolicitudesUsuariosComponent } from './reporte-solicitudes-usuarios/reporte-solicitudes-usuarios.component';
 import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/reporte-correos-enviados.component';
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuari
     ReporteSolicitudesUsuariosComponent,
     ReporteCorreosEnviadosComponent,
     ReporteMovimientosUsuarioComponent,
+    HomeComponent,
 	],
 	exports: []
 })

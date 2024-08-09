@@ -32,6 +32,11 @@
               </select>
             </div>
 
+            <div class="iigwo-input" *ngIf="!(isInterviewer)">
+              <label>Additional</label>
+              <input type="text" [(ngModel)]="solicitud.adicional" [readOnly]="solicitud.idEstatusSolicitud == 11">
+            </div>
+
             <div class="iigwo-input">
               <label>Phone</label>
               <input type="text" [(ngModel)]="solicitud.telefono" [readOnly]="solicitud.idEstatusSolicitud == 11"
@@ -49,11 +54,6 @@
                 (ngModelChange)='solicitud.fechaNacimiento = $event' type="date"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
-
-            <div class="iigwo-input" *ngIf="editando && !(isTemplateCreator || isInterviewer)">
-              <label>Amount</label>
-              <input type="number" [(ngModel)]="solicitud.amount" [readOnly]="solicitud.idEstatusSolicitud == 11">
-            </div>
           </div>
           <div class="column">
             <!-- <div class="iigwo-input" *ngIf="editando" style="display: none;">
@@ -63,6 +63,10 @@
                 </option>
               </select>
             </div> -->
+            <div class="iigwo-input" *ngIf="editando && !(isTemplateCreator || isInterviewer)">
+              <label>Amount</label>
+              <input type="number" [(ngModel)]="solicitud.amount" [readOnly]="solicitud.idEstatusSolicitud == 11">
+            </div>
 
             <div class="iigwo-input" *ngIf="!(isInterviewer)">
               <label>Lawyer</label>
@@ -77,11 +81,6 @@
             <div class="iigwo-input" *ngIf="!(isInterviewer)">
               <label>Law firm</label>
               <input type="text" [(ngModel)]="solicitud.firmaAbogados" [readOnly]="solicitud.idEstatusSolicitud == 11">
-            </div>
-
-            <div class="iigwo-input" *ngIf="!(isInterviewer)">
-              <label>Additional</label>
-              <input type="text" [(ngModel)]="solicitud.adicional" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
             <div class="iigwo-input" *ngIf="creando && !(isInterviewer)">
@@ -192,7 +191,7 @@
         </div>
 
         <div class="iigwo-input">
-          <label>Request Status</label>
+          <label>File Status</label>
           <span class="badge-status" [ngClass]="{'badge-color-received': solicitud.idEstatusSolicitud == 1,
                     'badge-color-reviewing': solicitud.idEstatusSolicitud == 2,
                     'badge-color-interview': solicitud.idEstatusSolicitud == 3,
@@ -242,7 +241,7 @@
             *ngIf="solicitud.idEstatusSolicitud == 3 && isBackOffice"
             style="color: #FFFFFF;background: #4094D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Reject Request</label>
+            <label i18n="" style="margin: auto;">Reject File</label>
           </button>
 
           <button (click)='cambiarEstatusSolicitud(5)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 3"

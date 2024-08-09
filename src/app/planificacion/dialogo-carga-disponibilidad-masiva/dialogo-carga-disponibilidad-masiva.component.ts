@@ -39,7 +39,12 @@ export class DialogoCargaDisponibilidadMasivaComponent implements OnInit {
 			.then(() => {
 				this.cerrar('cargada');
 			})
-			.catch(reason => this.utilService.manejarError(reason))
+			.catch(reason => {
+        this.utilService.manejarError(reason);
+        if(reason.status == 500) {
+          this.cerrar();
+        }
+      })
 			.then(() => this.cargando = false);
 	}
 
