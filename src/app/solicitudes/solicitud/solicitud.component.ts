@@ -257,7 +257,7 @@ export class SolicitudComponent implements OnInit {
         this.dialog.open(DialogoSimpleComponent, {
           data: {
             titulo: 'No-show',
-            texto: 'Do you really want to ...?',
+            texto: 'Do you really want to do this action?',
             botones: [
               { texto: 'Cancel', color: '', valor: '' },
               { texto: 'OK', color: 'primary', valor: 'ok' },

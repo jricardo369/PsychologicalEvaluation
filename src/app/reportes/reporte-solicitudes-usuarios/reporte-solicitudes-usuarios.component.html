@@ -4,7 +4,7 @@
 <div class='workspace'>
   <div class='main'>
 
-    <app-experimental-menu titulo="Users Requests" i18n-titulo="">
+    <app-experimental-menu titulo="Users Files" i18n-titulo="">
 
       <button (click)='obtenerSolicitudesUsuarios()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
@@ -34,7 +34,7 @@
       <table class="informative">
         <tr>
           <th>User</th>
-          <th>Number of Requests</th>
+          <th>Number of Files</th>
         </tr>
         <tr *ngFor='let e of arrReporteSolicitudesUsuarios'>
           <td class='accent'>{{e.nombre}}</td>

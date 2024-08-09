@@ -29,8 +29,8 @@ export const REPORTES_ITEMS: AppBarNavItem[] = [
 	{
 		module: MODULE,
 		svgName: 'users-report',
-		title: 'Users Requests',
-		subtitle: 'Reporting of users requests',
+		title: 'Users Files',
+		subtitle: 'Reporting of users files',
 		uri: 'solicitudes-usuarios',
 		isVisibleFor: u => [MASTER].some(rol => rol == u.rol)
 	},
