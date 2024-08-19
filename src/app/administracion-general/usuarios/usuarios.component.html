@@ -103,7 +103,7 @@
                         <td class=''><a (click)="editarUsuario(e.idUsuario)">{{e.usuario}}</a></td>
                         <td class=''><a (click)="editarUsuario(e.idUsuario)">{{e.nombre}}</a></td>
                         <td class='accent'>{{e.direccion}}</td>
-                        <td class='accent'>{{e.telefono}}</td>
+                        <td class='accent'>{{e.telefono | phone}}</td>
                         <td class='accent' [ngSwitch]="e.rol">
                             <label *ngSwitchCase="1">Administrator</label>
                             <label *ngSwitchCase="2">Master</label>
