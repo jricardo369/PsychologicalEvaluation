@@ -14,7 +14,7 @@
           <div class="column">
             <div class="iigwo-input" *ngIf="creando">
               <label>Creation Date</label>
-              <input [ngModel]="solicitud.fechaInicio | date:'yyyy-MM-dd':'':'en'"
+              <input [ngModel]="solicitud.fechaInicio"
                 (ngModelChange)='solicitud.fechaInicio = $event' type="date"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
@@ -50,7 +50,7 @@
 
             <div class="iigwo-input">
               <label>Birth Date</label>
-              <input [ngModel]="solicitud.fechaNacimiento | date:'yyyy-MM-dd':'':'en'"
+              <input [ngModel]="solicitud.fechaNacimiento"
                 (ngModelChange)='solicitud.fechaNacimiento = $event' type="date"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
