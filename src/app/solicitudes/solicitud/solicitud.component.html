@@ -4,7 +4,8 @@
 <div class='workspace'>
   <div class='main'>
     <app-experimental-menu [titulo]="titulo" i18n-titulo="" backButtonEnabled="true">
-      <span class="badge-status badge-color-schedule-title" *ngIf="isInterviewer && solicitud.fecha_schedule">Schedule {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
+      <span class="badge-status badge-color-schedule-title" *ngIf="isInterviewer && solicitud.fecha_schedule">Schedule
+        {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
     </app-experimental-menu>
 
     <div style="display:flex; flex-flow: row" *ngIf="creando || solicitud.idSolicitud">
@@ -14,14 +15,18 @@
           <div class="column">
             <div class="iigwo-input" *ngIf="creando">
               <label>Creation Date</label>
-              <input [ngModel]="solicitud.fechaInicio"
-                (ngModelChange)='solicitud.fechaInicio = $event' type="date"
+              <input [ngModel]="solicitud.fechaInicio" (ngModelChange)='solicitud.fechaInicio = $event' type="date"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
             <div class="iigwo-input">
               <label>Customer</label>
               <input type="text" [(ngModel)]="solicitud.cliente" [readOnly]="solicitud.idEstatusSolicitud == 11">
+            </div>
+
+            <div class="iigwo-input">
+              <label>Last Names</label>
+              <input type="text" [(ngModel)]="solicitud.apellidos" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
             <div class="iigwo-input">
@@ -50,9 +55,8 @@
 
             <div class="iigwo-input">
               <label>Birth Date</label>
-              <input [ngModel]="solicitud.fechaNacimiento"
-                (ngModelChange)='solicitud.fechaNacimiento = $event' type="date"
-                [readOnly]="solicitud.idEstatusSolicitud == 11">
+              <input [ngModel]="solicitud.fechaNacimiento" (ngModelChange)='solicitud.fechaNacimiento = $event'
+                type="date" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
           </div>
           <div class="column">
@@ -144,7 +148,11 @@
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer)">
               <label>State</label>
-              <input type="text" [(ngModel)]="solicitud.estado" [readOnly]="solicitud.idEstatusSolicitud == 11">
+              <!-- <input type="text" [(ngModel)]="solicitud.estado" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
+              <select [(ngModel)]="solicitud.estado" [disabled]="solicitud.idEstatusSolicitud == 11">
+                <option *ngFor="let state of arrStates" [ngValue]="state.abbreviation">
+                  {{state.abbreviation}}</option>
+              </select>
             </div>
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer)">

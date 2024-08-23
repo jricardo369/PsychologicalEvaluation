@@ -78,7 +78,8 @@ export class SolicitudesService {
 			firmaAbogados: solicitud.firmaAbogados,
 			comentario: comentarios,
       fechaNacimiento: solicitud.fechaNacimiento,
-      adicional: solicitud.adicional
+      adicional: solicitud.adicional,
+      apellidos: solicitud.apellidos
 		}
 
 		let params = new HttpParams();

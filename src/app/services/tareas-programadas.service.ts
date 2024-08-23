@@ -28,7 +28,7 @@ export class TareasProgramadasService {
 	}
 
 	ejecutarTarea(codigoTarea: string, fechai?: string, fechaf?: string) {
-		return this.http.get(API_URL + 'tareas-programadas/ejecutar-tarea/' + codigoTarea + (fechai ? "&fechai=" + fechai : "") + (fechaf ? "&fechaf=" + fechaf : ""), {
+		return this.http.get(API_URL + 'tareas-programadas/ejecutar-tarea/' + codigoTarea + (fechai ? "?fechai=" + fechai : "") + (fechaf ? "&fechaf=" + fechaf : ""), {
 			withCredentials: true,
 			observe: 'response',
 			headers: new HttpHeaders().append('Content-Type', 'application/json').append('Authorization', localStorage.getItem('auth_token'))

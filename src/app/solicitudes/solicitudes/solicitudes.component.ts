@@ -62,6 +62,7 @@ export class SolicitudesComponent implements OnInit {
 				this.solicitudesSinFiltrar = solicitudes;
 				this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
 				this.paginacion.setArray(this.solicitudes);
+        this.limpiarFiltros();
 			})
 			.catch(reason => this.utilService.manejarError(reason))
 			.then(() => this.cargando = false)
@@ -133,6 +134,7 @@ export class SolicitudesComponent implements OnInit {
 				let v = null;
 
 				switch (f.campo) {
+					case 'file': v = r.idSolicitud; break;
 					case 'creationDate': v = r.fechaInicio; break;
 					case 'asignado': v = r.abogado; break;
 					case 'cliente': v = r.cliente; break;

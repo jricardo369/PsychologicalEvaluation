@@ -51,4 +51,6 @@ export class Solicitud {
     direccion: string;
     estado: string;
     referencia: string;
+
+    apellidos: string;
 }
