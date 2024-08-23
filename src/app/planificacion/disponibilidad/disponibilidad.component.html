@@ -4,24 +4,24 @@
 <div class='workspace'>
   <div class='main'>
 
-    <app-experimental-menu titulo="User Availability" i18n-titulo="">
+    <app-experimental-menu titulo="User Availability">
 
       <button (click)='agregarDisponibilidad()'
         style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="add-box"></mat-icon>
-        <label i18n="">Add Schedule Time</label>
+        <label>Add Schedule Time</label>
       </button>
 
       <button (click)='obtenerDisponibilidadUsuario()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="refresh"></mat-icon>
-        <label i18n="">Refresh</label>
+        <label>Refresh</label>
       </button>
 
       <button (click)='agregarDisponibilidadMasiva()'
         style="color: #681C69;background: #E9E9E9;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="file-upload"></mat-icon>
-        <label i18n="">Upload Schedule Time File</label>
+        <label>Upload Schedule Time File</label>
       </button>
 
     </app-experimental-menu>
@@ -45,7 +45,7 @@
         </tr>
         <tr>
           <td colspan="99" style="text-align: right;line-height: 24px;" class="mini">
-            <label i18n="">
+            <label>
               Records per page</label>
             <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
               style="margin: 0 8px; font-family: regular; height: 24px;">

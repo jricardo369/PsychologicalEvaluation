@@ -4,24 +4,24 @@
 <div class='workspace'>
 	<div class='main'>
 
-		<app-experimental-menu titulo="Files" i18n-titulo="">
+		<app-experimental-menu titulo="Files">
 
 			<button (click)='crearSolicitud()'
 				style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
 				<mat-icon svgIcon="add-box"></mat-icon>
-				<label i18n="">Create File</label>
+				<label>Create File</label>
 			</button>
 
 			<button (click)='refrescar()'
 				style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
 				<mat-icon svgIcon="refresh"></mat-icon>
-				<label i18n="">Refresh</label>
+				<label>Refresh</label>
 			</button>
 
       <button (click)='showClosedRequests()' *ngIf="isVendor || isBackOffice || isMaster"
 				style="color: #681C69;background: #E9E9E9;border-radius: 5px; height: 28px; line-height: 28px;">
 				<mat-icon svgIcon="closed"></mat-icon>
-				<label i18n="">Show Closed Files</label>
+				<label>Show Closed Files</label>
 			</button>
 
 		</app-experimental-menu>
@@ -31,43 +31,43 @@
 			<!-- FILTRO -->
 			<div style="margin-bottom: 20px;">
 
-				<h5 *ngIf="filters.length < 1" style="margin: 0 0 3px 0;" i18n="">Search</h5>
-				<h5 *ngIf="filters.length > 0" style="margin: 0 0 12px 0;" i18n="">Search</h5>
+				<h5 *ngIf="filters.length < 1" style="margin: 0 0 3px 0;">Search</h5>
+				<h5 *ngIf="filters.length > 0" style="margin: 0 0 12px 0;">Search</h5>
 
 				<div *ngFor="let f of filters">
 
 					<div class="iigwo-input inline">
 						<select [(ngModel)]="f.campo">
-              <option i18n="" value="file">File</option>
-							<option i18n="" value="creationDate" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</option>
-							<option i18n="" value="edad">Age</option>
-							<option i18n="" value="asignado" *ngIf="isMaster">Assigned</option>
-							<option i18n="" value="cliente">Customer</option>
-							<option i18n="" value="telefono">Phone</option>
-							<option i18n="" value="tipoSolicitud">Type</option>
-							<option i18n="" value="email">Email</option>
-							<option i18n="" value="importancia">Importance</option>
-							<option i18n="" value="estatusPago">Payment Status</option>
-							<option i18n="" value="estatusSolicitud">File Status</option>
-							<option i18n="" value="horario" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</option>
+              <option value="file">File</option>
+							<option value="creationDate" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</option>
+							<option value="edad">Age</option>
+							<option value="asignado" *ngIf="isMaster">Assigned</option>
+							<option value="cliente">Customer</option>
+							<option value="telefono">Phone</option>
+							<option value="tipoSolicitud">Type</option>
+							<option value="email">Email</option>
+							<option value="importancia">Importance</option>
+							<option value="estatusPago">Payment Status</option>
+							<option value="estatusSolicitud">File Status</option>
+							<option value="horario" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</option>
 						</select>
 					</div>
 
 					<div class="iigwo-input inline">
 						<select [(ngModel)]="f.operador">
-							<option value="==" i18n="">Same</option>
-							<option value=">" i18n="">Higher</option>
-							<option value=">=" i18n="">Greater or Equal</option>
-							<option value="<" i18n="">Less</option>
-							<option value="<=" i18n="">Minor or Equal</option>
-							<option value="startsWith" i18n="">Start with</option>
-							<option value="endsWith" i18n="">Ends with</option>
-							<option value="includes" i18n="">It contains</option>
+							<option value="==">Same</option>
+							<option value=">">Higher</option>
+							<option value=">=">Greater or Equal</option>
+							<option value="<">Less</option>
+							<option value="<=">Minor or Equal</option>
+							<option value="startsWith">Start with</option>
+							<option value="endsWith">Ends with</option>
+							<option value="includes">It contains</option>
 						</select>
 					</div>
 
 					<div class="iigwo-input inline">
-						<input placeholder="Text / Number" i18n-placeholder="Text / Number" [(ngModel)]="f.valor">
+						<input placeholder="Text / Number" [(ngModel)]="f.valor">
 					</div>
 
 					<button class="iigwo small" style="padding:0;min-height: 26px;" (click)="agregarFiltro()">
@@ -97,7 +97,7 @@
       <!-- <div style="margin-bottom: 20px; display: flex; flex-direction: row-reverse;">
         <button (click)='showClosedRequests()' class="btn" *ngIf="isVendor || isBackOffice || isMaster"
 						style="color: #681C69; background: #E9E9E9; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-						<label i18n="" style="margin: auto;">Show Closed Requests</label>
+						<label style="margin: auto;">Show Closed Requests</label>
 					</button>
       </div> -->
 
@@ -107,18 +107,18 @@
 					<tr>
 						<th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()"
 								(change)="checkAll($event)"></th>
-						<th class='' i18n="">File</th>
-						<th class='' i18n="" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</th>
-						<th class='' i18n="">Age</th>
-						<th class='' i18n="" *ngIf="isMaster">Assigned</th>
-						<th class='' i18n="">Customer</th>
-						<th class='' i18n="">Phone</th>
-						<th class='' i18n="">Type</th>
-						<th class='' i18n="">Email</th>
-						<th class='' i18n="">Importance</th>
-						<th class='' i18n="" *ngIf="!(isInterviewer || isTemplateCreator || isVOC)">Payment Status</th>
-						<th class='' i18n="">File Status</th>
-						<th class='' i18n="" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</th>
+						<th class=''>File</th>
+						<th class='' *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</th>
+						<th class=''>Age</th>
+						<th class='' *ngIf="isMaster">Assigned</th>
+						<th class=''>Customer</th>
+						<th class=''>Phone</th>
+						<th class=''>Type</th>
+						<th class=''>Email</th>
+						<th class=''>Importance</th>
+						<th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC)">Payment Status</th>
+						<th class=''>File Status</th>
+						<th class='' *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</th>
 					</tr>
 					<tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
 						<td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
@@ -156,7 +156,7 @@
 
 					<tr>
 						<td colspan="99" style="text-align: right;line-height: 24px;" class="mini">
-							<label i18n="">
+							<label>
 								Records per page</label>
 							<select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
 								style="margin: 0 8px; font-family: regular; height: 24px;">
@@ -184,16 +184,9 @@
 
 			<!-- MENSAJE DE NO HAY REGISTROS -->
 			<div *ngIf="solicitudes.length == 0">
-				<h3 style="margin:12px 0 6px 0" i18n="">No results</h3>
-				<p style="max-width:396px;" i18n="">There are no files within the search criteria. Make sure that the names are correct and that they are searching in the appropriate field.</p>
+				<h3 style="margin:12px 0 6px 0">No results</h3>
+				<p style="max-width:396px;">There are no files within the search criteria. Make sure that the names are correct and that they are searching in the appropriate field.</p>
 			</div>
-
-			<!-- <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;">
-                <span i18n="@@siNecesitaAyudaPuedeLeerEl">Si necesita ayuda puede leer el
-                </span>
-                <a target="_blank" [href]='utilService.rutaManual("ManualAdministracionGeneral")'
-                    i18n="@@manualAdministracionGeneral">manual de Administración General</a>
-            </p> -->
 
 		</div>
 

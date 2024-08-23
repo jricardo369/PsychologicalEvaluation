@@ -2,11 +2,11 @@
                 overflow-y: auto;">
 
     <div style="display: flex; align-items: center; justify-content: space-between;">
-        <h4 i18n="">Attachments</h4>
+        <h4>Attachments</h4>
         <button (click)='cargarAdjunto()' class="btn m-l-40" *ngIf="file.length > 0"
             style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
             <mat-icon svgIcon="file-upload"></mat-icon>
-            <label i18n="">Upload File(s)</label>
+            <label>Upload File(s)</label>
         </button>
     </div>
 
@@ -55,19 +55,9 @@
         </tr>
     </table>
     <p style="margin-bottom: 20px; font-size: 13px;" *ngIf="!arrAdjunto.length > 0">
-      <span i18n="">The file has no attachments.</span>
+      <span>The file has no attachments.</span>
     </p>
 </div>
-<!-- <p style="margin-bottom: 0px; font-size: 13px;">
-
-    <span *ngIf="!mostrarAdjuntos" i18n="@@cajachi.singlesol.mostrarAdjuntos0">La solicitud
-    tiene una bitácora de eventos. </span>
-    <span *ngIf="!mostrarAdjuntos" (click)="mostrarAdjuntos=true;refresh()" class="link"
-    i18n="@@cajachi.singlesol.mostrarAdjuntos">Mostrar bitácora</span>
-
-    <span *ngIf="mostrarAdjuntos" (click)="mostrarAdjuntos=false" class="link"
-    i18n="@@cajachi.singlesol.ocultarBitacora">Ocultar bitácora</span>
-    </p> -->
 
 <!--Cargando-->
 <div class='iigwo-loading' *ngIf="cargando">

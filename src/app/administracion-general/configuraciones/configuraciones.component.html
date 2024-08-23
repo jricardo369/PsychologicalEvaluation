@@ -4,137 +4,137 @@
 <div class='workspace'>
   <div class='main'>
 
-    <app-experimental-menu titulo="Settings" i18n-titulo=""></app-experimental-menu>
+    <app-experimental-menu titulo="Settings"></app-experimental-menu>
 
     <div class='content'>
       <div style="display:flex; flex-flow: row; max-height: 100%;">
         <div style="min-width:320px;margin-right:24px;">
           <!-- ================================================== -->
           <!-- LIMIT-TO-PAY -->
-          <h4 style="margin: 0 0 12px 0" i18n="">Days allowed to pay</h4>
+          <h4 style="margin: 0 0 12px 0">Days allowed to pay</h4>
           <div class="iigwo-input">
-            <label i18n="">Total number of days allowed</label>
+            <label>Total number of days allowed</label>
             <input [(ngModel)]="diasPermitidosParaPagar"
               [attr.readOnly]="cambiandoDiasPermitidosParaPagar ? null : false"
               (ngModelChange)="diasPermitidosParaPagar" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
               max="45" maxlength="2">
-            <p style="margin-top: 5px;" i18n="">Clients have this limit to pay, after the registration date.</p>
+            <p style="margin-top: 5px;">Clients have this limit to pay, after the registration date.</p>
           </div>
           <button class="iigwo" (click)="cambiandoDiasPermitidosParaPagar=true"
             *ngIf="cambiandoDiasPermitidosParaPagar==false">
-            <label i18n="">Change number</label>
+            <label>Change number</label>
           </button>
           <button class="iigwo accent" (click)="cambiarDato(1)" *ngIf="cambiandoDiasPermitidosParaPagar==true">
-            <label i18n="">Change number</label>
+            <label>Change number</label>
           </button>
           <button class="iigwo" (click)="cancelarCambio(1)" *ngIf="cambiandoDiasPermitidosParaPagar==true">
-            <label i18n="">Cancel</label>
+            <label>Cancel</label>
           </button>
           <hr style="max-width:396px;margin-bottom:24px;">
           <!-- ================================================== -->
           <!-- REFRESH-TOKEN -->
-          <h4 style="margin: 0 0 12px 0" i18n="">Token code</h4>
+          <h4 style="margin: 0 0 12px 0">Token code</h4>
           <div class="iigwo-input">
-            <label i18n="">Token code GoTo</label>
+            <label>Token code GoTo</label>
             <textarea [(ngModel)]="tokenCode"
               [attr.readOnly]="cambiandoTokenCode ? null : false"
               (ngModelChange)="tokenCode"></textarea>
-            <p style="margin-top: 5px;" i18n="">Generated token code for GoTo</p>
+            <p style="margin-top: 5px;">Generated token code for GoTo</p>
           </div>
           <button class="iigwo" (click)="cambiandoTokenCode=true"
             *ngIf="cambiandoTokenCode==false">
-            <label i18n="">Change token code</label>
+            <label>Change token code</label>
           </button>
           <button class="iigwo accent" (click)="cambiarDato(2)" *ngIf="cambiandoTokenCode==true">
-            <label i18n="">Change token code</label>
+            <label>Change token code</label>
           </button>
           <button class="iigwo" (click)="cancelarCambio(2)" *ngIf="cambiandoTokenCode==true">
-            <label i18n="">Cancel</label>
+            <label>Cancel</label>
           </button>
           <hr style="max-width:396px;margin-bottom:24px;">
           <!-- ================================================== -->
           <!-- CLIENT-SECRET -->
-          <h4 style="margin: 0 0 12px 0" i18n="">Client secret</h4>
+          <h4 style="margin: 0 0 12px 0">Client secret</h4>
           <div class="iigwo-input">
-            <label i18n="">Client secret GoTo</label>
+            <label>Client secret GoTo</label>
             <input [(ngModel)]="clientSecret"
               [attr.readOnly]="cambiandoClientSecret ? null : false"
               (ngModelChange)="clientSecret">
-            <p style="margin-top: 5px;" i18n="">Generated client secret for GoTo</p>
+            <p style="margin-top: 5px;">Generated client secret for GoTo</p>
           </div>
           <button class="iigwo" (click)="cambiandoClientSecret=true"
             *ngIf="cambiandoClientSecret==false">
-            <label i18n="">Change client secret</label>
+            <label>Change client secret</label>
           </button>
           <button class="iigwo accent" (click)="cambiarDato(3)" *ngIf="cambiandoClientSecret==true">
-            <label i18n="">Change client secret</label>
+            <label>Change client secret</label>
           </button>
           <button class="iigwo" (click)="cancelarCambio(3)" *ngIf="cambiandoClientSecret==true">
-            <label i18n="">Cancel</label>
+            <label>Cancel</label>
           </button>
           <hr style="max-width:396px;margin-bottom:24px;">
           <!-- ================================================== -->
           <!-- CLIENT-ID -->
-          <h4 style="margin: 0 0 12px 0" i18n="">Client id</h4>
+          <h4 style="margin: 0 0 12px 0">Client id</h4>
           <div class="iigwo-input">
-            <label i18n="">Client id GoTo</label>
+            <label>Client id GoTo</label>
             <input [(ngModel)]="clientId"
               [attr.readOnly]="cambiandoClientId ? null : false"
               (ngModelChange)="clientId">
-            <p style="margin-top: 5px;" i18n="">Generated client id for GoTo</p>
+            <p style="margin-top: 5px;">Generated client id for GoTo</p>
           </div>
           <button class="iigwo" (click)="cambiandoClientId=true"
             *ngIf="cambiandoClientId==false">
-            <label i18n="">Change client id</label>
+            <label>Change client id</label>
           </button>
           <button class="iigwo accent" (click)="cambiarDato(4)" *ngIf="cambiandoClientId==true">
-            <label i18n="">Change client id</label>
+            <label>Change client id</label>
           </button>
           <button class="iigwo" (click)="cancelarCambio(4)" *ngIf="cambiandoClientId==true">
-            <label i18n="">Cancel</label>
+            <label>Cancel</label>
           </button>
           <hr style="max-width:396px;margin-bottom:24px;">
           <!-- ================================================== -->
           <!-- TOKEN -->
-          <h4 style="margin: 0 0 12px 0" i18n="">Token</h4>
+          <h4 style="margin: 0 0 12px 0">Token</h4>
           <div class="iigwo-input">
-            <label i18n="">Token id GoTo</label>
+            <label>Token id GoTo</label>
             <textarea [(ngModel)]="tokenId"
               [attr.readOnly]="cambiandoTokenId ? null : false"
               (ngModelChange)="tokenId"></textarea>
-            <p style="margin-top: 5px;" i18n="">Generated token for GoTo, this data is updated automatically</p>
+            <p style="margin-top: 5px;">Generated token for GoTo, this data is updated automatically</p>
           </div>
           <button class="iigwo" (click)="cambiandoTokenId=true"
             *ngIf="cambiandoTokenId==false">
-            <label i18n="">Change token id</label>
+            <label>Change token id</label>
           </button>
           <button class="iigwo accent" (click)="cambiarDato(5)" *ngIf="cambiandoTokenId==true">
-            <label i18n="">Change token id</label>
+            <label>Change token id</label>
           </button>
           <button class="iigwo" (click)="cancelarCambio(5)" *ngIf="cambiandoTokenId==true">
-            <label i18n="">Cancel</label>
+            <label>Cancel</label>
           </button>
           <hr style="max-width:396px;margin-bottom:24px;">
           <!-- ================================================== -->
           <!-- TEL-ENVIO -->
-          <h4 style="margin: 0 0 12px 0" i18n="">Phone</h4>
+          <h4 style="margin: 0 0 12px 0">Phone</h4>
           <div class="iigwo-input">
-            <label i18n="">Phone GoTo</label>
+            <label>Phone GoTo</label>
             <input [(ngModel)]="phoneGoTo"
               [attr.readOnly]="cambiandoPhoneGoTo ? null : false"
               (ngModelChange)="phoneGoTo"
               (input)="onPhoneNumberInput($event.target.value)" placeholder="(###) ###-####" maxlength="14">
-            <p style="margin-top: 5px;" i18n="">Telephone to send messages from GoTo</p>
+            <p style="margin-top: 5px;">Telephone to send messages from GoTo</p>
           </div>
           <button class="iigwo" (click)="cambiandoPhoneGoTo=true"
             *ngIf="cambiandoPhoneGoTo==false">
-            <label i18n="">Change phone</label>
+            <label>Change phone</label>
           </button>
           <button class="iigwo accent" (click)="cambiarDato(6)" *ngIf="cambiandoPhoneGoTo==true">
-            <label i18n="">Change phone</label>
+            <label>Change phone</label>
           </button>
           <button class="iigwo" (click)="cancelarCambio(6)" *ngIf="cambiandoPhoneGoTo==true">
-            <label i18n="">Cancel</label>
+            <label>Cancel</label>
           </button>
           <hr style="max-width:396px;margin-bottom:24px;">
         </div>

@@ -2,11 +2,11 @@
                 overflow-y: auto;">
 
 	<div style="display: flex; align-items: center; justify-content: space-between;">
-		<h4 i18n="">Payments</h4>
+		<h4>Payments</h4>
 		<button (click)='agregarMovimiento()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
 			style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
 			<mat-icon svgIcon="add"></mat-icon>
-			<label i18n="">Add Payment</label>
+			<label>Add Payment</label>
 		</button>
 	</div>
 
@@ -29,18 +29,9 @@
 		</tr>
 	</table>
 	<p style="margin-bottom: 20px; font-size: 13px;" *ngIf="!arrMovimientoSolicitud.length > 0">
-		<span i18n="">The file has no payments.</span>
+		<span>The file has no payments.</span>
 	</p>
 </div>
-<!-- <p style="margin-bottom: 0px; font-size: 13px;">
-
-	<span *ngIf="!mostrarMovimientos" i18n="@@cajachi.singlesol.mostrarMovimientos">La solicitud
-		tiene una bitácora de movimientos. </span>
-	<span *ngIf="!mostrarMovimientos" (click)="mostrarMovimientos=true;refresh()" class="link" i18n="">Mostrar
-		Movimientos</span>
-
-	<span *ngIf="mostrarMovimientos" (click)="mostrarMovimientos=false" class="link" i18n="">Ocultar Movimientos</span>
-</p> -->
 
 <!--Cargando-->
 <div class='iigwo-loading' *ngIf="cargando">

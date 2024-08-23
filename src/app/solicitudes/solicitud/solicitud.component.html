@@ -3,7 +3,7 @@
 </app-workspace-nav>
 <div class='workspace'>
   <div class='main'>
-    <app-experimental-menu [titulo]="titulo" i18n-titulo="" backButtonEnabled="true">
+    <app-experimental-menu [titulo]="titulo" backButtonEnabled="true">
       <span class="badge-status badge-color-schedule-title" *ngIf="isInterviewer && solicitud.fecha_schedule">Schedule
         {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
     </app-experimental-menu>
@@ -234,13 +234,13 @@
             *ngIf="solicitud.idEstatusSolicitud != 11 && solicitud.idEstatusSolicitud != 6"
             style="color: #FFFFFF; background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Send to next process</label>
+            <label style="margin: auto;">Send to next process</label>
           </button>
 
           <button (click)='enviarNotificaciones()' class="btn"
             style="color: #FFFFFF;background: #ef9d54; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Send Notifications</label>
+            <label style="margin: auto;">Send Notifications</label>
           </button>
 
           <br>
@@ -249,44 +249,44 @@
             *ngIf="solicitud.idEstatusSolicitud == 3 && isBackOffice"
             style="color: #FFFFFF;background: #4094D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Reject File</label>
+            <label style="margin: auto;">Reject File</label>
           </button>
 
           <button (click)='cambiarEstatusSolicitud(5)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 3"
             style="color: #FFFFFF;background: #EAB570; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">No-show</label>
+            <label style="margin: auto;">No-show</label>
           </button>
 
           <button (click)='cambiarEstatusSolicitud(8)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
             style="color: #FFFFFF;background: #3CB371; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Won</label>
+            <label style="margin: auto;">Won</label>
           </button>
 
           <button (click)='cambiarEstatusSolicitud(7)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
             style="color: #FFFFFF;background: #F3A787; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Lost</label>
+            <label style="margin: auto;">Lost</label>
           </button>
 
           <button (click)='cambiarEstatusSolicitud(9)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 7"
             style="color: #FFFFFF;background: #319757; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Open</label>
+            <label style="margin: auto;">Open</label>
           </button>
 
           <button (click)='cambiarEstatusSolicitud(11)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 6"
             style="color: #FFFFFF;background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Finish Case</label>
+            <label style="margin: auto;">Finish Case</label>
           </button>
 
           <button (click)='cambiarEstatusSolicitud(11, true)' class="btn"
             *ngIf="solicitud.idEstatusSolicitud == 10 && isMaster"
             style="color: #FFFFFF;background: #D34272; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label i18n="" style="margin: auto;">Closed</label>
+            <label style="margin: auto;">Closed</label>
           </button>
         </div>
       </div>

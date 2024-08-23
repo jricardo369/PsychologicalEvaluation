@@ -15,7 +15,7 @@ export const NAV_MENU_IZQUIERDA_TEMPLATE =
     <button class="iigwo bottom" (click)="utilService.workspaceNavMenuShortened = !utilService.workspaceNavMenuShortened">
         <mat-icon svgIcon="arrow-back" *ngIf="!utilService.workspaceNavMenuShortened"></mat-icon>
         <mat-icon svgIcon="arrow-forward" *ngIf="utilService.workspaceNavMenuShortened"></mat-icon>
-        <label *ngIf="!utilService.workspaceNavMenuShortened" i18n='@@Ocultar'>Ocultar</label>
+        <label *ngIf="!utilService.workspaceNavMenuShortened">Ocultar</label>
         <label *ngIf="utilService.workspaceNavMenuShortened">Mostrar</label>
     </button>
 
@@ -61,7 +61,7 @@ export class UtilServiceTest {
     }
 
     updateItems(u: Usuario) {
-        
+
         this.manual_name = localStorage.getItem('manual_name');
 
         this.workspaces = [this.ITEMS[0].module];

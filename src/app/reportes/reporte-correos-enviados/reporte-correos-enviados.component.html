@@ -4,12 +4,12 @@
 <div class='workspace'>
   <div class='main'>
 
-    <app-experimental-menu titulo="Sent Emails" i18n-titulo="">
+    <app-experimental-menu titulo="Sent Emails">
 
       <button (click)='obtenerCorreosEnviados()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="refresh"></mat-icon>
-        <label i18n="">Refresh</label>
+        <label>Refresh</label>
       </button>
 
     </app-experimental-menu>
@@ -18,11 +18,11 @@
       <div style="display: inline-flex;">
           <div style="display: inline-flex;">
               <div class="iigwo-input">
-                  <label i18n="">Start Date</label>
+                  <label>Start Date</label>
                   <input type="date" [(ngModel)]="fechaI" (change)="obtenerCorreosEnviados()">
               </div>
               <div class="iigwo-input">
-                  <label i18n="">End Date </label>
+                  <label>End Date </label>
                   <input type="date" [(ngModel)]="fechaF" (change)="obtenerCorreosEnviados()">
               </div>
           </div>

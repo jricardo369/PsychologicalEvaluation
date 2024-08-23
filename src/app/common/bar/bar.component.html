@@ -79,10 +79,10 @@
             <label>{{usuario.usuario}}</label>
             <label>{{usuario.nombre}}</label>
             <a routerLink="/credenciales" style="font-size:13px;" (focus)="focusUserDiv()"
-                i18n="">Credentials</a>
+               >Credentials</a>
 
             <button class='iigwo' (click)='logout()' (focus)="focusUserDiv()" style="display: block;margin-top: 16px;"
-                i18n="">Logout</button>
+               >Logout</button>
 
             <!--
             <div class='vendor-rating' *ngIf="usuario.rol && usuario.rol.id == 3">
@@ -118,7 +118,7 @@
         </button>
         <div class='app-nav-menu-panel-content'>
             <div class='iigwo-pseudo'>
-                <input #appNavMenuFilterInput placeholder="Filter modules" i18n-placeholder=""
+                <input #appNavMenuFilterInput placeholder="Filter modules"
                     [(ngModel)]="appNavMenuFilter" (ngModelChange)="filterChange()" type="text">
                 <mat-icon svgIcon="filter-list"></mat-icon>
             </div>

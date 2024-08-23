@@ -2,11 +2,11 @@
                 overflow-y: auto;">
 
     <div style="display: flex; align-items: center; justify-content: space-between;">
-        <h4 i18n="">Events</h4>
+        <h4>Events</h4>
         <button (click)='crearEvento()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
             style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
             <mat-icon svgIcon="add"></mat-icon>
-            <label i18n="">Add Event</label>
+            <label>Add Event</label>
         </button>
     </div>
 
@@ -32,16 +32,6 @@
         </tr>
     </table>
 </div>
-<!-- <p style="margin-bottom: 0px; font-size: 13px;">
-
-    <span *ngIf="!mostrarEventos" i18n="@@cajachi.singlesol.mostrarEventos0">La solicitud
-    tiene una bitácora de eventos. </span>
-    <span *ngIf="!mostrarEventos" (click)="mostrarEventos=true;refresh()" class="link"
-    i18n="@@cajachi.singlesol.mostrarEventos">Mostrar bitácora</span>
-
-    <span *ngIf="mostrarEventos" (click)="mostrarEventos=false" class="link"
-    i18n="@@cajachi.singlesol.ocultarBitacora">Ocultar bitácora</span>
-    </p> -->
 
 <!--Cargando-->
 <div class='iigwo-loading' *ngIf="cargando">

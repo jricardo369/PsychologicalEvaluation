@@ -22,10 +22,10 @@ import { DialogoLoginComponent } from './common/dialogo-login/dialogo-login.comp
 import { DialogoFrameComponent } from './common/dialogo-frame/dialogo-frame.component';
 
 import { registerLocaleData } from '@angular/common';
-import localeMx from '@angular/common/locales/es-MX';
+// import localeMx from '@angular/common/locales/es-MX';
 import { TusCredencialesComponent } from './common/tus-credenciales/tus-credenciales.component';
 
-registerLocaleData(localeMx, 'es-Mx');
+// registerLocaleData(localeMx, 'es-Mx');
 
 @NgModule({
     declarations: [

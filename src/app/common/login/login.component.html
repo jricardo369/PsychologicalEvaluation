@@ -19,14 +19,14 @@
            width: 40%;
         height: 40%;"
            >
-            <h1 i18n="">Psychological Evaluation</h1>
-            <p i18n="">Enter your credentials to login</p>
-            <input placeholder="User" i18n-placeholder="" [(ngModel)]="user.usuario" [ngModelOptions]="{standalone: true}"
+            <h1>Psychological Evaluation</h1>
+            <p>Enter your credentials to login</p>
+            <input placeholder="User" [(ngModel)]="user.usuario" [ngModelOptions]="{standalone: true}"
                 autocapitalize="none">
-            <input placeholder="Password" i18n-placeholder="" type="password" [(ngModel)]="user.contrasenia"
+            <input placeholder="Password" type="password" [(ngModel)]="user.contrasenia"
                 [ngModelOptions]="{standalone: true}">
-            <button i18n="" (click)="ingresar()">Login</button>
-            <a i18n="" (click)="recuperar()">Forgot your password?</a>
+            <button (click)="ingresar()">Login</button>
+            <a (click)="recuperar()">Forgot your password?</a>
         </form>
         <!--<div class="langs">
             <a (click)="changeLang('en')">en</a>

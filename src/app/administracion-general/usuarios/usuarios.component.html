@@ -4,23 +4,23 @@
 <div class='workspace'>
     <div class='main'>
 
-        <app-experimental-menu titulo="Users" i18n-titulo="">
+        <app-experimental-menu titulo="Users">
 
             <button (click)='crearUsuario()'
                 style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;">
                 <mat-icon svgIcon="add-box"></mat-icon>
-                <label i18n="">New User</label>
+                <label>New User</label>
             </button>
 
             <button (click)='refrescar()' style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px;">
                 <mat-icon svgIcon="refresh"></mat-icon>
-                <label i18n="">Refresh</label>
+                <label>Refresh</label>
             </button>
 
             <button (click)='eliminar()' [disabled]='seleccion.length == 0'
                 style="color: #CB4335;background: #FDEDEC;border-radius: 5px; height: 28px;">
                 <mat-icon svgIcon="delete"></mat-icon>
-                <label i18n="">Delete</label>
+                <label>Delete</label>
             </button>
 
         </app-experimental-menu>
@@ -30,36 +30,36 @@
             <!-- FILTRO -->
             <div style="margin-bottom: 20px;">
 
-                <h5 *ngIf="filters.length < 1" style="margin: 0 0 3px 0;" i18n="">Search</h5>
-                <h5 *ngIf="filters.length > 0" style="margin: 0 0 12px 0;" i18n="">Search</h5>
+                <h5 *ngIf="filters.length < 1" style="margin: 0 0 3px 0;">Search</h5>
+                <h5 *ngIf="filters.length > 0" style="margin: 0 0 12px 0;">Search</h5>
 
                 <div *ngFor="let f of filters">
 
                     <div class="iigwo-input inline">
                         <select [(ngModel)]="f.campo">
-                            <option i18n="" value="usuario">User</option>
-                            <option i18n="" value="nombre">Name</option>
-                            <option i18n="" value="direccion">Address</option>
-                            <option i18n="" value="telefono">Phone</option>
-                            <option i18n="" value="tipo">Type</option>
+                            <option value="usuario">User</option>
+                            <option value="nombre">Name</option>
+                            <option value="direccion">Address</option>
+                            <option value="telefono">Phone</option>
+                            <option value="tipo">Type</option>
                         </select>
                     </div>
 
                     <div class="iigwo-input inline">
                         <select [(ngModel)]="f.operador">
-                            <option value="==" i18n="">Same</option>
-                            <option value=">" i18n="">Higher</option>
-                            <option value=">=" i18n="">Greater or Equal</option>
-                            <option value="<" i18n="">Less</option>
-                            <option value="<=" i18n="">Minor or Equal</option>
-                            <option value="startsWith" i18n="">Start with</option>
-                            <option value="endsWith" i18n="">Ends with</option>
-                            <option value="includes" i18n="">It contains</option>
+                            <option value="==">Same</option>
+                            <option value=">">Higher</option>
+                            <option value=">=">Greater or Equal</option>
+                            <option value="<">Less</option>
+                            <option value="<=">Minor or Equal</option>
+                            <option value="startsWith">Start with</option>
+                            <option value="endsWith">Ends with</option>
+                            <option value="includes">It contains</option>
                         </select>
                     </div>
 
                     <div class="iigwo-input inline">
-                        <input placeholder="Text / Number" i18n-placeholder="Text / Number" [(ngModel)]="f.valor">
+                        <input placeholder="Text / Number" [(ngModel)]="f.valor">
                     </div>
 
                     <button class="iigwo small" style="padding:0;min-height: 26px;" (click)="agregarFiltro()">
@@ -91,11 +91,11 @@
                     <tr>
                         <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()"
                                 (change)="checkAll($event)"></th>
-                        <th class='' i18n="">User</th>
-                        <th class='' i18n="">Name</th>
-                        <th class='' i18n="">Address</th>
-                        <th class='' i18n="">Phone</th>
-                        <th class='' i18n="">Type</th>
+                        <th class=''>User</th>
+                        <th class=''>Name</th>
+                        <th class=''>Address</th>
+                        <th class=''>Phone</th>
+                        <th class=''>Type</th>
                     </tr>
                     <tr *ngFor='let e of usuarios | slice:paginacion.begin:paginacion.end'>
                         <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idUsuario)"
@@ -118,7 +118,7 @@
 
                     <tr>
                         <td colspan="99" style="text-align: right;line-height: 24px;" class="mini">
-                            <label i18n="">Records per page</label>
+                            <label>Records per page</label>
                             <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
                                 style="margin: 0 8px; font-family: regular; height: 24px;">
                                 <option value="10">10</option>
@@ -145,16 +145,9 @@
 
             <!-- MENSAJE DE NO HAY REGISTROS -->
             <div *ngIf="usuarios.length == 0">
-                <h3 style="margin:12px 0 6px 0" i18n="">No results</h3>
-                <p style="max-width:396px;" i18n="">There are no users within the search criteria. Make sure that the names are correct and that they are searching in the appropriate field.</p>
+                <h3 style="margin:12px 0 6px 0">No results</h3>
+                <p style="max-width:396px;">There are no users within the search criteria. Make sure that the names are correct and that they are searching in the appropriate field.</p>
             </div>
-
-            <!-- <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;">
-                <span i18n="@@siNecesitaAyudaPuedeLeerEl">Si necesita ayuda puede leer el
-                </span>
-                <a target="_blank" [href]='utilService.rutaManual("ManualAdministracionGeneral")'
-                    i18n="@@manualAdministracionGeneral">manual de Administración General</a>
-            </p> -->
 
         </div>
 

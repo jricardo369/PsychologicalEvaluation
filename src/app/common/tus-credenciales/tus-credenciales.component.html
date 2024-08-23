@@ -1,59 +1,57 @@
 <div class="workspace" style="left: 0;">
     <div class='menu'>
-        <label class='home'><span i18n="">Credentials for User</span>
+        <label class='home'><span>Credentials for User</span>
             {{usuario.nombre}}</label>
     </div>
     <div class='content'>
 
-        <h4 style="margin: 0 0 6px 0" i18n="">Password</h4>
-        <p style="margin: 0 0 12px 0" i18n="">A good password should be hard to guess and easy to remember; but you must also be young, get used to changing your password periodically</p>
+        <h4 style="margin: 0 0 6px 0">Password</h4>
+        <p style="margin: 0 0 12px 0">A good password should be hard to guess and easy to remember; but you must also be young, get used to changing your password periodically</p>
         <button class="iigwo" (click)="cambiandoContrasena=true" *ngIf="cambiandoContrasena==false">
-            <label i18n="">Change Password</label>
+            <label>Change Password</label>
         </button>
         <div *ngIf="cambiandoContrasena==true">
             <div class="iigwo-input">
-                <label i18n="">New nassword</label>
+                <label>New nassword</label>
                 <input [(ngModel)]="password" type="password" autocomplete="new-password" name="banana1"
-                    title=""
-                    i18n-title="">
+                    title="">
             </div>
             <div class="iigwo-input">
-                <label i18n="">Confirm new password</label>
+                <label>Confirm new password</label>
                 <input [(ngModel)]="confirmPassword" type="password" autocomplete="new-password" name="banana2"
-                    title=""
-                    i18n-title="">
+                    title="">
             </div>
-            <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;" i18n="">Both passwords must be the same</p>
+            <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;">Both passwords must be the same</p>
             <button class="iigwo accent" (click)="cambiarPassword()" [disabled]="!(password.length > 0 && confirmPassword.length > 0)">
-                <label i18n="">Change Password</label>
+                <label>Change Password</label>
             </button>
             <button class="iigwo" (click)="cambiandoContrasena=false">
-                <label i18n="">Cancel</label>
+                <label>Cancel</label>
             </button>
         </div>
 
         <hr style="max-width:396px;margin-top:12px;">
 
-        <h4 style="margin: 0 0 6px 0" i18n="">Email</h4>
-        <p style="margin: 0 0 12px 0" i18n="">If you prefer to receive your notifications to a different address, change your email address</p>
+        <h4 style="margin: 0 0 6px 0">Email</h4>
+        <p style="margin: 0 0 12px 0">If you prefer to receive your notifications to a different address, change your email address</p>
         <button class="iigwo" (click)="cambiandoCorreo=true" *ngIf="cambiandoCorreo==false">
-            <label i18n="">Change Email Address</label>
+            <label>Change Email Address</label>
         </button>
         <div *ngIf="cambiandoCorreo==true">
             <div class="iigwo-input">
-                <label i18n="">New email adress</label>
+                <label>New email adress</label>
                 <input [(ngModel)]="email1" type="email" autocomplete="new-password">
             </div>
             <div class="iigwo-input">
-                <label i18n="">Confirm new email address</label>
+                <label>Confirm new email address</label>
                 <input [(ngModel)]="email2" type="email" autocomplete="new-password">
             </div>
-            <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;" i18n="">Both email addresses must be the same</p>
+            <p style="margin-top: -6px; margin-bottom: 18px; font-size: 11px;">Both email addresses must be the same</p>
             <button class="iigwo accent" (click)="cambiarCorreo()" [disabled]="!(email1.length > 0 && email2.length > 0)">
-                <label i18n="">Change Email Address</label>
+                <label>Change Email Address</label>
             </button>
             <button class="iigwo" (click)="cambiandoCorreo=false">
-                <label i18n="">Cancel</label>
+                <label>Cancel</label>
             </button>
         </div>
 
