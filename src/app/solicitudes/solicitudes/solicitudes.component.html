@@ -6,7 +6,7 @@
 
 		<app-experimental-menu titulo="Files">
 
-			<button (click)='crearSolicitud()'
+			<button (click)='crearSolicitud()' *ngIf="!(isInterviewer)"
 				style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
 				<mat-icon svgIcon="add-box"></mat-icon>
 				<label>Create File</label>
@@ -42,7 +42,7 @@
 							<option value="creationDate" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</option>
 							<option value="edad">Age</option>
 							<option value="asignado" *ngIf="isMaster">Assigned</option>
-							<option value="cliente">Customer</option>
+							<option value="cliente">Customer Name</option>
 							<option value="telefono">Phone</option>
 							<option value="tipoSolicitud">Type</option>
 							<option value="email">Email</option>
@@ -111,7 +111,7 @@
 						<th class='' *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</th>
 						<th class=''>Age</th>
 						<th class='' *ngIf="isMaster">Assigned</th>
-						<th class=''>Customer</th>
+						<th class=''>Customer Name</th>
 						<th class=''>Phone</th>
 						<th class=''>Type</th>
 						<th class=''>Email</th>

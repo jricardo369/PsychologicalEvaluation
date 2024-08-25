@@ -1,29 +1,33 @@
 <h2 mat-dialog-title>New Schedule Time Available</h2>
 
 <mat-dialog-content>
-	<div class="iigwo-input">
-		<label>Date</label>
-		<input type="date" [(ngModel)]="disponibilidadUsuario.fecha">
-	</div>
-	<div class="iigwo-input">
-		<label>Time</label>
-		<input type="number" min="1" max="12" [(ngModel)]="disponibilidadUsuario.hora">
-	</div>
-	<div class="iigwo-input">
-		<label>Type</label>
-		<select [(ngModel)]="disponibilidadUsuario.tipo">
-			<option value="AM">AM</option>
-			<option value="PM">PM</option>
-		</select>
-	</div>
+  <div class="iigwo-input">
+    <label>Date</label>
+    <input type="date" [(ngModel)]="disponibilidadUsuario.fecha">
+  </div>
+  <div class="iigwo-input">
+    <label>Time</label>
+    <!-- <input type="time" [(ngModel)]="disponibilidadUsuario.hora"> -->
+    <select [(ngModel)]="disponibilidadUsuario.hora">
+      <option *ngFor="let time of arrTime" [ngValue]="time">
+        {{time}}</option>
+    </select>
+  </div>
+  <div class="iigwo-input">
+    <label>Type</label>
+    <select [(ngModel)]="disponibilidadUsuario.tipo">
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-	<button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Cancel</button>
-	<button class="iigwo accent" style="margin-right:0;" (click)='agregar()'>Add Schedule Time</button>
+  <button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Cancel</button>
+  <button class="iigwo accent" style="margin-right:0;" (click)='agregar()'>Add Schedule Time</button>
 </mat-dialog-actions>
 
 <!-- CARGANDO-->
 <div class='iigwo-loading' *ngIf="cargando">
-	<mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </div>

@@ -20,7 +20,7 @@
             </div>
 
             <div class="iigwo-input">
-              <label>Customer</label>
+              <label>Customer Name</label>
               <input type="text" [(ngModel)]="solicitud.cliente" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
@@ -142,7 +142,7 @@
             </div>
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer)">
-              <label>Direction</label>
+              <label>Address (Number, City and Postal Code)</label>
               <input type="text" [(ngModel)]="solicitud.direccion" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
