@@ -20,9 +20,28 @@
                 </select>
             </div>
 
-            <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
+            <!-- <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
                 <label>Date and Time</label>
                 <input type="datetime-local" [(ngModel)]="eventoSolicitud.fecha">
+            </div> -->
+
+            <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
+              <label>Date</label>
+              <input type="date" [(ngModel)]="eventoSolicitud.fecha">
+            </div>
+            <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
+              <label>Time</label>
+              <select [(ngModel)]="eventoSolicitud.hora" style="min-width: 74px;">
+                <option *ngFor="let time of arrTime" [ngValue]="time">
+                  {{time}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
+              <label>Type</label>
+              <select [(ngModel)]="eventoSolicitud.tipoSchedule" style="min-width: 60px;">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
             </div>
         </div>
     </div>

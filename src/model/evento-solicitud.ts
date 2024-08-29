@@ -6,4 +6,6 @@ export class EventoSolicitud {
     idSolicitud: number;
     tipo: string;
     usuario: string;
+    hora: string;
+    tipoSchedule: string;
   }

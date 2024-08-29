@@ -114,6 +114,7 @@
 						<th class=''>Customer Name</th>
 						<th class=''>Phone</th>
 						<th class=''>Type</th>
+						<th class=''>Additional</th>
 						<th class=''>Email</th>
 						<th class=''>Importance</th>
 						<th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC)">Payment Status</th>
@@ -133,6 +134,7 @@
 						<td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
 						<td class='accent'>{{e.telefono | phone}}</td>
 						<td class='accent'>{{e.tipoSolicitud}}</td>
+						<td class='accent'>{{e.adicional}}</td>
 						<td class='accent'>{{e.email}}</td>
 						<td style="text-align: center;"><span class="badge-status badge-color-important"
 								style="margin: 0;" *ngIf="e.importante.length > 0">{{e.importante}}</span></td>
