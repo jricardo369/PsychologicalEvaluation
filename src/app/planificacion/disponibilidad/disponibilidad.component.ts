@@ -27,7 +27,6 @@ export class DisponibilidadComponent implements OnInit {
 		public utilService: UtilService,
 		private dialog: MatDialog) {
 		this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
-    this.paginacion.size = 10;
 		this.obtenerDisponibilidadUsuario();
 	}
 

@@ -3,7 +3,7 @@ export class PaginationManager {
     public page: number = 0;
     public begin: number = 0;
     public end: number = 0;
-    public size: number = 20;
+    public size: number = 10;
     public array: any[] = [];
 
     public fix(): void {

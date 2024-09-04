@@ -18,4 +18,6 @@ export class Usuario {
     sexo: string;
     resumen: string;
     permisos: Permiso[];
+
+    ausencia: boolean;
 }

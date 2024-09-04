@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { EventoSolicitud } from 'src/model/evento-solicitud';
 import { DialogoEventoSolicitudComponent } from '../dialogo-evento-solicitud/dialogo-evento-solicitud.component';
 import { Usuario } from 'src/model/usuario';
+import { PaginationManager } from 'src/util/pagination';
 
 @Component({
     selector: 'app-eventos-solicitud',
@@ -18,6 +19,7 @@ export class EventosSolicitudComponent implements OnInit {
 
     mostrarEventos: boolean = true;
     arrEventoSolicitud: EventoSolicitud[] = [];
+    paginacion: PaginationManager = new PaginationManager();
 
     cargando: boolean = false;
     usuario: Usuario = new Usuario();
@@ -42,6 +44,7 @@ export class EventosSolicitudComponent implements OnInit {
             .obtenerEventosSolicitud(Number.parseInt(this.idSolicitud), this.usuario.idUsuario)
             .then(response => {
                 this.arrEventoSolicitud = response;
+                this.paginacion.setArray(this.arrEventoSolicitud);
             })
             .catch(reason => this.utilService.manejarError(reason))
             .then(() => this.cargando = false)

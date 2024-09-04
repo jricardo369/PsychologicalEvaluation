@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { DisponibilidadUsuariosService } from 'src/app/services/disponibilidad-usuarios.service';
 import { UtilService } from 'src/app/services/util.service';
 import { DisponibilidadUsuario } from 'src/model/disponibilidad-usuario';
+import { PaginationManager } from 'src/util/pagination';
 
 @Component({
   selector: 'app-dialogo-siguiente-proceso',
@@ -16,6 +17,7 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
 
   fecha: string = "";
   arrDisponibilidadUsuario: DisponibilidadUsuario[] = [];
+  paginacion: PaginationManager = new PaginationManager();
   idDisponibilidadSelected: number = null;
   idSolicitud: number = null;
   idUsuario: number = null;
@@ -53,6 +55,7 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
     this.disponibilidadUsuariosService.obtenerDisponibilidadUsuariosPorDia(this.fecha)
       .then((disponibilidadUsuarios) => {
         this.arrDisponibilidadUsuario = disponibilidadUsuarios;
+        this.paginacion.setArray(this.arrDisponibilidadUsuario);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

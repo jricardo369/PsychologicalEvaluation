@@ -198,6 +198,11 @@
           <input [ngModel]="solicitud.fechaInicio | date:'yyyy/MM/dd':'':'en'" readOnly>
         </div>
 
+        <div class="iigwo-input" *ngIf="(isMaster || isVendor || isBackOffice)">
+          <label>Responsible User</label>
+          <input [ngModel]="solicitud.usuarioRevisandoNombre" readOnly style="font-weight: 600;">
+        </div>
+
         <div class="iigwo-input">
           <label>File Status</label>
           <span class="badge-status" [ngClass]="{'badge-color-received': solicitud.idEstatusSolicitud == 1,

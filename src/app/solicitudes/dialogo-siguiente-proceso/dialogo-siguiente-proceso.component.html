@@ -13,13 +13,37 @@
       <th>Hour</th>
       <th>Summary</th>
     </tr>
-    <tr *ngFor='let e of arrDisponibilidadUsuario'>
+    <tr *ngFor='let e of arrDisponibilidadUsuario | slice:paginacion.begin:paginacion.end'>
       <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idDisponibilidad)"
           (change)="check($event, e.idDisponibilidad)"></td>
       <td>{{e.nombreUsuario}}</td>
       <td style="white-space: nowrap;">{{e.fecha | dateYYYYMMDD}}</td>
       <td style="white-space: nowrap;">{{e.hora.toString().padStart(2,'0')}} {{e.tipo}}</td>
       <td>{{e.resumen}}</td>
+    </tr>
+    <tr>
+      <td colspan="99" style="text-align: right;line-height: 24px;" class="mini">
+        <label>
+          Records per page</label>
+        <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
+          style="margin: 0 8px; font-family: regular; height: 24px;">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}
+        <button class="iigwo small"
+          style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+          (click)="paginacion.back();">
+          <mat-icon svgIcon="arrow-back"></mat-icon>
+        </button>
+        <button class="iigwo small"
+          style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+          (click)="paginacion.forward();">
+          <mat-icon svgIcon="arrow-forward"></mat-icon>
+        </button>
+      </td>
     </tr>
   </table>
 

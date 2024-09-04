@@ -81,6 +81,7 @@ export class DialogoUsuarioComponent implements OnInit {
 
   crear() {
     this.usuario.estatus = "1";
+    this.usuario.ausencia = false;
     console.log(this.usuario)
     this.cargando = true;
     this.usuariosService

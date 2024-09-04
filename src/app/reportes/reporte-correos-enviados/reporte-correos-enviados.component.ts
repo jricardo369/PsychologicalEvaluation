@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportesService } from 'src/app/services/reportes.service';
 import { UtilService } from 'src/app/services/util.service';
 import { ReporteCorreosEnviados } from 'src/model/reporte-correos-enviados';
+import { PaginationManager } from 'src/util/pagination';
 
 @Component({
   selector: 'app-reporte-correos-enviados',
@@ -13,6 +14,7 @@ export class ReporteCorreosEnviadosComponent implements OnInit {
   cargando: boolean = false;
 
   arrReporteCorreosEnviados: ReporteCorreosEnviados[] = [];
+  paginacion: PaginationManager = new PaginationManager();
   fechaF: string;
   fechaI: string = '2020-01-01';
 
@@ -37,6 +39,7 @@ export class ReporteCorreosEnviadosComponent implements OnInit {
     this.reportesService.obtenerCorreosEnviados(this.fechaI, this.fechaF)
       .then((reporteCorreosEnviados) => {
         this.arrReporteCorreosEnviados = reporteCorreosEnviados;
+        this.paginacion.setArray(this.arrReporteCorreosEnviados);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

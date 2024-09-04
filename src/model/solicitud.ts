@@ -53,4 +53,6 @@ export class Solicitud {
     referencia: string;
 
     apellidos: string;
+
+    usuarioRevisandoNombre: string;
 }

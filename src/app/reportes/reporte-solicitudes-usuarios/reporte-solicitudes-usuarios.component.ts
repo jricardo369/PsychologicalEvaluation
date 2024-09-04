@@ -2,6 +2,7 @@ import { ReportesService } from './../../services/reportes.service';
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { ReporteSolicitudesUsuarios } from 'src/model/reporte-solicitudes-usuarios';
+import { PaginationManager } from 'src/util/pagination';
 
 @Component({
     selector: 'app-reporte-solicitudes-usuarios',
@@ -13,6 +14,7 @@ export class ReporteSolicitudesUsuariosComponent implements OnInit {
     cargando: boolean = false;
 
     arrReporteSolicitudesUsuarios: ReporteSolicitudesUsuarios[] = [];
+    paginacion: PaginationManager = new PaginationManager();
     fechaF: string;
     fechaI: string = '2020-01-01';
 
@@ -37,6 +39,7 @@ export class ReporteSolicitudesUsuariosComponent implements OnInit {
         this.reportesService.obtenerUsersRequests(this.fechaI, this.fechaF)
             .then((reporteSolicitudesUsuarios) => {
                 this.arrReporteSolicitudesUsuarios = reporteSolicitudesUsuarios;
+                this.paginacion.setArray(this.arrReporteSolicitudesUsuarios);
             })
             .catch((reason) => this.utilService.manejarError(reason))
             .then(() => (this.cargando = false));
