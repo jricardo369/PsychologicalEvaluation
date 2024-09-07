@@ -64,6 +64,24 @@ export class SolicitudesService {
 		);
 	}
 
+  obtenerReporteSolicitudesFilters(idUsuario: number, valor: string): Promise<SolicitudList[]> {
+		return new Promise<SolicitudList[]>((resolve, reject) =>
+			this.http
+				.get(API_URL + "solicitudes/reporte-solicitudes-filters?idUsuario=" + idUsuario + "&valor=" + valor, {
+					withCredentials: true,
+					observe: "response",
+					headers: new HttpHeaders()
+						.append("Content-Type", "application/json")
+						.append("Authorization", localStorage.getItem("auth_token")),
+				})
+				.toPromise()
+				.then((response) => {
+					resolve(response.body as SolicitudList[]);
+				})
+				.catch((reason) => reject(reason))
+		);
+	}
+
 	// Response vacio
 	insertarSolicitud(idUsuario: number, solicitud: Solicitud, comentarios: string): Promise<any> {
 		let nuevaSolicitud = {

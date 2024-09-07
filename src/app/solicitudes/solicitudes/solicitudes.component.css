@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.left,
+.right {
+  flex: 1;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+  align-content: end;
+}
