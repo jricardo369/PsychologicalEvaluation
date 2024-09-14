@@ -85,13 +85,19 @@
         <textarea [(ngModel)]="usuario.resumen"></textarea>
       </div>
 
-      <div style="display:flex; margin-bottom: 12px;" *ngIf="!creando">
+      <div style="display:flex; margin-bottom: 12px;">
         <div style="min-width: 332px; margin-right: 12px;">
-          <div class="iigwo-input" style="margin: 0;">
+          <div class="iigwo-input" style="margin: 0;" *ngIf="!creando">
             <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
               id="ausencia" [checked]="usuario.ausencia" (change)="usuario.ausencia = !usuario.ausencia">
             <label for="ausencia"
               style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Absence</label>
+          </div>
+          <div class="iigwo-input" style="margin: 0;" *ngIf="usuario.rol == '4'">
+            <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
+              id="revisor" [checked]="usuario.revisor" (change)="usuario.revisor = !usuario.revisor">
+            <label for="revisor"
+              style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Reviewer</label>
           </div>
         </div>
       </div>

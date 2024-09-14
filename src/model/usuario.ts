@@ -20,4 +20,5 @@ export class Usuario {
     permisos: Permiso[];
 
     ausencia: boolean;
+    revisor: boolean;
 }

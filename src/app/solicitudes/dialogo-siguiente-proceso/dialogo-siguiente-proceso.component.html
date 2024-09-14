@@ -51,7 +51,7 @@
 
 <mat-dialog-actions>
   <button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Cancel</button>
-  <button class="iigwo accent" style="margin-right:0;" (click)='enviar()'>Send</button>
+  <button class="iigwo accent" style="margin-right:0;" [disabled]="!idDisponibilidadSelected" (click)='enviar()'>Send</button>
 </mat-dialog-actions>
 
 <!-- CARGANDO-->
