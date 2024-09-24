@@ -86,7 +86,7 @@
           </p>
           <button *ngIf='filters.length == 0' class="iigwo small" (click)="agregarFiltro()">Add filter</button>
         </div>
-        <div class="right" *ngIf="isTemplateCreator">
+        <div class="right" *ngIf="isTemplateCreator || isInterviewer">
           <div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">
             <div class="iigwo-input inline">
               <input placeholder="Enter a value" [(ngModel)]="inputValor">

@@ -19,7 +19,7 @@ export class Filter {
     providedIn: 'root'
 })
 export class UtilService {
-    
+
 
     appNavMenuHidden = true;
     workspaceNavMenuOpened = false;
@@ -180,7 +180,7 @@ export class UtilService {
     }
 
     /**
-     * 
+     *
      * @param titulo titulo a mostrar
      * @param texto texto a mostrar
      * @param okText texto de ok
@@ -205,7 +205,7 @@ export class UtilService {
                 texto: texto,
                 botones: botones,
             },
-            disableClose: false,
+            disableClose: true,
         });
         return dialogRef.afterClosed().toPromise();
     }
@@ -224,11 +224,11 @@ export class UtilService {
     }
 
     /**
-     * 
-     * @param titulo 
-     * @param texto 
-     * @param okText 
-     * @param noText 
+     *
+     * @param titulo
+     * @param texto
+     * @param okText
+     * @param noText
      * @param label etiqueta que aparece sobre el combobox
      * @param items combox items
      * @param displayField campo de los elementos del combobox para mostrar en la lista
@@ -253,13 +253,13 @@ export class UtilService {
                 comboboxDisplayField: displayField,
                 comboboxSublabel: sublabel
             },
-            disableClose: false,
+            disableClose: true,
         });
         return dialogRef.afterClosed().toPromise();
     }
 
     /**
-     * 
+     *
      * @param titulo titulo a mostrar
      * @param texto texto a mostrar
      * @param okText texto de ok
@@ -282,7 +282,7 @@ export class UtilService {
                 botones: botones,
                 fields: campos
             },
-            disableClose: false,
+            disableClose: true,
         });
         return dialogRef.afterClosed().toPromise();
     }

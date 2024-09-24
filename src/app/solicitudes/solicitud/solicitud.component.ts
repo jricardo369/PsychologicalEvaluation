@@ -18,6 +18,7 @@ import { ADMINISTRATOR, BACKOFFICE, INTERVIEWER, MASTER, TEMPLATE_CREATOR, VENDO
 import { EventosSolicitudComponent } from '../eventos-solicitud/eventos-solicitud.component';
 import { AdjuntosComponent } from '../adjuntos/adjuntos.component';
 import { MovimientosSolicitudComponent } from '../movimientos-solicitud/movimientos-solicitud.component';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: "app-solicitud",
@@ -67,6 +68,7 @@ export class SolicitudComponent implements OnInit {
     private tiposSolicitudService: TiposSolicitudService,
     private tiposPagoService: TiposPagoService,
     private scalesService: ScalesService,
+    private usuariosService: UsuariosService,
     private dialog: MatDialog
   ) {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
@@ -470,7 +472,7 @@ export class SolicitudComponent implements OnInit {
   cambiarEstatusSolicitud(idEstatusSolicitud: number, closed?: boolean) {
     switch (idEstatusSolicitud) {
       case 4: //Reject Request
-        this.dialog.open(DialogoSimpleComponent, {
+        /*this.dialog.open(DialogoSimpleComponent, {
           data: {
             titulo: 'Reject File',
             texto: 'Do you really want to reject the File?',
@@ -480,19 +482,43 @@ export class SolicitudComponent implements OnInit {
             ]
           },
           disableClose: true,
-        }).afterClosed().toPromise().then(valor => {
-          if (valor == 'ok') {
-            this.cargando = true;
-            this.solicitudesService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario)
-              .then(() => {
-                this.cargando = false;
-                this.goBack();
-              }).catch(e => {
-                this.utilService.manejarError(e);
-                this.cargando = false;
-              });
-          }
-        }).catch(reason => this.utilService.manejarError(reason));
+        }).afterClosed().toPromise()*/
+
+        let usuariosOptions: any[] = [];
+        this.cargando = true;
+        this.usuariosService.obtenerUsuariosPorRol("4").then(usuarios => {
+          usuarios.forEach(function (usuario) {
+            usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario });
+          })
+          this.cargando = false;
+        }).catch(e => {
+          this.utilService.manejarError(e);
+          this.cargando = false;
+        });
+
+        let campos = [];
+        campos.push({ label: "User", type: "select", placeholder: "select user", value: "", options: usuariosOptions });
+        campos.push({ label: "Rejection reason", type: "textarea", placeholder: "Enter your rejection reason", value: "", maxLength: 500});
+        this.utilService
+          .mostrarDialogoConFormulario(
+            "Reject File",
+            "Select user to notify",
+            "Send",
+            "Cancel",
+            campos
+          ).then(valor => {
+            if (valor == 'ok') {
+              this.cargando = true;
+              this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value)
+                .then(() => {
+                  this.cargando = false;
+                  this.goBack();
+                }).catch(e => {
+                  this.utilService.manejarError(e);
+                  this.cargando = false;
+                });
+            }
+          }).catch(reason => this.utilService.manejarError(reason));
         break;
       case 5: //No-show
         this.dialog.open(DialogoSimpleComponent, {
