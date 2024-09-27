@@ -162,7 +162,7 @@ export class UtilService {
             data: {
                 titulo: titulo,
                 texto: texto,
-                botones: [{ texto: 'Entendido', color: 'accent' },]
+                botones: [{ texto: 'Ok', color: 'accent' },]
             },
             disableClose: true,
         });
@@ -189,7 +189,7 @@ export class UtilService {
     mostrarDialogoSimple(
         titulo: string,
         texto: string,
-        okText: string = "Entendido",
+        okText: string = "Ok",
         noText: string = null,
         okOptionColor: string = "primary"): Promise<any> {
 
@@ -267,7 +267,7 @@ export class UtilService {
      * @param campos campos del formulario
      */
     mostrarDialogoConFormulario(
-        titulo: string, texto: string, okText: string = "Entendido", noText: string = null, campos: any[] = [], okColor = 'primary'): Promise<any> {
+        titulo: string, texto: string, okText: string = "Ok", noText: string = null, campos: any[] = [], okColor = 'primary'): Promise<any> {
 
         let botones = [
             { texto: okText, color: okColor, valor: 'ok' }

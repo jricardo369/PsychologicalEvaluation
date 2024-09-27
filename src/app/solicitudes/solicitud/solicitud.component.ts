@@ -470,21 +470,16 @@ export class SolicitudComponent implements OnInit {
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
-  asignarTemplate(){
+  asignarTemplate() {
     let usuariosOptions: any[] = [];
-        this.cargando = true;
-        this.usuariosService.obtenerUsuariosPorRol(7).then(usuarios => {
-          usuarios.forEach(function (usuario) {
-            usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario });
-          })
-          this.cargando = false;
-        }).catch(e => {
-          this.utilService.manejarError(e);
-          this.cargando = false;
-        });
+    this.cargando = true;
+    this.usuariosService.obtenerUsuariosPorRol(7).then(usuarios => {
+      this.cargando = false;
+      usuarios.forEach(usuario => usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario }));
 
+      if (usuariosOptions.length > 0) {
         let campos = [];
-        campos.push({ label: "User", type: "select", placeholder: "select user", value: "", options: usuariosOptions });
+        campos.push({ label: "User", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
         this.utilService
           .mostrarDialogoConFormulario(
             "Assign Template",
@@ -505,6 +500,13 @@ export class SolicitudComponent implements OnInit {
                 });
             }
           }).catch(reason => this.utilService.manejarError(reason));
+      } else {
+        this.utilService.mostrarDialogoSimple("Warning", "There are no templates available");
+      }
+    }).catch(e => {
+      this.utilService.manejarError(e);
+      this.cargando = false;
+    });
   }
 
   cambiarEstatusSolicitud(idEstatusSolicitud: number, closed?: boolean) {
@@ -525,38 +527,40 @@ export class SolicitudComponent implements OnInit {
         let usuariosOptions: any[] = [];
         this.cargando = true;
         this.usuariosService.obtenerUsuariosPorRol(4, 1).then(usuarios => {
-          usuarios.forEach(function (usuario) {
-            usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario });
-          })
           this.cargando = false;
+          usuarios.forEach(usuario => usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario }));
+
+          if (usuariosOptions.length > 0) {
+            let campos = [];
+            campos.push({ label: "User", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
+            campos.push({ label: "Rejection reason", type: "textarea", placeholder: "Enter your rejection reason", value: "", maxLength: 500 });
+            this.utilService
+              .mostrarDialogoConFormulario(
+                "Reject File",
+                "Select user to notify",
+                "Send",
+                "Cancel",
+                campos
+              ).then(valor => {
+                if (valor == 'ok') {
+                  this.cargando = true;
+                  this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value, true)
+                    .then(() => {
+                      this.cargando = false;
+                      this.goBack();
+                    }).catch(e => {
+                      this.utilService.manejarError(e);
+                      this.cargando = false;
+                    });
+                }
+              }).catch(reason => this.utilService.manejarError(reason));
+          } else {
+            this.utilService.mostrarDialogoSimple("Warning", "There are no users available");
+          }
         }).catch(e => {
           this.utilService.manejarError(e);
           this.cargando = false;
         });
-
-        let campos = [];
-        campos.push({ label: "User", type: "select", placeholder: "select user", value: "", options: usuariosOptions });
-        campos.push({ label: "Rejection reason", type: "textarea", placeholder: "Enter your rejection reason", value: "", maxLength: 500});
-        this.utilService
-          .mostrarDialogoConFormulario(
-            "Reject File",
-            "Select user to notify",
-            "Send",
-            "Cancel",
-            campos
-          ).then(valor => {
-            if (valor == 'ok') {
-              this.cargando = true;
-              this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value, true)
-                .then(() => {
-                  this.cargando = false;
-                  this.goBack();
-                }).catch(e => {
-                  this.utilService.manejarError(e);
-                  this.cargando = false;
-                });
-            }
-          }).catch(reason => this.utilService.manejarError(reason));
         break;
       case 5: //No-show
         this.dialog.open(DialogoSimpleComponent, {

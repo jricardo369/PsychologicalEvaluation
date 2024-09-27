@@ -34,8 +34,8 @@
             <textarea (change)="onFieldChange($event, f)" [placeholder]="f.placeholder"
                 *ngIf='f.type == "textarea"' style="max-width:396px; height:64px; min-width:396px;" [maxLength]="f.maxLength"></textarea>
 
-            <select (change)="onFieldChange($event, f)" *ngIf='f.type == "select"'>
-                <option *ngFor='let o of f.options' [value]="o.value">{{o.display}}</option>
+            <select [(ngModel)]="f.value" [ngModelOptions]="{standalone: true}" *ngIf='f.type == "select"'>
+                <option *ngFor='let o of f.options' [ngValue]="o.value">{{o.display}}</option>
             </select>
         </div>
     </form>
