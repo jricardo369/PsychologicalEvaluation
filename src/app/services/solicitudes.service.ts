@@ -175,10 +175,10 @@ export class SolicitudesService {
     );
   }
 
-  reasignarSolicitud(idSolicitud: number, idUsuarioEnvio: number, idUsuarioSeleccionado: number, motivo: string): Promise<any> {
+  reasignarSolicitud(idSolicitud: number, idUsuarioEnvio: number, idUsuarioSeleccionado: number, motivo: string, esRechazo: boolean = false): Promise<any> {
     return new Promise<any>((resolve, reject) =>
       this.http
-        .put(API_URL + "solicitudes/reasignar/" + idSolicitud + "/" + idUsuarioSeleccionado + "?idUsuarioEnvio=" + idUsuarioEnvio + "&motivo=" + motivo, {
+        .put(API_URL + "solicitudes/reasignar/" + idSolicitud + "/" + idUsuarioSeleccionado + "?idUsuarioEnvio=" + idUsuarioEnvio + (esRechazo ? "&motivo=" + motivo : ""), {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

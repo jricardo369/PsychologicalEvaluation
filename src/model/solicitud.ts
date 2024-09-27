@@ -55,4 +55,5 @@ export class Solicitud {
     apellidos: string;
 
     usuarioRevisandoNombre: string;
+    asignacionTemplate: boolean;
 }

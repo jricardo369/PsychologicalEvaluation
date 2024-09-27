@@ -248,10 +248,16 @@
             <label style="margin: auto;">Send Notifications</label>
           </button>
 
+          <button (click)='asignarTemplate()' class="btn" *ngIf="solicitud.idEstatusSolicitud == 2 && solicitud.asignacionTemplate == false"
+            style="color: #FFFFFF;background: #ef9d54; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+            <label style="margin: auto;">Assign Template</label>
+          </button>
+
           <br>
 
           <button (click)='cambiarEstatusSolicitud(4)' class="btn"
-            *ngIf="solicitud.idEstatusSolicitud == 3 && isBackOffice"
+            *ngIf="(solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && isBackOffice"
             style="color: #FFFFFF;background: #4094D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Reject File</label>

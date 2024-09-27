@@ -85,6 +85,7 @@ export class SolicitudComponent implements OnInit {
       if (codigo.toString() == "nueva-solicitud") {
         this.titulo = "New File";
         this.creando = true;
+        this.solicitud.asignacionTemplate = false;
         this.obtenerTiposSolicitud();
       } else {
         this.editando = true;
@@ -469,6 +470,43 @@ export class SolicitudComponent implements OnInit {
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
+  asignarTemplate(){
+    let usuariosOptions: any[] = [];
+        this.cargando = true;
+        this.usuariosService.obtenerUsuariosPorRol(7).then(usuarios => {
+          usuarios.forEach(function (usuario) {
+            usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario });
+          })
+          this.cargando = false;
+        }).catch(e => {
+          this.utilService.manejarError(e);
+          this.cargando = false;
+        });
+
+        let campos = [];
+        campos.push({ label: "User", type: "select", placeholder: "select user", value: "", options: usuariosOptions });
+        this.utilService
+          .mostrarDialogoConFormulario(
+            "Assign Template",
+            "Select user asign",
+            "Send",
+            "Cancel",
+            campos
+          ).then(valor => {
+            if (valor == 'ok') {
+              this.cargando = true;
+              this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, "")
+                .then(() => {
+                  this.cargando = false;
+                  this.obtenerSolicitud(this.solicitud.idSolicitud);
+                }).catch(e => {
+                  this.utilService.manejarError(e);
+                  this.cargando = false;
+                });
+            }
+          }).catch(reason => this.utilService.manejarError(reason));
+  }
+
   cambiarEstatusSolicitud(idEstatusSolicitud: number, closed?: boolean) {
     switch (idEstatusSolicitud) {
       case 4: //Reject Request
@@ -486,7 +524,7 @@ export class SolicitudComponent implements OnInit {
 
         let usuariosOptions: any[] = [];
         this.cargando = true;
-        this.usuariosService.obtenerUsuariosPorRol("4").then(usuarios => {
+        this.usuariosService.obtenerUsuariosPorRol(4, 1).then(usuarios => {
           usuarios.forEach(function (usuario) {
             usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario });
           })
@@ -509,7 +547,7 @@ export class SolicitudComponent implements OnInit {
           ).then(valor => {
             if (valor == 'ok') {
               this.cargando = true;
-              this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value)
+              this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value, true)
                 .then(() => {
                   this.cargando = false;
                   this.goBack();

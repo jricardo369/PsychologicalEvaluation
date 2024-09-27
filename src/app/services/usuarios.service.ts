@@ -29,10 +29,10 @@ export class UsuariosService {
     );
   }
 
-  obtenerUsuariosPorRol(rol: string): Promise<Usuario[]> {
+  obtenerUsuariosPorRol(rol: number, revisor: number = 0): Promise<Usuario[]> {
     return new Promise<Usuario[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "usuarios/por-rol/" + rol, {
+        .get(API_URL + "usuarios/por-rol/" + rol + (revisor > 0 ? "?revisor=" + revisor : ""), {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
