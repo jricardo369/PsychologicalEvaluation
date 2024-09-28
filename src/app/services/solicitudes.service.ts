@@ -157,6 +157,25 @@ export class SolicitudesService {
     );
   }
 
+  envioInterviewerScales(idSolicitud: number, idUsuarioCambio: number, idDisponibilidad: number): Promise<any> {
+    console.log(idDisponibilidad)
+    return new Promise<any>((resolve, reject) =>
+      this.http
+        .put(API_URL + "solicitudes/envio-interviewer-scales/" + idSolicitud + "?idUsuarioCambio=" + idUsuarioCambio + "&idDisponibilidad=" + idDisponibilidad, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
   actualizarEstatusSolicitud(idSolicitud: number, idEstatus: number, idUsuario: number, closed?: boolean): Promise<any> {
     return new Promise<any>((resolve, reject) =>
       this.http

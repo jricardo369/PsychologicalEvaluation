@@ -86,6 +86,10 @@ export class SolicitudComponent implements OnInit {
         this.titulo = "New File";
         this.creando = true;
         this.solicitud.asignacionTemplate = false;
+        this.solicitud.waiver = false;
+        this.solicitud.paralegalName = null;
+        this.solicitud.paralegalEmails = null;
+        this.solicitud.paralegalTelefonos = null;
         this.obtenerTiposSolicitud();
       } else {
         this.editando = true;
@@ -423,7 +427,8 @@ export class SolicitudComponent implements OnInit {
       this.dialog.open(DialogoSiguienteProcesoComponent, {
         data: {
           idSolicitud: this.solicitud.idSolicitud,
-          idUsuario: this.usuario.idUsuario
+          idUsuario: this.usuario.idUsuario,
+          interviewerScales: false
         },
         disableClose: true,
       }).afterClosed().toPromise().then(valor => {
@@ -456,6 +461,19 @@ export class SolicitudComponent implements OnInit {
       }).catch(reason => this.utilService.manejarError(reason));
     }
 
+  }
+
+  envioInterviewerScales() {
+    this.dialog.open(DialogoSiguienteProcesoComponent, {
+      data: {
+        idSolicitud: this.solicitud.idSolicitud,
+        idUsuario: this.usuario.idUsuario,
+        interviewerScales: true
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'enviado') this.goBack();
+    }).catch(reason => this.utilService.manejarError(reason));
   }
 
   enviarNotificaciones() {

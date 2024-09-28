@@ -159,6 +159,23 @@
               <label>Referral Source</label>
               <input type="text" [(ngModel)]="solicitud.referencia" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
+
+            <div class="iigwo-input" *ngIf="editando">
+              <label>Paralegal Name</label>
+              <input type="text" [(ngModel)]="solicitud.paralegalName" [readOnly]="solicitud.idEstatusSolicitud == 11">
+            </div>
+
+            <div class="iigwo-input" *ngIf="editando">
+              <label>Paralegal Emails</label>
+              <input type="text" [(ngModel)]="solicitud.paralegalEmails"
+                [readOnly]="solicitud.idEstatusSolicitud == 11">
+            </div>
+
+            <div class="iigwo-input" *ngIf="editando">
+              <label>Paralegal Phones</label>
+              <input type="text" [(ngModel)]="solicitud.paralegalTelefonos"
+                [readOnly]="solicitud.idEstatusSolicitud == 11">
+            </div>
           </div>
         </div>
 
@@ -232,6 +249,12 @@
           <span class="badge-status badge-color-important">{{solicitud.importante}}</span>
         </div>
 
+        <div class="iigwo-input" style="margin: 0;" *ngIf="editando">
+          <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 4px;"
+            id="waiver" [checked]="solicitud.waiver" (change)="solicitud.waiver = !solicitud.waiver">
+          <label for="waiver" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Waiver</label>
+        </div>
+
         <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud != 11">
           <h4 style="margin: 0; margin-top: 40px;">Actions</h4>
 
@@ -239,7 +262,14 @@
             *ngIf="solicitud.idEstatusSolicitud != 11 && solicitud.idEstatusSolicitud != 6"
             style="color: #FFFFFF; background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">Send to next process</label>
+            <label style="margin: auto;">{{solicitud.idEstatusSolicitud == 1 ? "Send to Interviewer" : "Send to next process"}}</label>
+          </button>
+
+          <button (click)='envioInterviewerScales()' class="btn"
+            *ngIf="solicitud.idEstatusSolicitud != 11"
+            style="color: #FFFFFF; background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+            <label style="margin: auto;">Send to Interviewer Scales</label>
           </button>
 
           <button (click)='enviarNotificaciones()' class="btn"
@@ -248,7 +278,8 @@
             <label style="margin: auto;">Send Notifications</label>
           </button>
 
-          <button (click)='asignarTemplate()' class="btn" *ngIf="solicitud.idEstatusSolicitud == 2 && solicitud.asignacionTemplate == false"
+          <button (click)='asignarTemplate()' class="btn"
+            *ngIf="solicitud.idEstatusSolicitud == 2 && solicitud.asignacionTemplate == false"
             style="color: #FFFFFF;background: #319757; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Assign Template</label>

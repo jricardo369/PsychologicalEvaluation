@@ -21,6 +21,7 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
   idDisponibilidadSelected: number = null;
   idSolicitud: number = null;
   idUsuario: number = null;
+  interviewerScales: boolean = false;
 
   constructor(
     private disponibilidadUsuariosService: DisponibilidadUsuariosService,
@@ -31,6 +32,7 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.idSolicitud = data.idSolicitud;
       this.idUsuario = data.idUsuario;
+      this.interviewerScales = data.interviewerScales;
   }
 
   ngOnInit(): void {
@@ -65,7 +67,8 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
     let disponibilidadSelected = this.arrDisponibilidadUsuario[this.arrDisponibilidadUsuario.findIndex(disponibilidad => disponibilidad.idDisponibilidad == this.idDisponibilidadSelected)];
     console.log(disponibilidadSelected)
     this.cargando = true;
-    this.solicitudesService.envioSiguienteProceso(this.idSolicitud, this.idUsuario, disponibilidadSelected.idDisponibilidad)
+    let choosePromise = this.interviewerScales ? this.solicitudesService.envioInterviewerScales(this.idSolicitud, this.idUsuario, disponibilidadSelected.idDisponibilidad) : this.solicitudesService.envioSiguienteProceso(this.idSolicitud, this.idUsuario, disponibilidadSelected.idDisponibilidad);
+    choosePromise
     .then(() => {
       this.cargando = false;
       this.cerrar('enviado');

@@ -56,4 +56,9 @@ export class Solicitud {
 
     usuarioRevisandoNombre: string;
     asignacionTemplate: boolean;
+
+    waiver: boolean;
+    paralegalName: string;
+    paralegalEmails: string;
+    paralegalTelefonos: string;
 }
