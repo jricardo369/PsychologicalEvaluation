@@ -9,10 +9,10 @@ import { DisponibilidadUsuario } from "src/model/disponibilidad-usuario";
 export class DisponibilidadUsuariosService {
 	constructor(private http: HttpClient) { }
 
-	obtenerDisponibilidadUsuariosPorDia(fecha: string): Promise<DisponibilidadUsuario[]> {
+	obtenerDisponibilidadUsuariosPorDia(fecha: string, rol: number): Promise<DisponibilidadUsuario[]> {
 		return new Promise<DisponibilidadUsuario[]>((resolve, reject) =>
 			this.http
-				.get(API_URL + "disponibilidad-usuarios/de-dia/" + fecha, {
+				.get(API_URL + "disponibilidad-usuarios/de-dia/" + fecha + "?rol=" + rol, {
 					withCredentials: true,
 					observe: "response",
 					headers: new HttpHeaders()
