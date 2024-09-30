@@ -6,7 +6,7 @@
 
     <app-experimental-menu titulo="Files">
 
-      <button (click)='crearSolicitud()' *ngIf="!(isInterviewer)"
+      <button (click)='crearSolicitud()' *ngIf="!(isInterviewer || isInterviewerScales)"
         style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="add-box"></mat-icon>
         <label>Create File</label>
@@ -38,7 +38,7 @@
             <div class="iigwo-input inline">
               <select [(ngModel)]="f.campo">
                 <option value="file">File</option>
-                <option value="creationDate" *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</option>
+                <option value="creationDate" *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">Creation Date</option>
                 <option value="edad">Age</option>
                 <option value="asignado" *ngIf="isMaster">Assigned</option>
                 <option value="cliente">Customer Name</option>
@@ -48,7 +48,7 @@
                 <option value="importancia">Importance</option>
                 <option value="estatusPago">Payment Status</option>
                 <option value="estatusSolicitud">File Status</option>
-                <option value="horario" *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</option>
+                <option value="horario" *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">Schedule Time</option>
               </select>
             </div>
 
@@ -86,7 +86,7 @@
           </p>
           <button *ngIf='filters.length == 0' class="iigwo small" (click)="agregarFiltro()">Add filter</button>
         </div>
-        <div class="right" *ngIf="isTemplateCreator || isInterviewer">
+        <div class="right" *ngIf="isTemplateCreator || isInterviewer || isInterviewerScales">
           <div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">
             <div class="iigwo-input inline">
               <input placeholder="Enter a value" [(ngModel)]="inputValor">
@@ -110,7 +110,7 @@
           <tr>
             <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()" (change)="checkAll($event)"></th>
             <th class=''>File</th>
-            <th class='' *ngIf="!(isInterviewer || isTemplateCreator)">Creation Date</th>
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">Creation Date</th>
             <th class=''>Age</th>
             <th class='' *ngIf="isMaster">Assigned</th>
             <th class=''>Customer Name</th>
@@ -119,15 +119,15 @@
             <th class=''>Additional</th>
             <th class=''>Email</th>
             <th class=''>Importance</th>
-            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC)">Payment Status</th>
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">Payment Status</th>
             <th class=''>File Status</th>
-            <th class='' *ngIf="isMaster || isBackOffice || isInterviewer">Schedule Time</th>
+            <th class='' *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">Schedule Time</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
             <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
                 (change)="check($event, e.idSolicitud)"></td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
-            <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator)">{{e.fechaInicio | dateYYYYMMDD}}</td>
+            <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">{{e.fechaInicio | dateYYYYMMDD}}</td>
             <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.age == 0,
                             'badge-color-1': e.age <= 1,
                             'badge-color-2': e.age == 2,
@@ -140,7 +140,7 @@
             <td class='accent'>{{e.email}}</td>
             <td style="text-align: center;"><span class="badge-status badge-color-important" style="margin: 0;"
                 *ngIf="e.importante.length > 0">{{e.importante}}</span></td>
-            <td style="text-align: center;" *ngIf="!(isInterviewer || isTemplateCreator || isVOC)"><span
+            <td style="text-align: center;" *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)"><span
                 class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
                             'badge-color-complete': e.idEstatusPago == 2,
                             'badge-color-hold': e.idEstatusPago == 3,
@@ -156,7 +156,7 @@
 								'badge-color-open': e.idEstatusSolicitud == 9,
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11}">{{e.estatusSolicitud}}</span></td>
-            <td class='accent' *ngIf="isMaster || isBackOffice || isInterviewer">{{e.fecha_schedule | dateYYYYMMDD}}
+            <td class='accent' *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">{{e.fecha_schedule | dateYYYYMMDD}}
             </td>
           </tr>
 

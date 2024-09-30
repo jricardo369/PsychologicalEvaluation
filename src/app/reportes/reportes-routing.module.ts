@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AppBarNavItem } from '../app-nav-item';
 import { Routes, RouterModule } from '@angular/router';
-import { BACKOFFICE, INTERVIEWER, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from '../app.config';
+import { BACKOFFICE, MASTER } from '../app.config';
 import { ReporteSolicitudesUsuariosComponent } from './reporte-solicitudes-usuarios/reporte-solicitudes-usuarios.component';
 import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/reporte-correos-enviados.component';
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';

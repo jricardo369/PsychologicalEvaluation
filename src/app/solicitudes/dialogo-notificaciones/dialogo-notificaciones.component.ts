@@ -1,7 +1,7 @@
 import { NotificacionesService } from './../../services/notificaciones.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ADMINISTRATOR, BACKOFFICE, INTERVIEWER, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
 import { UtilService } from 'src/app/services/util.service';
 import { Notificacion } from 'src/model/notificacion';
 import { Usuario } from 'src/model/usuario';
@@ -26,6 +26,7 @@ export class DialogoNotificacionesComponent implements OnInit {
   isInterviewer: boolean = false;
   isVOC: boolean = false;
   isTemplateCreator: boolean = false;
+  isInterviewerScales: boolean = false;
 
   public fileNotificacion: File[] = [];
 
@@ -50,6 +51,7 @@ export class DialogoNotificacionesComponent implements OnInit {
     this.isInterviewer = this.usuario.rol == INTERVIEWER ? true : false;
     this.isVOC = this.usuario.rol == VOC ? true : false;
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
+    this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
   }
 
   ngOnInit(): void {

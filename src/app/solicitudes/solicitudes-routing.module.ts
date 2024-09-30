@@ -4,7 +4,7 @@ import { AppBarNavItem } from '../app-nav-item';
 import { Routes, RouterModule } from '@angular/router';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
-import { BACKOFFICE, INTERVIEWER, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from '../app.config';
+import { BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from '../app.config';
 
 const routes: Routes = [
 	{ path: 'solicitudes', component: SolicitudesComponent, },
@@ -20,7 +20,7 @@ const MODULE: AppBarNavItem = {
 	subtitle: null,
 	uri: 'solicitudes',
 	svgName: 'assignment',
-	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR].some(rol => rol == u.rol)
+	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES].some(rol => rol == u.rol)
 };
 
 export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
@@ -30,7 +30,7 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		title: 'Files',
 		subtitle: 'Manage Files',
 		uri: 'solicitudes',
-		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES].some(rol => rol == u.rol)
 	},
 ]
 

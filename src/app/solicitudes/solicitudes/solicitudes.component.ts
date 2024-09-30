@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADMINISTRATOR, BACKOFFICE, INTERVIEWER, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { Filter, UtilService } from 'src/app/services/util.service';
 import { Solicitud } from 'src/model/solicitud';
@@ -34,6 +34,7 @@ export class SolicitudesComponent implements OnInit {
   isInterviewer: boolean = false;
   isVOC: boolean = false;
   isTemplateCreator: boolean = false;
+  isInterviewerScales: boolean = false;
 
   inputValor: string = "";
 
@@ -50,6 +51,7 @@ export class SolicitudesComponent implements OnInit {
     this.isInterviewer = this.usuario.rol == INTERVIEWER ? true : false;
     this.isVOC = this.usuario.rol == VOC ? true : false;
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
+    this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
   }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AppBarNavItem } from '../app-nav-item';
 import { Routes, RouterModule } from '@angular/router';
-import { BACKOFFICE, INTERVIEWER, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from '../app.config';
+import { INTERVIEWER, INTERVIEWER_SCALES } from '../app.config';
 import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component';
 
 const routes: Routes = [
@@ -16,7 +16,7 @@ const MODULE: AppBarNavItem = {
 	subtitle: null,
 	uri: 'planificacion',
 	svgName: 'planning',
-	isVisibleFor: u => [INTERVIEWER].some(rol => rol == u.rol)
+	isVisibleFor: u => [INTERVIEWER, INTERVIEWER_SCALES].some(rol => rol == u.rol)
 };
 
 export const PLANIFICACION_ITEMS: AppBarNavItem[] = [
@@ -26,7 +26,7 @@ export const PLANIFICACION_ITEMS: AppBarNavItem[] = [
 		title: 'Availability',
 		subtitle: 'Manage availability',
 		uri: 'disponibilidad',
-		isVisibleFor: u => [INTERVIEWER].some(rol => rol == u.rol)
+		isVisibleFor: u => [INTERVIEWER, INTERVIEWER_SCALES].some(rol => rol == u.rol)
 	},
 ]
 

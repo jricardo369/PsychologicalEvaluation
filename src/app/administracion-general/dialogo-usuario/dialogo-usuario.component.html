@@ -77,10 +77,11 @@
           <option value="5">Interviewer</option>
           <option value="6">VOC</option>
           <option value="7">Template Creator</option>
+          <option value="8">Interviewer Scales</option>
         </select>
       </div>
 
-      <div class="iigwo-input" *ngIf="usuario.rol == '5'">
+      <div class="iigwo-input" *ngIf="usuario.rol == '5' || usuario.rol == '8'">
         <label>Summary</label>
         <textarea [(ngModel)]="usuario.resumen"></textarea>
       </div>

@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Notification</h2>
 
 <mat-dialog-content style="width: 320px;">
-    <div class="iigwo-input" *ngIf="!(isInterviewer || isTemplateCreator)">
+    <div class="iigwo-input" *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">
         <label>Layout</label>
         <select [(ngModel)]="notificacion.layout" (change)="changeLayout()">
             <option ngValue="" selected></option>
