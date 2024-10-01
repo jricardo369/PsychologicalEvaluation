@@ -221,6 +221,14 @@
         </div>
 
         <div class="iigwo-input">
+          <label>Interview Scale</label>
+          <input [ngModel]="solicitud.asignacionIntScNombre" readOnly style="font-weight: 600;" *ngIf="solicitud.asignacionIntScNombre else notIntSc">
+          <ng-template #notIntSc>
+            <input value="Unassigned" readOnly>
+          </ng-template>
+        </div>
+
+        <div class="iigwo-input">
           <label>File Status</label>
           <span class="badge-status" [ngClass]="{'badge-color-received': solicitud.idEstatusSolicitud == 1,
                     'badge-color-reviewing': solicitud.idEstatusSolicitud == 2,
@@ -266,7 +274,7 @@
           </button>
 
           <button (click)='envioInterviewerScales()' class="btn"
-            *ngIf="solicitud.idEstatusSolicitud != 11"
+            *ngIf="solicitud.idEstatusSolicitud != 11 && (isMaster || isVendor || isBackOffice) && solicitud.asignacionIntSc == false"
             style="color: #FFFFFF; background: #40A4D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Send to Interviewer Scales</label>
@@ -288,13 +296,13 @@
           <br>
 
           <button (click)='cambiarEstatusSolicitud(4)' class="btn"
-            *ngIf="(solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && isBackOffice"
+            *ngIf="(solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && (isBackOffice || isInterviewer || isInterviewerScales)"
             style="color: #FFFFFF;background: #4094D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Reject File</label>
           </button>
 
-          <button (click)='cambiarEstatusSolicitud(5)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 3"
+          <button (click)='cambiarEstatusSolicitud(5)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 3 || isInterviewerScales"
             style="color: #FFFFFF;background: #EAB570; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">No-show</label>

@@ -346,7 +346,7 @@ export class SolicitudComponent implements OnInit {
     Promise.all([
       this.tiposSolicitudService.obtenerTiposSolicitud(),
       this.tiposPagoService.obtenerTiposPago(),
-      this.solicitudesService.obtenerSolicitud(idSolicitud),
+      this.solicitudesService.obtenerSolicitud(idSolicitud, this.usuario.idUsuario),
       this.scalesService.obtenerScalesSolicitud(idSolicitud)
     ])
       .then((results) => {

@@ -10,10 +10,10 @@ import { SolicitudList } from "src/model/solicitud-list";
 export class SolicitudesService {
   constructor(private http: HttpClient) { }
 
-  obtenerSolicitud(idSolicitud: number): Promise<Solicitud> {
+  obtenerSolicitud(idSolicitud: number, idUsuario: number): Promise<Solicitud> {
     return new Promise<Solicitud>((resolve, reject) =>
       this.http
-        .get(API_URL + "solicitudes/solicitud-por-id/" + idSolicitud, {
+        .get(API_URL + "solicitudes/solicitud-por-id/" + idSolicitud + "?idUsuario=" + idUsuario, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
