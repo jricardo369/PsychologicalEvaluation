@@ -425,7 +425,7 @@ export class SolicitudComponent implements OnInit {
   }
 
   siguienteProceso() {
-    if (this.solicitud.idEstatusSolicitud == 1) {
+    if (this.solicitud.idEstatusSolicitud == 1 && !this.isInterviewerScales) {
       this.dialog.open(DialogoSiguienteProcesoComponent, {
         data: {
           idSolicitud: this.solicitud.idSolicitud,
@@ -474,7 +474,7 @@ export class SolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'enviado') this.goBack();
+      if (valor == 'enviado') this.obtenerSolicitud(this.solicitud.idSolicitud);
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
