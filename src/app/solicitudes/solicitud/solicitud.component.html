@@ -222,7 +222,7 @@
 
         <div class="iigwo-input">
           <label>Interview Scale</label>
-          <input [ngModel]="solicitud.asignacionIntScNombre" readOnly style="font-weight: 600;" *ngIf="solicitud.asignacionIntScNombre else notIntSc">
+          <input [ngModel]="solicitud.usuarioIntScNombre" readOnly style="font-weight: 600;" *ngIf="solicitud.usuarioIntScNombre else notIntSc">
           <ng-template #notIntSc>
             <input value="Unassigned" readOnly>
           </ng-template>
@@ -296,7 +296,7 @@
           <br>
 
           <button (click)='cambiarEstatusSolicitud(4)' class="btn"
-            *ngIf="(solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && (isBackOffice || isInterviewer || isInterviewerScales)"
+            *ngIf="((solicitud.idEstatusSolicitud == 1 && isInterviewerScales) || solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && (isBackOffice || isInterviewer || isInterviewerScales)"
             style="color: #FFFFFF;background: #4094D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Reject File</label>
@@ -308,13 +308,13 @@
             <label style="margin: auto;">No-show</label>
           </button>
 
-          <button (click)='cambiarEstatusSolicitud(8)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
+          <button (click)='cambiarEstatusSolicitud(8)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1 && !isInterviewerScales"
             style="color: #FFFFFF;background: #3CB371; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Won</label>
           </button>
 
-          <button (click)='cambiarEstatusSolicitud(7)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
+          <button (click)='cambiarEstatusSolicitud(7)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1 && !isInterviewerScales"
             style="color: #FFFFFF;background: #F3A787; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Lost</label>

@@ -63,5 +63,5 @@ export class Solicitud {
     paralegalTelefonos: string;
 
     asignacionIntSc: boolean;
-    asignacionIntScNombre: string;
+    usuarioIntScNombre: string;
 }
