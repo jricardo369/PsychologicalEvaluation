@@ -48,7 +48,7 @@
                 (input)="onPhoneNumberInput($event.target.value)" placeholder="(###) ###-####" maxlength="14">
             </div>
 
-            <div class="iigwo-input" *ngIf="!(isInterviewer || isInterviewerScales)">
+            <div class="iigwo-input" *ngIf="!(isInterviewer)">
               <label>Email</label>
               <input type="email" [(ngModel)]="solicitud.email" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
@@ -77,7 +77,7 @@
               <input type="text" [(ngModel)]="solicitud.abogado" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="!(isInterviewer || isInterviewerScales)">
+            <div class="iigwo-input" *ngIf="!(isInterviewer)">
               <label>Paralegal's Email</label>
               <input type="email" [(ngModel)]="solicitud.email_abogado" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
@@ -103,7 +103,7 @@
               </div>
             </div>
 
-            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
+            <div class="iigwo-input" *ngIf="editando && !(isInterviewer)">
               <label>Scales</label>
               <!-- <input type="text" [(ngModel)]="solicitud.cliente"> -->
               <div class="input-row" style="margin-bottom: 4px;" *ngIf="solicitud.idEstatusSolicitud != 11">
@@ -160,18 +160,18 @@
               <input type="text" [(ngModel)]="solicitud.referencia" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="editando">
+            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
               <label>Paralegal Name</label>
               <input type="text" [(ngModel)]="solicitud.paralegalName" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="editando">
+            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
               <label>Paralegal Emails</label>
               <input type="text" [(ngModel)]="solicitud.paralegalEmails"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="editando">
+            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
               <label>Paralegal Phones</label>
               <input type="text" [(ngModel)]="solicitud.paralegalTelefonos"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">

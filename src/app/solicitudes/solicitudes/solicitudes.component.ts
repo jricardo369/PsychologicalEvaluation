@@ -150,6 +150,7 @@ export class SolicitudesComponent implements OnInit {
           case 'estatusPago': v = r.estatusPago; break;
           case 'estatusSolicitud': v = r.estatusSolicitud; break;
           case 'horario': v = r.fecha_schedule; break;
+          case 'horarioScales': v = r.fecha_schedule_scales; break;
         }
 
         switch (f.operador) {

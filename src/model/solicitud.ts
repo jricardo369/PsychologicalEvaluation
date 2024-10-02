@@ -64,4 +64,6 @@ export class Solicitud {
 
     asignacionIntSc: boolean;
     usuarioIntScNombre: string;
+
+    fecha_schedule_scales: Date;
 }

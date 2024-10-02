@@ -27,5 +27,5 @@ export class SolicitudList {
     usuarioRevisor: string;
     usuarioRevisando: string;
     idUsuarioRevisando: number;
-
+    fecha_schedule_scales: Date;
 }

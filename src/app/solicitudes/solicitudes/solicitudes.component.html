@@ -48,7 +48,8 @@
                 <option value="importancia">Importance</option>
                 <option value="estatusPago">Payment Status</option>
                 <option value="estatusSolicitud">File Status</option>
-                <option value="horario" *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">Schedule Time</option>
+                <option value="horario" *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">Interview Appointment</option>
+                <option value="horarioScales">Schedule Scales</option>
               </select>
             </div>
 
@@ -86,7 +87,7 @@
           </p>
           <button *ngIf='filters.length == 0' class="iigwo small" (click)="agregarFiltro()">Add filter</button>
         </div>
-        <div class="right" *ngIf="isTemplateCreator || isInterviewer || isInterviewerScales">
+        <div class="right">
           <div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">
             <div class="iigwo-input inline">
               <input placeholder="Enter a value" [(ngModel)]="inputValor">
@@ -121,7 +122,8 @@
             <th class=''>Importance</th>
             <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">Payment Status</th>
             <th class=''>File Status</th>
-            <th class='' *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">Schedule Time</th>
+            <th class='' *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">Interview Appointment</th>
+            <th class=''>Schedule Scales</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
             <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
@@ -157,6 +159,7 @@
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11}">{{e.estatusSolicitud}}</span></td>
             <td class='accent' *ngIf="isMaster || isBackOffice || isInterviewer || isInterviewerScales">{{e.fecha_schedule | dateYYYYMMDD}}
+              <td class='accent'>{{e.fecha_schedule_scales | dateYYYYMMDD}}
             </td>
           </tr>
 
