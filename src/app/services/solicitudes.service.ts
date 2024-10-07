@@ -97,7 +97,9 @@ export class SolicitudesService {
       comentario: comentarios,
       fechaNacimiento: solicitud.fechaNacimiento,
       adicional: solicitud.adicional,
-      apellidos: solicitud.apellidos
+      apellidos: solicitud.apellidos,
+      external: solicitud.external,
+      usuarioExternal: solicitud.usuarioExternal
     }
 
     let params = new HttpParams();

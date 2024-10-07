@@ -66,4 +66,7 @@ export class Solicitud {
     usuarioIntScNombre: string;
 
     fecha_schedule_scales: Date;
+
+    external: boolean;
+    usuarioExternal: number;
 }

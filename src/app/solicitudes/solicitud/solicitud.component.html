@@ -4,7 +4,8 @@
 <div class='workspace'>
   <div class='main'>
     <app-experimental-menu [titulo]="titulo" backButtonEnabled="true">
-      <span class="badge-status badge-color-schedule-title" *ngIf="(isInterviewer || isInterviewerScales) && solicitud.fecha_schedule">Schedule
+      <span class="badge-status badge-color-schedule-title"
+        *ngIf="(isInterviewer || isInterviewerScales) && solicitud.fecha_schedule">Schedule
         {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
     </app-experimental-menu>
 
@@ -124,6 +125,21 @@
                 </span>
               </div>
             </div>
+
+            <div class="iigwo-input" *ngIf="creando">
+              <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 4px;"
+                id="external" [checked]="solicitud.external" (change)="usuarioExternalChange()">
+              <label for="external" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">External
+                File</label>
+            </div>
+
+            <div class="iigwo-input" *ngIf="creando && solicitud.external">
+              <label>Partner Customer</label>
+              <select [(ngModel)]="solicitud.usuarioExternal" [ngModelOptions]="{standalone: true}"
+                [disabled]="solicitud.idEstatusSolicitud == 11">
+                <option *ngFor='let o of arrUsuariosExternal' [ngValue]="o.idUsuario">{{o.nombreUsuario}}</option>
+              </select>
+            </div>
           </div>
           <div class="column">
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
@@ -222,7 +238,8 @@
 
         <div class="iigwo-input">
           <label>Interview Scale</label>
-          <input [ngModel]="solicitud.usuarioIntScNombre" readOnly style="font-weight: 600;" *ngIf="solicitud.usuarioIntScNombre else notIntSc">
+          <input [ngModel]="solicitud.usuarioIntScNombre" readOnly style="font-weight: 600;"
+            *ngIf="solicitud.usuarioIntScNombre else notIntSc">
           <ng-template #notIntSc>
             <input value="Unassigned" readOnly>
           </ng-template>
@@ -243,13 +260,15 @@
                     'badge-color-closed': solicitud.idEstatusSolicitud == 11}">{{solicitud.estatusSolicitud}}</span>
         </div>
 
-        <div class="iigwo-input" *ngIf="solicitud.idEstatusSolicitud != 6 && !(isTemplateCreator || isInterviewer || isInterviewerScales)">
+        <div class="iigwo-input"
+          *ngIf="solicitud.idEstatusSolicitud != 6 && !(isTemplateCreator || isInterviewer || isInterviewerScales)">
           <label>Payment Status</label>
           <span class="badge-status" [ngClass]="{'badge-color-partially': solicitud.idEstatusPago == 1,
                     'badge-color-complete': solicitud.idEstatusPago == 2,
                     'badge-color-hold': solicitud.idEstatusPago == 3,
                     'badge-color-na': solicitud.idEstatusPago == 4}">{{solicitud.estatusPago}}</span>
-          <input [ngModel]="solicitud.adeudo" readOnly *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">
+          <input [ngModel]="solicitud.adeudo" readOnly
+            *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">
         </div>
 
         <div class="iigwo-input" *ngIf="solicitud.importante.length > 0">
@@ -302,19 +321,22 @@
             <label style="margin: auto;">Reject File</label>
           </button>
 
-          <button (click)='cambiarEstatusSolicitud(5)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 3 || isInterviewerScales"
+          <button (click)='cambiarEstatusSolicitud(5)' class="btn"
+            *ngIf="solicitud.idEstatusSolicitud == 3 || isInterviewerScales"
             style="color: #FFFFFF;background: #EAB570; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">No-show</label>
           </button>
 
-          <button (click)='cambiarEstatusSolicitud(8)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1 && !isInterviewerScales"
+          <button (click)='cambiarEstatusSolicitud(8)' class="btn"
+            *ngIf="solicitud.idEstatusSolicitud == 1 && !isInterviewerScales"
             style="color: #FFFFFF;background: #3CB371; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Won</label>
           </button>
 
-          <button (click)='cambiarEstatusSolicitud(7)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1 && !isInterviewerScales"
+          <button (click)='cambiarEstatusSolicitud(7)' class="btn"
+            *ngIf="solicitud.idEstatusSolicitud == 1 && !isInterviewerScales"
             style="color: #FFFFFF;background: #F3A787; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Lost</label>

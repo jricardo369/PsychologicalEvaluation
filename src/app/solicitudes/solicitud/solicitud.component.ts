@@ -58,6 +58,7 @@ export class SolicitudComponent implements OnInit {
   isGhostwriting: boolean = false;
 
   arrStates: any[] = [];
+  arrUsuariosExternal: Usuario[] = [];
 
   @ViewChild(EventosSolicitudComponent, { static: false }) eventosSolicitudComponent: EventosSolicitudComponent;
   @ViewChild(AdjuntosComponent, { static: false }) adjuntosComponent: AdjuntosComponent;
@@ -95,6 +96,7 @@ export class SolicitudComponent implements OnInit {
         this.solicitud.paralegalEmails = null;
         this.solicitud.paralegalTelefonos = null;
         this.obtenerTiposSolicitud();
+        this.solicitud.external = false;
       } else {
         this.editando = true;
         this.obtenerSolicitud(Number.parseInt(codigo));
@@ -712,5 +714,20 @@ export class SolicitudComponent implements OnInit {
       trimmedValue = `(${trimmedValue.slice(0, 3)}) ${trimmedValue.slice(3)}`;
     }
     this.solicitud.telefono = trimmedValue;
+  }
+
+  usuarioExternalChange() {
+    this.solicitud.external = !this.solicitud.external;
+
+    if(this.solicitud.external) {
+      this.cargando = true;
+      this.usuariosService.obtenerUsuariosPorRol(9).then(usuariosExternal => {
+        this.cargando = false;
+        this.arrUsuariosExternal = usuariosExternal;
+      }).catch(e => {
+        this.utilService.manejarError(e);
+        this.cargando = false;
+      });
+    }
   }
 }
