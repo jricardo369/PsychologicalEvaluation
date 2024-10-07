@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { API_URL } from "../app.config";
 import { Solicitud } from "src/model/solicitud";
 import { SolicitudList } from "src/model/solicitud-list";
+import { SolicitudTelefono } from "src/model/solicitud-telefono";
 
 @Injectable({
   providedIn: "root",
@@ -59,6 +60,24 @@ export class SolicitudesService {
         .toPromise()
         .then((response) => {
           resolve(response.body as SolicitudList[]);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
+  obtenerSolicitudesDeTelefono(telefono: string): Promise<SolicitudTelefono[]> {
+    return new Promise<SolicitudTelefono[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "solicitudes/solicitudes-de-telefono/" + telefono, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as SolicitudTelefono[]);
         })
         .catch((reason) => reject(reason))
     );

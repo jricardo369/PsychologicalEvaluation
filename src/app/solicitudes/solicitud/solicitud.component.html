@@ -44,9 +44,11 @@
             </div>
 
             <div class="iigwo-input">
-              <label>Phone</label>
-              <input type="text" [(ngModel)]="solicitud.telefono" [readOnly]="solicitud.idEstatusSolicitud == 11"
-                (input)="onPhoneNumberInput($event.target.value)" placeholder="(###) ###-####" maxlength="14">
+              <div class="wrapper">
+                <label>Phone<a (click)="validatePhone()">Validate Phone</a></label>
+                <input type="text" [(ngModel)]="solicitud.telefono" [readOnly]="solicitud.idEstatusSolicitud == 11"
+                  (input)="onPhoneNumberInput($event.target.value)" placeholder="(###) ###-####" maxlength="14">
+              </div>
             </div>
 
             <div class="iigwo-input" *ngIf="!(isInterviewer)">

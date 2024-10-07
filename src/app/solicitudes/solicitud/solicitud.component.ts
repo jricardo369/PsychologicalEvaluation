@@ -19,6 +19,7 @@ import { EventosSolicitudComponent } from '../eventos-solicitud/eventos-solicitu
 import { AdjuntosComponent } from '../adjuntos/adjuntos.component';
 import { MovimientosSolicitudComponent } from '../movimientos-solicitud/movimientos-solicitud.component';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { DialogoSolicitudTelefonoComponent } from '../dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 
 @Component({
   selector: "app-solicitud",
@@ -729,5 +730,16 @@ export class SolicitudComponent implements OnInit {
         this.cargando = false;
       });
     }
+  }
+
+  validatePhone() {
+    this.dialog.open(DialogoSolicitudTelefonoComponent, {
+      data: {
+        telefono: this.solicitud.telefono
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'vacio') this.utilService.mostrarDialogoSimple("Warning", "No files were found with this phone.");
+    }).catch(reason => this.utilService.manejarError(reason));
   }
 }

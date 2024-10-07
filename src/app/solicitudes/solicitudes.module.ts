@@ -18,6 +18,7 @@ import { DialogoMovimientoSolicitudComponent } from './dialogo-movimiento-solici
 import { DialogoSiguienteProcesoComponent } from './dialogo-siguiente-proceso/dialogo-siguiente-proceso.component';
 import { DialogoNotificacionesComponent } from './dialogo-notificaciones/dialogo-notificaciones.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { DialogoSolicitudTelefonoComponent } from './dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 
 @NgModule({
 	imports: [
@@ -36,6 +37,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     DialogoMovimientoSolicitudComponent,
     DialogoSiguienteProcesoComponent,
     DialogoNotificacionesComponent,
+    DialogoSolicitudTelefonoComponent,
 	],
 	declarations: [
 		SolicitudesNavComponent,
@@ -48,6 +50,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 		DialogoMovimientoSolicitudComponent,
 		DialogoSiguienteProcesoComponent,
 		DialogoNotificacionesComponent,
+		DialogoSolicitudTelefonoComponent,
 	],
 	exports: [
 		EventosSolicitudComponent,
