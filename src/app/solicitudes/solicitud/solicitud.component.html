@@ -202,7 +202,7 @@
 
         <!-- MOVIMIENTOS DE LA SOLICITUD -->
         <div style="display:flex; flex-flow: row;"
-          *ngIf="solicitud.idSolicitud && (isMaster || isVendor || isBackOffice) && solicitud.idEstatusSolicitud != 6">
+          *ngIf="solicitud.idSolicitud && (isMaster || isVendor || isBackOffice || isGhostwriting) && solicitud.idEstatusSolicitud != 6">
           <app-movimientos-solicitud [idSolicitud]="solicitud.idSolicitud" [idUsuario]="usuario.idUsuario"
             [idEstatusSolicitud]="solicitud.idEstatusSolicitud"></app-movimientos-solicitud>
         </div>
@@ -215,7 +215,7 @@
           <input [ngModel]="solicitud.fechaInicio | date:'yyyy/MM/dd':'':'en'" readOnly>
         </div>
 
-        <div class="iigwo-input" *ngIf="(isMaster || isVendor || isBackOffice)">
+        <div class="iigwo-input" *ngIf="(isMaster || isVendor || isBackOffice || isGhostwriting)">
           <label>Responsible User</label>
           <input [ngModel]="solicitud.usuarioRevisandoNombre" readOnly style="font-weight: 600;">
         </div>
@@ -274,7 +274,7 @@
           </button>
 
           <button (click)='envioInterviewerScales()' class="btn"
-            *ngIf="solicitud.idEstatusSolicitud != 11 && (isMaster || isVendor || isBackOffice) && solicitud.asignacionIntSc == false"
+            *ngIf="solicitud.idEstatusSolicitud != 11 && (isMaster || isVendor || isBackOffice || isGhostwriting) && solicitud.asignacionIntSc == false"
             style="color: #FFFFFF; background: #40A4D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Send to Interviewer Scales</label>
@@ -296,7 +296,7 @@
           <br>
 
           <button (click)='cambiarEstatusSolicitud(4)' class="btn"
-            *ngIf="((solicitud.idEstatusSolicitud == 1 && isInterviewerScales) || solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && (isBackOffice || isInterviewer || isInterviewerScales)"
+            *ngIf="((solicitud.idEstatusSolicitud == 1 && isInterviewerScales) || solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && (isBackOffice || isInterviewer || isInterviewerScales || isGhostwriting)"
             style="color: #FFFFFF;background: #4094D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Reject File</label>

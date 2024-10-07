@@ -78,6 +78,7 @@
           <option value="6">VOC</option>
           <option value="7">Template Creator</option>
           <option value="8">Interviewer Scales</option>
+          <option value="9">Ghostwriting</option>
         </select>
       </div>
 
@@ -94,7 +95,7 @@
             <label for="ausencia"
               style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Absence</label>
           </div>
-          <div class="iigwo-input" style="margin: 0;" *ngIf="usuario.rol == '4'">
+          <div class="iigwo-input" style="margin: 0;" *ngIf="usuario.rol == '4' || usuario.rol == '9'">
             <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
               id="revisor" [checked]="usuario.revisor" (change)="usuario.revisor = !usuario.revisor">
             <label for="revisor"

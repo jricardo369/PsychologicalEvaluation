@@ -14,7 +14,7 @@ import { DialogoSiguienteProcesoComponent } from "../dialogo-siguiente-proceso/d
 import { DialogoNotificacionesComponent } from "../dialogo-notificaciones/dialogo-notificaciones.component";
 import { Scale } from 'src/model/scale';
 import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
-import { ADMINISTRATOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
 import { EventosSolicitudComponent } from '../eventos-solicitud/eventos-solicitud.component';
 import { AdjuntosComponent } from '../adjuntos/adjuntos.component';
 import { MovimientosSolicitudComponent } from '../movimientos-solicitud/movimientos-solicitud.component';
@@ -55,6 +55,7 @@ export class SolicitudComponent implements OnInit {
   isVOC: boolean = false;
   isTemplateCreator: boolean = false;
   isInterviewerScales: boolean = false;
+  isGhostwriting: boolean = false;
 
   arrStates: any[] = [];
 
@@ -81,6 +82,7 @@ export class SolicitudComponent implements OnInit {
     this.isVOC = this.usuario.rol == VOC ? true : false;
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
+    this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
 
     route.params.subscribe((params) => {
       let codigo = params["id"];

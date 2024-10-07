@@ -53,3 +53,4 @@ export const INTERVIEWER = '5';
 export const VOC = '6';
 export const TEMPLATE_CREATOR = '7';
 export const INTERVIEWER_SCALES = '8';
+export const GHOSTWRITING = '9';
