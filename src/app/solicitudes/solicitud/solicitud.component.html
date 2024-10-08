@@ -139,7 +139,7 @@
               <label>Partner Customer</label>
               <select [(ngModel)]="solicitud.usuarioExternal" [ngModelOptions]="{standalone: true}"
                 [disabled]="solicitud.idEstatusSolicitud == 11">
-                <option *ngFor='let o of arrUsuariosExternal' [ngValue]="o.idUsuario">{{o.nombreUsuario}}</option>
+                <option *ngFor='let o of arrUsuariosExternal' [ngValue]="o.idUsuario">{{o.nombre}}</option>
               </select>
             </div>
           </div>
@@ -317,7 +317,7 @@
           <br>
 
           <button (click)='cambiarEstatusSolicitud(4)' class="btn"
-            *ngIf="((solicitud.idEstatusSolicitud == 1 && isInterviewerScales) || solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && (isBackOffice || isInterviewer || isInterviewerScales || isGhostwriting)"
+            *ngIf="((solicitud.idEstatusSolicitud == 1 && isInterviewerScales) || solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3) && (isBackOffice || isInterviewer || isInterviewerScales || isGhostwriting || isTemplateCreator)"
             style="color: #FFFFFF;background: #4094D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Reject File</label>

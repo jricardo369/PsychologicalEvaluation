@@ -557,17 +557,18 @@ export class SolicitudComponent implements OnInit {
 
           if (usuariosOptions.length > 0) {
             let campos = [];
-            campos.push({ label: "User", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
+            if(!this.isInterviewerScales) campos.push({ label: "User to Notify", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
             campos.push({ label: "Rejection reason", type: "textarea", placeholder: "Enter your rejection reason", value: "", maxLength: 500 });
             this.utilService
               .mostrarDialogoConFormulario(
                 "Reject File",
-                "Select user to notify",
+                "Complete the information",
                 "Send",
                 "Cancel",
                 campos
               ).then(valor => {
                 if (valor == 'ok') {
+                  if(this.isInterviewerScales) campos.splice(0, 0, { value: 0 });
                   this.cargando = true;
                   this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value, true)
                     .then(() => {
