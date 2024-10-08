@@ -557,7 +557,7 @@ export class SolicitudComponent implements OnInit {
 
           if (usuariosOptions.length > 0) {
             let campos = [];
-            if(!this.isInterviewerScales) campos.push({ label: "User to Notify", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
+            if (!this.isInterviewerScales) campos.push({ label: "User to Notify", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
             campos.push({ label: "Rejection reason", type: "textarea", placeholder: "Enter your rejection reason", value: "", maxLength: 500 });
             this.utilService
               .mostrarDialogoConFormulario(
@@ -568,7 +568,7 @@ export class SolicitudComponent implements OnInit {
                 campos
               ).then(valor => {
                 if (valor == 'ok') {
-                  if(this.isInterviewerScales) campos.splice(0, 0, { value: 0 });
+                  if (this.isInterviewerScales) campos.splice(0, 0, { value: 0 });
                   this.cargando = true;
                   this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value, true)
                     .then(() => {
@@ -721,7 +721,7 @@ export class SolicitudComponent implements OnInit {
   usuarioExternalChange() {
     this.solicitud.external = !this.solicitud.external;
 
-    if(this.solicitud.external) {
+    if (this.solicitud.external) {
       this.cargando = true;
       this.usuariosService.obtenerUsuariosPorRol(9).then(usuariosExternal => {
         this.cargando = false;
@@ -734,13 +734,17 @@ export class SolicitudComponent implements OnInit {
   }
 
   validatePhone() {
-    this.dialog.open(DialogoSolicitudTelefonoComponent, {
-      data: {
-        telefono: this.solicitud.telefono
-      },
-      disableClose: true,
-    }).afterClosed().toPromise().then(valor => {
-      if (valor == 'vacio') this.utilService.mostrarDialogoSimple("Warning", "No files were found with this phone.");
-    }).catch(reason => this.utilService.manejarError(reason));
+    if (this.solicitud.telefono === null || typeof this.solicitud.telefono === 'undefined' || this.solicitud.telefono.length === 0) {
+      this.utilService.mostrarDialogoSimple("Warning", "The Phone field is empty.");
+    } else {
+      this.dialog.open(DialogoSolicitudTelefonoComponent, {
+        data: {
+          telefono: this.solicitud.telefono
+        },
+        disableClose: true,
+      }).afterClosed().toPromise().then(valor => {
+        if (valor == 'vacio') this.utilService.mostrarDialogoSimple("Warning", "No files were found with this phone.");
+      }).catch(reason => this.utilService.manejarError(reason));
+    }
   }
 }
