@@ -59,6 +59,9 @@ export class SolicitudComponent implements OnInit {
   isGhostwriting: boolean = false;
 
   arrStates: any[] = [];
+  arrLanguages: any = [];
+  arrTypesOfInterview: any = [];
+  arrReferralSources: any = [];
   arrUsuariosExternal: Usuario[] = [];
 
   @ViewChild(EventosSolicitudComponent, { static: false }) eventosSolicitudComponent: EventosSolicitudComponent;
@@ -340,6 +343,42 @@ export class SolicitudComponent implements OnInit {
       {
         name: "Wyoming",
         abbreviation: "WY"
+      }
+    ];
+
+    this.arrLanguages = [
+      {
+        name: "English"
+      },
+      {
+        name: "Spanish"
+      }
+    ];
+
+    this.arrTypesOfInterview = [
+      {
+        name: "Phone Call"
+      },
+      {
+        name: "Zoom Video Call"
+      },
+      {
+        name: "In Person"
+      }
+    ];
+
+    this.arrReferralSources = [
+      {
+        name: "Google"
+      },
+      {
+        name: "Facebook"
+      },
+      {
+        name: "Direct referral from other client"
+      },
+      {
+        name: "Lawyer"
       }
     ];
   }

@@ -151,12 +151,20 @@
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
               <label>Language</label>
-              <input type="text" [(ngModel)]="solicitud.idioma" [readOnly]="solicitud.idEstatusSolicitud == 11">
+              <!-- <input type="text" [(ngModel)]="solicitud.idioma" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
+              <select [(ngModel)]="solicitud.idioma" [ngModelOptions]="{standalone: true}"
+                [disabled]="solicitud.idEstatusSolicitud == 11">
+                <option *ngFor='let o of arrLanguages' [ngValue]="o.name">{{o.name}}</option>
+              </select>
             </div>
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
               <label>Type of Interview</label>
-              <input type="text" [(ngModel)]="solicitud.tipoEntrevista" [readOnly]="solicitud.idEstatusSolicitud == 11">
+              <!-- <input type="text" [(ngModel)]="solicitud.tipoEntrevista" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
+              <select [(ngModel)]="solicitud.tipoEntrevista" [ngModelOptions]="{standalone: true}"
+                [disabled]="solicitud.idEstatusSolicitud == 11">
+                <option *ngFor='let o of arrTypesOfInterview' [ngValue]="o.name">{{o.name}}</option>
+              </select>
             </div>
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
@@ -175,7 +183,11 @@
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
               <label>Referral Source</label>
-              <input type="text" [(ngModel)]="solicitud.referencia" [readOnly]="solicitud.idEstatusSolicitud == 11">
+              <!-- <input type="text" [(ngModel)]="solicitud.referencia" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
+              <select [(ngModel)]="solicitud.referencia" [ngModelOptions]="{standalone: true}"
+                [disabled]="solicitud.idEstatusSolicitud == 11">
+                <option *ngFor='let o of arrReferralSources' [ngValue]="o.name">{{o.name}}</option>
+              </select>
             </div>
 
             <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
