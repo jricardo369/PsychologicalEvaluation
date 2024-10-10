@@ -123,7 +123,7 @@
             <input [(ngModel)]="phoneGoTo"
               [attr.readOnly]="cambiandoPhoneGoTo ? null : false"
               (ngModelChange)="phoneGoTo"
-              (input)="onPhoneNumberInput($event.target.value)" placeholder="(###) ###-####" maxlength="14">
+              (input)="phoneGoTo = onPhoneNumberInput($event.target.value)" placeholder="(###) ###-####" maxlength="14">
             <p style="margin-top: 5px;">Telephone to send messages from GoTo</p>
           </div>
           <button class="iigwo" (click)="cambiandoPhoneGoTo=true"
@@ -134,6 +134,50 @@
             <label>Change phone</label>
           </button>
           <button class="iigwo" (click)="cancelarCambio(6)" *ngIf="cambiandoPhoneGoTo==true">
+            <label>Cancel</label>
+          </button>
+          <hr style="max-width:396px;margin-bottom:24px;">
+          <!-- ================================================== -->
+          <!-- TEL-PRUEBA -->
+          <h4 style="margin: 0 0 12px 0">Test Phone</h4>
+          <div class="iigwo-input">
+            <label>Phone to test</label>
+            <input [(ngModel)]="phoneTest"
+              [attr.readOnly]="cambiandoPhoneTest ? null : false"
+              (ngModelChange)="phoneTest"
+              (input)="phoneTest = onPhoneNumberInput($event.target.value)" placeholder="(###) ###-####" maxlength="14">
+            <p style="margin-top: 5px;">Telephone to send test messages</p>
+          </div>
+          <button class="iigwo" (click)="cambiandoPhoneTest=true"
+            *ngIf="cambiandoPhoneTest==false">
+            <label>Change phone</label>
+          </button>
+          <button class="iigwo accent" (click)="cambiarDato(7)" *ngIf="cambiandoPhoneTest==true">
+            <label>Change phone</label>
+          </button>
+          <button class="iigwo" (click)="cancelarCambio(7)" *ngIf="cambiandoPhoneTest==true">
+            <label>Cancel</label>
+          </button>
+          <hr style="max-width:396px;margin-bottom:24px;">
+          <!-- ================================================== -->
+          <!-- ADMIN-EMAIL -->
+          <h4 style="margin: 0 0 12px 0">Admin Email</h4>
+          <div class="iigwo-input">
+            <label>Email to send error notifications</label>
+            <input [(ngModel)]="adminEmail"
+              [attr.readOnly]="cambiandoAdminEmail ? null : false"
+              (ngModelChange)="adminEmail"
+              placeholder="example01@email.com,example02@email.com" maxlength="14">
+            <p style="margin-top: 5px;">Email to send errors, if there is more than one add a comma</p>
+          </div>
+          <button class="iigwo" (click)="cambiandoAdminEmail=true"
+            *ngIf="cambiandoAdminEmail==false">
+            <label>Change email(s)</label>
+          </button>
+          <button class="iigwo accent" (click)="cambiarDato(8)" *ngIf="cambiandoAdminEmail==true">
+            <label>Change email(s)</label>
+          </button>
+          <button class="iigwo" (click)="cancelarCambio(8)" *ngIf="cambiandoAdminEmail==true">
             <label>Cancel</label>
           </button>
           <hr style="max-width:396px;margin-bottom:24px;">

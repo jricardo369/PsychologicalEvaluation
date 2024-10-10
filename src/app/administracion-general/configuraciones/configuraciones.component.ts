@@ -42,6 +42,14 @@ export class ConfiguracionesComponent {
   phoneGoTo: string = "";
   phoneGoToOld: string = "";
 
+  cambiandoPhoneTest: boolean = false;
+  phoneTest: string = "";
+  phoneTestOld: string = "";
+
+  cambiandoAdminEmail: boolean = false;
+  adminEmail: string = "";
+  adminEmailOld: string = "";
+
   constructor(
     private router: Router,
     private configuracionService: ConfiguracionService,
@@ -90,8 +98,17 @@ export class ConfiguracionesComponent {
           break;
         case 6:
           this.phoneGoTo = this.arrConfiguraciones[index].valor;
-          this.onPhoneNumberInput(this.phoneGoTo);
+          this.phoneGoTo = this.onPhoneNumberInput(this.phoneGoTo);
           this.phoneGoToOld = this.phoneGoTo;
+          break;
+        case 7:
+          this.phoneTest = this.arrConfiguraciones[index].valor;
+          this.phoneTest = this.onPhoneNumberInput(this.phoneTest);
+          this.phoneTestOld = this.phoneTest;
+          break;
+        case 8:
+          this.adminEmail = this.arrConfiguraciones[index].valor;
+          this.adminEmailOld = this.adminEmail;
           break;
         default:
           break;
@@ -122,6 +139,12 @@ export class ConfiguracionesComponent {
         break;
       case 6:
         this.configuracion.valor = this.phoneGoTo.toString();
+        break;
+      case 7:
+        this.configuracion.valor = this.phoneTest.toString();
+        break;
+      case 8:
+        this.configuracion.valor = this.adminEmail.toString();
         break;
       default:
         break;
@@ -157,6 +180,14 @@ export class ConfiguracionesComponent {
             case 6:
               this.phoneGoToOld = this.phoneGoTo;
               this.cambiandoPhoneGoTo = false;
+              break;
+            case 7:
+              this.phoneTestOld = this.phoneTest;
+              this.cambiandoPhoneTest = false;
+              break;
+            case 8:
+              this.adminEmailOld = this.adminEmail;
+              this.cambiandoAdminEmail = false;
               break;
             default:
               break;
@@ -194,12 +225,20 @@ export class ConfiguracionesComponent {
         this.cambiandoPhoneGoTo = false;
         this.phoneGoTo = this.phoneGoToOld;
         break;
+      case 7:
+        this.cambiandoPhoneTest = false;
+        this.phoneTest = this.phoneTestOld;
+        break;
+      case 8:
+        this.cambiandoAdminEmail = false;
+        this.adminEmail = this.adminEmailOld;
+        break;
       default:
         break;
     }
   }
 
-  onPhoneNumberInput(inputText: string): void {
+  onPhoneNumberInput(inputText: string): string {
     let trimmedValue = inputText.replace(/\D/g, ''); // Eliminar caracteres que no sean dígitos
 
     if (trimmedValue.length > 10) {
@@ -212,6 +251,6 @@ export class ConfiguracionesComponent {
     } else if (trimmedValue.length > 3) {
       trimmedValue = `(${trimmedValue.slice(0, 3)}) ${trimmedValue.slice(3)}`;
     }
-    this.phoneGoTo = trimmedValue;
+    return trimmedValue;
   }
 }
