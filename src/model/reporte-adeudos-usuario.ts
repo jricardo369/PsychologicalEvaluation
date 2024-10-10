@@ -5,5 +5,6 @@ export class ReporteAdeudosUsuario {
   telefono: string;
   email: string;
   amount: number;
+  pagado: number;
   adeudo: number;
 }

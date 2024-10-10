@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovimientoSolicitudService } from 'src/app/services/movimiento-solicitud.service';
 import { UtilService } from 'src/app/services/util.service';
 import { ReporteMovimientos } from 'src/model/reporte-movimientos';
+import { Usuario } from 'src/model/usuario';
 
 @Component({
   selector: 'app-reporte-movimientos-usuario',
@@ -11,6 +12,7 @@ import { ReporteMovimientos } from 'src/model/reporte-movimientos';
 export class ReporteMovimientosUsuarioComponent implements OnInit {
 
   cargando: boolean = false;
+  usuario: Usuario = new Usuario();
 
   reporteMovimientos: ReporteMovimientos = new ReporteMovimientos;
   fechaF: string;
@@ -22,6 +24,7 @@ export class ReporteMovimientosUsuarioComponent implements OnInit {
     private movimientoSolicitudService: MovimientoSolicitudService,
     public utilService: UtilService
   ) {
+    this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     var today = new Date().toISOString();
     this.fechaF = today.split('T', 1)[0];
 
@@ -39,7 +42,7 @@ export class ReporteMovimientosUsuarioComponent implements OnInit {
     let servicio: Promise<ReporteMovimientos> = null;
     switch (this.inputTipoReporte) {
       case "1":
-        servicio = this.movimientoSolicitudService.obtenerReporteAdeudos(this.inputCliente, this.fechaI, this.fechaF);
+        servicio = this.movimientoSolicitudService.obtenerReporteAdeudos(this.inputCliente, this.fechaI, this.fechaF, this.usuario.idUsuario);
         break;
       case "2":
         servicio = this.movimientoSolicitudService.obtenerReporteMovimientos(this.inputCliente, this.fechaI, this.fechaF);
