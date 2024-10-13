@@ -83,10 +83,16 @@ export class SolicitudesService {
     );
   }
 
-  obtenerReporteSolicitudesFilters(idUsuario: number, valor: string): Promise<SolicitudList[]> {
+  obtenerReporteSolicitudesFilters(idUsuario: number, campo: string, valor: string, fecha1: string, fecha2: string, myFiles: boolean): Promise<SolicitudList[]> {
+    let queryParams: string = "";
+    if(campo == "All" || campo == "File" || campo == "Customer" || campo == "Phone" || campo == "Email" || campo == "File Status" || campo == "Payment Status" || campo == "Responsible User" || campo == "Waiver") {
+      queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles;
+    } else if (campo == "Date") {
+      queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&fecha1=" + fecha1 + "&fecha2=" + fecha2 + "&myFiles=" + myFiles;
+    }
     return new Promise<SolicitudList[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "solicitudes/reporte-solicitudes-filters?idUsuario=" + idUsuario + "&valor=" + valor, {
+        .get(API_URL + "solicitudes/reporte-solicitudes-filters?" + queryParams, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

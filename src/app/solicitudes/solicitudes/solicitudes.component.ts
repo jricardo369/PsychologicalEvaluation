@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { EstatusPagoService } from 'src/app/services/estatus-pago.service';
+import { EstatusSolicitudService } from 'src/app/services/estatus-solicitud.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { Filter, UtilService } from 'src/app/services/util.service';
+import { EstatusPago } from 'src/model/estatus-pago';
+import { EstatusSolicitud } from 'src/model/estatus-solicitud';
 import { Solicitud } from 'src/model/solicitud';
 import { SolicitudList } from 'src/model/solicitud-list';
 import { Usuario } from 'src/model/usuario';
@@ -18,7 +22,6 @@ export class SolicitudesComponent implements OnInit {
   cargando: boolean = false;
 
   mostrandoResultadosFiltrados = false;
-  filters: Filter[] = [];
   solicitudes: SolicitudList[] = [];
   solicitudesSinFiltrar: SolicitudList[] = [];
   seleccion: number[] = [];
@@ -37,11 +40,36 @@ export class SolicitudesComponent implements OnInit {
   isInterviewerScales: boolean = false;
   isGhostwriting: boolean = false;
 
-  inputValor: string = "";
+  arrFilterTypes: any[] = ["All", "File", "Customer", "Phone", "Email", "Date", "File Status", "Payment Status", "Responsible User", "Waiver"];
+  arrFilterFileStatus: EstatusSolicitud[] = [{
+    "idEstatusSolicitud": 0,
+    "descripcion": "All"
+  }];
+  arrFilterStatusPago: EstatusPago[] = [{
+    "idEstatusPago": 0,
+    "descripcion": "All"
+  }];
+  arrFilterWaiver: any[] = [{
+    "display": "All",
+    "value": "All"
+  }, {
+    "display": "Yes",
+    "value": "true"
+  }, {
+    "display": "No",
+    "value": "false"
+  }];
+  filterType: string = "All";
+  filterMyFiles: boolean = true;
+  filterInputText: string = "";
+  filterInputDate1: string = "";
+  filterInputDate2: string = "";
 
   constructor(
     private router: Router,
     private solicitudesService: SolicitudesService,
+    private estatusSolicitudService: EstatusSolicitudService,
+    private estatusPagoService: EstatusPagoService,
     public utilService: UtilService
   ) {
     this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
@@ -54,10 +82,45 @@ export class SolicitudesComponent implements OnInit {
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+    this.obtenerEstatusSolicitudes();
+    this.obtenerEstatusPagos();
+    this.clearInputs();
   }
 
   ngOnInit(): void {
     this.refrescar();
+  }
+
+  obtenerEstatusSolicitudes() {
+    this.cargando = true;
+    this.estatusSolicitudService
+      .obtenerEstatusSolicitudes()
+      .then(estatusSolicitudes => {
+        this.arrFilterFileStatus = estatusSolicitudes;
+        this.arrFilterFileStatus = [{
+          "idEstatusSolicitud": 0,
+          "descripcion": "All"
+        }].concat(this.arrFilterFileStatus);
+        console.log(this.arrFilterFileStatus)
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false)
+  }
+
+  obtenerEstatusPagos() {
+    this.cargando = true;
+    this.estatusPagoService
+      .obtenerEstatusPagos()
+      .then(estatusPagos => {
+        this.arrFilterStatusPago = estatusPagos;
+        this.arrFilterStatusPago = [{
+          "idEstatusPago": 0,
+          "descripcion": "All"
+        }].concat(this.arrFilterStatusPago);
+        console.log(this.arrFilterStatusPago)
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false)
   }
 
   refrescar() {
@@ -68,7 +131,6 @@ export class SolicitudesComponent implements OnInit {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
         this.paginacion.setArray(this.solicitudes);
-        this.limpiarFiltros();
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
@@ -113,80 +175,29 @@ export class SolicitudesComponent implements OnInit {
     }
   }
 
-  agregarFiltro() {
-    this.filters.push(new Filter());
-  }
-
-  eliminarFiltro(f: Filter) {
-    let start = this.filters.indexOf(f);
-    let deleteCount = 1;
-    this.filters.splice(start, deleteCount);
-    if (this.filters.length == 0)
-      this.aplicarFiltros();
-  }
-
-  limpiarFiltros() {
-    this.filters = [];
-    this.aplicarFiltros();
-  }
-
-  aplicarFiltros() {
-    let filtered = [];
-    u: for (let i = 0; i < this.solicitudesSinFiltrar.length; i++) {
-      let r = this.solicitudesSinFiltrar[i];
-      for (let j = 0; j < this.filters.length; j++) {
-        let f = this.filters[j];
-
-        let v = null;
-
-        switch (f.campo) {
-          case 'file': v = r.idSolicitud; break;
-          case 'creationDate': v = r.fechaInicio; break;
-          case 'asignado': v = r.abogado; break;
-          case 'cliente': v = r.cliente; break;
-          case 'telefono': v = r.telefono; break;
-          case 'tipoSolicitud': v = r.tipoSolicitud; break;
-          case 'edad': v = r.age; break;
-          case 'email': v = r.email; break;
-          case 'importancia': v = r.importante; break;
-          case 'estatusPago': v = r.estatusPago; break;
-          case 'estatusSolicitud': v = r.estatusSolicitud; break;
-          case 'horario': v = r.fecha_schedule; break;
-          case 'horarioScales': v = r.fecha_schedule_scales; break;
-        }
-
-        switch (f.operador) {
-          case "!=": if (!(v != f.valor)) continue u; break;
-          case "==": if (!(v == f.valor)) continue u; break;
-          case ">=": if (!(v >= f.valor)) continue u; break;
-          case "<=": if (!(v <= f.valor)) continue u; break;
-          case ">": if (!(v > f.valor)) continue u; break;
-          case "<": if (!(v < f.valor)) continue u; break;
-          case "startsWith": if (!(('' + v).toLowerCase().startsWith(('' + f.valor).toLowerCase()))) continue u; break;
-          case "endsWith": if (!(('' + v).toLowerCase().endsWith(('' + f.valor).toLowerCase()))) continue u; break;
-          case "includes": if (!(('' + v).toLowerCase().includes(('' + f.valor).toLowerCase()))) continue u; break;
-        }
-
-      }
-      filtered.push(r);
-    };
-    this.solicitudes = filtered;
-    this.solicitudes.sort((a, b) => b.idSolicitud - a.idSolicitud);
-    this.paginacion.setArray(this.solicitudes);
-  }
-
   explorar() {
     this.cargando = true;
     this.solicitudesService
-      .obtenerReporteSolicitudesFilters(this.usuario.idUsuario, this.inputValor)
+      .obtenerReporteSolicitudesFilters(this.usuario.idUsuario, this.filterType, this.filterInputText, this.filterInputDate1, this.filterInputDate2, this.filterMyFiles)
       .then(solicitudes => {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
         this.paginacion.setArray(this.solicitudes);
-        this.limpiarFiltros();
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
+  }
+
+  clearInputs() {
+    if (this.filterType == "All" || this.filterType == "File" || this.filterType == "Customer" || this.filterType == "Phone" || this.filterType == "Email" || this.filterType == "File Status" || this.filterType == "Payment Status" || this.filterType == "Responsible User" || this.filterType == "Waiver") {
+      this.filterInputText = "";
+      this.filterInputDate1 = "none";
+      this.filterInputDate2 = "none";
+    } else if (this.filterType == "Date") {
+      this.filterInputText = "none";
+      this.filterInputDate1 = "";
+      this.filterInputDate2 = "";
+    }
   }
 
   crearSolicitud() { this.router.navigateByUrl('/solicitudes/solicitudes/nueva-solicitud'); }

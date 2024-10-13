@@ -30,69 +30,57 @@
 
       <!-- FILTRO -->
       <div class="container" style="margin-bottom: 20px;">
-        <div class="left" style="min-width: 501px;">
-          <h5 *ngIf="filters.length < 1" style="margin: 0 0 3px 0;">Search</h5>
-          <h5 *ngIf="filters.length > 0" style="margin: 0 0 12px 0;">Search</h5>
-
-          <div *ngFor="let f of filters">
-            <div class="iigwo-input inline">
-              <select [(ngModel)]="f.campo">
-                <option value="file">File</option>
-                <option value="creationDate" *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">Creation Date</option>
-                <option value="edad">Age</option>
-                <option value="asignado" *ngIf="isMaster">Assigned</option>
-                <option value="cliente">Customer Name</option>
-                <option value="telefono">Phone</option>
-                <option value="tipoSolicitud">Type</option>
-                <option value="email">Email</option>
-                <option value="importancia">Importance</option>
-                <option value="estatusPago">Payment Status</option>
-                <option value="estatusSolicitud">File Status</option>
-                <option value="horario" *ngIf="isMaster || isBackOffice || isInterviewer || isGhostwriting">Interview Appointment</option>
-                <option value="horarioScales" *ngIf="!isInterviewer">Scales Appointment</option>
-              </select>
-            </div>
-
-            <div class="iigwo-input inline">
-              <select [(ngModel)]="f.operador">
-                <option value="==">Same</option>
-                <option value=">">Higher</option>
-                <option value=">=">Greater or Equal</option>
-                <option value="<">Less</option>
-                <option value="<=">Minor or Equal</option>
-                <option value="startsWith">Start with</option>
-                <option value="endsWith">Ends with</option>
-                <option value="includes">It contains</option>
-              </select>
-            </div>
-
-            <div class="iigwo-input inline">
-              <input placeholder="Text / Number" [(ngModel)]="f.valor">
-            </div>
-
-            <button class="iigwo small" style="padding:0;min-height: 26px;" (click)="agregarFiltro()">
-              <mat-icon svgIcon="add"></mat-icon>
-            </button>
-
-            <button class="iigwo small" style="padding:0;min-height: 26px;" (click)="eliminarFiltro(f)">
-              <mat-icon svgIcon="remove"></mat-icon>
-            </button>
-            <br>
-          </div>
-          <button *ngIf='filters.length > 0' class="accent iigwo small" (click)="aplicarFiltros()">Apply
-            filters</button>
-          <button *ngIf='filters.length > 0' class="iigwo small" (click)="limpiarFiltros()">Clean filters</button>
-          <p *ngIf='filters.length == 0' style="font-size:11px;">
-            Add one or more filters to facilitate the search for files
-          </p>
-          <button *ngIf='filters.length == 0' class="iigwo small" (click)="agregarFiltro()">Add filter</button>
-        </div>
         <div class="right">
           <div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">
-            <div class="iigwo-input inline">
-              <input placeholder="Enter a value" [(ngModel)]="inputValor">
+            <div class="iigwo-input">
+              <label>Type</label>
+              <select [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" (change)="clearInputs()">
+                <option *ngFor="let e of arrFilterTypes" [ngValue]="e">
+                  {{e}}</option>
+              </select>
             </div>
-            <button class="accent iigwo small" (click)="explorar()">Explore</button>
+            <div class="iigwo-input" style="text-align: center;">
+              <label for="myFiles"
+                style="font-size: 12px;">My Files</label>
+              <input type="checkbox" style="width: 15px;line-height: 18px;margin: 0 6px 0 4px;"
+                id="myFiles" [checked]="filterMyFiles" (change)="filterMyFiles = !filterMyFiles">
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'All' || filterType == 'File' || filterType == 'Customer' || filterType == 'Phone' || filterType == 'Email' || filterType == 'Responsible User'">
+              <label>Value</label>
+              <input type="text" placeholder="Enter a value" [(ngModel)]="filterInputText">
+            </div>
+            <div *ngIf="filterType == 'Date'" class="flex">
+              <div class="iigwo-input">
+                <label>From</label>
+                <input type="date" [(ngModel)]="filterInputDate1">
+              </div>
+              <div class="iigwo-input">
+                <label>To</label>
+                <input type="date" [(ngModel)]="filterInputDate2">
+              </div>
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'File Status'">
+              <label>Status</label>
+              <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
+                <option *ngFor="let e of arrFilterFileStatus" [ngValue]="e.descripcion">
+                  {{e.descripcion}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'Payment Status'">
+              <label>Status</label>
+              <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
+                <option *ngFor="let e of arrFilterStatusPago" [ngValue]="e.descripcion">
+                  {{e.descripcion}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'Waiver'">
+              <label>Waiver</label>
+              <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
+                <option *ngFor="let e of arrFilterWaiver" [ngValue]="e.value">
+                  {{e.display}}</option>
+              </select>
+            </div>
+            <button class="accent iigwo small" style="margin-bottom: -6px;" [disabled]="filterInputText == '' || (filterInputDate1 == '' && filterInputDate2 == '')" (click)="explorar()">Explore</button>
           </div>
         </div>
       </div>
@@ -120,7 +108,8 @@
             <th class=''>Additional</th>
             <th class=''>Email</th>
             <th class=''>Importance</th>
-            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">Payment Status</th>
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">Payment Status
+            </th>
             <th class=''>File Status</th>
             <th class='' *ngIf="isMaster || isBackOffice || isInterviewer || isGhostwriting">Interview Appointment</th>
             <th class='' *ngIf="!isInterviewer">Scales Appointment</th>
@@ -129,7 +118,8 @@
             <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
                 (change)="check($event, e.idSolicitud)"></td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
-            <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">{{e.fechaInicio | dateYYYYMMDD}}</td>
+            <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">{{e.fechaInicio |
+              dateYYYYMMDD}}</td>
             <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.age == 0,
                             'badge-color-1': e.age <= 1,
                             'badge-color-2': e.age == 2,
@@ -142,8 +132,9 @@
             <td class='accent'>{{e.email}}</td>
             <td style="text-align: center;"><span class="badge-status badge-color-important" style="margin: 0;"
                 *ngIf="e.importante.length > 0">{{e.importante}}</span></td>
-            <td style="text-align: center;" *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)"><span
-                class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
+            <td style="text-align: center;"
+              *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)"><span class="badge-status"
+                style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
                             'badge-color-complete': e.idEstatusPago == 2,
                             'badge-color-hold': e.idEstatusPago == 3,
                             'badge-color-na': e.idEstatusPago == 4}">{{e.estatusPago}}</span></td>
@@ -158,8 +149,9 @@
 								'badge-color-open': e.idEstatusSolicitud == 9,
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11}">{{e.estatusSolicitud}}</span></td>
-            <td class='accent' *ngIf="isMaster || isBackOffice || isInterviewer || isGhostwriting">{{e.fecha_schedule | dateYYYYMMDD}}
-              <td class='accent' *ngIf="!isInterviewer">{{e.fecha_schedule_scales | dateYYYYMMDD}}
+            <td class='accent' *ngIf="isMaster || isBackOffice || isInterviewer || isGhostwriting">{{e.fecha_schedule |
+              dateYYYYMMDD}}
+            <td class='accent' *ngIf="!isInterviewer">{{e.fecha_schedule_scales | dateYYYYMMDD}}
             </td>
           </tr>
 

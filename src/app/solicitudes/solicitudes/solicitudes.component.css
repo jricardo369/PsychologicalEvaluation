@@ -13,6 +13,9 @@
 }
 
 .right {
-  text-align: right;
   align-content: end;
+}
+
+.flex {
+  display: flex;
 }
