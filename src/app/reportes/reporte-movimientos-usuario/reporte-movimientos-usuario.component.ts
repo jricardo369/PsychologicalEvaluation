@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MovimientoSolicitudService } from 'src/app/services/movimiento-solicitud.service';
 import { UtilService } from 'src/app/services/util.service';
 import { ReporteMovimientos } from 'src/model/reporte-movimientos';
 import { Usuario } from 'src/model/usuario';
+import { DialogoDetalleMovimientosComponent } from '../dialogo-detalle-movimientos/dialogo-detalle-movimientos.component';
 
 @Component({
   selector: 'app-reporte-movimientos-usuario',
@@ -22,7 +24,8 @@ export class ReporteMovimientosUsuarioComponent implements OnInit {
 
   constructor(
     private movimientoSolicitudService: MovimientoSolicitudService,
-    public utilService: UtilService
+    public utilService: UtilService,
+    private dialog: MatDialog
   ) {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     var today = new Date().toISOString();
@@ -57,5 +60,16 @@ export class ReporteMovimientosUsuarioComponent implements OnInit {
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));
+  }
+
+  abrirDetalle(idSolicitud: number) {
+    this.dialog.open(DialogoDetalleMovimientosComponent, {
+      data: {
+        idSolicitud: idSolicitud
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      //if (valor == 'enviado') this.goBack();
+    }).catch(reason => this.utilService.manejarError(reason));
   }
 }

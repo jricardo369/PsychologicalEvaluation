@@ -13,6 +13,7 @@ import { ReporteSolicitudesUsuariosComponent } from './reporte-solicitudes-usuar
 import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/reporte-correos-enviados.component';
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';
 import { HomeComponent } from './home/home.component';
+import { DialogoDetalleMovimientosComponent } from './dialogo-detalle-movimientos/dialogo-detalle-movimientos.component';
 
 
 @NgModule({
@@ -27,13 +28,16 @@ import { HomeComponent } from './home/home.component';
 		ReportesRoutingModule,
     MatCheckboxModule
 	],
-	entryComponents: [],
+	entryComponents: [
+    DialogoDetalleMovimientosComponent,
+  ],
 	declarations: [
 		ReportesNavComponent,
     ReporteSolicitudesUsuariosComponent,
     ReporteCorreosEnviadosComponent,
     ReporteMovimientosUsuarioComponent,
     HomeComponent,
+    DialogoDetalleMovimientosComponent,
 	],
 	exports: []
 })

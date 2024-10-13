@@ -67,6 +67,7 @@
           <th>Amount</th>
           <th>Paid</th>
           <th>Pending Payment</th>
+          <th>Details</th>
         </tr>
         <tr *ngFor='let e of reporteMovimientos.adeudos'>
           <td class='accent'>{{e.idSolicitud}}</td>
@@ -77,6 +78,11 @@
           <td class="number">{{e.amount | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
           <td class="number">{{e.pagado | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
           <td class="number">{{e.adeudo | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+          <td style="padding-top: 0; padding-bottom: 0;">
+            <button (click)='abrirDetalle(e.idSolicitud)' class="btn-icon" style="color: gray;" matTooltip="Open">
+                <mat-icon svgIcon="eye"></mat-icon>
+            </button>
+        </td>
         </tr>
       </table>
 

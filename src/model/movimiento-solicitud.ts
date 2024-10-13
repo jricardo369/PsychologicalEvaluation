@@ -9,4 +9,6 @@ export class MovimientoSolicitud {
 	monto: number;
 	tipoMovimiento: string;
   descuento: number;
+
+  cliente: string;
 }
