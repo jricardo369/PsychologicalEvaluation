@@ -481,32 +481,40 @@ export class SolicitudComponent implements OnInit {
         if (valor == 'enviado') this.goBack();
       }).catch(reason => this.utilService.manejarError(reason));
     } else {
-      this.dialog.open(DialogoSimpleComponent, {
-        data: {
-          titulo: 'Send to next process',
-          texto: 'Do you really want to send to next process?',
-          botones: [
-            { texto: 'Cancel', color: '', valor: '' },
-            { texto: 'Send', color: 'primary', valor: 'enviar' },
-          ]
-        },
-        disableClose: true,
-      }).afterClosed().toPromise().then(valor => {
-        if (valor == 'enviar') {
-          this.cargando = true;
-          this.solicitudesService.envioSiguienteProceso(this.solicitud.idSolicitud, this.usuario.idUsuario)
-            .then(() => {
-              this.cargando = false;
-              this.goBack();
-            }).catch(e => {
-              //window.alert("ALGO NO SALIO BIEN");
-              this.utilService.manejarError(e);
-              this.cargando = false;
-            });
-        }
-      }).catch(reason => this.utilService.manejarError(reason));
+      this.cargando = true;
+      this.solicitudesService.obtenerSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario).then(validateSolicitud => {
+        this.dialog.open(DialogoSimpleComponent, {
+          data: {
+            titulo: 'Send to next process',
+            texto: 'Do you really want to send to next process?',
+            warning: validateSolicitud.idEstatusSolicitud == 10
+              && (this.validateEmptyField(validateSolicitud.email_abogado)
+                || this.validateEmptyField(validateSolicitud.firmaAbogados)
+                || this.validateEmptyField(validateSolicitud.paralegalEmails))
+              ? 'The paralegal data is missing, remember that if it is sent to the next process you will not receive notification.' : null,
+            botones: [
+              { texto: 'Cancel', color: '', valor: '' },
+              { texto: 'Send', color: 'primary', valor: 'enviar' },
+            ]
+          },
+          disableClose: true,
+        }).afterClosed().toPromise().then(valor => {
+          if (valor == 'enviar') {
+            this.cargando = true;
+            this.solicitudesService.envioSiguienteProceso(this.solicitud.idSolicitud, this.usuario.idUsuario)
+              .then(() => {
+                this.cargando = false;
+                this.goBack();
+              }).catch(e => {
+                //window.alert("ALGO NO SALIO BIEN");
+                this.utilService.manejarError(e);
+                this.cargando = false;
+              });
+          }
+        }).catch(reason => this.utilService.manejarError(reason));
+      }).catch(reason => this.utilService.manejarError(reason))
+        .finally(() => this.cargando = false);
     }
-
   }
 
   envioInterviewerScales() {
@@ -785,5 +793,9 @@ export class SolicitudComponent implements OnInit {
         if (valor == 'vacio') this.utilService.mostrarDialogoSimple("Warning", "No files were found with this phone.");
       }).catch(reason => this.utilService.manejarError(reason));
     }
+  }
+
+  validateEmptyField(field: any): boolean {
+    return field === null || typeof field === 'undefined' || field.length === 0;
   }
 }

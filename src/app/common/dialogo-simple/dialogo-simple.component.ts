@@ -25,6 +25,8 @@ export class DialogoSimpleComponent {
 
     public textarea: any;
 
+    warning: string = null;
+
     constructor(
         public dialogRef: MatDialogRef<DialogoSimpleComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -40,6 +42,8 @@ export class DialogoSimpleComponent {
         this.comboboxSublabel = data.comboboxSublabel;
 
         this.fields = data.fields;
+
+        this.warning = data.warning;
     }
 
     onNoClick(): void {
