@@ -250,7 +250,7 @@
           <input [ngModel]="solicitud.usuarioRevisandoNombre" readOnly style="font-weight: 600;">
         </div>
 
-        <div class="iigwo-input">
+        <div class="iigwo-input" *ngIf="!(isInterviewer || isTemplateCreator)">
           <label>Interview Scale</label>
           <input [ngModel]="solicitud.usuarioIntScNombre" readOnly style="font-weight: 600;"
             *ngIf="solicitud.usuarioIntScNombre else notIntSc">
