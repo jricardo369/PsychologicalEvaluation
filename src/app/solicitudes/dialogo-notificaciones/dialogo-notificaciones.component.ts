@@ -44,6 +44,7 @@ export class DialogoNotificacionesComponent implements OnInit {
     this.notificacion.titulo = "";
     this.notificacion.cuerpo = "";
     this.notificacion.layout = "";
+    this.notificacion.firmasAbogados = data.firmasAbogados;
 
     this.isAdministrator = this.usuario.rol == ADMINISTRATOR ? true : false;
     this.isMaster = this.usuario.rol == MASTER ? true : false;

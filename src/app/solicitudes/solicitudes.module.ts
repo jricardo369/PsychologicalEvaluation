@@ -19,6 +19,7 @@ import { DialogoSiguienteProcesoComponent } from './dialogo-siguiente-proceso/di
 import { DialogoNotificacionesComponent } from './dialogo-notificaciones/dialogo-notificaciones.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DialogoSolicitudTelefonoComponent } from './dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
+import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-correos-abogados.component';
 
 @NgModule({
 	imports: [
@@ -51,6 +52,7 @@ import { DialogoSolicitudTelefonoComponent } from './dialogo-solicitud-telefono/
 		DialogoSiguienteProcesoComponent,
 		DialogoNotificacionesComponent,
 		DialogoSolicitudTelefonoComponent,
+		EnvioCorreosAbogadosComponent,
 	],
 	exports: [
 		EventosSolicitudComponent,

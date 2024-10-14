@@ -7,4 +7,5 @@ export class Notificacion {
 	mensaje: boolean;
 	titulo: string;
 	usuario: string;
+  firmasAbogados: string;
 }
