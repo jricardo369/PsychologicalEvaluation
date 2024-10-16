@@ -22,7 +22,7 @@ export class EnvioCorreosAbogadosComponent implements OnInit {
   fechaF: string;
   fechaI: string = '2020-01-01';
 
-  seleccion: number[] = [];
+  seleccion: string[] = [];
 
   constructor(
     private reportesService: ReportesService,
@@ -63,36 +63,29 @@ export class EnvioCorreosAbogadosComponent implements OnInit {
     if (this.estanTodosSeleccionados()) this.seleccion = [];
     else {
       this.seleccion = [];
-      this.arrReporteCorreosEnviados.forEach(u => this.seleccion.push(u.idUsuario));
+      this.arrReporteCorreosEnviados.forEach(u => this.seleccion.push(u.nombre));
     }
   }
 
-  estaSeleccionado(id: number) {
-    return this.seleccion.find(e => e == id) != null;
+  estaSeleccionado(nombre: string) {
+    return this.seleccion.find(e => e == nombre) != null;
   }
 
-  check(event: Event, id: number) {
+  check(event: Event, nombre: string) {
     if ((event.srcElement as HTMLInputElement).checked) {
       //add
-      if (!this.estaSeleccionado(id)) this.seleccion.push(id);
+      if (!this.estaSeleccionado(nombre)) this.seleccion.push(nombre);
     } else {
       //remove
-      if (this.estaSeleccionado(id)) this.seleccion.splice(this.seleccion.indexOf(id), 1);
+      if (this.estaSeleccionado(nombre)) this.seleccion.splice(this.seleccion.indexOf(nombre), 1);
     }
   }
 
   enviarNotificaciones() {
-    let firmasAbogados: string = "";
-    this.arrReporteCorreosEnviados.forEach(u => {
-      if (this.seleccion.includes(u.idUsuario)) {
-        firmasAbogados += (firmasAbogados.length > 0) ? (',' + u.nombre) : u.nombre;
-      }
-    });
-
     this.dialog.open(DialogoNotificacionesComponent, {
       data: {
         usuario: this.usuario,
-        firmasAbogados: firmasAbogados
+        firmasAbogados: this.seleccion.toString()
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {

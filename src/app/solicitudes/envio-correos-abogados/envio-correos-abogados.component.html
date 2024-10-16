@@ -42,8 +42,8 @@
           <th>Number of mails</th>
         </tr>
         <tr *ngFor='let e of arrReporteCorreosEnviados | slice:paginacion.begin:paginacion.end'>
-          <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idUsuario)"
-              (change)="check($event, e.idUsuario)"></td>
+          <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.nombre)"
+              (change)="check($event, e.nombre)"></td>
           <td class='accent'>{{e.nombre}}</td>
           <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.numero == 0,
             'badge-color-1': e.numero >= 1}">{{e.numero}}</span></td>
