@@ -20,6 +20,7 @@ import { AdjuntosComponent } from '../adjuntos/adjuntos.component';
 import { MovimientosSolicitudComponent } from '../movimientos-solicitud/movimientos-solicitud.component';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { DialogoSolicitudTelefonoComponent } from '../dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
+import { ReportesService } from '../../services/reportes.service';
 
 @Component({
   selector: "app-solicitud",
@@ -76,6 +77,7 @@ export class SolicitudComponent implements OnInit {
     private tiposPagoService: TiposPagoService,
     private scalesService: ScalesService,
     private usuariosService: UsuariosService,
+    private reportesService: ReportesService,
     private dialog: MatDialog
   ) {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
@@ -797,5 +799,22 @@ export class SolicitudComponent implements OnInit {
 
   validateEmptyField(field: any): boolean {
     return field === null || typeof field === 'undefined' || field.length === 0;
+  }
+
+  generateW9() {
+    this.cargando = true;
+    this.reportesService.generateW9(this.solicitud.idSolicitud, this.usuario.idUsuario).then(response => {
+      this.saveByteArray("invoice_file-" + this.solicitud.idSolicitud, response);
+    }).catch(e => this.utilService.manejarError(e))
+    .finally(() => this.cargando = false);
+  }
+
+  saveByteArray(reportName: string, byte: ArrayBuffer) {
+    var file = new Blob([byte], { type: 'application/pdf' });
+    var fileURL = URL.createObjectURL(file);
+    let link: any = window.document.createElement('a');
+    link.href = fileURL;
+    link.download = reportName;
+    link.click();
   }
 }

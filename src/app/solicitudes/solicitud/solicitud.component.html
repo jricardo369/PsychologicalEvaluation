@@ -326,6 +326,13 @@
             <label style="margin: auto;">Assign Template</label>
           </button>
 
+          <button (click)='generateW9()' class="btn"
+            *ngIf="isGhostwriting"
+            style="color: #FFFFFF;background: #ff0000; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+            <label style="margin: auto;">Generate W9</label>
+          </button>
+
           <br>
 
           <button (click)='cambiarEstatusSolicitud(4)' class="btn"
