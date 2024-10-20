@@ -111,8 +111,8 @@
             <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">Payment Status
             </th>
             <th class=''>File Status</th>
-            <th class='' *ngIf="isMaster || isBackOffice || isInterviewer || isGhostwriting">Interview Appointment</th>
-            <th class='' *ngIf="!isInterviewer">Scales Appointment</th>
+            <th class='' *ngIf="isMaster || isBackOffice || isInterviewer">Interview Appointment</th>
+            <th class='' *ngIf="!(isInterviewer || isGhostwriting)">Scales Appointment</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
             <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"

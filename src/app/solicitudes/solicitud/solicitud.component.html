@@ -72,7 +72,7 @@
             </div> -->
             <div class="iigwo-input" *ngIf="editando && !(isTemplateCreator || isInterviewer || isInterviewerScales)">
               <label>Amount</label>
-              <input type="number" [(ngModel)]="solicitud.amount" [readOnly]="solicitud.idEstatusSolicitud == 11">
+              <input type="number" [(ngModel)]="solicitud.amount" [readOnly]="solicitud.idEstatusSolicitud == 11 || isGhostwriting">
             </div>
 
             <div class="iigwo-input" *ngIf="!(isInterviewer || isInterviewerScales)">
@@ -232,7 +232,7 @@
 
         <!-- MOVIMIENTOS DE LA SOLICITUD -->
         <div style="display:flex; flex-flow: row;"
-          *ngIf="solicitud.idSolicitud && (isMaster || isVendor || isBackOffice || isGhostwriting) && solicitud.idEstatusSolicitud != 6">
+          *ngIf="solicitud.idSolicitud && (isMaster || isVendor || isBackOffice) && solicitud.idEstatusSolicitud != 6">
           <app-movimientos-solicitud [idSolicitud]="solicitud.idSolicitud" [idUsuario]="usuario.idUsuario"
             [idEstatusSolicitud]="solicitud.idEstatusSolicitud"></app-movimientos-solicitud>
         </div>
