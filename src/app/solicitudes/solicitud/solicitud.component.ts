@@ -528,7 +528,7 @@ export class SolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'enviado') this.obtenerSolicitud(this.solicitud.idSolicitud);
+      if (valor == 'enviado') this.goBack();
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
@@ -567,7 +567,7 @@ export class SolicitudComponent implements OnInit {
               this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, "")
                 .then(() => {
                   this.cargando = false;
-                  this.obtenerSolicitud(this.solicitud.idSolicitud);
+                  this.goBack();
                 }).catch(e => {
                   this.utilService.manejarError(e);
                   this.cargando = false;
