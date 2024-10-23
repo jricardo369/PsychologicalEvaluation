@@ -804,17 +804,8 @@ export class SolicitudComponent implements OnInit {
   generateW9() {
     this.cargando = true;
     this.reportesService.generateW9(this.solicitud.idSolicitud, this.usuario.idUsuario).then(response => {
-      this.saveByteArray("invoice_file-" + this.solicitud.idSolicitud, response);
+      this.utilService.saveByteArray("invoice_file-" + this.solicitud.idSolicitud, response, 'pdf');
     }).catch(e => this.utilService.manejarError(e))
     .finally(() => this.cargando = false);
-  }
-
-  saveByteArray(reportName: string, byte: ArrayBuffer) {
-    var file = new Blob([byte], { type: 'application/pdf' });
-    var fileURL = URL.createObjectURL(file);
-    let link: any = window.document.createElement('a');
-    link.href = fileURL;
-    link.download = reportName;
-    link.click();
   }
 }
