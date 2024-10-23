@@ -21,4 +21,8 @@ export class Usuario {
 
     ausencia: boolean;
     revisor: boolean;
+
+    licencia: string;
+    licenciaValida: string;
+    disponibilidad: string;
 }

@@ -79,12 +79,28 @@
           <option value="7">Template Creator</option>
           <option value="8">Interviewer Scales</option>
           <option value="9">Ghostwriting</option>
+          <option value="10">Therapist</option>
         </select>
       </div>
 
       <div class="iigwo-input" *ngIf="usuario.rol == '5' || usuario.rol == '8'">
         <label>Summary</label>
         <textarea [(ngModel)]="usuario.resumen"></textarea>
+      </div>
+
+      <div class="iigwo-input" *ngIf="usuario.rol == '10'">
+        <label>License</label>
+        <input type="text" [(ngModel)]="usuario.licencia">
+      </div>
+
+      <div class="iigwo-input" *ngIf="usuario.rol == '10'">
+        <label>License Validity</label>
+        <input type="date" [(ngModel)]="usuario.licenciaValida">
+      </div>
+
+      <div class="iigwo-input" *ngIf="usuario.rol == '10'">
+        <label>Availability</label>
+        <input type="text" [(ngModel)]="usuario.disponibilidad">
       </div>
 
       <div style="display:flex; margin-bottom: 12px;">
