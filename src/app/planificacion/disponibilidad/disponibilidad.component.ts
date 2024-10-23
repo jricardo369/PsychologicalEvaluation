@@ -9,67 +9,76 @@ import { PaginationManager } from 'src/util/pagination';
 import { DialogoCargaDisponibilidadMasivaComponent } from '../dialogo-carga-disponibilidad-masiva/dialogo-carga-disponibilidad-masiva.component';
 
 @Component({
-	selector: 'app-disponibilidad',
-	templateUrl: './disponibilidad.component.html',
-	styleUrls: ['./disponibilidad.component.css']
+  selector: 'app-disponibilidad',
+  templateUrl: './disponibilidad.component.html',
+  styleUrls: ['./disponibilidad.component.css']
 })
 export class DisponibilidadComponent implements OnInit {
 
-	cargando: boolean = false;
+  cargando: boolean = false;
 
-	arrDisponibilidadUsuario: DisponibilidadUsuario[] = [];
+  arrDisponibilidadUsuario: DisponibilidadUsuario[] = [];
   paginacion: PaginationManager = new PaginationManager();
 
-	usuario: Usuario = new Usuario;
+  usuario: Usuario = new Usuario;
 
-	constructor(
-		private disponibilidadUsuariosService: DisponibilidadUsuariosService,
-		public utilService: UtilService,
-		private dialog: MatDialog) {
-		this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
-		this.obtenerDisponibilidadUsuario();
-	}
+  constructor(
+    private disponibilidadUsuariosService: DisponibilidadUsuariosService,
+    public utilService: UtilService,
+    private dialog: MatDialog) {
+    this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
+    this.obtenerDisponibilidadUsuario();
+  }
 
-	ngOnInit(): void {
-	}
+  ngOnInit(): void {
+  }
 
-	obtenerDisponibilidadUsuario() {
-		this.cargando = true;
-		this.disponibilidadUsuariosService.obtenerDisponibilidadUsuario(this.usuario.idUsuario)
-			.then((disponibilidadUsuarios) => {
-				this.arrDisponibilidadUsuario = disponibilidadUsuarios;
+  obtenerDisponibilidadUsuario() {
+    this.cargando = true;
+    this.disponibilidadUsuariosService.obtenerDisponibilidadUsuario(this.usuario.idUsuario)
+      .then((disponibilidadUsuarios) => {
+        this.arrDisponibilidadUsuario = disponibilidadUsuarios;
         this.paginacion.setArray(this.arrDisponibilidadUsuario);
-			})
-			.catch((reason) => this.utilService.manejarError(reason))
-			.then(() => (this.cargando = false));
-	}
+      })
+      .catch((reason) => this.utilService.manejarError(reason))
+      .then(() => (this.cargando = false));
+  }
 
-	agregarDisponibilidad() {
-		this.dialog.open(DialogoDisponibilidadUsuarioComponent, {
-			data: {},
-			disableClose: true,
-		}).afterClosed().toPromise().then(valor => {
-			if (valor == 'agregada') this.obtenerDisponibilidadUsuario();
-		}).catch(reason => this.utilService.manejarError(reason));
-	}
+  agregarDisponibilidad() {
+    this.dialog.open(DialogoDisponibilidadUsuarioComponent, {
+      data: {},
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'agregada') this.obtenerDisponibilidadUsuario();
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
 
   agregarDisponibilidadMasiva() {
-		this.dialog.open(DialogoCargaDisponibilidadMasivaComponent, {
-			data: {},
-			disableClose: true,
-		}).afterClosed().toPromise().then(valor => {
-			if (valor == 'cargada') this.obtenerDisponibilidadUsuario();
-		}).catch(reason => this.utilService.manejarError(reason));
-	}
+    this.dialog.open(DialogoCargaDisponibilidadMasivaComponent, {
+      data: {},
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'cargada') this.obtenerDisponibilidadUsuario();
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
 
-	eliminarDisponibilidad(disponibilidadUsuario: DisponibilidadUsuario) {
-		this.cargando = true;
-		this.disponibilidadUsuariosService.eliminarDisponibilidadUsuario(disponibilidadUsuario.idDisponibilidad)
-			.then(() => {
-				this.obtenerDisponibilidadUsuario();
-			})
-			.catch(reason => this.utilService.manejarError(reason))
-			.then(() => this.cargando = false);
-	}
+  eliminarDisponibilidad(disponibilidadUsuario: DisponibilidadUsuario) {
+    this.cargando = true;
+    this.disponibilidadUsuariosService.eliminarDisponibilidadUsuario(disponibilidadUsuario.idDisponibilidad)
+      .then(() => {
+        this.obtenerDisponibilidadUsuario();
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
 
+  descargarLayout() {
+    this.cargando = true;
+    this.disponibilidadUsuariosService.obtenerLayout()
+      .then(response => {
+        this.utilService.saveByteArray("layout", response, 'xlsx');
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
 }
