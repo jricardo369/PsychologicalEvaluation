@@ -20,6 +20,11 @@ import { DialogoNotificacionesComponent } from './dialogo-notificaciones/dialogo
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DialogoSolicitudTelefonoComponent } from './dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-correos-abogados.component';
+import { SolicitudesVocComponent } from './solicitudes-voc/solicitudes-voc.component';
+import { SolicitudVocComponent } from './solicitud-voc/solicitud-voc.component';
+import { AdjuntosVocComponent } from './adjuntos-voc/adjuntos-voc.component';
+import { EventosSolicitudVocComponent } from './eventos-solicitud-voc/eventos-solicitud-voc.component';
+import { DialogoEventoSolicitudVocComponent } from './dialogo-evento-solicitud-voc/dialogo-evento-solicitud-voc.component';
 
 @NgModule({
 	imports: [
@@ -39,6 +44,7 @@ import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-co
     DialogoSiguienteProcesoComponent,
     DialogoNotificacionesComponent,
     DialogoSolicitudTelefonoComponent,
+    DialogoEventoSolicitudVocComponent
 	],
 	declarations: [
 		SolicitudesNavComponent,
@@ -53,13 +59,21 @@ import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-co
 		DialogoNotificacionesComponent,
 		DialogoSolicitudTelefonoComponent,
 		EnvioCorreosAbogadosComponent,
+		SolicitudesVocComponent,
+		SolicitudVocComponent,
+		AdjuntosVocComponent,
+		EventosSolicitudVocComponent,
+		DialogoEventoSolicitudVocComponent,
 	],
 	exports: [
 		EventosSolicitudComponent,
 		AdjuntosComponent,
     MovimientosSolicitudComponent,
     DialogoEventoSolicitudComponent,
-    DialogoMovimientoSolicitudComponent
+    DialogoMovimientoSolicitudComponent,
+    AdjuntosVocComponent,
+    EventosSolicitudVocComponent,
+    DialogoEventoSolicitudVocComponent
 	]
 })
 export class SolicitudesModule { }

@@ -6,8 +6,14 @@ import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
 import { BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from '../app.config';
 import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-correos-abogados.component';
+import { SolicitudesVocComponent } from './solicitudes-voc/solicitudes-voc.component';
+import { SolicitudVocComponent } from './solicitud-voc/solicitud-voc.component';
 
 const routes: Routes = [
+	{ path: 'solicitudes-voc', component: SolicitudesVocComponent, },
+	{ path: 'solicitudes-voc/:id', component: SolicitudVocComponent, },
+	{ path: 'solicitudes-voc/nueva-solicitud', component: SolicitudVocComponent, },
+
 	{ path: 'solicitudes', component: SolicitudesComponent, },
 	{ path: 'solicitudes/:id', component: SolicitudComponent, },
 	{ path: 'solicitudes/nueva-solicitud', component: SolicitudComponent, },
@@ -33,6 +39,14 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		title: 'Files',
 		subtitle: 'Manage Files',
 		uri: 'solicitudes',
+		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING].some(rol => rol == u.rol)
+	},
+  {
+		module: MODULE,
+		svgName: 'assignment-ind',
+		title: 'Files VOC',
+		subtitle: 'Manage Files VOC',
+		uri: 'solicitudes-voc',
 		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING].some(rol => rol == u.rol)
 	},
   {
