@@ -473,55 +473,6 @@ export class SolicitudVocComponent implements OnInit {
     this.utilService.goBack();
   }
 
-  siguienteProceso() {
-    if (this.solicitud.idEstatusSolicitud == 1 && !this.isInterviewerScales) {
-      this.dialog.open(DialogoSiguienteProcesoComponent, {
-        data: {
-          idSolicitud: this.solicitud.idSolicitud,
-          idUsuario: this.usuario.idUsuario,
-          interviewerScales: false
-        },
-        disableClose: true,
-      }).afterClosed().toPromise().then(valor => {
-        if (valor == 'enviado') this.goBack();
-      }).catch(reason => this.utilService.manejarError(reason));
-    } else {
-      this.cargando = true;
-      this.solicitudesVocService.obtenerSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario).then(validateSolicitud => {
-        this.dialog.open(DialogoSimpleComponent, {
-          data: {
-            titulo: 'Send to next process',
-            texto: 'Do you really want to send to next process?',
-            warning: validateSolicitud.idEstatusSolicitud == 10
-              && (this.validateEmptyField(validateSolicitud.email_abogado)
-                || this.validateEmptyField(validateSolicitud.firmaAbogados)
-                || this.validateEmptyField(validateSolicitud.paralegalEmails))
-              ? 'The paralegal data is missing, remember that if it is sent to the next process you will not receive notification.' : null,
-            botones: [
-              { texto: 'Cancel', color: '', valor: '' },
-              { texto: 'Send', color: 'primary', valor: 'enviar' },
-            ]
-          },
-          disableClose: true,
-        }).afterClosed().toPromise().then(valor => {
-          if (valor == 'enviar') {
-            this.cargando = true;
-            this.solicitudesVocService.envioSiguienteProceso(this.solicitud.idSolicitud, this.usuario.idUsuario)
-              .then(() => {
-                this.cargando = false;
-                this.goBack();
-              }).catch(e => {
-                //window.alert("ALGO NO SALIO BIEN");
-                this.utilService.manejarError(e);
-                this.cargando = false;
-              });
-          }
-        }).catch(reason => this.utilService.manejarError(reason));
-      }).catch(reason => this.utilService.manejarError(reason))
-        .finally(() => this.cargando = false);
-    }
-  }
-
   envioInterviewerScales() {
     this.dialog.open(DialogoSiguienteProcesoComponent, {
       data: {
@@ -587,132 +538,13 @@ export class SolicitudVocComponent implements OnInit {
   }
 
   cambiarEstatusSolicitud(idEstatusSolicitud: number, closed?: boolean) {
-    switch (idEstatusSolicitud) {
-      case 4: //Reject Request
-        /*this.dialog.open(DialogoSimpleComponent, {
-          data: {
-            titulo: 'Reject File',
-            texto: 'Do you really want to reject the File?',
-            botones: [
-              { texto: 'Cancel', color: '', valor: '' },
-              { texto: 'Reject', color: 'primary', valor: 'ok' },
-            ]
-          },
-          disableClose: true,
-        }).afterClosed().toPromise()*/
-
-        let usuariosOptions: any[] = [];
-        this.cargando = true;
-        this.usuariosService.obtenerUsuariosPorRol(4, 1).then(usuarios => {
-          this.cargando = false;
-          usuarios.forEach(usuario => usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario }));
-
-          if (usuariosOptions.length > 0) {
-            let campos = [];
-            if (!this.isInterviewerScales) campos.push({ label: "User to Notify", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
-            campos.push({ label: "Rejection reason", type: "textarea", placeholder: "Enter your rejection reason", value: "", maxLength: 500 });
-            this.utilService
-              .mostrarDialogoConFormulario(
-                "Reject File",
-                "Complete the information",
-                "Send",
-                "Cancel",
-                campos
-              ).then(valor => {
-                if (valor == 'ok') {
-                  if (this.isInterviewerScales) campos.splice(0, 0, { value: 0 });
-                  this.cargando = true;
-                  this.solicitudesVocService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value, true)
-                    .then(() => {
-                      this.cargando = false;
-                      this.goBack();
-                    }).catch(e => {
-                      this.utilService.manejarError(e);
-                      this.cargando = false;
-                    });
-                }
-              }).catch(reason => this.utilService.manejarError(reason));
-          } else {
-            this.utilService.mostrarDialogoSimple("Warning", "There are no users available");
-          }
-        }).catch(e => {
-          this.utilService.manejarError(e);
-          this.cargando = false;
-        });
-        break;
-      case 5: //No-show
-        this.dialog.open(DialogoSimpleComponent, {
-          data: {
-            titulo: 'No-show',
-            texto: 'Do you really want to do this action?',
-            botones: [
-              { texto: 'Cancel', color: '', valor: '' },
-              { texto: 'OK', color: 'primary', valor: 'ok' },
-            ]
-          },
-          disableClose: true,
-        }).afterClosed().toPromise().then(valor => {
-          if (valor == 'ok') {
-            this.cargando = true;
-            this.solicitudesVocService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario)
-              .then(() => {
-                this.cargando = false;
-                this.goBack();
-              }).catch(e => {
-                this.utilService.manejarError(e);
-                this.cargando = false;
-              });
-          }
-        }).catch(reason => this.utilService.manejarError(reason));
-        break;
-      case 11: //Finish-Case
-        if (closed) {
-          this.cargando = true;
-          this.solicitudesVocService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario, closed)
-            .then(() => {
-              this.cargando = false;
-              this.goBack();
-            })
-            .catch((reason) => this.utilService.manejarError(reason))
-            .then(() => (this.cargando = false));
-        } else {
-          this.dialog.open(DialogoSimpleComponent, {
-            data: {
-              titulo: 'Finish Case',
-              texto: 'Do you really want to finish the case?',
-              botones: [
-                { texto: 'Cancel', color: '', valor: '' },
-                { texto: 'OK', color: 'primary', valor: 'ok' },
-              ]
-            },
-            disableClose: true,
-          }).afterClosed().toPromise().then(valor => {
-            if (valor == 'ok') {
-              this.cargando = true;
-              this.solicitudesVocService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario)
-                .then(() => {
-                  this.cargando = false;
-                  this.goBack();
-                })
-                .catch((reason) => this.utilService.manejarError(reason))
-                .then(() => (this.cargando = false));
-            }
-          }).catch(reason => this.utilService.manejarError(reason));
-        }
-        break;
-      default:
-        this.cargando = true;
-        this.solicitudesVocService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario, closed)
-          .then(() => {
-            if (idEstatusSolicitud == 8 || idEstatusSolicitud == 7) {
-              this.eventosSolicitudVocComponent.refresh();
-            }
-            this.obtenerSolicitud(this.solicitud.idSolicitud);
-          })
-          .catch((reason) => this.utilService.manejarError(reason))
-          .then(() => (this.cargando = false));
-        break;
-    }
+    this.cargando = true;
+    this.solicitudesVocService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario, closed)
+      .then(() => {
+        this.obtenerSolicitud(this.solicitud.idSolicitud);
+      })
+      .catch((reason) => this.utilService.manejarError(reason))
+      .then(() => (this.cargando = false));
   }
 
   refreshEventosSolicitud() {
