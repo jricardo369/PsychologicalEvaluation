@@ -165,13 +165,22 @@
                     'badge-color-process': solicitud.idEstatusSolicitud == 14}">{{solicitud.estatusSolicitud}}</span>
         </div>
 
-        <div class="iigwo-input">
+        <div class="iigwo-input" *ngIf="!(isTherapist)">
           <label>Payment Status</label>
           <span class="badge-status" [ngClass]="{'badge-color-partially': solicitud.idEstatusPago == 1,
                     'badge-color-complete': solicitud.idEstatusPago == 2,
                     'badge-color-hold': solicitud.idEstatusPago == 3,
                     'badge-color-na': solicitud.idEstatusPago == 4}">{{solicitud.estatusPago}}</span>
           <input [ngModel]="solicitud.adeudo" readOnly>
+        </div>
+
+        <div class="iigwo-input" *ngIf="!(isTherapist)">
+          <label>Therapist</label>
+          <input [ngModel]="solicitud.cliente" readOnly style="font-weight: 600;"
+            *ngIf="solicitud.cliente else notIntSc">
+          <ng-template #notIntSc>
+            <input value="Unassigned" readOnly>
+          </ng-template>
         </div>
 
         <!-- <div class="iigwo-input" style="margin: 0;" *ngIf="editando">

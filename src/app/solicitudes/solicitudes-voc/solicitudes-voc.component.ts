@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC } from 'src/app/app.config';
 import { EstatusPagoService } from 'src/app/services/estatus-pago.service';
 import { EstatusSolicitudService } from 'src/app/services/estatus-solicitud.service';
 import { SolicitudesVocService } from 'src/app/services/solicitudes-voc.service';
@@ -38,6 +38,7 @@ export class SolicitudesVocComponent implements OnInit {
   isTemplateCreator: boolean = false;
   isInterviewerScales: boolean = false;
   isGhostwriting: boolean = false;
+  isTherapist: boolean = false;
 
   arrFilterTypes: any[] = ["All", "File", "Customer", "Phone", "Email", "Date", "File Status", "Payment Status", "Responsible User", "Waiver"];
   arrFilterFileStatus: EstatusSolicitud[] = [{
@@ -81,6 +82,7 @@ export class SolicitudesVocComponent implements OnInit {
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+    this.isTherapist = this.usuario.rol == THERAPIST ? true : false;
     this.obtenerEstatusSolicitudes();
     this.obtenerEstatusPagos();
     this.clearInputs();

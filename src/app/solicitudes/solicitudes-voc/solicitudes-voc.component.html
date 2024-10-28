@@ -108,7 +108,7 @@
             <th class=''>Schedules</th>
             <th class=''>Pending Sessions</th>
             <th class=''>Email</th>
-            <th class=''>Payment Status</th>
+            <th class='' *ngIf="!(isTherapist)">Payment Status</th>
             <th class=''>File Status</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
@@ -130,7 +130,7 @@
                             'badge-color-2': e.sesionesPendientes == 2,
                             'badge-color-3': e.sesionesPendientes >= 3}">{{e.sesionesPendientes}}</span></td>
             <td class='accent'>{{e.email}}</td>
-            <td style="text-align: center;"><span class="badge-status"
+            <td style="text-align: center;" *ngIf="!(isTherapist)"><span class="badge-status"
                 style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
                             'badge-color-complete': e.idEstatusPago == 2,
                             'badge-color-hold': e.idEstatusPago == 3,

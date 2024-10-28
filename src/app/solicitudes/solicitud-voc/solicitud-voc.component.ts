@@ -12,7 +12,7 @@ import { DialogoSiguienteProcesoComponent } from "../dialogo-siguiente-proceso/d
 import { DialogoNotificacionesComponent } from "../dialogo-notificaciones/dialogo-notificaciones.component";
 import { Scale } from 'src/model/scale';
 import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
-import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC } from 'src/app/app.config';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { DialogoSolicitudTelefonoComponent } from '../dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 import { ReportesService } from '../../services/reportes.service';
@@ -58,6 +58,7 @@ export class SolicitudVocComponent implements OnInit {
   isTemplateCreator: boolean = false;
   isInterviewerScales: boolean = false;
   isGhostwriting: boolean = false;
+  isTherapist: boolean = false;
 
   arrStates: any[] = [];
   arrLanguages: any = [];
@@ -90,6 +91,7 @@ export class SolicitudVocComponent implements OnInit {
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+    this.isTherapist = this.usuario.rol == THERAPIST ? true : false;
 
     route.params.subscribe((params) => {
       let codigo = params["id"];
