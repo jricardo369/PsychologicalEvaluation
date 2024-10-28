@@ -190,25 +190,12 @@
             <label style="margin: auto;">Send for Approval</label>
           </button>
 
-          <button (click)='envioInterviewerScales()' class="btn"
-            *ngIf="solicitud.idEstatusSolicitud != 11 && (isMaster || isVendor || isBackOffice || isGhostwriting) && solicitud.asignacionIntSc == false"
-            style="color: #FFFFFF; background: #40A4D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+          <button (click)='asignarTerapeuta()' class="btn"
+            *ngIf="solicitud.terapeuta == 0"
+            style="color: #FFFFFF;background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">Send to Interviewer Scales</label>
+            <label style="margin: auto;">Assign Therapist</label>
           </button>
-
-          <button (click)='enviarNotificaciones()' class="btn"
-            style="color: #FFFFFF;background: #ef9d54; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">Send Notifications</label>
-          </button>
-
-          <!-- <button (click)='asignarTemplate()' class="btn"
-            *ngIf="solicitud.idEstatusSolicitud == 2 && solicitud.asignacionTemplate == false && !(isTemplateCreator)"
-            style="color: #FFFFFF;background: #319757; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-            <!- <mat-icon svgIcon="add-box"></mat-icon> ->
-            <label style="margin: auto;">Assign Template</label>
-          </button> -->
 
           <button (click)='generateW9()' class="btn" *ngIf="isGhostwriting"
             style="color: #FFFFFF;background: #ff0000; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">

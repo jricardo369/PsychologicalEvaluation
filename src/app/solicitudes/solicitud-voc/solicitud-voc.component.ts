@@ -20,6 +20,7 @@ import { SolicitudVoc } from 'src/model/solicitud-voc';
 import { SolicitudesVocService } from 'src/app/services/solicitudes-voc.service';
 import { AdjuntosVocComponent } from '../adjuntos-voc/adjuntos-voc.component';
 import { EventosSolicitudVocComponent } from '../eventos-solicitud-voc/eventos-solicitud-voc.component';
+import { DialogoAsignarTerapeutaComponent } from '../dialogo-asignar-terapeuta/dialogo-asignar-terapeuta.component';
 
 @Component({
   selector: "app-solicitud-voc",
@@ -498,43 +499,16 @@ export class SolicitudVocComponent implements OnInit {
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
-  asignarTemplate() {
-    let usuariosOptions: any[] = [];
-    this.cargando = true;
-    this.usuariosService.obtenerUsuariosPorRol(7).then(usuarios => {
-      this.cargando = false;
-      usuarios.forEach(usuario => usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario }));
-
-      if (usuariosOptions.length > 0) {
-        let campos = [];
-        campos.push({ label: "User", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
-        this.utilService
-          .mostrarDialogoConFormulario(
-            "Assign Template",
-            "Select user asign",
-            "Send",
-            "Cancel",
-            campos
-          ).then(valor => {
-            if (valor == 'ok') {
-              this.cargando = true;
-              this.solicitudesVocService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, "")
-                .then(() => {
-                  this.cargando = false;
-                  this.goBack();
-                }).catch(e => {
-                  this.utilService.manejarError(e);
-                  this.cargando = false;
-                });
-            }
-          }).catch(reason => this.utilService.manejarError(reason));
-      } else {
-        this.utilService.mostrarDialogoSimple("Warning", "There are no templates available");
-      }
-    }).catch(e => {
-      this.utilService.manejarError(e);
-      this.cargando = false;
-    });
+  asignarTerapeuta() {
+    this.dialog.open(DialogoAsignarTerapeutaComponent, {
+      data: {
+        idSolicitud: this.solicitud.idSolicitud,
+        idUsuario: this.usuario.idUsuario
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'asignado') this.obtenerSolicitud(this.solicitud.idSolicitud);
+    }).catch(reason => this.utilService.manejarError(reason));
   }
 
   cambiarEstatusSolicitud(idEstatusSolicitud: number, closed?: boolean) {

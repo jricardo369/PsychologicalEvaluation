@@ -4,10 +4,11 @@ import { AppBarNavItem } from '../app-nav-item';
 import { Routes, RouterModule } from '@angular/router';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
-import { BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from '../app.config';
+import { BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC } from '../app.config';
 import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-correos-abogados.component';
 import { SolicitudesVocComponent } from './solicitudes-voc/solicitudes-voc.component';
 import { SolicitudVocComponent } from './solicitud-voc/solicitud-voc.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
 	{ path: 'solicitudes-voc', component: SolicitudesVocComponent, },
@@ -20,7 +21,8 @@ const routes: Routes = [
 
 	{ path: 'envio-correos-abogados', component: EnvioCorreosAbogadosComponent, },
 
-	{ path: '', pathMatch: 'full', redirectTo: 'solicitudes' },
+  { path: 'home', component: HomeComponent },
+	{ path: '', pathMatch: 'full', redirectTo: 'home' },
 ];
 
 const MODULE: AppBarNavItem = {
@@ -39,7 +41,7 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		title: 'Files',
 		subtitle: 'Manage Files',
 		uri: 'solicitudes',
-		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING].some(rol => rol == u.rol)
 	},
   {
 		module: MODULE,
@@ -47,7 +49,7 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		title: 'Files VOC',
 		subtitle: 'Manage Files VOC',
 		uri: 'solicitudes-voc',
-		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING].some(rol => rol == u.rol)
+		isVisibleFor: u => [VOC, THERAPIST].some(rol => rol == u.rol)
 	},
   {
 		module: MODULE,

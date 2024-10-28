@@ -183,11 +183,10 @@ export class SolicitudesVocService {
     );
   }
 
-  envioInterviewerScales(idSolicitud: number, idUsuarioCambio: number, idDisponibilidad: number): Promise<any> {
-    console.log(idDisponibilidad)
+  asignarTerapeuta(idSolicitud: number, idUsuarioSelected: number, idUsuarioEntrada: number): Promise<any> {
     return new Promise<any>((resolve, reject) =>
       this.http
-        .put(API_URL + "solicitudes-voc/envio-interviewer-scales/" + idSolicitud + "?idUsuarioCambio=" + idUsuarioCambio + "&idDisponibilidad=" + idDisponibilidad, {
+        .put(API_URL + "solicitudes-voc/asignar-terapeuta/" + idSolicitud + "/" + idUsuarioSelected + "?idUsuarioEntrada=" + idUsuarioEntrada, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
