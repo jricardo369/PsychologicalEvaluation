@@ -504,7 +504,8 @@ export class SolicitudVocComponent implements OnInit {
     this.dialog.open(DialogoAsignarTerapeutaComponent, {
       data: {
         idSolicitud: this.solicitud.idSolicitud,
-        idUsuario: this.usuario.idUsuario
+        idUsuario: this.usuario.idUsuario,
+        terapeuta: this.solicitud.terapeuta
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {

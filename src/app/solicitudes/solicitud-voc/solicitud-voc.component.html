@@ -197,6 +197,13 @@
             <label style="margin: auto;">Assign Therapist</label>
           </button>
 
+          <button (click)='asignarTerapeuta()' class="btn"
+            *ngIf="solicitud.terapeuta != 0 && isVOC"
+            style="color: #FFFFFF;background: #CE3FC4; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+            <label style="margin: auto;">Reassign Therapist</label>
+          </button>
+
           <button (click)='generateProcessLetter()' class="btn"
             style="color: #FFFFFF;background: #2A9AC7; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->

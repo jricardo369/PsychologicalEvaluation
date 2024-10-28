@@ -30,6 +30,7 @@ export class DialogoAsignarTerapeutaComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.idSolicitud = data.idSolicitud;
       this.idUsuarioEntrada = data.idUsuario;
+      this.idUsuarioSelected = data.terapeuta;
       this.obtenerUsuarios();
   }
 
