@@ -610,10 +610,10 @@ export class SolicitudVocComponent implements OnInit {
     return field === null || typeof field === 'undefined' || field.length === 0;
   }
 
-  generateW9() {
+  generateProcessLetter() {
     this.cargando = true;
-    this.reportesService.generateW9(this.solicitud.idSolicitud, this.usuario.idUsuario).then(response => {
-      this.utilService.saveByteArray("invoice_file-" + this.solicitud.idSolicitud, response, 'pdf');
+    this.solicitudesVocService.generateProcessLetter(this.solicitud.idSolicitud, this.usuario.idUsuario).then(response => {
+      this.utilService.saveByteArray("process-letter_file-" + this.solicitud.idSolicitud, response, 'pdf');
     }).catch(e => this.utilService.manejarError(e))
       .finally(() => this.cargando = false);
   }

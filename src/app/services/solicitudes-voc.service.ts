@@ -237,4 +237,21 @@ export class SolicitudesVocService {
     );
   }
 
+  generateProcessLetter(idSolicitud: number, idUsuario: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.http
+        .get(API_URL + "solicitudes-voc/generar-process-letter/" + idSolicitud + "?idUsuario=" + idUsuario,
+          {
+            withCredentials: true,
+            observe: 'response',
+            responseType: 'arraybuffer',
+            headers: new HttpHeaders().append('Content-Type', 'application/octet-stream').append('Authorization', localStorage.getItem('auth_token'))
+          })
+        .toPromise()
+        .then(response => {
+          resolve(response.body);
+        }).catch(reason => reject(reason));
+    });
+  }
+
 }
