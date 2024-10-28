@@ -107,6 +107,8 @@ export class SolicitudVocComponent implements OnInit {
         this.solicitud.numSesiones = 0;
         this.solicitud.numSchedules = 0;
         this.solicitud.sesionesPendientes = 0;
+        this.solicitud.documento1 = false;
+        this.solicitud.documento2 = false;
       } else {
         this.editando = true;
         this.obtenerSolicitud(Number.parseInt(codigo));
@@ -445,8 +447,7 @@ export class SolicitudVocComponent implements OnInit {
     this.solicitudesVocService
       .insertarSolicitud(
         this.usuario.idUsuario,
-        this.solicitud,
-        this.comentarios
+        this.solicitud
       )
       .then((solicitud) => {
         /*window.history.replaceState({}, '',

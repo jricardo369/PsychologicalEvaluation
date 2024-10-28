@@ -40,4 +40,5 @@ export class SolicitudVoc {
   terapeuta: number;
   usuarioRevisando: number;
   apellidosSinNull: string;
+  code: string;
 }

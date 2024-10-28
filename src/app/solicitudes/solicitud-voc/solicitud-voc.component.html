@@ -68,11 +68,11 @@
 
             <div class="iigwo-input">
               <label>Code</label>
-              <input type="text" [(ngModel)]="solicitud.numeroDeCaso" [readOnly]="solicitud.idEstatusSolicitud == 11">
+              <input type="text" [(ngModel)]="solicitud.code" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
           </div>
           <div class="column">
-            <div style="display: inline-flex; justify-content: space-evenly; margin-bottom: 5px;">
+            <div style="display: inline-flex; justify-content: space-evenly; margin-bottom: 5px;" *ngIf="editando">
               <div class="iigwo-input" style="justify-items: center;">
                 <label>Sessions</label>
                 <span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': solicitud.numSesiones == 0,
@@ -95,7 +95,7 @@
                               'badge-color-3': solicitud.sesionesPendientes >= 3}">{{solicitud.sesionesPendientes}}</span>
               </div>
             </div>
-            <div class="iigwo-input">
+            <div class="iigwo-input" *ngIf="editando">
               <label>Document 1</label>
               <div style="display: flex;">
                 <input type="checkbox" style="width: 15px; margin: 0 6px 0 4px;"
@@ -106,7 +106,7 @@
                   [readOnly]="!solicitud.documento1 || solicitud.idEstatusSolicitud == 11">
               </div>
             </div>
-            <div class="iigwo-input">
+            <div class="iigwo-input" *ngIf="editando">
               <label>Document 2</label>
               <div style="display: flex;">
                 <input type="checkbox" style="width: 15px; margin: 0 6px 0 4px;"

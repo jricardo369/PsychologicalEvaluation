@@ -107,21 +107,16 @@ export class SolicitudesVocService {
   }
 
   // Response vacio
-  insertarSolicitud(idUsuario: number, solicitud: SolicitudVoc, comentarios: string): Promise<any> {
+  insertarSolicitud(idUsuario: number, solicitud: SolicitudVoc): Promise<any> {
     let nuevaSolicitud = {
       fechaInicio: solicitud.fechaInicio,
       cliente: solicitud.cliente,
       telefono: solicitud.telefono,
       email: solicitud.email,
-      docusign: null,
-      abogado: solicitud.abogado,
-      email_abogado: solicitud.email_abogado,
       idTipoSolicitud: solicitud.idTipoSolicitud,
-      firmaAbogados: solicitud.firmaAbogados,
-      comentario: comentarios,
-      fechaNacimiento: solicitud.fechaNacimiento,
-      adicional: solicitud.adicional,
       apellidos: solicitud.apellidos,
+      numeroDeCaso: solicitud.numeroDeCaso,
+      code: solicitud.code
       // external: solicitud.external,
       // usuarioExternal: solicitud.usuarioExternal
     }
