@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AppBarNavItem } from '../app-nav-item';
 import { Routes, RouterModule } from '@angular/router';
-import { BACKOFFICE, GHOSTWRITING, MASTER } from '../app.config';
+import { BACKOFFICE, GHOSTWRITING, MASTER, VENDOR } from '../app.config';
 import { ReporteSolicitudesUsuariosComponent } from './reporte-solicitudes-usuarios/reporte-solicitudes-usuarios.component';
 import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/reporte-correos-enviados.component';
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';
@@ -22,7 +22,7 @@ const MODULE: AppBarNavItem = {
 	subtitle: null,
 	uri: 'reportes',
 	svgName: 'reports',
-	isVisibleFor: u => [MASTER, BACKOFFICE, GHOSTWRITING].some(rol => rol == u.rol)
+	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, GHOSTWRITING].some(rol => rol == u.rol)
 };
 
 export const REPORTES_ITEMS: AppBarNavItem[] = [
@@ -40,7 +40,7 @@ export const REPORTES_ITEMS: AppBarNavItem[] = [
 		title: 'Payments',
 		subtitle: 'Payments report',
 		uri: 'pagos',
-		isVisibleFor: u => [MASTER, BACKOFFICE, GHOSTWRITING].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, GHOSTWRITING].some(rol => rol == u.rol)
 	},
 	{
 		module: MODULE,
