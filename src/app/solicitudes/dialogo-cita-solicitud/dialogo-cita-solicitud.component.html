@@ -1,0 +1,48 @@
+<h2 mat-dialog-title style="margin-bottom: 0;">New Schedule</h2>
+
+<mat-dialog-content style="padding-right: 12px;">
+
+  <div style="width: 450px;">
+    <div class="iigwo-input" style="margin: 0; margin-right: 12px; text-align: end;">
+      <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 4px;"
+        id="dosCitas" [checked]="citaSolicitud.dosCitas" (change)="citaSolicitud.dosCitas = !citaSolicitud.dosCitas">
+      <label for="dosCitas" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">It is for two appointments</label>
+    </div>
+
+    <div class="iigwo-input">
+      <label>Description</label>
+      <textarea [(ngModel)]="citaSolicitud.comentario"></textarea>
+    </div>
+
+    <div style="display: flex;">
+      <div class="iigwo-input">
+        <label>Date</label>
+        <input type="date" [(ngModel)]="citaSolicitud.fecha">
+      </div>
+      <div class="iigwo-input">
+        <label>Time</label>
+        <select [(ngModel)]="citaSolicitud.hora" style="min-width: 74px;">
+          <option *ngFor="let time of arrTime" [ngValue]="time">
+            {{time}}</option>
+        </select>
+      </div>
+      <div class="iigwo-input">
+        <label>Type</label>
+        <select [(ngModel)]="citaSolicitud.tipo" style="min-width: 60px;">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Close</button>
+  <button class="iigwo accent" style="margin-right:0;" (click)='crear()'>Generate</button>
+</mat-dialog-actions>
+
+<!-- CARGANDO-->
+<div class='iigwo-loading' *ngIf="cargando">
+  <mat-spinner></mat-spinner>
+</div>

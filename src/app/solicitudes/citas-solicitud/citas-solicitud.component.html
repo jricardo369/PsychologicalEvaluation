@@ -1,0 +1,53 @@
+<div *ngIf="mostrarCitas" style="
+                overflow-y: auto;">
+
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <h4>Schedules</h4>
+    <button (click)='crearCita()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
+      style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
+      <mat-icon svgIcon="add"></mat-icon>
+      <label>Add Schedule</label>
+    </button>
+  </div>
+
+  <table class="informative" *ngIf="arrCitaSolicitud.length > 0">
+    <tr>
+      <th colspan="2">Hour</th>
+    </tr>
+    <tr *ngFor='let e of arrCitaSolicitud | slice:paginacion.begin:paginacion.end'>
+      <td>{{e.fecha}} {{e.hora}} {{e.tipo}}</td>
+      <td>
+        <button (click)='verCita(e)' class="btn-icon" style="color: gray;" matTooltip="Open">
+          <mat-icon svgIcon="comments"></mat-icon>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="99" style="text-align: right;line-height: 24px;" class="mini">
+        <label>
+          Records per page</label>
+        <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
+          style="margin: 0 8px; font-family: regular; height: 24px;">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}
+        <button class="iigwo small" style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+          (click)="paginacion.back();">
+          <mat-icon svgIcon="arrow-back"></mat-icon>
+        </button>
+        <button class="iigwo small" style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+          (click)="paginacion.forward();">
+          <mat-icon svgIcon="arrow-forward"></mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!--Cargando-->
+<div class='iigwo-loading' *ngIf="cargando">
+  <mat-spinner></mat-spinner>
+</div>

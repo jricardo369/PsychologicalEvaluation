@@ -131,6 +131,7 @@ export class SolicitudesVocComponent implements OnInit {
       .then(solicitudes => {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
+        console.log(this.solicitudes)
         this.paginacion.setArray(this.solicitudes);
       })
       .catch(reason => this.utilService.manejarError(reason))

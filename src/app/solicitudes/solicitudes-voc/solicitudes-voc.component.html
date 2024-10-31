@@ -116,7 +116,7 @@
                 (change)="check($event, e.idSolicitud)"></td>
             <td class='accent'>{{e.fechaInicio | dateYYYYMMDD}}</td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
-            <td class='accent'></td>
+            <td class='accent'>{{e.code}}</td>
             <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.numSesiones == 0,
                             'badge-color-1': e.numSesiones <= 1,
                             'badge-color-2': e.numSesiones == 2,
@@ -146,8 +146,8 @@
 								'badge-color-open': e.idEstatusSolicitud == 9,
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11,
-                'badge-color-in_approbal': solicitud.idEstatusSolicitud == 13,
-                'badge-color-process': solicitud.idEstatusSolicitud == 14}">{{e.estatusSolicitud}}</span></td>
+                'badge-color-in_approbal': e.idEstatusSolicitud == 13,
+                'badge-color-process': e.idEstatusSolicitud == 14}">{{e.estatusSolicitud}}</span></td>
           </tr>
 
           <tr>

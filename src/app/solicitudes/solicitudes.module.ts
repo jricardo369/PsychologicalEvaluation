@@ -27,6 +27,8 @@ import { EventosSolicitudVocComponent } from './eventos-solicitud-voc/eventos-so
 import { DialogoEventoSolicitudVocComponent } from './dialogo-evento-solicitud-voc/dialogo-evento-solicitud-voc.component';
 import { DialogoAsignarTerapeutaComponent } from './dialogo-asignar-terapeuta/dialogo-asignar-terapeuta.component';
 import { HomeComponent } from './home/home.component';
+import { CitasSolicitudComponent } from './citas-solicitud/citas-solicitud.component';
+import { DialogoCitaSolicitudComponent } from './dialogo-cita-solicitud/dialogo-cita-solicitud.component';
 
 @NgModule({
 	imports: [
@@ -47,7 +49,8 @@ import { HomeComponent } from './home/home.component';
     DialogoNotificacionesComponent,
     DialogoSolicitudTelefonoComponent,
     DialogoEventoSolicitudVocComponent,
-    DialogoAsignarTerapeutaComponent
+    DialogoAsignarTerapeutaComponent,
+    DialogoCitaSolicitudComponent
 	],
 	declarations: [
 		SolicitudesNavComponent,
@@ -69,6 +72,8 @@ import { HomeComponent } from './home/home.component';
 		DialogoEventoSolicitudVocComponent,
 		DialogoAsignarTerapeutaComponent,
 		HomeComponent,
+		CitasSolicitudComponent,
+		DialogoCitaSolicitudComponent,
 	],
 	exports: [
 		EventosSolicitudComponent,
@@ -78,7 +83,9 @@ import { HomeComponent } from './home/home.component';
     DialogoMovimientoSolicitudComponent,
     AdjuntosVocComponent,
     EventosSolicitudVocComponent,
-    DialogoEventoSolicitudVocComponent
+    DialogoEventoSolicitudVocComponent,
+    CitasSolicitudComponent,
+    DialogoCitaSolicitudComponent
 	]
 })
 export class SolicitudesModule { }
