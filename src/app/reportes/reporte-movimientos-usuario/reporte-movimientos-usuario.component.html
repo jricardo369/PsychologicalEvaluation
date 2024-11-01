@@ -44,15 +44,15 @@
 
       <div style="display: flex;">
         <div class="mb-20">
-          <h4 class="mb-0" style="color: green;">{{(reporteMovimientos.cargos ? reporteMovimientos.cargos : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: blue;">{{(reporteMovimientos.cargos ? reporteMovimientos.cargos : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Charges</p>
         </div>
         <div class="ml-25 mb-20">
-          <h4 class="mb-0" style="color: red;">{{(reporteMovimientos.abonos ? reporteMovimientos.abonos: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: green;">{{(reporteMovimientos.abonos ? reporteMovimientos.abonos: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Payments</p>
         </div>
         <div class="ml-25 mb-20">
-          <h4 class="mb-0" style="color: blue;">{{(reporteMovimientos.balance ? reporteMovimientos.balance : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: red;">{{(reporteMovimientos.balance ? reporteMovimientos.balance : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Balance</p>
         </div>
       </div>
