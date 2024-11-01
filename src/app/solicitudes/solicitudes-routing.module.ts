@@ -31,7 +31,7 @@ const MODULE: AppBarNavItem = {
 	subtitle: null,
 	uri: 'solicitudes',
 	svgName: 'assignment',
-	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING].some(rol => rol == u.rol)
+	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING, THERAPIST].some(rol => rol == u.rol)
 };
 
 export const SOLICITUDES_ITEMS: AppBarNavItem[] = [

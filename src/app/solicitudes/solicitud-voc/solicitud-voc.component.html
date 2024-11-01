@@ -95,6 +95,10 @@
                               'badge-color-3': solicitud.sesionesPendientes >= 3}">{{solicitud.sesionesPendientes}}</span>
               </div>
             </div>
+            <div class="iigwo-input" *ngIf="isVOC">
+              <label>Sessions Number</label>
+              <input type="number" [(ngModel)]="solicitud.numSesiones" min="0" minlength="1" [readOnly]="solicitud.idEstatusSolicitud == 11">
+            </div>
             <div class="iigwo-input" *ngIf="editando">
               <label>Document 1</label>
               <div style="display: flex;">
