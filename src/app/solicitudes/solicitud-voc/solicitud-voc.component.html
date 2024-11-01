@@ -201,7 +201,7 @@
         <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud != 11">
           <h4 style="margin: 0; margin-top: 40px;">Actions</h4>
 
-          <button (click)='cambiarEstatusSolicitud(13)' class="btn"
+          <button (click)='cambiarEstatusSolicitud(13, false)' class="btn"
             *ngIf="solicitud.idEstatusSolicitud == 1"
             style="color: #FFFFFF; background: #15B392; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
