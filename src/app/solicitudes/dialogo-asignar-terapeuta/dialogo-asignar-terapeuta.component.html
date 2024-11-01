@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Assign Therapist</h2>
+<h2 mat-dialog-title>{{idUsuarioSelected == 0 ? "Assign Therapist" : "Reassign Therapist"}}</h2>
 
 <mat-dialog-content>
   <table class="informative" *ngIf="arrTerapeutas.length > 0">
