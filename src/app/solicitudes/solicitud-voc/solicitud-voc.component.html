@@ -209,7 +209,7 @@
           </button>
 
           <button (click)='asignarTerapeuta()' class="btn"
-            *ngIf="solicitud.terapeuta == 0"
+            *ngIf="solicitud.terapeuta == 0 && solicitud.idEstatusSolicitud != 1"
             style="color: #FFFFFF;background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Assign Therapist</label>
