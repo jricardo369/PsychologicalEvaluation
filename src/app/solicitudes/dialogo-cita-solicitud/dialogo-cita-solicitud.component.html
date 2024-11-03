@@ -1,6 +1,6 @@
-<h2 mat-dialog-title style="margin-bottom: 0;">New Schedule</h2>
+<h2 mat-dialog-title [ngClass]="{'mb-0': creando}">{{creando ? "New Schedule" : ("Schedule " + citaSolicitud.fecha + " at " + citaSolicitud.hora + " " + citaSolicitud.tipo)}}</h2>
 
-<mat-dialog-content style="padding-right: 12px;">
+<mat-dialog-content style="padding-right: 12px;" *ngIf="creando">
 
   <div style="width: 450px;">
     <div class="iigwo-input" style="margin: 0; margin-right: 12px; text-align: end;">
@@ -36,10 +36,29 @@
     </div>
   </div>
 </mat-dialog-content>
+<mat-dialog-content style="padding-right: 12px;" *ngIf="!creando">
+  <div style="width: 450px;">
+    <div class="iigwo-input">
+      <label>Note</label>
+      <textarea [(ngModel)]="nuevaNotaCita.descripcion"></textarea>
+    </div>
+    <div style="margin-right: 12px;">
+      <label>Notes</label>
+      <div class="note" *ngFor="let nota of arrNotasCita">
+        <label>{{nota.fecha}}</label>
+        <p>{{nota.descripcion}}</p>
+      </div>
+    </div>
+
+  </div>
+</mat-dialog-content>
 
 <mat-dialog-actions>
   <button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Close</button>
-  <button class="iigwo accent" style="margin-right:0;" (click)='crear()'>Generate</button>
+  <button class="iigwo accent" style="margin-right:0;" (click)='crear()' *ngIf="creando">Generate</button>
+  <button class="iigwo" style="color: #FFFFFF;background: dodgerblue;" (click)='descargarCita()' *ngIf="!creando">Download</button>
+  <button class="iigwo" style="color: #FFFFFF;background: #EAB570;" (click)='no_show()' *ngIf="!creando">No-show</button>
+  <button class="iigwo accent" style="margin-right:0;" (click)='agregarNota()' *ngIf="!creando">Save note</button>
 </mat-dialog-actions>
 
 <!-- CARGANDO-->

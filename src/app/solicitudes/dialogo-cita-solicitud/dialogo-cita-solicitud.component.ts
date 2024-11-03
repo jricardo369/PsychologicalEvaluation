@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CitaSolicitudService } from 'src/app/services/cita-solicitud.service';
+import { NotaCitaService } from 'src/app/services/nota-cita.service';
 import { UtilService } from 'src/app/services/util.service';
 import { CitaSolicitud } from 'src/model/cita-solicitud';
+import { NotaCita } from 'src/model/nota-cita';
 import { Usuario } from 'src/model/usuario';
 
 @Component({
@@ -14,7 +16,10 @@ export class DialogoCitaSolicitudComponent implements OnInit {
 
   cargando: boolean = false;
   public citaSolicitud: CitaSolicitud = new CitaSolicitud;
+  arrNotasCita: NotaCita[] = [];
+  nuevaNotaCita: NotaCita = new NotaCita();
   usuario: Usuario = new Usuario;
+  creando: boolean = false;
 
   arrTime: string[] = [
     '12:00',
@@ -45,12 +50,19 @@ export class DialogoCitaSolicitudComponent implements OnInit {
 
   constructor(
     private citaSolicitudService: CitaSolicitudService,
+    private notaCitaService: NotaCitaService,
     public utilService: UtilService,
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogoCitaSolicitudComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     this.citaSolicitud.idSolicitud = data.idSolicitud;
+    this.creando = data.creando;
+    if (!this.creando) {
+      this.citaSolicitud = data.citaSolicitud;
+      this.nuevaNotaCita.idCita = this.citaSolicitud.idCita;
+      this.obtenerNotasCita();
+    }
     this.citaSolicitud.dosCitas = false;
   }
 
@@ -63,6 +75,47 @@ export class DialogoCitaSolicitudComponent implements OnInit {
       .crearCitaSolicitud(this.citaSolicitud, this.usuario.idUsuario)
       .then(() => {
         this.cerrar('creado');
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
+
+  no_show() {
+    this.cargando = true;
+    this.citaSolicitudService
+      .no_show(this.citaSolicitud.idCita, this.usuario.idUsuario)
+      .then(() => {
+        this.obtenerNotasCita();
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
+
+  descargarCita() {
+    this.cargando = true;
+    this.citaSolicitudService.descargarCita(this.citaSolicitud.idCita, this.usuario.idUsuario).then(response => {
+      this.utilService.saveByteArray("schedule_file-" + this.citaSolicitud.idSolicitud + "_" + this.citaSolicitud.idCita, response, 'pdf');
+    }).catch(e => this.utilService.manejarError(e))
+    .finally(() => this.cargando = false);
+  }
+
+  obtenerNotasCita() {
+    this.cargando = true;
+    this.notaCitaService
+      .obtenerNotasCita(this.citaSolicitud.idCita)
+      .then(notas => {
+        this.arrNotasCita = notas;
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
+
+  agregarNota() {
+    this.cargando = true;
+    this.notaCitaService
+      .guardarNota(this.nuevaNotaCita)
+      .then(() => {
+        this.obtenerNotasCita();
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false);
