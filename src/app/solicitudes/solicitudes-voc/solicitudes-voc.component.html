@@ -117,18 +117,11 @@
             <td class='accent'>{{e.fechaInicio | dateYYYYMMDD}}</td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
             <td class='accent'>{{e.code}}</td>
-            <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.numSesiones == 0,
-                            'badge-color-1': e.numSesiones <= 1,
-                            'badge-color-2': e.numSesiones == 2,
-                            'badge-color-3': e.numSesiones >= 3}">{{e.numSesiones}}</span></td>
-            <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.numSchedules == 0,
-                            'badge-color-1': e.numSchedules <= 1,
-                            'badge-color-2': e.numSchedules == 2,
-                            'badge-color-3': e.numSchedules >= 3}">{{e.numSchedules}}</span></td>
-            <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.sesionesPendientes == 0,
-                            'badge-color-1': e.sesionesPendientes <= 1,
-                            'badge-color-2': e.sesionesPendientes == 2,
-                            'badge-color-3': e.sesionesPendientes >= 3}">{{e.sesionesPendientes}}</span></td>
+            <td style="text-align: center;"><span class="badge-status badge-color-0" style="margin: 0;">{{e.numSesiones}}</span></td>
+            <td style="text-align: center;"><span class="badge-status badge-color-0" style="margin: 0;">{{e.numSchedules}}</span></td>
+            <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-3': (e.sesionesPendientes >= 0 && e.sesionesPendientes < 5),
+              'badge-color-2': (e.sesionesPendientes >= 5 && e.sesionesPendientes < 15),
+              'badge-color-0': e.sesionesPendientes >= 15}">{{e.sesionesPendientes}}</span></td>
             <td class='accent'>{{e.email}}</td>
             <td style="text-align: center;" *ngIf="!(isTherapist)"><span class="badge-status"
                 style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,

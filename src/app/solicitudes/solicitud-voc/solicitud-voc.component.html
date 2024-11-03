@@ -75,24 +75,17 @@
             <div style="display: inline-flex; justify-content: space-evenly; margin-bottom: 5px;" *ngIf="editando">
               <div class="iigwo-input" style="justify-items: center;">
                 <label>Sessions</label>
-                <span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': solicitud.numSesiones == 0,
-                              'badge-color-1': solicitud.numSesiones == 1,
-                              'badge-color-2': solicitud.numSesiones == 2,
-                              'badge-color-3': solicitud.numSesiones >= 3}">{{solicitud.numSesiones}}</span>
+                <span class="badge-status badge-color-0" style="margin: 0;">{{solicitud.numSesiones}}</span>
               </div>
               <div class="iigwo-input" style="justify-items: center;">
                 <label>Schedules</label>
-                <span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': solicitud.numSchedules == 0,
-                              'badge-color-1': solicitud.numSchedules == 1,
-                              'badge-color-2': solicitud.numSchedules == 2,
-                              'badge-color-3': solicitud.numSchedules >= 3}">{{solicitud.numSchedules}}</span>
+                <span class="badge-status badge-color-0" style="margin: 0;">{{solicitud.numSchedules}}</span>
               </div>
               <div class="iigwo-input" style="justify-items: center;">
                 <label>Pending Sessions</label>
-                <span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': solicitud.sesionesPendientes == 0,
-                              'badge-color-1': solicitud.sesionesPendientes == 1,
-                              'badge-color-2': solicitud.sesionesPendientes == 2,
-                              'badge-color-3': solicitud.sesionesPendientes >= 3}">{{solicitud.sesionesPendientes}}</span>
+                <span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-3': (solicitud.sesionesPendientes >= 0 && solicitud.sesionesPendientes < 5),
+                              'badge-color-2': (solicitud.sesionesPendientes >= 5 && solicitud.sesionesPendientes < 15),
+                              'badge-color-0': solicitud.sesionesPendientes >= 15}">{{solicitud.sesionesPendientes}}</span>
               </div>
             </div>
             <div class="iigwo-input" *ngIf="isVOC">
