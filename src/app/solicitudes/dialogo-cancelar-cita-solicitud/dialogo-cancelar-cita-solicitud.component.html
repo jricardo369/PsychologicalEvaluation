@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Cancel Schedule</h2>
+
+<mat-dialog-content>
+  <table class="informative" *ngIf="arrCitasActivas.length > 0">
+    <tr>
+      <th class=''></th>
+      <th>User</th>
+      <th>Schedule Type</th>
+      <th>Date</th>
+    </tr>
+    <tr *ngFor='let e of arrCitasActivas'>
+      <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idEvento)"
+          (change)="check($event, e.idEvento)"></td>
+      <td>{{e.nombreUsuario}}</td>
+      <td>{{e.rol}}</td>
+      <td>{{e.fecha}}</td>
+    </tr>
+  </table>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Cancel</button>
+  <button class="iigwo accent" style="margin-right:0;" [disabled]="!idEventoSelected" (click)='enviar()'>Send</button>
+</mat-dialog-actions>
+
+<!-- CARGANDO-->
+<div class='iigwo-loading' *ngIf="cargando">
+  <mat-spinner></mat-spinner>
+</div>

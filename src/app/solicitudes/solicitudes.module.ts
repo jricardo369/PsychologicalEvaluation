@@ -29,6 +29,7 @@ import { DialogoAsignarTerapeutaComponent } from './dialogo-asignar-terapeuta/di
 import { HomeComponent } from './home/home.component';
 import { CitasSolicitudComponent } from './citas-solicitud/citas-solicitud.component';
 import { DialogoCitaSolicitudComponent } from './dialogo-cita-solicitud/dialogo-cita-solicitud.component';
+import { DialogoCancelarCitaSolicitudComponent } from './dialogo-cancelar-cita-solicitud/dialogo-cancelar-cita-solicitud.component';
 
 @NgModule({
 	imports: [
@@ -50,7 +51,8 @@ import { DialogoCitaSolicitudComponent } from './dialogo-cita-solicitud/dialogo-
     DialogoSolicitudTelefonoComponent,
     DialogoEventoSolicitudVocComponent,
     DialogoAsignarTerapeutaComponent,
-    DialogoCitaSolicitudComponent
+    DialogoCitaSolicitudComponent,
+    DialogoCancelarCitaSolicitudComponent
 	],
 	declarations: [
 		SolicitudesNavComponent,
@@ -74,6 +76,7 @@ import { DialogoCitaSolicitudComponent } from './dialogo-cita-solicitud/dialogo-
 		HomeComponent,
 		CitasSolicitudComponent,
 		DialogoCitaSolicitudComponent,
+		DialogoCancelarCitaSolicitudComponent,
 	],
 	exports: [
 		EventosSolicitudComponent,

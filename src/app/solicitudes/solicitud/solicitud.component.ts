@@ -21,6 +21,7 @@ import { MovimientosSolicitudComponent } from '../movimientos-solicitud/movimien
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { DialogoSolicitudTelefonoComponent } from '../dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 import { ReportesService } from '../../services/reportes.service';
+import { DialogoCancelarCitaSolicitudComponent } from '../dialogo-cancelar-cita-solicitud/dialogo-cancelar-cita-solicitud.component';
 
 @Component({
   selector: "app-solicitud",
@@ -581,6 +582,18 @@ export class SolicitudComponent implements OnInit {
       this.utilService.manejarError(e);
       this.cargando = false;
     });
+  }
+
+  cancelarCita() {
+    this.dialog.open(DialogoCancelarCitaSolicitudComponent, {
+      data: {
+        idSolicitud: this.solicitud.idSolicitud,
+        idUsuario: this.usuario.idUsuario
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'enviado') this.obtenerSolicitud(this.solicitud.idSolicitud);
+    }).catch(reason => this.utilService.manejarError(reason));
   }
 
   cambiarEstatusSolicitud(idEstatusSolicitud: number, closed?: boolean) {

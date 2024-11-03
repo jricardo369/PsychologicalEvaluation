@@ -333,6 +333,12 @@
             <label style="margin: auto;">Generate W9</label>
           </button>
 
+          <button (click)='cancelarCita()' class="btn" *ngIf="(isMaster || isVendor || isBackOffice) && (solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3)"
+            style="color: #FFFFFF;background: #ED9A72; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+            <label style="margin: auto;">Cancel Schedule</label>
+          </button>
+
           <br>
 
           <button (click)='cambiarEstatusSolicitud(4)' class="btn"
