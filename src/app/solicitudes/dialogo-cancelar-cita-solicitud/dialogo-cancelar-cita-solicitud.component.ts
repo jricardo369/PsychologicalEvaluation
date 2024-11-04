@@ -49,6 +49,7 @@ export class DialogoCancelarCitaSolicitudComponent implements OnInit {
     this.eventoSolicitudService.obtenerCitasActivas(this.idSolicitud)
       .then(citasActivas => {
         this.arrCitasActivas = citasActivas;
+        if (this.arrCitasActivas.length == 0) this.cerrar('vacio');
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

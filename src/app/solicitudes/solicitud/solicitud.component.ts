@@ -593,6 +593,7 @@ export class SolicitudComponent implements OnInit {
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
       if (valor == 'enviado') this.obtenerSolicitud(this.solicitud.idSolicitud);
+      else if (valor == 'vacio') this.utilService.mostrarDialogoSimple("Warning", "Has no appointments yet.");
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
