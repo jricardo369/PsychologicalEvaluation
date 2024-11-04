@@ -53,7 +53,21 @@ export class CitasSolicitudComponent implements OnInit {
   crearCita() {
     this.dialog.open(DialogoCitaSolicitudComponent, {
       data: {
-        idSolicitud: this.idSolicitud
+        idSolicitud: this.idSolicitud,
+        creando: true
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'creado') this.refresh();
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
+
+  verCita(cita: CitaSolicitud) {
+    this.dialog.open(DialogoCitaSolicitudComponent, {
+      data: {
+        idSolicitud: this.idSolicitud,
+        creando: false,
+        citaSolicitud: cita
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
