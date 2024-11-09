@@ -115,6 +115,7 @@
             <th class='' *ngIf="isMaster || isBackOffice || isInterviewer">Interview Appointment</th>
             <th class='' *ngIf="!(isInterviewer || isGhostwriting)">Scales Appointment</th>
             <th class='' *ngIf="(isMaster || isVendor || isBackOffice)">Amanda Interview</th>
+            <th class='' *ngIf="isTemplateCreator">Interview Scale</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
             <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
@@ -158,6 +159,9 @@
             </td>
             <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="(isMaster || isVendor || isBackOffice)">
               <mat-icon svgIcon="done" *ngIf="e.interviewMaster"></mat-icon>
+            </td>
+            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="isTemplateCreator">
+              <mat-icon svgIcon="done" *ngIf="e.asignacionIntSc"></mat-icon>
             </td>
           </tr>
 
