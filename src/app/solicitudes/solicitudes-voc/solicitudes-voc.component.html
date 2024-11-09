@@ -122,10 +122,9 @@
             <td style="text-align: center;"><span class="badge-status badge-color-0"
                 style="margin: 0;">{{e.numSchedules}}</span></td>
             <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{
-              'badge-color-0': (e.sesionesPendientes == 0),
+              'badge-color-0': (e.sesionesPendientes == 0 || e.sesionesPendientes > 15),
               'badge-color-3': (e.sesionesPendientes > 0 && e.sesionesPendientes <= 5),
-              'badge-color-2': (e.sesionesPendientes > 5 && e.sesionesPendientes <= 15),
-              'badge-color-0': e.sesionesPendientes > 15}">{{e.sesionesPendientes}}</span></td>
+              'badge-color-2': (e.sesionesPendientes > 5 && e.sesionesPendientes <= 15)}">{{e.sesionesPendientes}}</span></td>
             <td class='accent'>{{e.email}}</td>
             <td style="text-align: center;" *ngIf="!(isTherapist)"><span class="badge-status" style="margin: 0;"
                 [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
