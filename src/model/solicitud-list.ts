@@ -28,4 +28,6 @@ export class SolicitudList {
     usuarioRevisando: string;
     idUsuarioRevisando: number;
     fecha_schedule_scales: Date;
+
+    interviewMaster: boolean;
 }
