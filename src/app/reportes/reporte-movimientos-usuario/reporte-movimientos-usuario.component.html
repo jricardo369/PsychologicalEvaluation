@@ -20,10 +20,10 @@
           <div class="iigwo-input">
             <label>Type</label>
             <select [(ngModel)]="inputTipoReporte" (change)="obtenerMovimientosUsuario()">
-                <option ngValue="1" selected>Pending Payments</option>
-                <option ngValue="2">Payment Details</option>
+              <option ngValue="1" selected>Pending Payments</option>
+              <option ngValue="2">Payment Details</option>
             </select>
-        </div>
+          </div>
           <div class="iigwo-input">
             <label>Start Date</label>
             <input type="date" [(ngModel)]="fechaI" (change)="obtenerMovimientosUsuario()">
@@ -44,15 +44,18 @@
 
       <div style="display: flex;">
         <div class="mb-20">
-          <h4 class="mb-0" style="color: blue;">{{(reporteMovimientos.cargos ? reporteMovimientos.cargos : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: blue;">{{(reporteMovimientos.cargos ? reporteMovimientos.cargos : 0) | currency
+            : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Charges</p>
         </div>
         <div class="ml-25 mb-20">
-          <h4 class="mb-0" style="color: green;">{{(reporteMovimientos.abonos ? reporteMovimientos.abonos: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: green;">{{(reporteMovimientos.abonos ? reporteMovimientos.abonos: 0) | currency
+            : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Payments</p>
         </div>
         <div class="ml-25 mb-20">
-          <h4 class="mb-0" style="color: red;">{{(reporteMovimientos.balance ? reporteMovimientos.balance : 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+          <h4 class="mb-0" style="color: red;">{{(reporteMovimientos.balance ? reporteMovimientos.balance : 0) |
+            currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
           <p class="text-body-secondary fs-9 mb-0">Balance</p>
         </div>
       </div>
@@ -80,9 +83,9 @@
           <td class="number">{{e.adeudo | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
           <td style="padding-top: 0; padding-bottom: 0;">
             <button (click)='abrirDetalle(e.idSolicitud)' class="btn-icon" style="color: gray;" matTooltip="Open">
-                <mat-icon svgIcon="eye"></mat-icon>
+              <mat-icon svgIcon="eye"></mat-icon>
             </button>
-        </td>
+          </td>
         </tr>
       </table>
 
@@ -102,7 +105,8 @@
             <td class='accent'>{{e.folio}}</td>
             <td class='accent'>{{e.cliente}}</td>
             <td class='accent'>{{e.descripcionTipoPago}}</td>
-            <td style="text-align: center;"><span class="badge-status badge-color-payment" style="margin: 0;">{{e.tipoMovimiento}}</span></td>
+            <td style="text-align: center;"><span class="badge-status badge-color-payment"
+                style="margin: 0;">{{e.tipoMovimiento}}</span></td>
             <td class='accent'>{{e.fecha | dateYYYYMMDD}}</td>
             <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
             <td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
