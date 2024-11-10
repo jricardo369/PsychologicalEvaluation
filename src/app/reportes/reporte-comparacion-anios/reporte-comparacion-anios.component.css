@@ -1,0 +1,11 @@
+td {
+  vertical-align: middle;
+}
+
+.column {
+  flex-flow: column;
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+}

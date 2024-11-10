@@ -4,6 +4,7 @@ import { API_URL } from "../app.config";
 import { Solicitud } from "src/model/solicitud";
 import { SolicitudList } from "src/model/solicitud-list";
 import { SolicitudTelefono } from "src/model/solicitud-telefono";
+import { ReporteComparacionAnios } from "src/model/reporte-comparacion-anios";
 
 @Injectable({
   providedIn: "root",
@@ -234,6 +235,24 @@ export class SolicitudesService {
         .toPromise()
         .then((response) => {
           resolve(response);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
+  obtenerReporteComparacionAnios(anio: number, fileStatus: string): Promise<ReporteComparacionAnios> {
+    return new Promise<ReporteComparacionAnios>((resolve, reject) =>
+      this.http
+        .get(API_URL + "solicitudes/reporte-anios/" + anio + "?filtro=" + fileStatus, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as ReporteComparacionAnios);
         })
         .catch((reason) => reject(reason))
     );

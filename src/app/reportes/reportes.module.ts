@@ -14,6 +14,7 @@ import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/repo
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';
 import { HomeComponent } from './home/home.component';
 import { DialogoDetalleMovimientosComponent } from './dialogo-detalle-movimientos/dialogo-detalle-movimientos.component';
+import { ReporteComparacionAniosComponent } from './reporte-comparacion-anios/reporte-comparacion-anios.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { DialogoDetalleMovimientosComponent } from './dialogo-detalle-movimiento
     ReporteMovimientosUsuarioComponent,
     HomeComponent,
     DialogoDetalleMovimientosComponent,
+    ReporteComparacionAniosComponent,
 	],
 	exports: []
 })
