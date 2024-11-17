@@ -54,7 +54,8 @@ export class CitasSolicitudComponent implements OnInit {
     this.dialog.open(DialogoCitaSolicitudComponent, {
       data: {
         idSolicitud: this.idSolicitud,
-        creando: true
+        creando: true,
+        verSolicitud: false
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
@@ -67,6 +68,7 @@ export class CitasSolicitudComponent implements OnInit {
       data: {
         idSolicitud: this.idSolicitud,
         creando: false,
+        verSolicitud: false,
         citaSolicitud: cita
       },
       disableClose: true,

@@ -1,0 +1,146 @@
+<app-workspace-nav>
+  <app-solicitudes-nav></app-solicitudes-nav>
+</app-workspace-nav>
+<div class='workspace'>
+  <div class='main'>
+
+    <app-experimental-menu titulo="Schedules">
+
+      <button style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;" (click)='crearCita()'>
+        <mat-icon svgIcon="add-box"></mat-icon>
+        <label>Add Schedule</label>
+      </button>
+      <button (click)='refrescar()'>
+        <mat-icon svgIcon="refresh"></mat-icon>
+        <label>Refresh</label>
+      </button>
+
+    </app-experimental-menu>
+
+    <div class='content'>
+
+      <div style="display:flex; justify-content: space-between; align-items: flex-end;">
+        <div class="iigwo-input" style="margin-right: 12px;">
+          <label>Date</label>
+          <input type="date" [(ngModel)]="fecha" (change)="refrescar()">
+        </div>
+        <!-- <button class="citas-por-dia" id="citasPorDia" (click)="citasDia()">
+          {{citasPorDia}}
+        </button> -->
+
+        <button class='accent iigwo' (click)='citasDia()'>
+          <label>{{citasPorDia}}</label>
+        </button>
+
+        <!--<button class='iigwo accent btn-search' (click)='refrescar()' >
+                    <mat-icon svgIcon="search"></mat-icon>
+                    <label>Buscar</label>
+                </button>-->
+      </div>
+
+      <div style="width: 1500px;" *ngIf="mostrarDatosDia">
+
+        <div>
+          <p class="accent header-cita-dia">Day Schedules {{fecha}}</p>
+        </div>
+        <div class="cita-dia" *ngFor="let c of citasDeDia" (click)="verCita(c)">
+          <p class="nombre">{{c.nombreUsuario}}</p>
+          <p>{{c.hora + " " + c.tipo}}</p>
+          <p class="comentario">{{c.comentario}}</p>
+        </div>
+        <div *ngIf="!(citasDeDia.length > 0)">
+          <label style="border: 0;font-size: 13px; color: gray; text-align: left;" *ngIf="!conCitas">
+            No appointments scheduled for this day.</label>
+        </div>
+
+      </div>
+
+      <!-- TABLA CON REGISTROS -->
+      <div style="display:flex; overflow: auto; margin-top: 15px;" *ngIf="!mostrarDatosDia">
+        <div class="separador"></div>
+        <div class="columna-dia">
+          <div>
+            <p class="accent header-dia">MONDAY</p>
+          </div>
+          <div class="cita" *ngFor="let c of citas.lunes" (click)="verCita(c)">
+            <p class="nombre">{{c.nombreUsuario}}</p>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </div>
+        </div>
+        <div class="separador"></div>
+        <div class="columna-dia">
+          <div>
+            <p class="accent header-dia">TUESDAY</p>
+          </div>
+          <div class="cita" *ngFor="let c of citas.martes" (click)="verCita(c)">
+            <p class="nombre">{{c.nombreUsuario}}</p>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </div>
+        </div>
+        <div class="separador"></div>
+        <div class="columna-dia">
+          <div>
+            <p class="accent header-dia">WEDNESDAY</p>
+          </div>
+          <div class="cita" *ngFor="let c of citas.miercoles" (click)="verCita(c)">
+            <p class="nombre">{{c.nombreUsuario}}</p>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </div>
+        </div>
+        <div class="separador"></div>
+        <div class="columna-dia">
+          <div>
+            <p class="accent header-dia">THURSDAY</p>
+          </div>
+          <div class="cita" *ngFor="let c of citas.jueves" (click)="verCita(c)">
+            <p class="nombre">{{c.nombreUsuario}}</p>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </div>
+        </div>
+        <div class="separador"></div>
+        <div class="columna-dia">
+          <div>
+            <p class="accent header-dia">FRIDAY</p>
+          </div>
+          <div class="cita" *ngFor="let c of citas.viernes" (click)="verCita(c)">
+            <p class="nombre">{{c.nombreUsuario}}</p>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </div>
+        </div>
+        <div class="separador"></div>
+        <div class="columna-dia">
+          <div>
+            <p class="accent header-dia">SATURDAY</p>
+          </div>
+          <div class="cita" *ngFor="let c of citas.sabado" (click)="verCita(c)">
+            <p class="nombre">{{c.nombreUsuario}}</p>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </div>
+        </div>
+        <div class="separador"></div>
+        <div class="columna-dia">
+          <div>
+            <p class="accent header-dia">SUNDAY</p>
+          </div>
+          <div class="cita" *ngFor="let c of citas.domingo" (click)="verCita(c)">
+            <p class="nombre">{{c.nombreUsuario}}</p>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </div>
+        </div>
+        <div class="separador"></div>
+      </div>
+
+      <!-- <p style="margin-top: 12px; margin-bottom: 18px; font-size: 11px;">
+                <span>Si necesita ayuda puede leer el
+                </span>
+                <a target="_blank" [href]='utilService.rutaManual("ManualAdministracionGeneral")'>manual de Administración General</a>
+            </p> -->
+
+    </div>
+
+    <!--Cargando-->
+    <div class='iigwo-loading' *ngIf="cargando">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,8 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { query, trigger, transition, style, animateChild, group, animate } from '@angular/animations';
 import { UtilService } from './services/util.service';
+import { Usuario } from 'src/model/usuario';
+import { THERAPIST } from './app.config';
 
 export const slideInAnimation =
     trigger('myAnimationGus', [
@@ -79,7 +81,7 @@ export class AppComponent implements OnInit, SessionServiceListener {
             'information', 'questions', 'alert', 'pending-black','to-do-list','pending-actions',
             'agenda', 'cita', 'historia', 'historial', 'pacientes', 'pago', 'pagos', 'administracion', 'users2', 'attach_file',
             'eye', 'external-link', 'scales', 'availability', 'users-report', 'payment', 'mail-sent',
-            'reports', 'planning', 'closed', 'comments', 'comparison'
+            'reports', 'planning', 'closed', 'comments', 'comparison', 'schedule'
         ].forEach(e => iconRegistry.addSvgIcon(e, sanitizer.bypassSecurityTrustResourceUrl(document.baseURI + '/assets/svg/' + e + '.svg')));
 
         //localStorage.clear();
@@ -105,7 +107,13 @@ export class AppComponent implements OnInit, SessionServiceListener {
             else {
                 this.isAppBarVisible = true;
                 //this.isRouterOutletVisible = true;
-                this.router.navigateByUrl('/inicio');
+                let usuario: Usuario = JSON.parse(localStorage.getItem('objUsuario'));
+                if (usuario.rol == THERAPIST) {
+                  this.router.navigateByUrl('/solicitudes/citas');
+                }
+                else {
+                  this.router.navigateByUrl('/inicio');
+                }
             }
     }
 

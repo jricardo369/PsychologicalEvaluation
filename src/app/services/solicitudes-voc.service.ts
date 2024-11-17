@@ -46,6 +46,24 @@ export class SolicitudesVocService {
     );
   }
 
+  obtenerSolicitudesActivasUsuario(idUsuario: number): Promise<SolicitudVoc[]> {
+    return new Promise<SolicitudVoc[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "solicitudes-voc/solicitudes-activas-de-usuario/" + idUsuario, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as SolicitudVoc[]);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
   obtenerSolicitudesUsuarioCerradas(idUsuario: number): Promise<SolicitudVoc[]> {
     return new Promise<SolicitudVoc[]>((resolve, reject) =>
       this.http

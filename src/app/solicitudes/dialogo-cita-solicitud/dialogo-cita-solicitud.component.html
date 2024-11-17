@@ -1,8 +1,16 @@
-<h2 mat-dialog-title [ngClass]="{'mb-0': creando}">{{creando ? "New Schedule" : ("Schedule " + citaSolicitud.fecha + " at " + citaSolicitud.hora + " " + citaSolicitud.tipo)}}</h2>
+<h2 mat-dialog-title [ngClass]="{'mb-0': creando && !verSolicitud}">{{creando ? "New Schedule" : ("Schedule " + citaSolicitud.fecha + " at " + citaSolicitud.hora + " " + citaSolicitud.tipo)}}</h2>
 
 <mat-dialog-content style="padding-right: 12px;" *ngIf="creando">
 
   <div style="width: 450px;">
+    <div class="iigwo-input" *ngIf="verSolicitud">
+      <label>File</label>
+      <select [(ngModel)]="citaSolicitud.idSolicitud" [ngModelOptions]="{standalone: true}"
+        [disabled]="!creando">
+        <option *ngFor='let o of arrSolicitudesVoc' [ngValue]="o.idSolicitud">{{o.numeroDeCaso + " - " + o.cliente}}</option>
+      </select>
+    </div>
+
     <div class="iigwo-input" style="margin: 0; margin-right: 12px; text-align: end;">
       <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 4px;"
         id="dosCitas" [checked]="citaSolicitud.dosCitas" (change)="citaSolicitud.dosCitas = !citaSolicitud.dosCitas">
@@ -42,7 +50,7 @@
       <label>Note</label>
       <textarea [(ngModel)]="nuevaNotaCita.descripcion"></textarea>
     </div>
-    <div style="margin-right: 12px;">
+    <div style="margin-right: 12px;" *ngIf="arrNotasCita.length > 0">
       <label>Notes</label>
       <div class="note" *ngFor="let nota of arrNotasCita">
         <label>{{nota.fecha}}</label>

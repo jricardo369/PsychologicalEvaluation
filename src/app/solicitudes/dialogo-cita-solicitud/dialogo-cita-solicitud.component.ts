@@ -2,9 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CitaSolicitudService } from 'src/app/services/cita-solicitud.service';
 import { NotaCitaService } from 'src/app/services/nota-cita.service';
+import { SolicitudesVocService } from 'src/app/services/solicitudes-voc.service';
 import { UtilService } from 'src/app/services/util.service';
 import { CitaSolicitud } from 'src/model/cita-solicitud';
 import { NotaCita } from 'src/model/nota-cita';
+import { SolicitudVoc } from 'src/model/solicitud-voc';
 import { Usuario } from 'src/model/usuario';
 
 @Component({
@@ -20,6 +22,8 @@ export class DialogoCitaSolicitudComponent implements OnInit {
   nuevaNotaCita: NotaCita = new NotaCita();
   usuario: Usuario = new Usuario;
   creando: boolean = false;
+  verSolicitud: boolean = false;
+  arrSolicitudesVoc: SolicitudVoc[] = [];
 
   arrTime: string[] = [
     '12:00',
@@ -49,6 +53,7 @@ export class DialogoCitaSolicitudComponent implements OnInit {
   ];
 
   constructor(
+    private solicitudesVOCService: SolicitudesVocService,
     private citaSolicitudService: CitaSolicitudService,
     private notaCitaService: NotaCitaService,
     public utilService: UtilService,
@@ -58,11 +63,13 @@ export class DialogoCitaSolicitudComponent implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     this.citaSolicitud.idSolicitud = data.idSolicitud;
     this.creando = data.creando;
+    this.verSolicitud = data.verSolicitud;
     if (!this.creando) {
       this.citaSolicitud = data.citaSolicitud;
       this.nuevaNotaCita.idCita = this.citaSolicitud.idCita;
       this.obtenerNotasCita();
     }
+    if(this.verSolicitud) this.obtenerSolicitudesActivasUsuario();
     this.citaSolicitud.dosCitas = false;
   }
 
@@ -119,6 +126,17 @@ export class DialogoCitaSolicitudComponent implements OnInit {
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false);
+  }
+
+  obtenerSolicitudesActivasUsuario() {
+    this.cargando = true;
+    this.solicitudesVOCService
+      .obtenerSolicitudesActivasUsuario(this.usuario.idUsuario)
+      .then(solicitudes => {
+        this.arrSolicitudesVoc = solicitudes;
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false)
   }
 
   cerrar(accion: string = "") { this.dialogRef.close(accion); }

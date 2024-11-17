@@ -30,6 +30,7 @@ import { HomeComponent } from './home/home.component';
 import { CitasSolicitudComponent } from './citas-solicitud/citas-solicitud.component';
 import { DialogoCitaSolicitudComponent } from './dialogo-cita-solicitud/dialogo-cita-solicitud.component';
 import { DialogoCancelarCitaSolicitudComponent } from './dialogo-cancelar-cita-solicitud/dialogo-cancelar-cita-solicitud.component';
+import { CitasComponent } from './citas/citas.component';
 
 @NgModule({
 	imports: [
@@ -77,6 +78,7 @@ import { DialogoCancelarCitaSolicitudComponent } from './dialogo-cancelar-cita-s
 		CitasSolicitudComponent,
 		DialogoCitaSolicitudComponent,
 		DialogoCancelarCitaSolicitudComponent,
+		CitasComponent,
 	],
 	exports: [
 		EventosSolicitudComponent,

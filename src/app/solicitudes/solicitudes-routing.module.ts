@@ -9,6 +9,7 @@ import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-co
 import { SolicitudesVocComponent } from './solicitudes-voc/solicitudes-voc.component';
 import { SolicitudVocComponent } from './solicitud-voc/solicitud-voc.component';
 import { HomeComponent } from './home/home.component';
+import { CitasComponent } from './citas/citas.component';
 
 const routes: Routes = [
 	{ path: 'solicitudes-voc', component: SolicitudesVocComponent, },
@@ -20,6 +21,7 @@ const routes: Routes = [
 	{ path: 'solicitudes/nueva-solicitud', component: SolicitudComponent, },
 
 	{ path: 'envio-correos-abogados', component: EnvioCorreosAbogadosComponent, },
+	{ path: 'citas', component: CitasComponent, },
 
   { path: 'home', component: HomeComponent },
 	{ path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -58,6 +60,14 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		subtitle: 'Sending mailings to lawyers',
 		uri: 'envio-correos-abogados',
 		isVisibleFor: u => [MASTER, BACKOFFICE].some(rol => rol == u.rol)
+	},
+  {
+		module: MODULE,
+		svgName: 'schedule',
+		title: 'Schedules',
+		subtitle: 'See scheduled appointments',
+		uri: 'citas',
+		isVisibleFor: u => [THERAPIST].some(rol => rol == u.rol)
 	},
 ]
 

@@ -7,4 +7,11 @@ export class CitaSolicitud {
     tipo: string;
     dosCitas: boolean;
     idSolicitud: number;
+
+    amount: number;
+    fechaPagado: string;
+    idUsuario: number;
+    noShow: boolean;
+    nombreUsuario: string;
+    pagado: boolean;
   }

@@ -88,4 +88,20 @@ export class CitaSolicitudService {
         }).catch(reason => reject(reason));
     });
   }
+
+  obtenerCitasPorSemana(fecha: string, idUsuario: number): Promise<CitaSolicitud[]> {
+    return new Promise<CitaSolicitud[]>((resolve, reject) => this.http
+      .get(API_URL + 'citas/citas-de-usuario-semana/' + idUsuario + "?fecha=" + fecha,
+        {
+          withCredentials: true,
+          observe: 'response',
+          headers: new HttpHeaders().append('Content-Type', 'application/json').append('Authorization', localStorage.getItem('auth_token'))
+        })
+      .toPromise()
+      .then(response => {
+        resolve(response.body as CitaSolicitud[]);
+      })
+      .catch(reason => reject(reason))
+    );
+  }
 }

@@ -5,6 +5,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilService } from 'src/app/services/util.service';
+import { THERAPIST } from 'src/app/app.config';
 
 interface CustomSearchItem {
     title: string,
@@ -30,10 +31,10 @@ export class InicioComponent implements OnInit {
 
     loading = false;
     sInterval: any;
-    constructor(private usuarios: UsuariosService, 
+    constructor(private usuarios: UsuariosService,
         private utilService: UtilService,
-        public router: Router, 
-        private domSanitizer: DomSanitizer, 
+        public router: Router,
+        private domSanitizer: DomSanitizer,
         private sessionService: SessionService,) {
         //this.utilService.deshabilitaRetroceso();
 
@@ -55,7 +56,7 @@ export class InicioComponent implements OnInit {
     obtenerUsuario(usuarios: UsuariosService, appSearch: CustomSearchItem[]) {
         this.loading = true;
         usuarios.obtenerUsuarioPorUsuario(localStorage.getItem('usuario')).then(usuario => {
-            
+
             /*usuario.rol.forEach(rol => {
                 rol.descripcion = rol.descripcion.toUpperCase();
             });
@@ -63,9 +64,9 @@ export class InicioComponent implements OnInit {
             usuario.organizaciones.forEach(o => {
                 o.id = o.id.replace(/\s+/g, '');
             });*/
-            
+
             localStorage.setItem('objUsuario', JSON.stringify(usuario));
-            
+
             let groups = {};
             appSearch.filter(e => e.isVisibleFor(usuario)).forEach(e => {
                 let group: any[] = groups[e.subtitle];
@@ -76,16 +77,20 @@ export class InicioComponent implements OnInit {
                 group.push(e);
             });
             this.pantallas = groups;
-            
+
             this.grupos.length = 0;
             for (let key in groups) {
                 if (key == 'Inicio') continue;
                 this.grupos.push(key);
             }
+
+            if (usuario.rol.toString() == THERAPIST) {
+              this.router.navigateByUrl('/solicitudes/citas');
+            }
         }).then(() => this.loading = false);
     }
 
     ngOnInit(): void {
-        
+
     }
 }
