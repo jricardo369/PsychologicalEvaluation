@@ -158,7 +158,7 @@ export class CitasComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'creado') this.refrescar();
+      // if (valor == 'creado') this.refrescar();
     }).catch(reason => this.utilService.manejarError(reason));
   }
 

@@ -21,6 +21,7 @@ import { SolicitudesVocService } from 'src/app/services/solicitudes-voc.service'
 import { AdjuntosVocComponent } from '../adjuntos-voc/adjuntos-voc.component';
 import { EventosSolicitudVocComponent } from '../eventos-solicitud-voc/eventos-solicitud-voc.component';
 import { DialogoAsignarTerapeutaComponent } from '../dialogo-asignar-terapeuta/dialogo-asignar-terapeuta.component';
+import { CitasSolicitudComponent } from '../citas-solicitud/citas-solicitud.component';
 
 @Component({
   selector: "app-solicitud-voc",
@@ -69,6 +70,7 @@ export class SolicitudVocComponent implements OnInit {
   @ViewChild(EventosSolicitudVocComponent, { static: false }) eventosSolicitudVocComponent: EventosSolicitudVocComponent;
   @ViewChild(AdjuntosVocComponent, { static: false }) adjuntosVocComponent: AdjuntosVocComponent;
   // @ViewChild(MovimientosSolicitudComponent, { static: false }) movimientosSolicitudComponent: MovimientosSolicitudComponent;
+  @ViewChild(CitasSolicitudComponent, { static: false }) citasSolicitudComponent: CitasSolicitudComponent;
 
   constructor(
     route: ActivatedRoute,

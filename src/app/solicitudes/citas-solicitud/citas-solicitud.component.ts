@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilService } from 'src/app/services/util.service';
 import { Usuario } from 'src/model/usuario';
@@ -6,6 +6,7 @@ import { PaginationManager } from 'src/util/pagination';
 import { CitaSolicitud } from 'src/model/cita-solicitud';
 import { CitaSolicitudService } from 'src/app/services/cita-solicitud.service';
 import { DialogoCitaSolicitudComponent } from '../dialogo-cita-solicitud/dialogo-cita-solicitud.component';
+import { SolicitudVocComponent } from '../solicitud-voc/solicitud-voc.component';
 
 @Component({
   selector: 'app-citas-solicitud',
@@ -27,7 +28,8 @@ export class CitasSolicitudComponent implements OnInit {
   constructor(
     private citaSolicitudService: CitaSolicitudService,
     private utilService: UtilService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    @Optional() public parent: SolicitudVocComponent) {
     this.mostrarCitas = true;
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
   }
@@ -59,7 +61,7 @@ export class CitasSolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'creado') this.refresh();
+      if (valor == 'creado') {this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud))};
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
@@ -73,7 +75,7 @@ export class CitasSolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'creado') this.refresh();
+      // if (valor == 'creado') this.refresh();
     }).catch(reason => this.utilService.manejarError(reason));
   }
 }
