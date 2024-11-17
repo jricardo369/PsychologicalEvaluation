@@ -658,7 +658,7 @@ export class SolicitudComponent implements OnInit {
             texto: 'Do you really want to do this action?',
             botones: [
               { texto: 'Cancel', color: '', valor: '' },
-              { texto: 'OK', color: 'primary', valor: 'ok' },
+              { texto: 'Yes', color: 'primary', valor: 'ok' },
             ]
           },
           disableClose: true,
@@ -673,6 +673,30 @@ export class SolicitudComponent implements OnInit {
                 this.utilService.manejarError(e);
                 this.cargando = false;
               });
+          }
+        }).catch(reason => this.utilService.manejarError(reason));
+        break;
+      case 7: //Lost
+        this.dialog.open(DialogoSimpleComponent, {
+          data: {
+            titulo: 'Lost',
+            texto: 'Do you really want to mark this file as lost?',
+            botones: [
+              { texto: 'Cancel', color: '', valor: '' },
+              { texto: 'Yes', color: 'primary', valor: 'ok' },
+            ]
+          },
+          disableClose: true,
+        }).afterClosed().toPromise().then(valor => {
+          if (valor == 'ok') {
+            this.cargando = true;
+            this.solicitudesService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario, closed)
+              .then(() => {
+                this.eventosSolicitudComponent.refresh();
+                this.obtenerSolicitud(this.solicitud.idSolicitud);
+              })
+              .catch((reason) => this.utilService.manejarError(reason))
+              .then(() => (this.cargando = false));
           }
         }).catch(reason => this.utilService.manejarError(reason));
         break;
@@ -693,7 +717,7 @@ export class SolicitudComponent implements OnInit {
               texto: 'Do you really want to finish the case?',
               botones: [
                 { texto: 'Cancel', color: '', valor: '' },
-                { texto: 'OK', color: 'primary', valor: 'ok' },
+                { texto: 'Yes', color: 'primary', valor: 'ok' },
               ]
             },
             disableClose: true,
@@ -715,7 +739,7 @@ export class SolicitudComponent implements OnInit {
         this.cargando = true;
         this.solicitudesService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario, closed)
           .then(() => {
-            if (idEstatusSolicitud == 8 || idEstatusSolicitud == 7) {
+            if (idEstatusSolicitud == 8) {
               this.eventosSolicitudComponent.refresh();
             }
             this.obtenerSolicitud(this.solicitud.idSolicitud);
@@ -820,6 +844,6 @@ export class SolicitudComponent implements OnInit {
     this.reportesService.generateW9(this.solicitud.idSolicitud, this.usuario.idUsuario).then(response => {
       this.utilService.saveByteArray("invoice_file-" + this.solicitud.idSolicitud, response, 'pdf');
     }).catch(e => this.utilService.manejarError(e))
-    .finally(() => this.cargando = false);
+      .finally(() => this.cargando = false);
   }
 }
