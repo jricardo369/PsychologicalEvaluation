@@ -24,21 +24,13 @@
           <label>Date</label>
           <input type="date" [(ngModel)]="fecha" (change)="refrescar()">
         </div>
-        <!-- <button class="citas-por-dia" id="citasPorDia" (click)="citasDia()">
-          {{citasPorDia}}
-        </button> -->
 
         <button class='accent iigwo' (click)='citasDia()'>
           <label>{{citasPorDia}}</label>
         </button>
-
-        <!--<button class='iigwo accent btn-search' (click)='refrescar()' >
-                    <mat-icon svgIcon="search"></mat-icon>
-                    <label>Buscar</label>
-                </button>-->
       </div>
 
-      <div style="width: 1500px;" *ngIf="mostrarDatosDia">
+      <div *ngIf="mostrarDatosDia">
 
         <div>
           <p class="accent header-cita-dia">Day Schedules {{fecha}}</p>
@@ -55,7 +47,7 @@
 
       </div>
 
-      <!-- TABLA CON REGISTROS -->
+      <!-- CALENDARIO -->
       <div style="display:flex; overflow: auto; margin-top: 15px;" *ngIf="!mostrarDatosDia">
         <div class="separador"></div>
         <div class="columna-dia">

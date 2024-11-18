@@ -64,7 +64,7 @@ export class CitasComponent implements OnInit {
           this.obtenerPrimerDiaDeSemana(new Date(this.fecha)),
           citas
         );
-        console.log(this.citas);
+        // console.log(this.citas);
         if (this.citasPorDia === "Week Schedules") {
           this.citasPorElDia();
         }
@@ -77,29 +77,36 @@ export class CitasComponent implements OnInit {
     while (inicio.getDay() <= 6) {
 
       let fecha = this.utilService.dateAsYYYYMMDD(inicio);
-      console.log(inicio)
+      // console.log(inicio)
 
       switch (inicio.getDay()) {
         case 0:
           this.citas.domingo = citas.filter(cita => cita.fecha.split(' ')[0] == fecha) as CitaSolicitud[];
+          this.citas.domingo = this.ordenarPorHora(this.citas.domingo);
           break;
         case 1:
           this.citas.lunes = citas.filter(cita => cita.fecha.split(' ')[0] == fecha) as CitaSolicitud[];
+          this.citas.lunes = this.ordenarPorHora(this.citas.lunes);
           break;
         case 2:
           this.citas.martes = citas.filter(cita => cita.fecha.split(' ')[0] == fecha) as CitaSolicitud[];
+          this.citas.martes = this.ordenarPorHora(this.citas.martes);
           break;
         case 3:
           this.citas.miercoles = citas.filter(cita => cita.fecha.split(' ')[0] == fecha) as CitaSolicitud[];
+          this.citas.miercoles = this.ordenarPorHora(this.citas.miercoles);
           break;
         case 4:
           this.citas.jueves = citas.filter(cita => cita.fecha.split(' ')[0] == fecha) as CitaSolicitud[];
+          this.citas.jueves = this.ordenarPorHora(this.citas.jueves);
           break;
         case 5:
           this.citas.viernes = citas.filter(cita => cita.fecha.split(' ')[0] == fecha) as CitaSolicitud[];
+          this.citas.viernes = this.ordenarPorHora(this.citas.viernes);
           break;
         case 6:
           this.citas.sabado = citas.filter(cita => cita.fecha.split(' ')[0] == fecha) as CitaSolicitud[];
+          this.citas.sabado = this.ordenarPorHora(this.citas.sabado);
           break;
         default:
           break;
@@ -108,6 +115,18 @@ export class CitasComponent implements OnInit {
       if (inicio.getDay() == 6) break;
       inicio.setDate(inicio.getDate() + 1);
     }
+  }
+
+  ordenarPorHora(citasDia: CitaSolicitud[]) : CitaSolicitud[] {
+    return citasDia.sort((a, b) => (this.horaFormato24(a.hora, a.tipo) > this.horaFormato24(b.hora, b.tipo) ? 1 : -1));
+  }
+
+  horaFormato24(hora: string, tipo: string) : string {
+    let horas: string = hora.split(':')[0];
+    horas = this.utilService.withLeadingZeros((parseInt(horas) + (tipo == 'PM' && horas != '12' ? 12 : 0) - (tipo == 'AM' && horas == '12' ? 12 : 0)), 2);
+    let minutos: string = hora.split(':')[1];
+    // console.log(horas + ':' + minutos + tipo);
+    return horas + ':' + minutos;
   }
 
   obtenerPrimerDiaDeSemana(fecha: Date): Date {
@@ -150,19 +169,16 @@ export class CitasComponent implements OnInit {
     } else {
       this.mostrarDatosDia = false;
       this.citasPorDia = "Day Schedules"
-      document.getElementById("citasPorDia").setAttribute("class", "citas-por-dia");
     }
-
   }
 
   citasPorElDia() {
     this.citasGeneral = this.citasGeneralR;
     this.mostrarDatosDia = true;
-    console.log('citas:' + this.citasGeneral.length);
+    // console.log('citas:' + this.citasGeneral.length);
     this.citasGeneral = this.citasGeneral.filter(cita => cita.fecha.split(' ')[0] == this.fecha) as CitaSolicitud[];
     this.citasDeDia = this.citasGeneral;
     this.citasPorDia = "Week Schedules"
-    document.getElementById("citasPorDia").setAttribute("class", "citas-por-semana");
     if (this.citasGeneral.length != 0) {
       this.conCitas = true;
     } else {
