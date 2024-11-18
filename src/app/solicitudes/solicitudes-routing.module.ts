@@ -10,6 +10,7 @@ import { SolicitudesVocComponent } from './solicitudes-voc/solicitudes-voc.compo
 import { SolicitudVocComponent } from './solicitud-voc/solicitud-voc.component';
 import { HomeComponent } from './home/home.component';
 import { CitasComponent } from './citas/citas.component';
+import { CargosVocComponent } from './cargos-voc/cargos-voc.component';
 
 const routes: Routes = [
 	{ path: 'solicitudes-voc', component: SolicitudesVocComponent, },
@@ -22,6 +23,7 @@ const routes: Routes = [
 
 	{ path: 'envio-correos-abogados', component: EnvioCorreosAbogadosComponent, },
 	{ path: 'citas', component: CitasComponent, },
+	{ path: 'cargos-voc', component: CargosVocComponent, },
 
   { path: 'home', component: HomeComponent },
 	{ path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -68,6 +70,14 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		subtitle: 'See scheduled appointments',
 		uri: 'citas',
 		isVisibleFor: u => [THERAPIST].some(rol => rol == u.rol)
+	},
+  {
+		module: MODULE,
+		svgName: 'pay-per-click-payment',
+		title: 'VOC Charges',
+		subtitle: 'Charges from Files VOC',
+		uri: 'cargos-voc',
+		isVisibleFor: u => [VOC].some(rol => rol == u.rol)
 	},
 ]
 

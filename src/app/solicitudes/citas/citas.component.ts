@@ -33,16 +33,8 @@ export class CitasComponent implements OnInit {
   citasDeDia: CitaSolicitud[] = [];
   citasPorDia: string = "Day Schedules";
 
-  // fecha0: string = "";
   fecha: string = "";
   citas: Semana = new Semana();
-  // citasLunes: Cita[] = [];
-  // citasMartes: Cita[] = [];
-  // citasMiercoles: Cita[] = [];
-  // citasJueves: Cita[] = [];
-  // citasViernes: Cita[] = [];
-  // citasSabado: Cita[] = [];
-  // citasDomingo: Cita[] = [];
 
   constructor(
     private citaSolicitudService: CitaSolicitudService,
@@ -50,7 +42,7 @@ export class CitasComponent implements OnInit {
     public utilService: UtilService,
     private dialog: MatDialog) {
     let hoy: Date = new Date(Date.now());
-    this.fecha = this.dateAsYYYYMMDD(hoy);
+    this.fecha = this.utilService.dateAsYYYYMMDD(hoy);
 
     this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
 
@@ -84,7 +76,7 @@ export class CitasComponent implements OnInit {
   organizarCitasDeSemana(inicio: Date, citas: CitaSolicitud[]) {
     while (inicio.getDay() <= 6) {
 
-      let fecha = this.dateAsYYYYMMDD(inicio);
+      let fecha = this.utilService.dateAsYYYYMMDD(inicio);
       console.log(inicio)
 
       switch (inicio.getDay()) {
@@ -123,16 +115,6 @@ export class CitasComponent implements OnInit {
       fecha.setDate(fecha.getDate() - 1);
     }
     return fecha;
-  }
-
-  dateAsYYYYMMDD(date: Date): string {
-    return '' + date.getFullYear() + '-' + this.withLeadingZeros((date.getMonth() + 1), 2) + '-' + this.withLeadingZeros((date.getDate()), 2);
-  }
-
-  withLeadingZeros(integer: number, digits: number): string {
-    let n = '' + Number.parseInt('' + integer);
-    for (let i = n.length; i < digits; i++) n = '0' + n;
-    return n;
   }
 
   crearCita() {

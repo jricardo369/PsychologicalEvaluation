@@ -38,6 +38,16 @@ export class UtilService {
     return '$' + parseFloat(amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
   };
 
+  dateAsYYYYMMDD(date: Date): string {
+    return '' + date.getFullYear() + '-' + this.withLeadingZeros((date.getMonth() + 1), 2) + '-' + this.withLeadingZeros((date.getDate()), 2);
+  }
+
+  withLeadingZeros(integer: number, digits: number): string {
+    let n = '' + Number.parseInt('' + integer);
+    for (let i = n.length; i < digits; i++) n = '0' + n;
+    return n;
+  }
+
   validateInput(event: any) {
     let entrada = event.target.value;
     let decimal: boolean = false;

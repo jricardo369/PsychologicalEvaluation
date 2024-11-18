@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EventoSolicitud } from 'src/model/evento-solicitud';
 import { API_URL } from '../app.config';
 import { CitaSolicitud } from 'src/model/cita-solicitud';
+import { CargoVoc } from 'src/model/cargo-voc';
 
 @Injectable({
   providedIn: 'root'
@@ -102,6 +103,38 @@ export class CitaSolicitudService {
         resolve(response.body as CitaSolicitud[]);
       })
       .catch(reason => reject(reason))
+    );
+  }
+
+  obtenerCargosPendientes(fechai: string, fechaf: string, filtro: string, idUsuario: number): Promise<CargoVoc[]> {
+    return new Promise<CargoVoc[]>((resolve, reject) => this.http
+      .get(API_URL + 'citas/cargos-pendientes?idUsuario=' + idUsuario + "&fechai=" + fechai + "&fechaf=" + fechaf + "&filtro=" + filtro,
+        {
+          withCredentials: true,
+          observe: 'response',
+          headers: new HttpHeaders().append('Content-Type', 'application/json').append('Authorization', localStorage.getItem('auth_token'))
+        })
+      .toPromise()
+      .then(response => {
+        resolve(response.body as CargoVoc[]);
+      })
+      .catch(reason => reject(reason))
+    );
+  }
+
+  pagado(idCita: number, pagado: boolean, idUsuario: number): Promise<any> {
+    return new Promise<any>((resolve, reject) =>
+      this.http
+        .put(API_URL + "citas/pagado/" + idCita + "/" + pagado + "?idUsuario=" + idUsuario, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => resolve(response))
+        .catch((reason) => reject(reason))
     );
   }
 }

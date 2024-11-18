@@ -31,6 +31,7 @@ import { CitasSolicitudComponent } from './citas-solicitud/citas-solicitud.compo
 import { DialogoCitaSolicitudComponent } from './dialogo-cita-solicitud/dialogo-cita-solicitud.component';
 import { DialogoCancelarCitaSolicitudComponent } from './dialogo-cancelar-cita-solicitud/dialogo-cancelar-cita-solicitud.component';
 import { CitasComponent } from './citas/citas.component';
+import { CargosVocComponent } from './cargos-voc/cargos-voc.component';
 
 @NgModule({
 	imports: [
@@ -79,6 +80,7 @@ import { CitasComponent } from './citas/citas.component';
 		DialogoCitaSolicitudComponent,
 		DialogoCancelarCitaSolicitudComponent,
 		CitasComponent,
+		CargosVocComponent,
 	],
 	exports: [
 		EventosSolicitudComponent,

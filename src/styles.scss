@@ -2211,6 +2211,20 @@ p.accent {
 	color: #A06A26;
 }
 
+
+// Paid - color 8CC9AB y letra 224E38
+.badge-color-paid {
+	background-color: #8CC9AB;
+	color: #224E38;
+}
+
+// Pay - color 3D9596 y letra blanca
+.badge-color-pay {
+	background-color: #3D9596 !important;
+	color: #FFFFFF !important;
+}
+
+
 .workspace .content-left {
 	padding: 24px;
 	box-sizing: border-box;
@@ -2277,4 +2291,9 @@ p.accent {
 
 .color-primary {
 	color: mat-color($app-primary);
+}
+
+
+td {
+  vertical-align: middle;
 }
