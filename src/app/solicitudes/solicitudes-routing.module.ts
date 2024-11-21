@@ -69,7 +69,7 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		title: 'Schedules',
 		subtitle: 'See scheduled appointments',
 		uri: 'citas',
-		isVisibleFor: u => [THERAPIST].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST].some(rol => rol == u.rol)
 	},
   {
 		module: MODULE,

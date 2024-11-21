@@ -6,7 +6,7 @@
 
     <app-experimental-menu titulo="Schedules">
 
-      <button style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;" (click)='crearCita()'>
+      <button style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;" (click)='crearCita()' *ngIf="isTherapist">
         <mat-icon svgIcon="add-box"></mat-icon>
         <label>Add Schedule</label>
       </button>
@@ -37,7 +37,7 @@
         </div>
         <div class="cita-dia" *ngFor="let c of citasDeDia" (click)="verCita(c)">
           <p class="nombre">{{c.nombreUsuario}}</p>
-          <p>{{c.hora + " " + c.tipo}}</p>
+          <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           <p class="comentario">{{c.comentario}}</p>
         </div>
         <div *ngIf="!(citasDeDia.length > 0)">
@@ -56,7 +56,7 @@
           </div>
           <div class="cita" *ngFor="let c of citas.lunes" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}}</p>
+            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
         </div>
         <div class="separador"></div>
@@ -66,7 +66,7 @@
           </div>
           <div class="cita" *ngFor="let c of citas.martes" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}}</p>
+            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
         </div>
         <div class="separador"></div>
@@ -76,7 +76,7 @@
           </div>
           <div class="cita" *ngFor="let c of citas.miercoles" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}}</p>
+            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
         </div>
         <div class="separador"></div>
@@ -86,7 +86,7 @@
           </div>
           <div class="cita" *ngFor="let c of citas.jueves" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}}</p>
+            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
         </div>
         <div class="separador"></div>
@@ -96,7 +96,7 @@
           </div>
           <div class="cita" *ngFor="let c of citas.viernes" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}}</p>
+            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
         </div>
         <div class="separador"></div>
@@ -106,7 +106,7 @@
           </div>
           <div class="cita" *ngFor="let c of citas.sabado" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}}</p>
+            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
         </div>
         <div class="separador"></div>
@@ -116,7 +116,7 @@
           </div>
           <div class="cita" *ngFor="let c of citas.domingo" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}}</p>
+            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
         </div>
         <div class="separador"></div>

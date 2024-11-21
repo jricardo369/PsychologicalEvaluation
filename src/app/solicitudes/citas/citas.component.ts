@@ -6,6 +6,7 @@ import { CitaSolicitud } from 'src/model/cita-solicitud';
 import { CitaSolicitudService } from 'src/app/services/cita-solicitud.service';
 import { Usuario } from 'src/model/usuario';
 import { DialogoCitaSolicitudComponent } from '../dialogo-cita-solicitud/dialogo-cita-solicitud.component';
+import { THERAPIST } from 'src/app/app.config';
 
 export class Semana {
   lunes: CitaSolicitud[];
@@ -36,6 +37,8 @@ export class CitasComponent implements OnInit {
   fecha: string = "";
   citas: Semana = new Semana();
 
+  isTherapist: boolean = false;
+
   constructor(
     private citaSolicitudService: CitaSolicitudService,
     private router: Router,
@@ -45,6 +48,7 @@ export class CitasComponent implements OnInit {
     this.fecha = this.utilService.dateAsYYYYMMDD(hoy);
 
     this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
+    this.isTherapist = this.usuario.rol == THERAPIST ? true : false;
 
     this.refrescar();
   }
@@ -150,6 +154,8 @@ export class CitasComponent implements OnInit {
   }
 
   verCita(cita: CitaSolicitud) {
+    if(!this.isTherapist) return;
+
     this.dialog.open(DialogoCitaSolicitudComponent, {
       data: {
         idSolicitud: cita.idSolicitud,
