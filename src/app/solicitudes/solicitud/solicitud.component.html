@@ -149,7 +149,7 @@
               <input type="text" [(ngModel)]="solicitud.numeroDeCaso" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
+            <div class="iigwo-input" *ngIf="editando && (isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
               <label>Language</label>
               <!-- <input type="text" [(ngModel)]="solicitud.idioma" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
               <select [(ngModel)]="solicitud.idioma" [ngModelOptions]="{standalone: true}"
@@ -158,7 +158,7 @@
               </select>
             </div>
 
-            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
+            <div class="iigwo-input" *ngIf="editando && (isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
               <label>Type of Interview</label>
               <!-- <input type="text" [(ngModel)]="solicitud.tipoEntrevista" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
               <select [(ngModel)]="solicitud.tipoEntrevista" [ngModelOptions]="{standalone: true}"
