@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { query, trigger, transition, style, animateChild, group, animate } from '@angular/animations';
 import { UtilService } from './services/util.service';
 import { Usuario } from 'src/model/usuario';
-import { THERAPIST } from './app.config';
+import { BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, MASTER, THERAPIST, VENDOR } from './app.config';
 
 export const slideInAnimation =
     trigger('myAnimationGus', [
@@ -108,7 +108,7 @@ export class AppComponent implements OnInit, SessionServiceListener {
                 this.isAppBarVisible = true;
                 //this.isRouterOutletVisible = true;
                 let usuario: Usuario = JSON.parse(localStorage.getItem('objUsuario'));
-                if (usuario.rol == THERAPIST) {
+                if ([MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST].some(rol => rol == usuario.rol)) {
                   this.router.navigateByUrl('/solicitudes/citas');
                 }
                 else {

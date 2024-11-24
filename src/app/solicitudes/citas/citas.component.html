@@ -20,9 +20,18 @@
     <div class='content'>
 
       <div style="display:flex; justify-content: space-between; align-items: flex-end;">
-        <div class="iigwo-input" style="margin-right: 12px;">
-          <label>Date</label>
-          <input type="date" [(ngModel)]="fecha" (change)="refrescar()">
+        <div style="display: inline-flex;">
+          <div class="iigwo-input" style="margin-right: 12px;">
+            <label>Date</label>
+            <input type="date" [(ngModel)]="filterFecha" (change)="refrescar()">
+          </div>
+          <div class="iigwo-input" style="min-width: 120px;" *ngIf="(isMaster || isVendor || isBackOffice)">
+            <label>User</label>
+            <select [(ngModel)]="filterUsuario" [ngModelOptions]="{standalone: true}" (change)="refrescar()">
+              <option *ngFor="let e of arrFilterUsuarios" [ngValue]="e.idUsuario">
+                {{e.nombre}}</option>
+            </select>
+          </div>
         </div>
 
         <button class='accent iigwo' (click)='citasDia()'>
@@ -33,7 +42,7 @@
       <div *ngIf="mostrarDatosDia">
 
         <div>
-          <p class="accent header-cita-dia">Day Schedules {{fecha}}</p>
+          <p class="accent header-cita-dia">Day Schedules {{filterFecha}}</p>
         </div>
         <div class="cita-dia" *ngFor="let c of citasDeDia" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
           <p class="nombre">{{c.nombreUsuario}}</p>

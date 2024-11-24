@@ -47,6 +47,24 @@ export class UsuariosService {
     );
   }
 
+  obtenerUsuariosParaCitas(idUsuario: number): Promise<Usuario[]> {
+    return new Promise<Usuario[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "usuarios/para-schedules?idUsuario=" + idUsuario, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as Usuario[]);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
   obtenerUsuarioPorUsuario(usuario: string): Promise<Usuario> {
     let u: Usuario = new Usuario();
 
