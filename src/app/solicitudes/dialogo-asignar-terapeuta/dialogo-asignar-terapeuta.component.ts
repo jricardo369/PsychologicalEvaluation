@@ -31,6 +31,8 @@ export class DialogoAsignarTerapeutaComponent implements OnInit {
       this.idSolicitud = data.idSolicitud;
       this.idUsuarioEntrada = data.idUsuario;
       this.idUsuarioSelected = data.terapeuta;
+
+      this.paginacion.size = 5;
       this.obtenerUsuarios();
   }
 

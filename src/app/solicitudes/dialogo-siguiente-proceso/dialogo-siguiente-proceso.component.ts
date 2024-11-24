@@ -35,6 +35,8 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
       this.idSolicitud = data.idSolicitud;
       this.idUsuario = data.idUsuario;
       this.interviewerScales = data.interviewerScales;
+
+      this.paginacion.size = 5;
   }
 
   ngOnInit(): void {

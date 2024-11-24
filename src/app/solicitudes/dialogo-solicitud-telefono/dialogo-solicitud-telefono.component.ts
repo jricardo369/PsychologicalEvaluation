@@ -23,6 +23,9 @@ export class DialogoSolicitudTelefonoComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogoSolicitudTelefonoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.telefono = data.telefono;
+
+      this.paginacion.size = 5;
+
       this.obtenerSolicitudesDeTelefono();
     }
 

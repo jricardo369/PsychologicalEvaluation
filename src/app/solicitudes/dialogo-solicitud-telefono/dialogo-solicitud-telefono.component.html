@@ -20,6 +20,7 @@
           Records per page</label>
         <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
           style="margin: 0 8px; font-family: regular; height: 24px;">
+          <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="50">50</option>
