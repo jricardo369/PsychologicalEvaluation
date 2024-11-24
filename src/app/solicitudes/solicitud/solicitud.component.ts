@@ -504,7 +504,7 @@ export class SolicitudComponent implements OnInit {
         }).afterClosed().toPromise().then(valor => {
           if (valor == 'enviar') {
             this.cargando = true;
-            this.solicitudesService.envioSiguienteProceso(this.solicitud.idSolicitud, this.usuario.idUsuario)
+            this.solicitudesService.envioSiguienteProceso(this.solicitud.idSolicitud, false, this.usuario.idUsuario)
               .then(() => {
                 this.cargando = false;
                 this.goBack();

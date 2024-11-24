@@ -166,11 +166,11 @@ export class SolicitudesService {
     );
   }
 
-  envioSiguienteProceso(idSolicitud: number, idUsuarioCambio: number, idDisponibilidad?: number): Promise<any> {
+  envioSiguienteProceso(idSolicitud: number, fechaAnterior: boolean, idUsuarioCambio: number, idDisponibilidad?: number): Promise<any> {
     console.log(idDisponibilidad)
     return new Promise<any>((resolve, reject) =>
       this.http
-        .put(API_URL + "solicitudes/envio-siguiente-proceso/" + idSolicitud + "?idUsuarioCambio=" + idUsuarioCambio + (idDisponibilidad ? "&idDisponibilidad=" + idDisponibilidad : ""), {
+        .put(API_URL + "solicitudes/envio-siguiente-proceso/" + idSolicitud + "?idUsuarioCambio=" + idUsuarioCambio + (idDisponibilidad ? "&idDisponibilidad=" + idDisponibilidad : "") + "&fechaAnterior=" + fechaAnterior, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
@@ -185,11 +185,11 @@ export class SolicitudesService {
     );
   }
 
-  envioInterviewerScales(idSolicitud: number, idUsuarioCambio: number, idDisponibilidad: number): Promise<any> {
+  envioInterviewerScales(idSolicitud: number, fechaAnterior: boolean, idUsuarioCambio: number, idDisponibilidad: number): Promise<any> {
     console.log(idDisponibilidad)
     return new Promise<any>((resolve, reject) =>
       this.http
-        .put(API_URL + "solicitudes/envio-interviewer-scales/" + idSolicitud + "?idUsuarioCambio=" + idUsuarioCambio + "&idDisponibilidad=" + idDisponibilidad, {
+        .put(API_URL + "solicitudes/envio-interviewer-scales/" + idSolicitud + "?idUsuarioCambio=" + idUsuarioCambio + "&idDisponibilidad=" + idDisponibilidad + "&fechaAnterior=" + fechaAnterior, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

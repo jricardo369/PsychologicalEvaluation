@@ -1,9 +1,18 @@
 <h2 mat-dialog-title>{{interviewerScales ? "Send to Interviewer Scales" : "Send to Interviewer"}}</h2>
 
 <mat-dialog-content>
-  <div class="iigwo-input">
-    <label>Date</label>
-    <input [ngModel]="fecha | date:'yyyy-MM-dd':'':'en'" (ngModelChange)='fecha = $event; obtenerDisponibilidadUsuarios()' type="date">
+  <div style="display: inline-flex;">
+    <div class="iigwo-input">
+      <label>Date</label>
+      <input [ngModel]="fecha | date:'yyyy-MM-dd':'':'en'"
+        (ngModelChange)='fecha = $event; obtenerDisponibilidadUsuarios()' type="date">
+    </div>
+    <div class="iigwo-input" style="text-align: center;">
+      <label for="fechaAnterior"
+        style="font-size: 12px;">Previous Date</label>
+      <input type="checkbox" style="width: 15px;line-height: 18px;margin: 0 6px 0 4px;"
+        id="fechaAnterior" [checked]="fechaAnterior" (change)="fechaAnterior = !fechaAnterior; obtenerDisponibilidadUsuarios()">
+    </div>
   </div>
   <table class="informative" *ngIf="arrDisponibilidadUsuario.length > 0">
     <tr>
@@ -33,13 +42,11 @@
           <option value="100">100</option>
         </select>
         {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}
-        <button class="iigwo small"
-          style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+        <button class="iigwo small" style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
           (click)="paginacion.back();">
           <mat-icon svgIcon="arrow-back"></mat-icon>
         </button>
-        <button class="iigwo small"
-          style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+        <button class="iigwo small" style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
           (click)="paginacion.forward();">
           <mat-icon svgIcon="arrow-forward"></mat-icon>
         </button>
@@ -51,7 +58,8 @@
 
 <mat-dialog-actions>
   <button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Cancel</button>
-  <button class="iigwo accent" style="margin-right:0;" [disabled]="!idDisponibilidadSelected" (click)='enviar()'>Send</button>
+  <button class="iigwo accent" style="margin-right:0;" [disabled]="!idDisponibilidadSelected"
+    (click)='enviar()'>Send</button>
 </mat-dialog-actions>
 
 <!-- CARGANDO-->

@@ -16,6 +16,8 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
   cargando: boolean = false;
 
   fecha: string = "";
+  fechaAnterior: boolean = false;
+
   arrDisponibilidadUsuario: DisponibilidadUsuario[] = [];
   paginacion: PaginationManager = new PaginationManager();
   idDisponibilidadSelected: number = null;
@@ -53,8 +55,9 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
   }
 
   obtenerDisponibilidadUsuarios() {
+    if(this.fecha == "") return;
     this.cargando = true;
-    this.disponibilidadUsuariosService.obtenerDisponibilidadUsuariosPorDia(this.fecha, (this.interviewerScales ? 8 : 5))
+    this.disponibilidadUsuariosService.obtenerDisponibilidadUsuariosPorDia(this.fecha, this.fechaAnterior, (this.interviewerScales ? 8 : 5))
       .then((disponibilidadUsuarios) => {
         this.arrDisponibilidadUsuario = disponibilidadUsuarios;
         this.paginacion.setArray(this.arrDisponibilidadUsuario);
@@ -67,7 +70,7 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
     let disponibilidadSelected = this.arrDisponibilidadUsuario[this.arrDisponibilidadUsuario.findIndex(disponibilidad => disponibilidad.idDisponibilidad == this.idDisponibilidadSelected)];
     console.log(disponibilidadSelected)
     this.cargando = true;
-    let choosePromise = this.interviewerScales ? this.solicitudesService.envioInterviewerScales(this.idSolicitud, this.idUsuario, disponibilidadSelected.idDisponibilidad) : this.solicitudesService.envioSiguienteProceso(this.idSolicitud, this.idUsuario, disponibilidadSelected.idDisponibilidad);
+    let choosePromise = this.interviewerScales ? this.solicitudesService.envioInterviewerScales(this.idSolicitud, this.fechaAnterior, this.idUsuario, disponibilidadSelected.idDisponibilidad) : this.solicitudesService.envioSiguienteProceso(this.idSolicitud, this.fechaAnterior, this.idUsuario, disponibilidadSelected.idDisponibilidad);
     choosePromise
     .then(() => {
       this.cargando = false;
