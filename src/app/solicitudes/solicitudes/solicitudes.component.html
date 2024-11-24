@@ -97,7 +97,7 @@
       <div style="display:flex; flex-flow: column; overflow: auto;">
         <table class='big' *ngIf="!(solicitudes.length == 0)">
           <tr>
-            <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()" (change)="checkAll($event)"></th>
+            <!-- <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()" (change)="checkAll($event)"></th> -->
             <th class=''>File</th>
             <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">Creation Date</th>
             <th class=''>Due Date</th>
@@ -118,8 +118,8 @@
             <th class='' *ngIf="isTemplateCreator">Interview Scale</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
-            <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
-                (change)="check($event, e.idSolicitud)"></td>
+            <!-- <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
+                (change)="check($event, e.idSolicitud)"></td> -->
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
             <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">{{e.fechaInicio |
               dateYYYYMMDD}}</td>

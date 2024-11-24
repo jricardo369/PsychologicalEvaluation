@@ -100,7 +100,7 @@
       <div style="display:flex; flex-flow: column; overflow: auto;">
         <table class='big' *ngIf="!(solicitudes.length == 0)">
           <tr>
-            <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()" (change)="checkAll($event)"></th>
+            <!-- <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()" (change)="checkAll($event)"></th> -->
             <th class=''>Creation Date</th>
             <th class=''>Customer Name</th>
             <th class=''>Code</th>
@@ -112,8 +112,8 @@
             <th class=''>File Status</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
-            <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
-                (change)="check($event, e.idSolicitud)"></td>
+            <!-- <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
+                (change)="check($event, e.idSolicitud)"></td> -->
             <td class='accent'>{{e.fechaInicio | dateYYYYMMDD}}</td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
             <td class='accent'>{{e.code}}</td>
