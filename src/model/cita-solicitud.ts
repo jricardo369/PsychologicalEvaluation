@@ -14,4 +14,6 @@ export class CitaSolicitud {
     noShow: boolean;
     nombreUsuario: string;
     pagado: boolean;
+
+    color: string;
   }

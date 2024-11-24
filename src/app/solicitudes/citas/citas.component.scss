@@ -7,7 +7,7 @@
   cursor: pointer;
   // border-top: solid 3px #2D9596;
 
-  border-top-color: #612c7e99;
+  // border-top-color: #612c7e99;
   border-top-width: 3px;
   border-top-style: solid;
 }
@@ -47,20 +47,21 @@
   width: 350px;
   margin-bottom: 7px;
 
-  border-right-color: #612c7e99;
+  // border-right-color: #612c7e99;
   border-right-width: 3px;
   border-right-style: solid;
 }
 
 .cita-dia p {
-  margin-bottom: 0 !important;
+  margin-bottom: 0;
   font-size: 12px;
 }
 
 .cita-dia p.nombre {
-  font-family: regular;
+  // font-family: regular;
   font-size: 13px;
   color: black;
+  margin-bottom: 3px;
 }
 
 .cita-dia p.comentario {

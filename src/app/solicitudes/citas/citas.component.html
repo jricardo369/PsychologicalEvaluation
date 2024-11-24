@@ -35,7 +35,7 @@
         <div>
           <p class="accent header-cita-dia">Day Schedules {{fecha}}</p>
         </div>
-        <div class="cita-dia" *ngFor="let c of citasDeDia" (click)="verCita(c)">
+        <div class="cita-dia" *ngFor="let c of citasDeDia" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
           <p class="nombre">{{c.nombreUsuario}}</p>
           <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           <p class="comentario">{{c.comentario}}</p>
@@ -54,7 +54,7 @@
           <div>
             <p class="accent header-dia">MONDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.lunes" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.lunes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
             <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
@@ -64,7 +64,7 @@
           <div>
             <p class="accent header-dia">TUESDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.martes" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.martes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
             <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
@@ -74,7 +74,7 @@
           <div>
             <p class="accent header-dia">WEDNESDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.miercoles" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.miercoles" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
             <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
@@ -84,7 +84,7 @@
           <div>
             <p class="accent header-dia">THURSDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.jueves" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.jueves" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
             <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
@@ -94,7 +94,7 @@
           <div>
             <p class="accent header-dia">FRIDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.viernes" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.viernes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
             <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
@@ -104,7 +104,7 @@
           <div>
             <p class="accent header-dia">SATURDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.sabado" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.sabado" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
             <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
@@ -114,7 +114,7 @@
           <div>
             <p class="accent header-dia">SUNDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.domingo" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.domingo" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
             <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           </div>
