@@ -172,7 +172,7 @@
               <input type="text" [(ngModel)]="solicitud.direccion" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
+            <div class="iigwo-input" *ngIf="editando">
               <label>State</label>
               <!-- <input type="text" [(ngModel)]="solicitud.estado" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
               <select [(ngModel)]="solicitud.estado" [disabled]="solicitud.idEstatusSolicitud == 11">
