@@ -112,7 +112,7 @@
             <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales)">Payment Status
             </th>
             <th class=''>File Status</th>
-            <th class='' *ngIf="isMaster || isBackOffice || isInterviewer">Interview Appointment</th>
+            <th class='' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">Interview Appointment</th>
             <th class='' *ngIf="!(isInterviewer || isGhostwriting)">Scales Appointment</th>
             <th class='' *ngIf="(isMaster || isVendor || isBackOffice)">Amanda Interview</th>
             <th class='' *ngIf="isTemplateCreator">Interview Scale</th>
@@ -152,7 +152,7 @@
 								'badge-color-open': e.idEstatusSolicitud == 9,
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11}">{{e.estatusSolicitud}}</span></td>
-            <td class='accent' *ngIf="isMaster || isBackOffice || isInterviewer">{{e.fecha_schedule |
+            <td class='accent' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">{{e.fecha_schedule |
               dateYYYYMMDD}}
             <td class='accent' *ngIf="!(isInterviewer || isGhostwriting)">{{e.fecha_schedule_scales | dateYYYYMMDD}}
             </td>
