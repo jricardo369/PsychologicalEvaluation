@@ -149,7 +149,7 @@
               <input type="text" [(ngModel)]="solicitud.numeroDeCaso" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="editando && (isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
+            <div class="iigwo-input" *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
               <label>Language</label>
               <!-- <input type="text" [(ngModel)]="solicitud.idioma" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
               <select [(ngModel)]="solicitud.idioma" [ngModelOptions]="{standalone: true}"
@@ -172,7 +172,7 @@
               <input type="text" [(ngModel)]="solicitud.direccion" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="editando">
+            <div class="iigwo-input">
               <label>State</label>
               <!-- <input type="text" [(ngModel)]="solicitud.estado" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
               <select [(ngModel)]="solicitud.estado" [disabled]="solicitud.idEstatusSolicitud == 11">
