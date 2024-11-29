@@ -74,7 +74,7 @@ export class CitasComponent implements OnInit {
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
     this.isTherapist = this.usuario.rol == THERAPIST ? true : false;
 
-    if(this.isMaster || this.isVendor || this.isBackOffice) {
+    if (this.isMaster || this.isVendor || this.isBackOffice) {
       this.usuarioAll.idUsuario = 0;
       this.usuarioAll.nombre = "All";
       this.arrFilterUsuarios.push(this.usuarioAll);
@@ -165,11 +165,11 @@ export class CitasComponent implements OnInit {
     }
   }
 
-  ordenarPorHora(citasDia: CitaSolicitud[]) : CitaSolicitud[] {
+  ordenarPorHora(citasDia: CitaSolicitud[]): CitaSolicitud[] {
     return citasDia.sort((a, b) => (this.horaFormato24(a.hora, a.tipo) > this.horaFormato24(b.hora, b.tipo) ? 1 : -1));
   }
 
-  horaFormato24(hora: string, tipo: string) : string {
+  horaFormato24(hora: string, tipo: string): string {
     let horas: string = hora.split(':')[0];
     horas = this.utilService.withLeadingZeros((parseInt(horas) + (tipo == 'PM' && horas != '12' ? 12 : 0) - (tipo == 'AM' && horas == '12' ? 12 : 0)), 2);
     let minutos: string = hora.split(':')[1];
@@ -198,19 +198,22 @@ export class CitasComponent implements OnInit {
   }
 
   verCita(cita: CitaSolicitud) {
-    if(!this.isTherapist) return;
-
-    this.dialog.open(DialogoCitaSolicitudComponent, {
-      data: {
-        idSolicitud: cita.idSolicitud,
-        creando: false,
-        verSolicitud: true,
-        citaSolicitud: cita
-      },
-      disableClose: true,
-    }).afterClosed().toPromise().then(valor => {
-      // if (valor == 'creado') this.refrescar();
-    }).catch(reason => this.utilService.manejarError(reason));
+    if (this.isMaster || this.isVendor || this.isBackOffice || this.isInterviewer || this.isInterviewerScales) {
+      this.router.navigateByUrl('/solicitudes/solicitudes/'+ cita.idSolicitud);
+    }
+    else if (this.isTherapist) {
+      this.dialog.open(DialogoCitaSolicitudComponent, {
+        data: {
+          idSolicitud: cita.idSolicitud,
+          creando: false,
+          verSolicitud: true,
+          citaSolicitud: cita
+        },
+        disableClose: true,
+      }).afterClosed().toPromise().then(valor => {
+        // if (valor == 'creado') this.refrescar();
+      }).catch(reason => this.utilService.manejarError(reason));
+    }
   }
 
   citasDia() {
