@@ -125,7 +125,9 @@ export class SolicitudesService {
       adicional: solicitud.adicional,
       apellidos: solicitud.apellidos,
       external: solicitud.external,
-      usuarioExternal: solicitud.usuarioExternal
+      usuarioExternal: solicitud.usuarioExternal,
+      idioma: solicitud.idioma,
+      estado: solicitud.estado
     }
 
     let params = new HttpParams();
