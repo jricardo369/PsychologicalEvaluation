@@ -5,8 +5,11 @@
   <div class='main'>
     <app-experimental-menu [titulo]="titulo" backButtonEnabled="true">
       <span class="badge-status badge-color-schedule-title"
-        *ngIf="(isInterviewer || isInterviewerScales) && solicitud.fecha_schedule">Schedule
+        *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator) && solicitud.fecha_schedule">Schedule
         {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
+      <span class="badge-status badge-color-schedule-scales-title"
+        *ngIf="(isMaster || isVendor || isBackOffice || isTemplateCreator || isInterviewerScales) && solicitud.fecha_schedule_scales">Int. Scale
+        {{solicitud.fecha_schedule_scales | dateYYYYMMDD}}</span>
     </app-experimental-menu>
 
     <div style="display:flex; flex-flow: row" *ngIf="creando || solicitud.idSolicitud">
@@ -72,7 +75,8 @@
             </div> -->
             <div class="iigwo-input" *ngIf="editando && !(isTemplateCreator || isInterviewer || isInterviewerScales)">
               <label>Amount</label>
-              <input type="number" [(ngModel)]="solicitud.amount" [readOnly]="solicitud.idEstatusSolicitud == 11 || isGhostwriting">
+              <input type="number" [(ngModel)]="solicitud.amount"
+                [readOnly]="solicitud.idEstatusSolicitud == 11 || isGhostwriting">
             </div>
 
             <div class="iigwo-input" *ngIf="!(isInterviewer || isInterviewerScales)">
@@ -149,7 +153,8 @@
               <input type="text" [(ngModel)]="solicitud.numeroDeCaso" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
 
-            <div class="iigwo-input" *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
+            <div class="iigwo-input"
+              *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
               <label>Language</label>
               <!-- <input type="text" [(ngModel)]="solicitud.idioma" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
               <select [(ngModel)]="solicitud.idioma" [ngModelOptions]="{standalone: true}"
@@ -158,7 +163,8 @@
               </select>
             </div>
 
-            <div class="iigwo-input" *ngIf="editando && (isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
+            <div class="iigwo-input"
+              *ngIf="editando && (isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator ||isInterviewerScales || isGhostwriting)">
               <label>Type of Interview</label>
               <!-- <input type="text" [(ngModel)]="solicitud.tipoEntrevista" [readOnly]="solicitud.idEstatusSolicitud == 11"> -->
               <select [(ngModel)]="solicitud.tipoEntrevista" [ngModelOptions]="{standalone: true}"
@@ -303,7 +309,8 @@
             *ngIf="solicitud.idEstatusSolicitud != 11 && solicitud.idEstatusSolicitud != 6"
             style="color: #FFFFFF; background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">{{solicitud.idEstatusSolicitud == 1 && !isInterviewerScales ? "Send to Interviewer" : "Send to next process"}}</label>
+            <label style="margin: auto;">{{solicitud.idEstatusSolicitud == 1 && !isInterviewerScales ? "Send to
+              Interviewer" : "Send to next process"}}</label>
           </button>
 
           <button (click)='envioInterviewerScales()' class="btn"
@@ -326,14 +333,14 @@
             <label style="margin: auto;">Assign Template</label>
           </button>
 
-          <button (click)='generateW9()' class="btn"
-            *ngIf="isGhostwriting"
+          <button (click)='generateW9()' class="btn" *ngIf="isGhostwriting"
             style="color: #FFFFFF;background: #ff0000; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Generate W9</label>
           </button>
 
-          <button (click)='cancelarCita()' class="btn" *ngIf="(isMaster || isVendor || isBackOffice) && (solicitud.idEstatusSolicitud == 1 || solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3)"
+          <button (click)='cancelarCita()' class="btn"
+            *ngIf="(isMaster || isVendor || isBackOffice) && (solicitud.idEstatusSolicitud == 1 || solicitud.idEstatusSolicitud == 2 || solicitud.idEstatusSolicitud == 3)"
             style="color: #FFFFFF;background: #ED9A72; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
             <label style="margin: auto;">Cancel Schedule</label>
