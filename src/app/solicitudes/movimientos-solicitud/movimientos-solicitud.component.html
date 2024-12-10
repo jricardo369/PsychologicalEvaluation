@@ -1,39 +1,46 @@
 <div *ngIf="mostrarMovimientos" style="
                 overflow-y: auto;">
 
-	<div style="display: flex; align-items: center; justify-content: space-between;">
-		<h4>Payments</h4>
-		<button (click)='agregarMovimiento()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
-			style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
-			<mat-icon svgIcon="add"></mat-icon>
-			<label>Add Payment</label>
-		</button>
-	</div>
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <h4>Payments</h4>
+    <button (click)='agregarMovimiento()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
+      style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
+      <mat-icon svgIcon="add"></mat-icon>
+      <label>Add Payment</label>
+    </button>
+  </div>
 
-	<table class="informative" *ngIf="arrMovimientoSolicitud.length > 0">
-		<tr>
-			<th>Folio</th>
-			<th>Date</th>
-			<th>Amount</th>
-			<th>Method</th>
-			<th>Discount</th>
-			<th>Description</th>
-		</tr>
-		<tr *ngFor='let e of arrMovimientoSolicitud'>
-			<td>{{e.folio}}</td>
+  <table class="informative" *ngIf="arrMovimientoSolicitud.length > 0">
+    <tr>
+      <th>Folio</th>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Method</th>
+      <th>Discount</th>
+      <th>Description</th>
+      <th *ngIf="(isMaster || isVendor || isBackOffice)">Actions</th>
+    </tr>
+    <tr *ngFor='let e of arrMovimientoSolicitud'>
+      <td>{{e.folio}}</td>
       <td>{{e.fecha | date:'yyyy/MM/dd HH:mm':'':'en'}}</td>
-			<td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
-			<td>{{e.descripcionTipoPago}}</td>
-			<td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
-			<td>{{e.descripcion}}</td>
-		</tr>
-	</table>
-	<p style="margin-bottom: 20px; font-size: 13px;" *ngIf="!arrMovimientoSolicitud.length > 0">
-		<span>The file has no payments.</span>
-	</p>
+      <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+      <td>{{e.descripcionTipoPago}}</td>
+      <td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+      <td>{{e.descripcion}}</td>
+      <td style="display: flex;" *ngIf="(isMaster || isVendor || isBackOffice)">
+        <button (click)='eliminarMovimiento(e)' class="btn-icon" style="color: red;" matTooltip="Delete"
+          *ngIf="idEstatusSolicitud != 11">
+          <mat-icon svgIcon="delete"></mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <p style="margin-bottom: 20px; font-size: 13px;" *ngIf="!arrMovimientoSolicitud.length > 0">
+    <span>The file has no payments.</span>
+  </p>
 </div>
 
 <!--Cargando-->
 <div class='iigwo-loading' *ngIf="cargando">
-	<mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </div>

@@ -5,58 +5,91 @@ import { UtilService } from 'src/app/services/util.service';
 import { MovimientoSolicitud } from 'src/model/movimiento-solicitud';
 import { DialogoMovimientoSolicitudComponent } from '../dialogo-movimiento-solicitud/dialogo-movimiento-solicitud.component';
 import { SolicitudComponent } from '../solicitud/solicitud.component';
+import { Usuario } from 'src/model/usuario';
+import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
 
 @Component({
-	selector: 'app-movimientos-solicitud',
-	templateUrl: './movimientos-solicitud.component.html',
-	styleUrls: ['./movimientos-solicitud.component.css']
+  selector: 'app-movimientos-solicitud',
+  templateUrl: './movimientos-solicitud.component.html',
+  styleUrls: ['./movimientos-solicitud.component.css']
 })
 export class MovimientosSolicitudComponent implements OnInit {
 
-	@Input() idSolicitud: string;
-	@Input() idUsuario: number;
+  @Input() idSolicitud: string;
+  @Input() idUsuario: number;
   @Input() idEstatusSolicitud: number;
 
-	mostrarMovimientos: boolean = true;
-	arrMovimientoSolicitud: MovimientoSolicitud[] = [];
+  mostrarMovimientos: boolean = true;
+  arrMovimientoSolicitud: MovimientoSolicitud[] = [];
 
-	cargando: boolean = false;
+  cargando: boolean = false;
 
-	constructor(
-		private movimientoSolicitudService: MovimientoSolicitudService,
-		private utilService: UtilService,
-		private dialog: MatDialog,
+  usuario: Usuario = new Usuario();
+  isAdministrator: boolean = false;
+  isMaster: boolean = false;
+  isVendor: boolean = false;
+  isBackOffice: boolean = false;
+  isInterviewer: boolean = false;
+  isVOC: boolean = false;
+  isTemplateCreator: boolean = false;
+  isInterviewerScales: boolean = false;
+  isGhostwriting: boolean = false;
+
+  constructor(
+    private movimientoSolicitudService: MovimientoSolicitudService,
+    private utilService: UtilService,
+    private dialog: MatDialog,
     @Optional() public parent: SolicitudComponent) {
-		this.mostrarMovimientos = true;
-	}
+    this.mostrarMovimientos = true;
 
-	ngOnInit(): void {
-		this.refresh();
-		this.mostrarMovimientos = true;
-	}
+    this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
+    this.isAdministrator = this.usuario.rol == ADMINISTRATOR ? true : false;
+    this.isMaster = this.usuario.rol == MASTER ? true : false;
+    this.isVendor = this.usuario.rol == VENDOR ? true : false;
+    this.isBackOffice = this.usuario.rol == BACKOFFICE ? true : false;
+    this.isInterviewer = this.usuario.rol == INTERVIEWER ? true : false;
+    this.isVOC = this.usuario.rol == VOC ? true : false;
+    this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
+    this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
+    this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+  }
+
+  ngOnInit(): void {
+    this.refresh();
+    this.mostrarMovimientos = true;
+  }
 
 
-	refresh() {
-		this.cargando = true;
-		this.movimientoSolicitudService
-			.obtenerMovimientosSolicitud(Number.parseInt(this.idSolicitud))
-			.then(response => {
-				this.arrMovimientoSolicitud = response;
-			})
-			.catch(reason => this.utilService.manejarError(reason))
-			.then(() => this.cargando = false)
-	}
+  refresh() {
+    this.cargando = true;
+    this.movimientoSolicitudService
+      .obtenerMovimientosSolicitud(Number.parseInt(this.idSolicitud))
+      .then(response => {
+        this.arrMovimientoSolicitud = response;
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false)
+  }
 
-	agregarMovimiento() {
-		this.dialog.open(DialogoMovimientoSolicitudComponent, {
-			data: {
-				idSolicitud: this.idSolicitud,
+  agregarMovimiento() {
+    this.dialog.open(DialogoMovimientoSolicitudComponent, {
+      data: {
+        idSolicitud: this.idSolicitud,
         idUsuario: this.idUsuario
-			},
-			disableClose: true,
-		}).afterClosed().toPromise().then(valor => {
-			if (valor == 'creado') {this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud))};
-		}).catch(reason => this.utilService.manejarError(reason));
-	}
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'creado') { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)) };
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
+
+  eliminarMovimiento(movimiento: MovimientoSolicitud) {
+    this.cargando = true;
+    this.movimientoSolicitudService
+      .eliminarMovimientoSolicitud(movimiento.idMovimiento, this.usuario.idUsuario)
+      .then(() => { })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
 
 }

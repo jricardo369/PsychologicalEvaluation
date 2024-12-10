@@ -52,6 +52,27 @@ export class MovimientoSolicitudService {
     );
   }
 
+  eliminarMovimientoSolicitud(idMovimiento: number, idUsuario: number): Promise<any> {
+    let params = new HttpParams();
+    params = params.set("idUsuario", idUsuario.toString());
+    return new Promise<any>((resolve, reject) =>
+      this.http
+        .delete(API_URL + "movimientos/" + idMovimiento, {
+          params: params,
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
   obtenerReporteMovimientos(cliente: string, fechaInicio: string, fechaFin: string): Promise<ReporteMovimientos> {
     return new Promise<ReporteMovimientos>((resolve, reject) =>
       this.http
