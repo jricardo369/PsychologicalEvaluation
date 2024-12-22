@@ -45,9 +45,9 @@
     bottom: 0;
     margin: auto;
     height: fit-content;
-    padding: 70px;
-    padding-bottom: 90px;
-    max-width: 300px;   
+    padding: 100% 70px;
+    // padding-bottom: 90px;
+    max-width: 300px;
     background: #fff;
 }
 
@@ -174,7 +174,7 @@
 //
 
 .langs {
-    
+
     position: absolute;
     right: 0;
     bottom: 0;
