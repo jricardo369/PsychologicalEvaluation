@@ -123,9 +123,7 @@
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
             <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">{{e.fechaInicio |
               dateYYYYMMDD}}</td>
-            <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-3': e.age <= -4,
-                            'badge-color-2': e.age <= 0,
-                            'badge-color-1': e.age >= 1}">{{e.age}}</span></td>
+            <td class='accent'>{{e.dueDate | dateYYYYMMDD}}</td>
             <td class='accent' *ngIf="isMaster">{{e.abogado}}</td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
             <td class='accent'>{{e.telefono | phone}}</td>

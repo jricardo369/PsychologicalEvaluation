@@ -10,6 +10,9 @@
       <span class="badge-status badge-color-schedule-scales-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isTemplateCreator || isInterviewerScales) && solicitud.fecha_schedule_scales">Int. Scale
         {{solicitud.fecha_schedule_scales | dateYYYYMMDD}}</span>
+      <span class="badge-status badge-color-schedule-scales-title" *ngIf="solicitud.dueDate"
+        >Due Date
+        {{solicitud.dueDate | dateYYYYMMDD}}</span>
     </app-experimental-menu>
 
     <div style="display:flex; flex-flow: row" *ngIf="creando || solicitud.idSolicitud">
@@ -296,10 +299,16 @@
           <span class="badge-status badge-color-important">{{solicitud.importante}}</span>
         </div>
 
-        <div class="iigwo-input" style="margin: 0;" *ngIf="editando">
+        <div class="iigwo-input" *ngIf="editando">
           <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 4px;"
             id="waiver" [checked]="solicitud.waiver" (change)="solicitud.waiver = !solicitud.waiver">
           <label for="waiver" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Waiver</label>
+        </div>
+
+        <div class="iigwo-input">
+          <label>Due Date</label>
+          <input [ngModel]="solicitud.dueDate" (ngModelChange)='solicitud.dueDate = $event' type="date"
+                [readOnly]="solicitud.idEstatusSolicitud == 11">
         </div>
 
         <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud != 11">
