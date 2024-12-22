@@ -7,6 +7,7 @@ import { DialogoMovimientoSolicitudComponent } from '../dialogo-movimiento-solic
 import { SolicitudComponent } from '../solicitud/solicitud.component';
 import { Usuario } from 'src/model/usuario';
 import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
 
 @Component({
   selector: 'app-movimientos-solicitud',
@@ -84,12 +85,27 @@ export class MovimientosSolicitudComponent implements OnInit {
   }
 
   eliminarMovimiento(movimiento: MovimientoSolicitud) {
-    this.cargando = true;
-    this.movimientoSolicitudService
-      .eliminarMovimientoSolicitud(movimiento.idMovimiento, this.usuario.idUsuario)
-      .then(() => { })
-      .catch(reason => this.utilService.manejarError(reason))
-      .then(() => this.cargando = false);
+    this.dialog.open(DialogoSimpleComponent, {
+      data: {
+        titulo: 'Delete movement',
+        texto: 'Do you really want to delete the movement?',
+        botones: [
+          { texto: 'Cancel', color: '', valor: '' },
+          { texto: 'Delete', color: 'primary', valor: 'eliminar' },
+        ]
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'eliminar') {
+        this.cargando = true;
+        this.movimientoSolicitudService
+          .eliminarMovimientoSolicitud(movimiento.idMovimiento, this.usuario.idUsuario)
+          .then(() => { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)) })
+          .catch(reason => this.utilService.manejarError(reason))
+          .then(() => this.cargando = false);
+      }
+    }).catch(reason => this.utilService.manejarError(reason));
+
   }
 
 }
