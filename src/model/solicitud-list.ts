@@ -32,4 +32,5 @@ export class SolicitudList {
     interviewMaster: boolean;
     usuarioRevisandoNombre: string;
     asignacionIntSc: boolean;
+    tieneScale: boolean;
 }
