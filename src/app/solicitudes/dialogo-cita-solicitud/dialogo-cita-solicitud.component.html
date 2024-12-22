@@ -1,9 +1,9 @@
-<h2 mat-dialog-title [ngClass]="{'mb-0': creando && !verSolicitud}">{{creando ? "New Schedule" : ("Schedule " + citaSolicitud.fecha + " at " + citaSolicitud.hora + " " + citaSolicitud.tipo)}}</h2>
+<h2 mat-dialog-title [ngClass]="{'mb-0': creando && !verCampoSolicitud}">{{creando ? "New Schedule" : ("Schedule " + citaSolicitud.fecha + " at " + citaSolicitud.hora + " " + citaSolicitud.tipo)}}</h2>
 
 <mat-dialog-content style="padding-right: 12px;" *ngIf="creando">
 
   <div style="width: 450px;">
-    <div class="iigwo-input" *ngIf="verSolicitud">
+    <div class="iigwo-input" *ngIf="verCampoSolicitud">
       <label>File</label>
       <select [(ngModel)]="citaSolicitud.idSolicitud" [ngModelOptions]="{standalone: true}"
         [disabled]="!creando">

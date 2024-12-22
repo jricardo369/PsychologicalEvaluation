@@ -58,7 +58,7 @@ export class CitasSolicitudComponent implements OnInit {
       data: {
         idSolicitud: this.idSolicitud,
         creando: true,
-        verSolicitud: false
+        verCampoSolicitud: false
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
@@ -71,7 +71,7 @@ export class CitasSolicitudComponent implements OnInit {
       data: {
         idSolicitud: this.idSolicitud,
         creando: false,
-        verSolicitud: false,
+        verCampoSolicitud: false,
         citaSolicitud: cita
       },
       disableClose: true,

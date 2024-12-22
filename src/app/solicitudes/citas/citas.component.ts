@@ -189,7 +189,7 @@ export class CitasComponent implements OnInit {
       data: {
         idSolicitud: null,
         creando: true,
-        verSolicitud: true
+        verCampoSolicitud: true
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
@@ -206,7 +206,7 @@ export class CitasComponent implements OnInit {
         data: {
           idSolicitud: cita.idSolicitud,
           creando: false,
-          verSolicitud: true,
+          verCampoSolicitud: true,
           citaSolicitud: cita
         },
         disableClose: true,

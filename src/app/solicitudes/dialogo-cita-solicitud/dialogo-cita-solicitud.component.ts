@@ -22,7 +22,7 @@ export class DialogoCitaSolicitudComponent implements OnInit {
   nuevaNotaCita: NotaCita = new NotaCita();
   usuario: Usuario = new Usuario;
   creando: boolean = false;
-  verSolicitud: boolean = false;
+  verCampoSolicitud: boolean = false;
   arrSolicitudesVoc: SolicitudVoc[] = [];
 
   arrTime: string[] = [
@@ -63,13 +63,13 @@ export class DialogoCitaSolicitudComponent implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     this.citaSolicitud.idSolicitud = data.idSolicitud;
     this.creando = data.creando;
-    this.verSolicitud = data.verSolicitud;
+    this.verCampoSolicitud = data.verCampoSolicitud;
     if (!this.creando) {
       this.citaSolicitud = data.citaSolicitud;
       this.nuevaNotaCita.idCita = this.citaSolicitud.idCita;
       this.obtenerNotasCita();
     }
-    if(this.verSolicitud) this.obtenerSolicitudesActivasUsuario();
+    if(this.verCampoSolicitud) this.obtenerSolicitudesActivasUsuario();
     this.citaSolicitud.dosCitas = false;
   }
 
