@@ -309,8 +309,7 @@
             *ngIf="solicitud.idEstatusSolicitud != 11 && solicitud.idEstatusSolicitud != 6"
             style="color: #FFFFFF; background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
             <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">{{solicitud.idEstatusSolicitud == 1 && !isInterviewerScales ? "Send to
-              Interviewer" : "Send to next process"}}</label>
+            <label style="margin: auto;">{{solicitud.idEstatusSolicitud == 1 && !isInterviewerScales ? "Send to Interviewer" : "Send to next process"}}</label>
           </button>
 
           <button (click)='envioInterviewerScales()' class="btn"

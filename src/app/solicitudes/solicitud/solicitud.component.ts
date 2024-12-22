@@ -472,7 +472,7 @@ export class SolicitudComponent implements OnInit {
   }
 
   siguienteProceso() {
-    if (this.solicitud.idEstatusSolicitud == 1 && !this.isInterviewerScales) {
+    if (this.solicitud.idEstatusSolicitud == 1 && !this.isInterviewerScales) { //Send to Interviewe
       this.dialog.open(DialogoSiguienteProcesoComponent, {
         data: {
           idSolicitud: this.solicitud.idSolicitud,
@@ -481,7 +481,14 @@ export class SolicitudComponent implements OnInit {
         },
         disableClose: true,
       }).afterClosed().toPromise().then(valor => {
-        if (valor == 'enviado') this.goBack();
+        if (valor == 'enviado') {
+          if (this.isMaster || this.isVendor || this.isBackOffice) {
+            this.obtenerSolicitud(this.solicitud.idSolicitud);
+          }
+          else {
+            this.goBack();
+          }
+        }
       }).catch(reason => this.utilService.manejarError(reason));
     } else {
       this.cargando = true;
@@ -529,7 +536,14 @@ export class SolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'enviado') this.goBack();
+      if (valor == 'enviado') {
+        if (this.isMaster || this.isVendor || this.isBackOffice) {
+          this.obtenerSolicitud(this.solicitud.idSolicitud);
+        }
+        else {
+          this.goBack();
+        }
+      }
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
