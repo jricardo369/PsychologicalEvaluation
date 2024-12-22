@@ -15,10 +15,14 @@
       <th colspan="2">Hour</th>
     </tr>
     <tr *ngFor='let e of arrCitaSolicitud | slice:paginacion.begin:paginacion.end'>
-      <td>{{e.fecha}} {{e.hora}} {{e.tipo}}</td>
-      <td>
+      <td style="width: 100%;">{{e.fecha}} {{e.hora}} {{e.tipo}}</td>
+      <td style="display: flex;">
         <button (click)='verCita(e)' class="btn-icon" style="color: gray;" matTooltip="Open">
           <mat-icon svgIcon="comments"></mat-icon>
+        </button>
+
+        <button (click)='no_show(e)' class="btn-icon" style="color: #EAB570;" matTooltip="No-show" *ngIf="!e.noShow">
+          <mat-icon svgIcon="calendar-slash"></mat-icon>
         </button>
       </td>
     </tr>

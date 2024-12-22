@@ -7,6 +7,7 @@ import { CitaSolicitud } from 'src/model/cita-solicitud';
 import { CitaSolicitudService } from 'src/app/services/cita-solicitud.service';
 import { DialogoCitaSolicitudComponent } from '../dialogo-cita-solicitud/dialogo-cita-solicitud.component';
 import { SolicitudVocComponent } from '../solicitud-voc/solicitud-voc.component';
+import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
 
 @Component({
   selector: 'app-citas-solicitud',
@@ -61,7 +62,7 @@ export class CitasSolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'creado') {this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud))};
+      if (valor == 'creado') { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)) };
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
@@ -76,6 +77,29 @@ export class CitasSolicitudComponent implements OnInit {
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
       // if (valor == 'creado') this.refresh();
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
+
+  no_show(cita: CitaSolicitud) {
+    this.dialog.open(DialogoSimpleComponent, {
+      data: {
+        titulo: 'No-show',
+        texto: 'Do you really want to mark your appointment as a no-show?',
+        botones: [
+          { texto: 'Cancel', color: '', valor: '' },
+          { texto: 'Yes', color: 'primary', valor: 'ok' },
+        ]
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'ok') {
+        this.cargando = true;
+        this.citaSolicitudService
+          .no_show(cita.idCita, this.usuario.idUsuario)
+          .then(() => { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)) })
+          .catch(reason => this.utilService.manejarError(reason))
+          .then(() => this.cargando = false);
+      }
     }).catch(reason => this.utilService.manejarError(reason));
   }
 }
