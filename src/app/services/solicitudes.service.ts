@@ -30,10 +30,10 @@ export class SolicitudesService {
     );
   }
 
-  obtenerSolicitudesUsuario(idUsuario: number): Promise<SolicitudList[]> {
+  obtenerSolicitudesUsuario(fechai: string, fechaf: string, ordenarPor: string, orden: string, idUsuario: number): Promise<SolicitudList[]> {
     return new Promise<SolicitudList[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "solicitudes/solicitudes-de-usuario/" + idUsuario, {
+        .get(API_URL + "solicitudes/solicitudes-de-usuario/" + idUsuario + "?fechai=" + fechai + "&fechaf=" + fechaf + "&ordenarPor=" + ordenarPor + "&orden=" + orden, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
@@ -86,7 +86,7 @@ export class SolicitudesService {
 
   obtenerReporteSolicitudesFilters(idUsuario: number, campo: string, valor: string, fecha1: string, fecha2: string, myFiles: boolean): Promise<SolicitudList[]> {
     let queryParams: string = "";
-    if(campo == "All" || campo == "File" || campo == "Customer" || campo == "Phone" || campo == "Email" || campo == "File Status" || campo == "Payment Status" || campo == "Responsible User" || campo == "Waiver") {
+    if (campo == "All" || campo == "File" || campo == "Customer" || campo == "Phone" || campo == "Email" || campo == "File Status" || campo == "Payment Status" || campo == "Responsible User" || campo == "Waiver") {
       queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles;
     } else if (campo == "Date") {
       queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&fecha1=" + fecha1 + "&fecha2=" + fecha2 + "&myFiles=" + myFiles;
@@ -103,6 +103,24 @@ export class SolicitudesService {
         .toPromise()
         .then((response) => {
           resolve(response.body as SolicitudList[]);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
+  obtenerTextosOrdenarPor(idUsuario: number): Promise<string[]> {
+    return new Promise<string[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "solicitudes/obtener-textos-ordenar-por/" + idUsuario, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as string[]);
         })
         .catch((reason) => reject(reason))
     );

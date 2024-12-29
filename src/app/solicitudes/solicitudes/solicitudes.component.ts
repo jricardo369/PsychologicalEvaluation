@@ -65,6 +65,14 @@ export class SolicitudesComponent implements OnInit {
   filterInputDate1: string = "";
   filterInputDate2: string = "";
 
+  filterStartDate: string;
+  filterEndDate: string;
+  filterSortBy: string = '';
+  filterOrder: string = '';
+
+  arrFilterSortBy: string[] = [];
+  arrFilterOrder: string[] = ['ASC','DESC'];
+
   constructor(
     private router: Router,
     private solicitudesService: SolicitudesService,
@@ -82,9 +90,19 @@ export class SolicitudesComponent implements OnInit {
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+
+    var today = new Date().toISOString();
+    this.filterEndDate = today.split('T', 1)[0];
+
+    var date = new Date();
+    date.setMonth(date.getMonth() - 1);
+    date.setDate(1);
+    this.filterStartDate = ((date.toISOString()).split('T', 1))[0];
+
     this.obtenerEstatusSolicitudes();
     this.obtenerEstatusPagos();
     this.clearInputs();
+    this.obtenerTextosOrdenarPor();
   }
 
   ngOnInit(): void {
@@ -102,6 +120,17 @@ export class SolicitudesComponent implements OnInit {
           "descripcion": "All"
         }].concat(this.arrFilterFileStatus);
         console.log(this.arrFilterFileStatus)
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false)
+  }
+
+  obtenerTextosOrdenarPor() {
+    this.cargando = true;
+    this.solicitudesService
+      .obtenerTextosOrdenarPor(this.usuario.idUsuario)
+      .then(textos => {
+        this.arrFilterSortBy = textos;
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
@@ -126,7 +155,7 @@ export class SolicitudesComponent implements OnInit {
   refrescar() {
     this.cargando = true;
     this.solicitudesService
-      .obtenerSolicitudesUsuario(this.usuario.idUsuario)
+      .obtenerSolicitudesUsuario(this.filterStartDate, this.filterEndDate, this.filterSortBy, this.filterOrder, this.usuario.idUsuario)
       .then(solicitudes => {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);

@@ -30,6 +30,32 @@
 
       <!-- FILTRO -->
       <div class="container" style="margin-bottom: 20px;">
+        <div class="left">
+          <div style="display: inline-flex;">
+            <div class="iigwo-input">
+              <label>Start Date</label>
+              <input type="date" [(ngModel)]="filterStartDate" (change)="refrescar()">
+            </div>
+            <div class="iigwo-input">
+              <label>End Date </label>
+              <input type="date" [(ngModel)]="filterEndDate" (change)="refrescar()">
+            </div>
+            <div class="iigwo-input">
+              <label>Sort by</label>
+              <select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" (change)="refrescar()">
+                <option *ngFor="let e of arrFilterSortBy" [ngValue]="e">
+                  {{e}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input">
+              <label>Order</label>
+              <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}" (change)="refrescar()">
+                <option *ngFor="let e of arrFilterOrder" [ngValue]="e">
+                  {{e}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div class="right">
           <div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">
             <div class="iigwo-input">
