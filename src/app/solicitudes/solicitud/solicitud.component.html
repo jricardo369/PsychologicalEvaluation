@@ -305,7 +305,7 @@
           <label for="waiver" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Waiver</label>
         </div>
 
-        <div class="iigwo-input">
+        <div class="iigwo-input" *ngIf="(isMaster || isVendor || isBackOffice || isTemplateCreator)">
           <label>Due Date</label>
           <input [ngModel]="solicitud.dueDate" (ngModelChange)='solicitud.dueDate = $event' type="date"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
