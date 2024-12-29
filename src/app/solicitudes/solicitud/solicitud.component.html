@@ -10,7 +10,7 @@
       <span class="badge-status badge-color-schedule-scales-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isTemplateCreator || isInterviewerScales) && solicitud.fecha_schedule_scales">Int. Scale
         {{solicitud.fecha_schedule_scales | dateYYYYMMDD}}</span>
-      <span class="badge-status badge-color-schedule-scales-title" *ngIf="solicitud.dueDate"
+      <span class="badge-status badge-color-due-date-title" *ngIf="solicitud.dueDate"
         >Due Date
         {{solicitud.dueDate | dateYYYYMMDD}}</span>
     </app-experimental-menu>
