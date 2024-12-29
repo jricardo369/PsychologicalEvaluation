@@ -18,8 +18,7 @@ export class DialogoCitaSolicitudComponent implements OnInit {
 
   cargando: boolean = false;
   public citaSolicitud: CitaSolicitud = new CitaSolicitud;
-  arrNotasCita: NotaCita[] = [];
-  nuevaNotaCita: NotaCita = new NotaCita();
+  notaCita: NotaCita = new NotaCita();
   usuario: Usuario = new Usuario;
   creando: boolean = false;
   verCampoSolicitud: boolean = false;
@@ -52,6 +51,23 @@ export class DialogoCitaSolicitudComponent implements OnInit {
     '11:30'
   ];
 
+  arrTipoNota: string[] = [
+    'Clinical Record'
+  ];
+
+  arrReferencia: string[] = ['VOC'];
+
+  tipoContenidoSesion1: boolean = false;
+  tipoContenidoSesion2: boolean = false;
+  tipoContenidoSesion3: boolean = false;
+  tipoContenidoSesion4: boolean = false;
+  tipoContenidoSesion5: boolean = false;
+  tipoContenidoSesion6: boolean = false;
+  tipoContenidoSesion7: boolean = false;
+
+  inputSiHiAsignado: string = "";
+  inputLocacionVerificada: string = "";
+
   constructor(
     private solicitudesVOCService: SolicitudesVocService,
     private citaSolicitudService: CitaSolicitudService,
@@ -66,10 +82,9 @@ export class DialogoCitaSolicitudComponent implements OnInit {
     this.verCampoSolicitud = data.verCampoSolicitud;
     if (!this.creando) {
       this.citaSolicitud = data.citaSolicitud;
-      this.nuevaNotaCita.idCita = this.citaSolicitud.idCita;
       this.obtenerNotasCita();
     }
-    if(this.verCampoSolicitud) this.obtenerSolicitudesActivasUsuario();
+    if (this.verCampoSolicitud) this.obtenerSolicitudesActivasUsuario();
     this.citaSolicitud.dosCitas = false;
   }
 
@@ -103,7 +118,7 @@ export class DialogoCitaSolicitudComponent implements OnInit {
     this.citaSolicitudService.descargarCita(this.citaSolicitud.idCita, this.usuario.idUsuario).then(response => {
       this.utilService.saveByteArray("schedule_file-" + this.citaSolicitud.idSolicitud + "_" + this.citaSolicitud.idCita, response, 'pdf');
     }).catch(e => this.utilService.manejarError(e))
-    .finally(() => this.cargando = false);
+      .finally(() => this.cargando = false);
   }
 
   obtenerNotasCita() {
@@ -111,16 +126,50 @@ export class DialogoCitaSolicitudComponent implements OnInit {
     this.notaCitaService
       .obtenerNotasCita(this.citaSolicitud.idCita)
       .then(notas => {
-        this.arrNotasCita = notas;
+        // this.nuevaNotaCita.idCita = this.citaSolicitud.idCita;
+        this.notaCita = notas;
+
+        if (!this.notaCita.idNota) {
+          this.notaCita.tipo = this.arrTipoNota[0];
+        }
+
+        if (this.notaCita.siHiAsignado === true) this.inputSiHiAsignado = "Yes";
+        else if (this.notaCita.siHiAsignado === false) this.inputSiHiAsignado = "No";
+
+        if (this.notaCita.locacionVerificada === true) this.inputLocacionVerificada = "Yes";
+        else if (this.notaCita.locacionVerificada === false) this.inputLocacionVerificada = "No";
+
+        if (this.notaCita.tipoContenidoSesion) {
+          this.tipoContenidoSesion1 = this.notaCita.tipoContenidoSesion.includes("Symptoms/Behavior");
+          this.tipoContenidoSesion2 = this.notaCita.tipoContenidoSesion.includes("Home Situation");
+          this.tipoContenidoSesion3 = this.notaCita.tipoContenidoSesion.includes("Psychological Stressors");
+          this.tipoContenidoSesion4 = this.notaCita.tipoContenidoSesion.includes("Medical");
+          this.tipoContenidoSesion5 = this.notaCita.tipoContenidoSesion.includes("Risk Factors");
+          this.tipoContenidoSesion6 = this.notaCita.tipoContenidoSesion.includes("Environmental");
+          this.tipoContenidoSesion7 = this.notaCita.tipoContenidoSesion.includes("Other");
+        }
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false);
   }
 
-  agregarNota() {
+  guardarNota() {
+    this.notaCita.tipoContenidoSesion = "";
+    this.notaCita.tipoContenidoSesion += (this.tipoContenidoSesion1 ? (this.notaCita.tipoContenidoSesion.length > 0 ? "," : "") + "Symptoms/Behavior" : "");
+    this.notaCita.tipoContenidoSesion += (this.tipoContenidoSesion2 ? (this.notaCita.tipoContenidoSesion.length > 0 ? "," : "") + "Home Situation" : "");
+    this.notaCita.tipoContenidoSesion += (this.tipoContenidoSesion3 ? (this.notaCita.tipoContenidoSesion.length > 0 ? "," : "") + "Psychological Stressors" : "");
+    this.notaCita.tipoContenidoSesion += (this.tipoContenidoSesion4 ? (this.notaCita.tipoContenidoSesion.length > 0 ? "," : "") + "Medical" : "");
+    this.notaCita.tipoContenidoSesion += (this.tipoContenidoSesion5 ? (this.notaCita.tipoContenidoSesion.length > 0 ? "," : "") + "Risk Factors" : "");
+    this.notaCita.tipoContenidoSesion += (this.tipoContenidoSesion6 ? (this.notaCita.tipoContenidoSesion.length > 0 ? "," : "") + "Environmental" : "");
+    this.notaCita.tipoContenidoSesion += (this.tipoContenidoSesion7 ? (this.notaCita.tipoContenidoSesion.length > 0 ? "," : "") + "Other" : "");
+
+    this.notaCita.siHiAsignado = this.inputSiHiAsignado == "Yes";
+
+    this.notaCita.locacionVerificada = this.inputLocacionVerificada == "Yes";
+
     this.cargando = true;
     this.notaCitaService
-      .guardarNota(this.nuevaNotaCita)
+      .guardarNota(this.notaCita)
       .then(() => {
         this.obtenerNotasCita();
       })

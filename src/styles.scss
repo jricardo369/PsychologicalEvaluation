@@ -1027,6 +1027,10 @@ input:checked+.slider {
 	transform: scale(1);
 }
 
+input[type=radio], input[type=checkbox] {
+  accent-color: mat-color($app-primary);
+}
+
 .switch:active input+.slider {
 	transform: scale(0.70);
 }
@@ -2302,4 +2306,11 @@ p.accent {
 
 td {
   vertical-align: middle;
+}
+
+
+.iigwo-input label[required]::after {
+  content: "*";
+  color: red;
+  font-weight: bold;
 }
