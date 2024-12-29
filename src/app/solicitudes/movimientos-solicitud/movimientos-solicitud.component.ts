@@ -80,7 +80,7 @@ export class MovimientosSolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'creado') { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)) };
+      if (valor == 'creado') { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)); this.parent.refreshEventosSolicitud(); };
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
@@ -100,7 +100,7 @@ export class MovimientosSolicitudComponent implements OnInit {
         this.cargando = true;
         this.movimientoSolicitudService
           .eliminarMovimientoSolicitud(movimiento.idMovimiento, this.usuario.idUsuario)
-          .then(() => { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)) })
+          .then(() => { this.refresh(); this.parent.obtenerSolicitud(parseInt(this.idSolicitud)); this.parent.refreshEventosSolicitud(); })
           .catch(reason => this.utilService.manejarError(reason))
           .then(() => this.cargando = false);
       }
