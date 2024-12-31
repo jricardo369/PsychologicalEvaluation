@@ -91,7 +91,7 @@
             </div>
             <div class="iigwo-input" *ngIf="isVOC">
               <label>Sessions Number</label>
-              <input type="number" [(ngModel)]="solicitud.sesionesPendientes" min="0" minlength="1"
+              <input type="number" [(ngModel)]="solicitud.numSesiones" min="0" minlength="1"
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
             <div class="iigwo-input" *ngIf="editando">
