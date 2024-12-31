@@ -127,10 +127,15 @@ export class DialogoCitaSolicitudComponent implements OnInit {
       .obtenerNotasCita(this.citaSolicitud.idCita)
       .then(notas => {
         // this.nuevaNotaCita.idCita = this.citaSolicitud.idCita;
-        this.notaCita = notas;
+        if (notas[0]) this.notaCita = notas[0];
+        console.log(this.notaCita)
 
         if (!this.notaCita.idNota) {
           this.notaCita.tipo = this.arrTipoNota[0];
+          this.notaCita.idCita = this.citaSolicitud.idCita;
+          this.notaCita.descripcion = "";
+          this.notaCita.hora = "";
+          this.notaCita.fechaCreacion = (new Date().toISOString()).split('T', 1)[0];
         }
 
         if (this.notaCita.siHiAsignado === true) this.inputSiHiAsignado = "Yes";

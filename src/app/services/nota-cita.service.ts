@@ -12,8 +12,8 @@ export class NotaCitaService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerNotasCita(idCita: number): Promise<NotaCita> {
-    return new Promise<NotaCita>((resolve, reject) =>
+  obtenerNotasCita(idCita: number): Promise<NotaCita[]> {
+    return new Promise<NotaCita[]>((resolve, reject) =>
       this.http
         .get(API_URL + "notas-citas/" + idCita, {
           withCredentials: true,
@@ -24,7 +24,7 @@ export class NotaCitaService {
         })
         .toPromise()
         .then((response) => {
-          resolve(response.body as NotaCita);
+          resolve(response.body as NotaCita[]);
         })
         .catch((reason) => reject(reason))
     );
