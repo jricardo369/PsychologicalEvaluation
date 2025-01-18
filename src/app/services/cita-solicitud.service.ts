@@ -90,9 +90,9 @@ export class CitaSolicitudService {
     });
   }
 
-  obtenerCitasPorSemana(filterFecha: string, filterUsuario: number, idUsuario: number): Promise<CitaSolicitud[]> {
+  obtenerCitasPorSemana(filterFecha: string, filterUsuario: number, filterViewAvalability: boolean, idUsuario: number): Promise<CitaSolicitud[]> {
     return new Promise<CitaSolicitud[]>((resolve, reject) => this.http
-      .get(API_URL + 'citas/citas-de-usuario-semana/' + idUsuario + "?fecha=" + filterFecha + "&filtro=" + (filterUsuario > 0 ? filterUsuario : ""),
+      .get(API_URL + 'citas/citas-de-usuario-semana/' + idUsuario + "?fecha=" + filterFecha + "&filtro=" + (filterUsuario > 0 ? filterUsuario : "") + "&disponibilidad=" + filterViewAvalability,
         {
           withCredentials: true,
           observe: 'response',

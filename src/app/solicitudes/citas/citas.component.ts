@@ -38,6 +38,7 @@ export class CitasComponent implements OnInit {
   filterFecha: string = "";
   filterUsuario: number = 0;
   citas: Semana = new Semana();
+  filterViewAvalability: boolean = false;
 
   arrFilterUsuarios: Usuario[] = [];
   usuarioAll: Usuario = new Usuario();
@@ -103,7 +104,7 @@ export class CitasComponent implements OnInit {
   refrescar() {
     this.cargando = true;
     this.citaSolicitudService
-      .obtenerCitasPorSemana(this.filterFecha, this.filterUsuario, this.usuario.idUsuario)
+      .obtenerCitasPorSemana(this.filterFecha, this.filterUsuario, this.filterViewAvalability, this.usuario.idUsuario)
       .then(citas => {
         // this.citas = citas;
         this.citasGeneral = citas;

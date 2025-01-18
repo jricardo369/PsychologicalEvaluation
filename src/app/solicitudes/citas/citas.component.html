@@ -6,7 +6,8 @@
 
     <app-experimental-menu titulo="Schedules">
 
-      <button style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;" (click)='crearCita()' *ngIf="isTherapist">
+      <button style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;" (click)='crearCita()'
+        *ngIf="isTherapist">
         <mat-icon svgIcon="add-box"></mat-icon>
         <label>Add Schedule</label>
       </button>
@@ -32,6 +33,11 @@
                 {{e.nombre}}</option>
             </select>
           </div>
+          <div class="iigwo-input" style="display: flex; align-items: flex-end;" *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isInterviewerScales)">
+            <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 4px;" id="viewAvalability"
+              [checked]="filterViewAvalability" (change)="filterViewAvalability = !filterViewAvalability; refrescar()">
+            <label for="viewAvalability" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">View Availability</label>
+          </div>
         </div>
 
         <button class='accent iigwo' (click)='citasDia()'>
@@ -44,7 +50,8 @@
         <div>
           <p class="accent header-cita-dia">Day Schedules {{filterFecha}}</p>
         </div>
-        <div class="cita-dia" *ngFor="let c of citasDeDia" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+        <div class="cita-dia" *ngFor="let c of citasDeDia" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
+          (click)="verCita(c)">
           <p class="nombre">{{c.nombreUsuario}}</p>
           <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
           <p class="comentario">{{c.comentario}}</p>
@@ -63,9 +70,15 @@
           <div>
             <p class="accent header-dia">MONDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.lunes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.lunes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
+            (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+            <p *ngIf="!filterViewAvalability; else elseTemplate">
+              {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+            </p>
+            <ng-template #elseTemplate>
+              <p>{{c.hora + " " + c.tipo}}</p>
+            </ng-template>
           </div>
         </div>
         <div class="separador"></div>
@@ -73,9 +86,15 @@
           <div>
             <p class="accent header-dia">TUESDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.martes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.martes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
+            (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+            <p *ngIf="!filterViewAvalability; else elseTemplate">
+              {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+            </p>
+            <ng-template #elseTemplate>
+              <p>{{c.hora + " " + c.tipo}}</p>
+            </ng-template>
           </div>
         </div>
         <div class="separador"></div>
@@ -83,9 +102,15 @@
           <div>
             <p class="accent header-dia">WEDNESDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.miercoles" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.miercoles"
+            style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+            <p *ngIf="!filterViewAvalability; else elseTemplate">
+              {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+            </p>
+            <ng-template #elseTemplate>
+              <p>{{c.hora + " " + c.tipo}}</p>
+            </ng-template>
           </div>
         </div>
         <div class="separador"></div>
@@ -93,9 +118,15 @@
           <div>
             <p class="accent header-dia">THURSDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.jueves" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.jueves" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
+            (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+            <p *ngIf="!filterViewAvalability; else elseTemplate">
+              {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+            </p>
+            <ng-template #elseTemplate>
+              <p>{{c.hora + " " + c.tipo}}</p>
+            </ng-template>
           </div>
         </div>
         <div class="separador"></div>
@@ -103,9 +134,15 @@
           <div>
             <p class="accent header-dia">FRIDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.viernes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.viernes" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
+            (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+            <p *ngIf="!filterViewAvalability; else elseTemplate">
+              {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+            </p>
+            <ng-template #elseTemplate>
+              <p>{{c.hora + " " + c.tipo}}</p>
+            </ng-template>
           </div>
         </div>
         <div class="separador"></div>
@@ -113,9 +150,15 @@
           <div>
             <p class="accent header-dia">SATURDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.sabado" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.sabado" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
+            (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+            <p *ngIf="!filterViewAvalability; else elseTemplate">
+              {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+            </p>
+            <ng-template #elseTemplate>
+              <p>{{c.hora + " " + c.tipo}}</p>
+            </ng-template>
           </div>
         </div>
         <div class="separador"></div>
@@ -123,9 +166,15 @@
           <div>
             <p class="accent header-dia">SUNDAY</p>
           </div>
-          <div class="cita" *ngFor="let c of citas.domingo" style="border-color: {{c.color? '#' + c.color:'#00000033'}}" (click)="verCita(c)">
+          <div class="cita" *ngFor="let c of citas.domingo" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
+            (click)="verCita(c)">
             <p class="nombre">{{c.nombreUsuario}}</p>
-            <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+            <p *ngIf="!filterViewAvalability; else elseTemplate">
+              {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+            </p>
+            <ng-template #elseTemplate>
+              <p>{{c.hora + " " + c.tipo}}</p>
+            </ng-template>
           </div>
         </div>
         <div class="separador"></div>
