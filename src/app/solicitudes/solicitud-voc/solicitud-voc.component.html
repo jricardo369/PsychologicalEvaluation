@@ -190,33 +190,48 @@
           <label for="waiver" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Waiver</label>
         </div> -->
 
-        <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud != 11">
+        <div style="margin: 0; display:flex; flex-flow: column;">
           <h4 style="margin: 0; margin-top: 40px;">Actions</h4>
 
-          <button (click)='cambiarEstatusSolicitud(13, false)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
-            style="color: #FFFFFF; background: #15B392; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">Send for Approval</label>
-          </button>
+          <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud != 11">
+            <button (click)='cambiarEstatusSolicitud(13, false)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
+              style="color: #FFFFFF; background: #15B392; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+              <label style="margin: auto;">Send for Approval</label>
+            </button>
 
-          <button (click)='asignarTerapeuta()' class="btn"
-            *ngIf="solicitud.terapeuta == 0 && solicitud.idEstatusSolicitud != 1"
-            style="color: #FFFFFF;background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">Assign Therapist</label>
-          </button>
+            <button (click)='asignarTerapeuta()' class="btn"
+              *ngIf="solicitud.terapeuta == 0 && solicitud.idEstatusSolicitud != 1"
+              style="color: #FFFFFF;background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+              <label style="margin: auto;">Assign Therapist</label>
+            </button>
 
-          <button (click)='asignarTerapeuta()' class="btn" *ngIf="solicitud.terapeuta != 0 && isVOC"
-            style="color: #FFFFFF;background: #CE3FC4; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">Reassign Therapist</label>
-          </button>
+            <button (click)='asignarTerapeuta()' class="btn" *ngIf="solicitud.terapeuta != 0 && isVOC"
+              style="color: #FFFFFF;background: #CE3FC4; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+              <label style="margin: auto;">Reassign Therapist</label>
+            </button>
 
-          <button (click)='generateProcessLetter()' class="btn"
-            style="color: #FFFFFF;background: #2A9AC7; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-            <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-            <label style="margin: auto;">Generate Progress Letter</label>
-          </button>
+            <button (click)='generateProcessLetter()' class="btn"
+              style="color: #FFFFFF;background: #2A9AC7; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+              <label style="margin: auto;">Generate Progress Letter</label>
+            </button>
+
+            <button (click)='completeFile()' class="btn" *ngIf="isVOC"
+              style="color: #FFFFFF;background: #D34272; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+              <label style="margin: auto;">Complete File</label>
+            </button>
+          </div>
+          <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud == 11">
+            <button (click)='reopenFile()' class="btn"
+              style="color: #FFFFFF;background: #F26C4F; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+              <label style="margin: auto;">Reopen File</label>
+            </button>
+          </div>
 
           <br>
 

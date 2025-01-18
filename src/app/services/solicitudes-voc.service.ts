@@ -214,7 +214,7 @@ export class SolicitudesVocService {
     );
   }
 
-  actualizarEstatusSolicitud(idSolicitud: number, idEstatus: number, idUsuario: number, closed?: boolean): Promise<any> {
+  actualizarEstatusSolicitud(idSolicitud: number, idEstatus: number, idUsuario: number, closed: boolean): Promise<any> {
     return new Promise<any>((resolve, reject) =>
       this.http
         .put(API_URL + "solicitudes-voc/actualizar-estatus-solicitud/" + idSolicitud + "/" + idEstatus + "?idUsuario=" + idUsuario + "&closed=" + closed, {

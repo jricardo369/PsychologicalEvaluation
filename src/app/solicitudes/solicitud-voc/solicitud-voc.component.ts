@@ -624,6 +624,40 @@ export class SolicitudVocComponent implements OnInit {
       .finally(() => this.cargando = false);
   }
 
+  completeFile() {
+    this.dialog.open(DialogoSimpleComponent, {
+      data: {
+        titulo: 'Complete File',
+        texto: 'Do you really want to complete this file?',
+        botones: [
+          { texto: 'Cancel', color: '', valor: '' },
+          { texto: 'Yes', color: 'primary', valor: 'ok' },
+        ]
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'ok') {
+        this.cargando = true;
+        this.solicitudesVocService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, 11, this.usuario.idUsuario, false)
+          .then(() => {
+            this.obtenerSolicitud(this.solicitud.idSolicitud);
+          })
+          .catch((reason) => this.utilService.manejarError(reason))
+          .then(() => (this.cargando = false));
+      }
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
+
+  reopenFile() {
+    this.cargando = true;
+    this.solicitudesVocService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, 14, this.usuario.idUsuario, false)
+      .then(() => {
+        this.obtenerSolicitud(this.solicitud.idSolicitud);
+      })
+      .catch((reason) => this.utilService.manejarError(reason))
+      .then(() => (this.cargando = false));
+  }
+
   document1CheckChange() {
     this.solicitud.documento1 = !this.solicitud.documento1;
 
