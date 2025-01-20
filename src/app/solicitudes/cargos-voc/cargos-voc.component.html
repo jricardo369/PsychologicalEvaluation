@@ -55,7 +55,7 @@
           <tr *ngFor='let e of arrCargos | slice:paginacion.begin:paginacion.end'>
             <td class='accent'>{{e.idFile}}</td>
             <td>{{e.idCita}}</td>
-            <td>{{e.fecha | dateYYYYMMDD}}</td>
+            <td>{{e.fecha | dateMMDDYYYY}}</td>
             <td>{{e.code}}</td>
             <td class='accent'>{{e.cliente}}</td>
             <td>{{e.telefono | phone}}</td>

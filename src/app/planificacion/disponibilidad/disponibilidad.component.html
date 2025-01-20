@@ -41,7 +41,7 @@
           <th></th>
         </tr>
         <tr *ngFor='let e of arrDisponibilidadUsuario | slice:paginacion.begin:paginacion.end'>
-          <td class='accent'>{{e.fecha.replace(' ', 'T') | dateYYYYMMDD}}</td>
+          <td class='accent'>{{e.fecha.replace(' ', 'T') | dateMMDDYYYY}}</td>
           <td class='accent'>{{e.hora.toString().padStart(2,'0')}} {{e.tipo}}</td>
           <td style="display: flex;">
             <button (click)='eliminarDisponibilidad(e)' class="btn-icon" style="color: red;" matTooltip="Delete">

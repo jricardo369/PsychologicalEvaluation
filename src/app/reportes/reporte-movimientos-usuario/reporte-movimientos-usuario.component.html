@@ -74,7 +74,7 @@
         </tr>
         <tr *ngFor='let e of reporteMovimientos.adeudos'>
           <td class='accent'>{{e.idSolicitud}}</td>
-          <td class='accent'>{{e.fecha | dateYYYYMMDD}}</td>
+          <td class='accent'>{{e.fecha | dateMMDDYYYY}}</td>
           <td class='accent'>{{e.cliente}}</td>
           <td class='accent'>{{e.telefono | phone}}</td>
           <td class='accent'>{{e.email}}</td>
@@ -107,7 +107,7 @@
             <td class='accent'>{{e.descripcionTipoPago}}</td>
             <td style="text-align: center;"><span class="badge-status badge-color-payment"
                 style="margin: 0;">{{e.tipoMovimiento}}</span></td>
-            <td class='accent'>{{e.fecha | dateYYYYMMDD}}</td>
+            <td class='accent'>{{e.fecha | dateMMDDYYYY}}</td>
             <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
             <td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
             <td class='accent'>{{e.descripcion}}</td>

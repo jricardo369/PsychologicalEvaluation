@@ -19,7 +19,7 @@
             <th>Type</th>
         </tr>
         <tr *ngFor='let e of arrEventoSolicitud | slice:paginacion.begin:paginacion.end'>
-            <td style="white-space: nowrap;">{{e.fecha | date:'yyyy/MM/dd HH:mm':'':'en'}}</td>
+            <td style="white-space: nowrap;">{{e.fecha | date:'MM/dd/yyyy HH:mm':'':'en'}}</td>
             <td>{{e.usuario}}</td>
             <td>{{e.evento}}</td>
             <td style="font-style: italic;">{{e.descripcion}}</td>

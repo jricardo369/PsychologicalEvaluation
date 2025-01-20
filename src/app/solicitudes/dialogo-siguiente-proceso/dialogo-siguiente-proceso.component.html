@@ -4,7 +4,7 @@
   <div style="display: inline-flex;">
     <div class="iigwo-input">
       <label>Date</label>
-      <input [ngModel]="fecha | date:'yyyy-MM-dd':'':'en'"
+      <input [ngModel]="fecha"
         (ngModelChange)='fecha = $event; obtenerDisponibilidadUsuarios()' type="date">
     </div>
     <div class="iigwo-input" style="text-align: center;">
@@ -26,7 +26,7 @@
       <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idDisponibilidad)"
           (change)="check($event, e.idDisponibilidad)"></td>
       <td>{{e.nombreUsuario}}</td>
-      <td style="white-space: nowrap;">{{e.fecha | dateYYYYMMDD}}</td>
+      <td style="white-space: nowrap;">{{e.fecha | dateMMDDYYYY}}</td>
       <td style="white-space: nowrap;">{{e.hora.toString().padStart(2,'0')}} {{e.tipo}}</td>
       <td>{{e.resumen}}</td>
     </tr>

@@ -114,7 +114,7 @@
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
             <!-- <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
                 (change)="check($event, e.idSolicitud)"></td> -->
-            <td class='accent'>{{e.fechaInicio | dateYYYYMMDD}}</td>
+            <td class='accent'>{{e.fechaInicio | dateMMDDYYYY}}</td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
             <td class='accent'>{{e.code}}</td>
             <td style="text-align: center;"><span class="badge-status badge-color-0"

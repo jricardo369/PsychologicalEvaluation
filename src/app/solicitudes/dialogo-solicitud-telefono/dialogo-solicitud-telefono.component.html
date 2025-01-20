@@ -10,7 +10,7 @@
     </tr>
     <tr *ngFor='let e of arrSolicitudTelefono | slice:paginacion.begin:paginacion.end'>
       <td>{{e.solicitud}}</td>
-      <td style="white-space: nowrap;">{{e.fecha.split(" ")[0] | dateYYYYMMDD}}</td>
+      <td style="white-space: nowrap;">{{e.fecha.split(" ")[0] | dateMMDDYYYY}}</td>
       <td style="white-space: nowrap;">{{e.tipo}}</td>
       <td>{{e.cliente}}</td>
     </tr>

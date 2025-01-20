@@ -16,7 +16,7 @@
       <th>Discount</th>
     </tr>
     <tr *ngFor='let e of detalleMovimientos.movimientos'>
-      <td style="white-space: nowrap;">{{e.fecha | dateYYYYMMDD}}</td>
+      <td style="white-space: nowrap;">{{e.fecha | dateMMDDYYYY}}</td>
       <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
       <td>{{e.descripcionTipoPago}}</td>
       <td>{{e.descripcion}}</td>

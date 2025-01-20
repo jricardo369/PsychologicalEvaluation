@@ -148,8 +148,8 @@
                 (change)="check($event, e.idSolicitud)"></td> -->
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
             <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">{{e.fechaInicio |
-              dateYYYYMMDD}}</td>
-            <td class='accent'>{{e.dueDate | dateYYYYMMDD}}</td>
+              dateMMDDYYYY}}</td>
+            <td class='accent'>{{e.dueDate | dateMMDDYYYY}}</td>
             <td class='accent' *ngIf="isMaster">{{e.abogado}}</td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
             <td class='accent'>{{e.telefono | phone}}</td>
@@ -177,8 +177,8 @@
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11}">{{e.estatusSolicitud}}</span></td>
             <td class='accent' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">{{e.fecha_schedule |
-              dateYYYYMMDD}}
-            <td class='accent' *ngIf="!(isInterviewer || isGhostwriting)">{{e.fecha_schedule_scales | dateYYYYMMDD}}
+              dateMMDDYYYY}}
+            <td class='accent' *ngIf="!(isInterviewer || isGhostwriting)">{{e.fecha_schedule_scales | dateMMDDYYYY}}
             </td>
             <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="(isMaster || isVendor || isBackOffice)">
               <mat-icon svgIcon="done" *ngIf="e.interviewMaster"></mat-icon>

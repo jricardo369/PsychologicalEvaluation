@@ -22,7 +22,7 @@
     </tr>
     <tr *ngFor='let e of arrMovimientoSolicitud'>
       <td>{{e.folio}}</td>
-      <td>{{e.fecha | date:'yyyy/MM/dd HH:mm':'':'en'}}</td>
+      <td>{{e.fecha | date:'MM/dd/yyyy HH:mm':'':'en'}}</td>
       <td class="number">{{e.monto | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
       <td>{{e.descripcionTipoPago}}</td>
       <td class="number">{{e.descuento | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>

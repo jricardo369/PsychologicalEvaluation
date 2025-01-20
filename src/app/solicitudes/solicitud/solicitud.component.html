@@ -6,13 +6,13 @@
     <app-experimental-menu [titulo]="titulo" backButtonEnabled="true">
       <span class="badge-status badge-color-schedule-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator) && solicitud.fecha_schedule">Schedule
-        {{solicitud.fecha_schedule | dateYYYYMMDD}}</span>
+        {{solicitud.fecha_schedule | dateMMDDYYYY}}</span>
       <span class="badge-status badge-color-schedule-scales-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isTemplateCreator || isInterviewerScales) && solicitud.fecha_schedule_scales">Int. Scale
-        {{solicitud.fecha_schedule_scales | dateYYYYMMDD}}</span>
+        {{solicitud.fecha_schedule_scales | dateMMDDYYYY}}</span>
       <span class="badge-status badge-color-due-date-title" *ngIf="solicitud.dueDate"
         >Due Date
-        {{solicitud.dueDate | dateYYYYMMDD}}</span>
+        {{solicitud.dueDate | dateMMDDYYYY}}</span>
     </app-experimental-menu>
 
     <div style="display:flex; flex-flow: row" *ngIf="creando || solicitud.idSolicitud">
@@ -251,7 +251,7 @@
         style="display:flex; flex-flow: column; border-left: solid 1px rgba(0, 0, 0, 0.2);">
         <div class="iigwo-input" *ngIf="!(isTemplateCreator || isInterviewer || isInterviewerScales)">
           <label>Creation Date</label>
-          <input [ngModel]="solicitud.fechaInicio | date:'yyyy/MM/dd':'':'en'" readOnly>
+          <input [ngModel]="solicitud.fechaInicio | dateMMDDYYYY" readOnly>
         </div>
 
         <div class="iigwo-input" *ngIf="(isMaster || isVendor || isBackOffice || isGhostwriting)">
