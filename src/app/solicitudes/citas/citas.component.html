@@ -53,7 +53,12 @@
         <div class="cita-dia" *ngFor="let c of citasDeDia" style="border-color: {{c.color? '#' + c.color:'#00000033'}}"
           (click)="verCita(c)">
           <p class="nombre">{{c.nombreUsuario}}</p>
-          <p>{{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}</p>
+          <p *ngIf="!filterViewAvalability; else elseTemplate">
+            {{c.hora + " " + c.tipo}} &#9679; {{"File " + c.idSolicitud}}
+          </p>
+          <ng-template #elseTemplate>
+            <p>{{c.hora + " " + c.tipo}}</p>
+          </ng-template>
           <p class="comentario">{{c.comentario}}</p>
         </div>
         <div *ngIf="!(citasDeDia.length > 0)">

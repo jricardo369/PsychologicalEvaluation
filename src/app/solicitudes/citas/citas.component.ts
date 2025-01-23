@@ -199,21 +199,26 @@ export class CitasComponent implements OnInit {
   }
 
   verCita(cita: CitaSolicitud) {
-    if (this.isMaster || this.isVendor || this.isBackOffice || this.isInterviewer || this.isInterviewerScales) {
-      this.router.navigateByUrl('/solicitudes/solicitudes/'+ cita.idSolicitud);
+    if (this.filterViewAvalability) {
+      this.router.navigateByUrl('/solicitudes/solicitudes/nueva-solicitud');
     }
-    else if (this.isTherapist) {
-      this.dialog.open(DialogoCitaSolicitudComponent, {
-        data: {
-          idSolicitud: cita.idSolicitud,
-          creando: false,
-          verCampoSolicitud: true,
-          citaSolicitud: cita
-        },
-        disableClose: true,
-      }).afterClosed().toPromise().then(valor => {
-        // if (valor == 'creado') this.refrescar();
-      }).catch(reason => this.utilService.manejarError(reason));
+    else {
+      if (this.isMaster || this.isVendor || this.isBackOffice || this.isInterviewer || this.isInterviewerScales) {
+        this.router.navigateByUrl('/solicitudes/solicitudes/' + cita.idSolicitud);
+      }
+      else if (this.isTherapist) {
+        this.dialog.open(DialogoCitaSolicitudComponent, {
+          data: {
+            idSolicitud: cita.idSolicitud,
+            creando: false,
+            verCampoSolicitud: true,
+            citaSolicitud: cita
+          },
+          disableClose: true,
+        }).afterClosed().toPromise().then(valor => {
+          // if (valor == 'creado') this.refrescar();
+        }).catch(reason => this.utilService.manejarError(reason));
+      }
     }
   }
 
