@@ -5,7 +5,10 @@ import { Pipe } from "@angular/core";
 })
 export class DatePipe {
 	transform(value: string): string {
-    let aux = (value.split("T")[0]).split("-");
-    return aux.length == 3 ? aux[1] + "/" + aux[2] + "/" + aux[0] : "";
+    if(value !== null && value.length > 0) {
+      let aux = (value.split("T")[0]).split("-");
+      return aux.length == 3 ? aux[1] + "/" + aux[2] + "/" + aux[0] : "";
+    }
+    return;
   }
 }
