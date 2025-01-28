@@ -176,9 +176,8 @@
 								'badge-color-open': e.idEstatusSolicitud == 9,
 								'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
 								'badge-color-closed': e.idEstatusSolicitud == 11}">{{e.estatusSolicitud}}</span></td>
-            <td class='accent' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">{{e.fecha_schedule |
-              date:'MM/dd/yyyy HH:mm':'':'en'}}
-            <td class='accent' *ngIf="!(isInterviewer || isGhostwriting)">{{e.fecha_schedule_scales | date:'MM/dd/yyyy HH:mm':'':'en'}}
+            <td class='accent' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">{{e.fecha_schedule | dateMMDDYYYY:'time'}}
+            <td class='accent' *ngIf="!(isInterviewer || isGhostwriting)">{{e.fecha_schedule_scales | dateMMDDYYYY:'time'}}
             </td>
             <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="(isMaster || isVendor || isBackOffice)">
               <mat-icon svgIcon="done" *ngIf="e.interviewMaster"></mat-icon>
