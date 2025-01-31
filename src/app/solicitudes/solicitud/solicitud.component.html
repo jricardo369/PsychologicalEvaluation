@@ -6,13 +6,13 @@
     <app-experimental-menu [titulo]="titulo" backButtonEnabled="true">
       <span class="badge-status badge-color-schedule-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator) && solicitud.fecha_schedule">Schedule
-        {{solicitud.fecha_schedule | dateMMDDYYYY}}</span>
+        {{solicitud.fecha_schedule | dateMMDDYYYY:'datetime'}}</span>
       <span class="badge-status badge-color-schedule-scales-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isTemplateCreator || isInterviewerScales) && solicitud.fecha_schedule_scales">Int. Scale
-        {{solicitud.fecha_schedule_scales | dateMMDDYYYY}}</span>
+        {{solicitud.fecha_schedule_scales | dateMMDDYYYY:'datetime'}}</span>
       <span class="badge-status badge-color-due-date-title" *ngIf="solicitud.dueDate"
         >Due Date
-        {{solicitud.dueDate | dateMMDDYYYY}}</span>
+        {{solicitud.dueDate | dateMMDDYYYY:'datetime'}}</span>
     </app-experimental-menu>
 
     <div style="display:flex; flex-flow: row" *ngIf="creando || solicitud.idSolicitud">
