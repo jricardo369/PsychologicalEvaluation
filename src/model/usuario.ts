@@ -25,4 +25,5 @@ export class Usuario {
     licencia: string;
     licenciaValida: string;
     disponibilidad: string;
+    rate: string;
 }

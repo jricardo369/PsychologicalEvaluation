@@ -40,7 +40,7 @@ export class SolicitudesVocComponent implements OnInit {
   isGhostwriting: boolean = false;
   isTherapist: boolean = false;
 
-  arrFilterTypes: any[] = ["All", "File", "Customer", "Phone", "Email", "Date", "File Status", "Payment Status", "Responsible User", "Waiver"];
+  arrFilterTypes: any[] = ["All", "File" ,"Creation Date", "Customer", "Case number", "Email", "Has document 2", "Payment Status", "File Status"];
   arrFilterFileStatus: EstatusSolicitud[] = [{
     "idEstatusSolicitud": 0,
     "descripcion": "All"
@@ -132,7 +132,7 @@ export class SolicitudesVocComponent implements OnInit {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
         console.log(this.solicitudes)
-        this.paginacion.setArray(this.solicitudes);
+        this.paginacion.setArray(this.solicitudes,20);
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
@@ -145,7 +145,7 @@ export class SolicitudesVocComponent implements OnInit {
       .then(solicitudes => {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
-        this.paginacion.setArray(this.solicitudes);
+        this.paginacion.setArray(this.solicitudes,20);
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
@@ -184,7 +184,7 @@ export class SolicitudesVocComponent implements OnInit {
       .then(solicitudes => {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
-        this.paginacion.setArray(this.solicitudes);
+        this.paginacion.setArray(this.solicitudes,20);
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)

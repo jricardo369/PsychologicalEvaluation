@@ -39,7 +39,7 @@ export class ReporteCorreosEnviadosComponent implements OnInit {
     this.reportesService.obtenerCorreosEnviados(this.fechaI, this.fechaF)
       .then((reporteCorreosEnviados) => {
         this.arrReporteCorreosEnviados = reporteCorreosEnviados;
-        this.paginacion.setArray(this.arrReporteCorreosEnviados);
+        this.paginacion.setArray(this.arrReporteCorreosEnviados,10);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

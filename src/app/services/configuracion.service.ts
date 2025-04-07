@@ -19,6 +19,14 @@ export class ConfiguracionService {
         }).toPromise();
     }
 
+    envioMensajePrueba() {
+        return this.http.get(API_URL + 'util/envio-mensaje-prueba', {
+            withCredentials: true,
+            headers: new HttpHeaders().append('Content-Type', 'application/json').append('Authorization', localStorage.getItem('auth_token')),
+            observe: 'response'
+        }).toPromise();
+    }
+
     getConfiguraciones(): Observable<Configuracion[]> {
         return this.http.get<Configuracion[]>(API_URL + 'configuraciones',
             {

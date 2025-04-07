@@ -12,51 +12,131 @@
         <label>Create File</label>
       </button>
 
-      <button (click)='refrescar()'
+      <div class="iigwo-input" style="margin: 0;" >
+        <label for="closed"
+          style="display: inline-block;line-height: 24px;margin-right: 5px;font-size: 12px;">Closed</label>
+        <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
+          id="closed" [checked]="filterClosed" (change)="filterClosed = !filterClosed">
+      </div>
+
+      <!--<button (click)='refrescar()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="refresh"></mat-icon>
         <label>Refresh</label>
-      </button>
+      </button>-->
 
-      <button (click)='showClosedRequests()' *ngIf="isVendor || isBackOffice || isMaster || isGhostwriting"
+      <!--<button (click)='showClosedRequests()' *ngIf="isVendor || isBackOffice || isMaster || isGhostwriting"
         style="color: #681C69;background: #E9E9E9;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="closed"></mat-icon>
         <label>Show Closed Files</label>
-      </button>
+      </button>-->
 
     </app-experimental-menu>
 
     <div class='content'>
 
       <!-- FILTRO -->
-      <div class="container" style="margin-bottom: 20px;">
+      <div class="container" style="margin-bottom: 15px;">
         <div class="left">
           <div style="display: inline-flex;">
-            <div class="iigwo-input">
+            <div class="iigwo-input" style="margin-right: 0px;">
               <label>Start Date</label>
-              <input type="date" [(ngModel)]="filterStartDate" (change)="refrescar()">
+              <input style="width: 90%;" type="date" [(ngModel)]="filterStartDate" (change)="refrescar()">
             </div>
-            <div class="iigwo-input">
+            <div class="iigwo-input" style="margin-right: 0px;">
               <label>End Date </label>
-              <input type="date" [(ngModel)]="filterEndDate" (change)="refrescar()">
+              <input style="width: 90%;" type="date" [(ngModel)]="filterEndDate" (change)="refrescar()">
             </div>
-            <div class="iigwo-input">
+
+            <!--<div class="" style="margin-top: 8px;text-decoration: underline;font-size: 12px;margin-left: 4px;" (click)='limpiarFechas()'>
+              <label style="cursor: pointer;">Clear dates </label>
+            </div>-->
+
+            <div class="iigwo-input" >
               <label>Sort by</label>
-              <select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" (change)="refrescar()">
+              <!--<select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" (change)="refrescar()">-->
+                <select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" >
                 <option *ngFor="let e of arrFilterSortBy" [ngValue]="e">
                   {{e}}</option>
               </select>
             </div>
             <div class="iigwo-input">
               <label>Order</label>
-              <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}" (change)="refrescar()">
+             <!-- <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}" (change)="refrescar()">-->
+              <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}" >
                 <option *ngFor="let e of arrFilterOrder" [ngValue]="e">
                   {{e}}</option>
               </select>
             </div>
+            <div style="margin-right: 5px;margin-left: -5px;
+            margin-top: 20px;
+            color: gray;">
+              &#9679;
+            </div>
+            <div class="iigwo-input">
+              <label>Type</label>
+              <select [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" (change)="clearInputs()">
+                <option *ngFor="let e of arrFilterTypes" [ngValue]="e">
+                  {{e}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'All' || filterType == 'File' || filterType == 'Customer' || filterType == 'Phone' || filterType == 'Email' || filterType == 'Responsible User'">
+              <!--<div class="iigwo-input" >-->
+              <label>Value</label>
+              <input type="text" placeholder="Enter a value" [(ngModel)]="filterInputText">
+            </div>
+            <div *ngIf="filterType == 'Date'" class="flex">
+              <div class="iigwo-input">
+                <label>From</label>
+                <input type="date" [(ngModel)]="filterInputDate1">
+              </div>
+              <div class="iigwo-input">
+                <label>To</label>
+                <input type="date" [(ngModel)]="filterInputDate2">
+              </div>
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'File Status'">
+              <label>Status</label>
+              <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
+                <option *ngFor="let e of arrFilterFileStatus" [ngValue]="e.descripcion">
+                  {{e.descripcion}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'Payment Status'">
+              <label>Status</label>
+              <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
+                <option *ngFor="let e of arrFilterStatusPago" [ngValue]="e.descripcion">
+                  {{e.descripcion}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input" *ngIf="filterType == 'Waiver'">
+              <label>Waiver</label>
+              <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
+                <option *ngFor="let e of arrFilterWaiver" [ngValue]="e.value">
+                  {{e.display}}</option>
+              </select>
+            </div>
+            <!--<div class="iigwo-input" style="text-align: center;">
+              <label for="myFiles"
+                style="font-size: 12px;">My Files</label>
+              <input type="checkbox" style="width: 15px;line-height: 18px;margin: 0 6px 0 4px;"
+                id="myFiles" [checked]="filterMyFiles" (change)="filterMyFiles = !filterMyFiles">
+            </div>-->
+           
+
+            <button class="accent iigwo small" style="margin-top: 12px" (click)="explorar()">Explore</button>
+          <button class="iigwo" style="margin-top: 12px" (click)='limpiarFiltros()'>Clear all filters</button>
+          <button class="iigwo" style="margin-top: 12px" (click)='limpiarFechas()'>Clear dates</button>
+
           </div>
         </div>
-        <div class="right">
+        <!--<div class="left" >
+          <button class="accent iigwo small" style="margin-top: 12px" (click)="explorar()">Explore</button>
+          <button class="iigwo" style="margin-top: 12px" (click)='limpiarFiltros()'>Clear all filters</button>
+          <button class="iigwo" style="margin-top: 12px" (click)='limpiarFechas()'>Clear dates</button>
+
+        </div>-->
+        <!--<div class="right">
           <div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">
             <div class="iigwo-input">
               <label>Type</label>
@@ -108,7 +188,7 @@
             </div>
             <button class="accent iigwo small" style="margin-bottom: -6px;" [disabled]="filterInputText == '' || (filterInputDate1 == '' && filterInputDate2 == '')" (click)="explorar()">Explore</button>
           </div>
-        </div>
+        </div>-->
       </div>
 
       <!-- BOTONES A LA DERECHA -->

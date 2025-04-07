@@ -16,13 +16,27 @@
     </tr>
     <tr *ngFor='let e of arrCitaSolicitud | slice:paginacion.begin:paginacion.end'>
       <td style="width: 100%;">{{e.fecha}} {{e.hora}} {{e.tipo}}</td>
-      <td style="display: flex;">
-        <button (click)='verCita(e)' class="btn-icon" style="color: gray;" matTooltip="Open">
-          <mat-icon svgIcon="comments"></mat-icon>
+      <td style="display: flex;" *ngIf="e.tieneNota == false">
+        <button (click)='verCita(e)' class="btn m-l-40" 
+          style="color: #808080;background: #d0d0d0;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;" matTooltip="Open" >
+      <mat-icon class="icono-btn" svgIcon="add"></mat-icon>
+          <label>Add note</label>
+          
+
+         
         </button>
 
-        <button (click)='no_show(e)' class="btn-icon" style="color: #EAB570;" matTooltip="No-show" *ngIf="!e.noShow">
-          <mat-icon svgIcon="calendar-slash"></mat-icon>
+     
+        <button (click)='no_show(e)' class="btn m-l-40" style="color: #d59c51;background:#f9d8ab;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;" matTooltip="No-show" *ngIf="!e.noShow">
+          <mat-icon class="icono-btn" svgIcon="calendar-slash"></mat-icon>
+          <label>No show</label>
+        </button>
+      </td>
+      <td style="display: flex;" *ngIf="e.tieneNota == true">
+        <button (click)='verCita(e)' class="btn m-l-40" 
+        style="color: #808080;background: #d0d0d0;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;" matTooltip="View" >
+          <mat-icon class="icono-btn" svgIcon="comments"></mat-icon>
+          <label>View note</label>
         </button>
       </td>
     </tr>

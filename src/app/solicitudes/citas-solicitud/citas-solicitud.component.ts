@@ -47,7 +47,7 @@ export class CitasSolicitudComponent implements OnInit {
       .obtenerCitasSolicitud(Number.parseInt(this.idSolicitud))
       .then(response => {
         this.arrCitaSolicitud = response;
-        this.paginacion.setArray(this.arrCitaSolicitud);
+        this.paginacion.setArray(this.arrCitaSolicitud,10);
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)

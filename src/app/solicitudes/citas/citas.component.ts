@@ -54,6 +54,14 @@ export class CitasComponent implements OnInit {
   isGhostwriting: boolean = false;
   isTherapist: boolean = false;
 
+  lunes: string = '';
+  martes: string = '';
+  miercoles: string = '';
+  jueves: string = '';
+  viernes: string = '';
+  sabado: string = '';
+  domingo: string = '';
+
   constructor(
     private citaSolicitudService: CitaSolicitudService,
     private usuariosService: UsuariosService,
@@ -81,12 +89,22 @@ export class CitasComponent implements OnInit {
       this.arrFilterUsuarios.push(this.usuarioAll);
       this.obtenerUsuariosParaCitas();
     }
+    
+    
 
     this.refrescar();
   }
 
   ngOnInit(): void {
   }
+
+  getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
+  }
+
 
   obtenerUsuariosParaCitas() {
     this.cargando = true;
@@ -103,6 +121,7 @@ export class CitasComponent implements OnInit {
 
   refrescar() {
     this.cargando = true;
+    this.diasSemana();
     this.citaSolicitudService
       .obtenerCitasPorSemana(this.filterFecha, this.filterUsuario, this.filterViewAvalability, this.usuario.idUsuario)
       .then(citas => {
@@ -120,6 +139,31 @@ export class CitasComponent implements OnInit {
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
+  }
+
+  diasSemana(){
+    let fechaSeleccionada: Date = new Date(this.filterFecha);
+    console.log(this.getMonday(fechaSeleccionada));
+    var lunesD = this.getMonday(fechaSeleccionada);
+    var martesD = this.getMonday(fechaSeleccionada);
+    var miercolesD = this.getMonday(fechaSeleccionada);
+    var juevesD = this.getMonday(fechaSeleccionada);
+    var viernesD = this.getMonday(fechaSeleccionada);
+    var sabadoD = this.getMonday(fechaSeleccionada);
+    var domingoD = this.getMonday(fechaSeleccionada);
+    martesD.setDate(lunesD.getDate() +1); 
+    miercolesD.setDate(lunesD.getDate() +2);
+    juevesD.setDate(lunesD.getDate() +3);
+    viernesD.setDate(lunesD.getDate() +4);
+    sabadoD.setDate(lunesD.getDate() +5);
+    domingoD.setDate(lunesD.getDate() +6);
+    this.lunes = this.utilService.dateAsMMDDYYYY(lunesD);
+    this.martes = this.utilService.dateAsMMDDYYYY(martesD);
+    this.miercoles = this.utilService.dateAsMMDDYYYY(miercolesD);
+    this.jueves = this.utilService.dateAsMMDDYYYY(juevesD);
+    this.viernes = this.utilService.dateAsMMDDYYYY(viernesD);
+    this.sabado = this.utilService.dateAsMMDDYYYY(sabadoD);
+    this.domingo = this.utilService.dateAsMMDDYYYY(domingoD);
   }
 
   organizarCitasDeSemana(inicio: Date, citas: CitaSolicitud[]) {

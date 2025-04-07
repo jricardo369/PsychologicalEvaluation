@@ -45,7 +45,7 @@ export class UsuariosComponent implements OnInit {
             .then(usuarios => {
                 this.usuariosSinFiltrar = usuarios;
                 this.usuarios = this.usuariosSinFiltrar.filter(e => true);
-                this.paginacion.setArray(this.usuarios);
+                this.paginacion.setArray(this.usuarios,10);
             })
             .catch(reason => this.utilService.manejarError(reason))
             .then(() => this.cargando = false)
@@ -128,7 +128,7 @@ export class UsuariosComponent implements OnInit {
         };
         this.usuarios = filtered;
         this.usuarios.sort((a, b) => b.idUsuario - a.idUsuario);
-        this.paginacion.setArray(this.usuarios);
+        this.paginacion.setArray(this.usuarios,10);
     }
 
     eliminar() {

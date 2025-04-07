@@ -55,14 +55,14 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		uri: 'solicitudes-voc',
 		isVisibleFor: u => [VOC, THERAPIST].some(rol => rol == u.rol)
 	},
-  {
+ /* {
 		module: MODULE,
 		svgName: 'mail-sent',
 		title: 'Mailings to lawyers',
 		subtitle: 'Sending mailings to lawyers',
 		uri: 'envio-correos-abogados',
 		isVisibleFor: u => [MASTER, BACKOFFICE].some(rol => rol == u.rol)
-	},
+	},*/
   {
 		module: MODULE,
 		svgName: 'schedule',

@@ -46,7 +46,7 @@ export class CargosVocComponent implements OnInit {
       .obtenerCargosPendientes(this.filterInputDate1, this.filterInputDate2, this.filterInputText, this.usuario.idUsuario)
       .then(cargos => {
         this.arrCargos = cargos;
-        this.paginacion.setArray(this.arrCargos);
+        this.paginacion.setArray(this.arrCargos,20);
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)

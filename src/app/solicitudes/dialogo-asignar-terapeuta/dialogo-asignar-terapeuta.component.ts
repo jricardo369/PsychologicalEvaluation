@@ -56,7 +56,7 @@ export class DialogoAsignarTerapeutaComponent implements OnInit {
     this.usuariosService.obtenerUsuariosPorRol(10)
       .then(usuarios => {
         this.arrTerapeutas = usuarios;
-        this.paginacion.setArray(this.arrTerapeutas);
+        this.paginacion.setArray(this.arrTerapeutas,10);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

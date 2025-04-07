@@ -50,6 +50,46 @@ export class ConfiguracionesComponent {
   adminEmail: string = "";
   adminEmailOld: string = "";
 
+  cambiandoJobPayments: boolean = false;
+  jobPayments: boolean = false
+  jobPaymentstOld: boolean = false;
+
+  cambiandoJobLateRequest: boolean = false;
+  jobLateRequest: boolean = false
+  jobLateRequestOld: boolean = false;
+
+  cambiandoJobRecordatorio: boolean = false;
+  jobRecordatorio: boolean = false
+  jobRecordatorioOld: boolean = false;
+
+  cambiandoMailBvndClt: boolean = false;
+  mailBvndClt: boolean = false
+  mailBvndCltOld: boolean = false;
+
+  cambiandoMailBvndAbo: boolean = false;
+  mailBvndAbo: boolean = false
+  mailBvndAboOld: boolean = false;
+
+  cambiandoContactName: boolean = false;
+  contactName: string = "";
+  contactNameOld: string = "";
+
+  cambiandoCompanyName: boolean = false;
+  companyName: string = "";
+  companyNameOld: string = "";
+
+  cambiandoPhoneInfo: boolean = false;
+  phoneInfo: string = "";
+  phoneInfoOld: string = "";
+
+  cambiandoMensajeRecordatorioUs: boolean = false;
+  mensajeRecordatorioUs: string = "";
+  mensajeRecordatorioUsOld: string = "";
+
+  cambiandoMensajeRecordatorioEs: boolean = false;
+  mensajeRecordatorioEs: string = "";
+  mensajeRecordatorioEsOld: string = "";
+
   constructor(
     private router: Router,
     private configuracionService: ConfiguracionService,
@@ -110,6 +150,47 @@ export class ConfiguracionesComponent {
           this.adminEmail = this.arrConfiguraciones[index].valor;
           this.adminEmailOld = this.adminEmail;
           break;
+        case 9:
+          this.jobPayments = JSON.parse(this.arrConfiguraciones[index].valor);
+          this.jobPaymentstOld = this.jobPayments;
+          break;
+        case 10:
+          this.jobLateRequest = JSON.parse(this.arrConfiguraciones[index].valor);
+          this.jobLateRequestOld = this.jobLateRequest;
+          break;
+        case 11:
+          this.jobRecordatorio = JSON.parse(this.arrConfiguraciones[index].valor);
+          this.jobRecordatorioOld = this.jobRecordatorio;
+          break;
+        case 12:
+          this.mailBvndClt = JSON.parse(this.arrConfiguraciones[index].valor);
+          this.mailBvndCltOld = this.mailBvndClt;
+          break;
+        case 13:
+          this.mailBvndAbo = JSON.parse(this.arrConfiguraciones[index].valor);
+          this.mailBvndAboOld = this.mailBvndAbo;
+          break;
+
+          case 14:
+          this.contactName = this.arrConfiguraciones[index].valor;
+          this.contactNameOld = this.contactName;
+          break;
+          case 15:
+          this.companyName = this.arrConfiguraciones[index].valor;
+          this.companyNameOld = this.companyName ;
+          break;
+          case 16:
+          this.phoneInfo = this.arrConfiguraciones[index].valor;
+          this.phoneInfoOld = this.phoneInfo;
+          break;
+          case 17:
+          this.mensajeRecordatorioUs = this.arrConfiguraciones[index].valor;
+          this.mensajeRecordatorioUsOld = this.mensajeRecordatorioUs;
+          break;
+          case 18:
+          this.mensajeRecordatorioEs = this.arrConfiguraciones[index].valor;
+          this.mensajeRecordatorioUsOld = this.mensajeRecordatorioEs;
+          break;
         default:
           break;
       }
@@ -146,6 +227,37 @@ export class ConfiguracionesComponent {
       case 8:
         this.configuracion.valor = this.adminEmail.toString();
         break;
+      case 9:
+        this.configuracion.valor = this.jobPayments.toString();
+        break;
+      case 10:
+        this.configuracion.valor = this.jobLateRequest.toString();
+        break;
+      case 11:
+        this.configuracion.valor = this.jobRecordatorio.toString();
+        break;
+      case 12:
+        this.configuracion.valor = this.mailBvndClt.toString();
+        break;
+      case 13:
+        this.configuracion.valor = this.mailBvndAbo.toString();
+        break;
+      case 14:
+        this.configuracion.valor = this.contactName.toString();
+        break;
+      case 15:
+        this.configuracion.valor = this.companyName.toString();
+        break;
+      case 16:
+        this.configuracion.valor = this.phoneInfo.toString();
+        break;
+      case 17:
+        this.configuracion.valor = this.mensajeRecordatorioUs.toString();
+        break;
+      case 18:
+        this.configuracion.valor = this.mensajeRecordatorioEs.toString();
+        break;
+
       default:
         break;
     }
@@ -188,6 +300,47 @@ export class ConfiguracionesComponent {
             case 8:
               this.adminEmailOld = this.adminEmail;
               this.cambiandoAdminEmail = false;
+              break;
+            case 9:
+              this.jobPaymentstOld = this.jobPayments;
+              this.cambiandoJobPayments = false;
+              break;
+            case 10:
+              this.jobLateRequestOld = this.jobLateRequest;
+              this.cambiandoJobLateRequest = false;
+              break;
+            case 11:
+              this.jobRecordatorioOld = this.jobRecordatorio;
+              this.cambiandoJobRecordatorio = false;
+              break;
+            case 12:
+              this.mailBvndCltOld = this.mailBvndClt;
+              this.cambiandoMailBvndClt = false;
+              break;
+            case 13:
+              this.mailBvndAboOld = this.mailBvndAbo;
+              this.cambiandoMailBvndAbo = false;
+              break;
+
+              case 14:
+              this.contactNameOld = this.contactName;
+              this.cambiandoContactName = false;
+              break;
+              case 15:
+              this.companyNameOld = this.companyName;
+              this.cambiandoCompanyName = false;
+              break;
+              case 16:
+              this.phoneInfoOld = this.phoneInfo;
+              this.cambiandoPhoneInfo = false;
+              break;
+              case 17:
+              this.mensajeRecordatorioUsOld = this.mensajeRecordatorioUs;
+              this.cambiandoMensajeRecordatorioUs = false;
+              break;
+              case 18:
+              this.mensajeRecordatorioEsOld = this.mensajeRecordatorioEs;
+              this.cambiandoMensajeRecordatorioEs = false;
               break;
             default:
               break;
@@ -233,6 +386,48 @@ export class ConfiguracionesComponent {
         this.cambiandoAdminEmail = false;
         this.adminEmail = this.adminEmailOld;
         break;
+      case 9:
+        this.cambiandoJobPayments = false;
+        this.jobPayments = this.jobPaymentstOld;
+        break;
+      case 10:
+        this.cambiandoJobLateRequest = false;
+        this.jobLateRequest = this.jobLateRequestOld;
+        break;
+      case 11:
+        this.cambiandoJobRecordatorio = false;
+        this.jobRecordatorio = this.jobRecordatorioOld;
+        break;
+      case 12:
+        this.cambiandoMailBvndClt = false;
+        this.mailBvndClt = this.mailBvndCltOld;
+        break;
+      case 13:
+        this.cambiandoMailBvndAbo = false;
+        this.mailBvndAbo = this.mailBvndAboOld;
+        break;
+
+        case 14:
+        this.cambiandoContactName = false;
+        this.contactName = this.contactNameOld;
+        break;
+        case 15:
+        this.cambiandoCompanyName = false;
+        this.companyName = this.companyNameOld;
+        break;
+        case 16:
+        this.cambiandoPhoneInfo = false;
+        this.phoneInfo = this.phoneInfoOld;
+        break;
+        case 17:
+        this.cambiandoMensajeRecordatorioUs = false;
+        this.mensajeRecordatorioUs = this.mensajeRecordatorioUsOld;
+        break;
+        case 18:
+        this.cambiandoMensajeRecordatorioEs = false;
+        this.mensajeRecordatorioEs = this.mensajeRecordatorioEsOld;
+        break;
+
       default:
         break;
     }
@@ -253,4 +448,21 @@ export class ConfiguracionesComponent {
     }
     return trimmedValue;
   }
+
+  testMessage() {
+    this.cargando = true;
+    this.configuracionService
+      .envioMensajePrueba()
+      .then(response => {
+        if (response.status === 200) {
+          this.utilService.mostrarDialogoSimple("Message sent successfully", "");
+        } else {
+          this.utilService.mostrarDialogoSimple("There was an error sending the message", "");
+        }
+        this.cargando = false;
+      }).catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false)
+  }
+
+  
 }

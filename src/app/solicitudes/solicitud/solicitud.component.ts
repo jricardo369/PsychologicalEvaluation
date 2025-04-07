@@ -386,7 +386,7 @@ export class SolicitudComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void { console.log("MOVIMIENTOS: " + this.isBackOffice); }
+  ngOnInit(): void { console.log("MOVIMIENTOS: " + this.isBackOffice); localStorage.setItem('backSolicitud', '1');}
 
   obtenerSolicitud(idSolicitud: number) {
     this.cargando = true;
@@ -771,6 +771,11 @@ export class SolicitudComponent implements OnInit {
   viewDoc(url: string) {
     console.log(url)
     window.open(url, '_blank');
+  }
+
+  refreshSolicitudCompleta(){
+    this.eventosSolicitudComponent.refresh();
+    this.obtenerSolicitud(this.solicitud.idSolicitud);
   }
 
   addScale() {

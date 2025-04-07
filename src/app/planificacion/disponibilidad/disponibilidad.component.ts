@@ -38,7 +38,7 @@ export class DisponibilidadComponent implements OnInit {
     this.disponibilidadUsuariosService.obtenerDisponibilidadUsuario(this.usuario.idUsuario)
       .then((disponibilidadUsuarios) => {
         this.arrDisponibilidadUsuario = disponibilidadUsuarios;
-        this.paginacion.setArray(this.arrDisponibilidadUsuario);
+        this.paginacion.setArray(this.arrDisponibilidadUsuario,10);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

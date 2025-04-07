@@ -34,11 +34,13 @@ export class ReporteComparacionAniosComponent implements OnInit {
   ) {
     this.inputYear = new Date().getFullYear();
     this.inputFileStatus = "All";
-    this.obtenerEstatusSolicitudes();
+    console.log('cargando reporte');
+    this.cargando = true;
     this.obtenerReporteComparacionAnios();
   }
 
   ngOnInit(): void {
+    
   }
 
   obtenerEstatusSolicitudes() {
@@ -61,6 +63,7 @@ export class ReporteComparacionAniosComponent implements OnInit {
     this.solicitudesService.obtenerReporteComparacionAnios(this.inputYear, this.inputFileStatus)
       .then((reporteComparacionAnios) => {
         this.reporteComparacionAnios = reporteComparacionAnios;
+        this.obtenerEstatusSolicitudes();
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

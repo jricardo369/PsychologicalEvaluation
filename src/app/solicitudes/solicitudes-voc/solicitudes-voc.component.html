@@ -46,11 +46,11 @@
                 [checked]="filterMyFiles" (change)="filterMyFiles = !filterMyFiles">
             </div>
             <div class="iigwo-input"
-              *ngIf="filterType == 'All' || filterType == 'File' || filterType == 'Customer' || filterType == 'Phone' || filterType == 'Email' || filterType == 'Responsible User'">
+              *ngIf="filterType == 'All' || filterType == 'File' || filterType == 'Customer' || filterType == 'Case number' ||  filterType == 'Email' ">
               <label>Value</label>
               <input type="text" placeholder="Enter a value" [(ngModel)]="filterInputText">
             </div>
-            <div *ngIf="filterType == 'Date'" class="flex">
+            <div *ngIf="filterType == 'Creation Date'" class="flex">
               <div class="iigwo-input">
                 <label>From</label>
                 <input type="date" [(ngModel)]="filterInputDate1">
@@ -74,7 +74,7 @@
                   {{e.descripcion}}</option>
               </select>
             </div>
-            <div class="iigwo-input" *ngIf="filterType == 'Waiver'">
+            <div class="iigwo-input" *ngIf="filterType == 'Has document 2'">
               <label>Waiver</label>
               <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
                 <option *ngFor="let e of arrFilterWaiver" [ngValue]="e.value">
@@ -101,31 +101,37 @@
         <table class='big' *ngIf="!(solicitudes.length == 0)">
           <tr>
             <!-- <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()" (change)="checkAll($event)"></th> -->
+            <th class=''>File</th>
+            <th class=''>Case number</th>
             <th class=''>Creation Date</th>
             <th class=''>Customer Name</th>
-            <th class=''>Code</th>
             <th class=''>Sessions</th>
             <th class=''>Schedules</th>
             <th class=''>Pending Sessions</th>
             <th class=''>Email</th>
+            <th class='' *ngIf="(isVOC)">Has document 2</th>
             <th class='' *ngIf="!(isTherapist)">Payment Status</th>
             <th class=''>File Status</th>
           </tr>
           <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
             <!-- <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
                 (change)="check($event, e.idSolicitud)"></td> -->
+            <td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
+            <td class=''><a routerLink="{{e.idSolicitud}}">{{e.numeroDeCaso}}</a></td>
             <td class='accent'>{{e.fechaInicio | dateMMDDYYYY}}</td>
             <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
-            <td class='accent'>{{e.code}}</td>
             <td style="text-align: center;"><span class="badge-status badge-color-0"
                 style="margin: 0;">{{e.numSesiones}}</span></td>
             <td style="text-align: center;"><span class="badge-status badge-color-0"
                 style="margin: 0;">{{e.numSchedules}}</span></td>
             <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{
-              'badge-color-0': (e.sesionesPendientes == 0 || e.sesionesPendientes > 15),
-              'badge-color-3': (e.sesionesPendientes > 0 && e.sesionesPendientes <= 5),
+              'badge-color-4': (e.sesionesPendientes == 0 || e.sesionesPendientes > 15),
+              'badge-color-3': (e.sesionesPendientes < 0 || e.sesionesPendientes <= 5),
               'badge-color-2': (e.sesionesPendientes > 5 && e.sesionesPendientes <= 15)}">{{e.sesionesPendientes}}</span></td>
             <td class='accent'>{{e.email}}</td>
+            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="(isVOC)">
+              <mat-icon svgIcon="done" *ngIf="e.documento2"></mat-icon>
+            </td>
             <td style="text-align: center;" *ngIf="!(isTherapist)"><span class="badge-status" style="margin: 0;"
                 [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
                             'badge-color-complete': e.idEstatusPago == 2,
@@ -144,6 +150,7 @@
 								'badge-color-closed': e.idEstatusSolicitud == 11,
                 'badge-color-in_approbal': e.idEstatusSolicitud == 13,
                 'badge-color-process': e.idEstatusSolicitud == 14}">{{e.estatusSolicitud}}</span></td>
+                
           </tr>
 
           <tr>
@@ -152,9 +159,9 @@
                 Records per page</label>
               <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
                 style="margin: 0 8px; font-family: regular; height: 24px;">
-                <option value="10">10</option>
                 <option value="20">20</option>
-                <option value="50">50</option>
+                <option value="40">40</option>
+                <option value="80">80</option>
                 <option value="100">100</option>
               </select>
               {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}

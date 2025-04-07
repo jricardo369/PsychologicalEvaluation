@@ -132,6 +132,7 @@ export class DialogoCitaSolicitudComponent implements OnInit {
 
         if (!this.notaCita.idNota) {
           this.notaCita.tipo = this.arrTipoNota[0];
+          this.notaCita.referencia = this.arrReferencia[0];
           this.notaCita.idCita = this.citaSolicitud.idCita;
           this.notaCita.descripcion = "";
           this.notaCita.hora = "";

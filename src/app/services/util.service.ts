@@ -42,6 +42,10 @@ export class UtilService {
     return '' + date.getFullYear() + '-' + this.withLeadingZeros((date.getMonth() + 1), 2) + '-' + this.withLeadingZeros((date.getDate()), 2);
   }
 
+  dateAsMMDDYYYY(date: Date): string {
+    return this.withLeadingZeros((date.getMonth() + 1), 2)+'/'+ this.withLeadingZeros((date.getDate()), 2) +'/'+ date.getFullYear();
+  }
+
   withLeadingZeros(integer: number, digits: number): string {
     let n = '' + Number.parseInt('' + integer);
     for (let i = n.length; i < digits; i++) n = '0' + n;

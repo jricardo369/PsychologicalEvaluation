@@ -91,10 +91,10 @@ export class MovimientoSolicitudService {
     );
   }
 
-  obtenerReporteAdeudos(cliente: string, fechaInicio: string, fechaFin: string, idUsuario: number): Promise<ReporteMovimientos> {
+  obtenerReporteAdeudos(cliente: string, fechaInicio: string, fechaFin: string, idUsuario: number,tipo: string,campo: string,valor: string): Promise<ReporteMovimientos> {
     return new Promise<ReporteMovimientos>((resolve, reject) =>
       this.http
-        .get(API_URL + "movimientos/reporte-pagos?cliente=" + cliente + "&fechai=" + fechaInicio + "&fechaf=" + fechaFin + "&idUsuario=" + idUsuario, {
+        .get(API_URL + "movimientos/reporte-pagos?cliente=" + cliente + "&fechai=" + fechaInicio + "&fechaf=" + fechaFin + "&idUsuario=" + idUsuario+ "&tipo=" + tipo+ "&campo=" + campo+ "&valor=" + valor, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

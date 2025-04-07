@@ -30,10 +30,16 @@ export class SolicitudesService {
     );
   }
 
-  obtenerSolicitudesUsuario(fechai: string, fechaf: string, ordenarPor: string, orden: string, idUsuario: number): Promise<SolicitudList[]> {
+  obtenerSolicitudesUsuario(fechai: string, fechaf: string, ordenarPor: string, orden: string, idUsuario: number,campo: string, valor: string,myFiles: boolean,closed: boolean): Promise<SolicitudList[]> {
+
+    let queryParams: string = "";
+    queryParams = "fechai=" + fechai + "&fechaf=" + fechaf + "&ordenarPor=" + ordenarPor + "&orden=" + orden + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles + "&cerradas=" + closed;
+ 
+
+
     return new Promise<SolicitudList[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "solicitudes/solicitudes-de-usuario/" + idUsuario + "?fechai=" + fechai + "&fechaf=" + fechaf + "&ordenarPor=" + ordenarPor + "&orden=" + orden, {
+        .get(API_URL + "solicitudes/solicitudes-de-usuario/" + idUsuario + "?" + queryParams, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

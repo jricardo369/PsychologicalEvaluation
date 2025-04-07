@@ -1,12 +1,29 @@
-<h2 mat-dialog-title>Payments</h2>
+<h2 mat-dialog-title>{{titulo}}</h2>
 
 <mat-dialog-content>
-  <div style="display: flex;">
+  <div *ngIf="detalleMovimientos.pendiente !== 0" style="display: flex;">
     <div class="mb-20">
       <p class="text-body-secondary fs-9 mb-0">Pending Amount</p>
       <h4 class="mb-0 mt-0" style="color: red;">{{(detalleMovimientos.pendiente ? detalleMovimientos.pendiente: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
     </div>
+    <button class="iigwo accent" style="background: #088395;" (click)='enviarRecordatorio()'>Send reminder</button>
   </div>
+
+  <div *ngIf="detalleMovimientos.pendiente === 0" style="display: flex;">
+    <div class="mb-20">
+      <h4 class="mb-0 mt-0" style="color: #41949B;">Paid file</h4>
+    </div>
+  </div>
+
+  <div style="display: flex;">
+    <div class="">
+      <h4 class="" style="margin-top: -2px;margin-bottom: 10px; font-size:12px;text-decoration: underline;color: #612c7e;cursor: pointer;
+      * {
+      cursor: pointer;
+    }" (click)="verSolicitud()">Go to file</h4>
+    </div>
+  </div>
+  
   <table class="informative" *ngIf="detalleMovimientos.movimientos.length > 0">
     <tr>
       <th>Date</th>

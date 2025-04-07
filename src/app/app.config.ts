@@ -29,16 +29,17 @@ let documentBsaeUriWithoutLanguage = document.baseURI
     //.replace("/portal-dental", "/dental");
 
 // let productionApiUrl = documentBsaeUriWithoutLanguage + "/"; // PRODUCCION
-//let productionApiUrl = 'http://localhost:18080/dental/'; // PRODUCCION
-let productionApiUrl = 'http://ec2-54-215-12-132.us-west-1.compute.amazonaws.com:8080/pe_crm_api/'; // PRODUCCION
+let productionApiUrl = 'http://localhost:18080/pe_crm_api/'; // LOCAL
+//let productionApiUrl = 'http://ec2-54-215-12-132.us-west-1.compute.amazonaws.com:8080/pe_crm_api/'; // QAS
+//let productionApiUrl = 'https://crm-familiasunidasla.com/pe_crm_api/'; // PRODUCCION
 let localhostApiUrl = location.protocol + '//' + location.hostname + ':8080/pe_crm_api/'; // LOCAL
 
 if (environment.production) {
     // PRO
 } else {
-    // localhostApiUrl = 'http://ec2-3-130-182-154.us-east-2.compute.amazonaws.com:8080/pe_crm_api/';
-    localhostApiUrl = 'http://ec2-54-215-12-132.us-west-1.compute.amazonaws.com:8080/pe_crm_api/'; //PRUEBAS
-   //localhostApiUrl = 'http://localhost:18080/dental/';
+    localhostApiUrl = 'http://localhost:18080/pe_crm_api/'; //LOCAL
+    //localhostApiUrl = 'http://ec2-54-215-12-132.us-west-1.compute.amazonaws.com:8080/pe_crm_api/'; //QAS
+    //localhostApiUrl = 'https://crm-familiasunidasla.com/pe_crm_api/'; //PRODUCCION   
 }
 
 // ====================================

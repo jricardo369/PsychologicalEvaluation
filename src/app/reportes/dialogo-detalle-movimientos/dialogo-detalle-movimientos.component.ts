@@ -3,6 +3,10 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { MovimientoSolicitudService } from 'src/app/services/movimiento-solicitud.service';
 import { UtilService } from 'src/app/services/util.service';
 import { DetalleMovimientosSolicitud } from '../../../model/datalle-movimientos-solicitud';
+import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
+import { Notificacion } from 'src/model/notificacion';
+import { NotificacionesService } from './../../services/notificaciones.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialogo-detalle-movimientos',
@@ -14,18 +18,32 @@ export class DialogoDetalleMovimientosComponent implements OnInit {
   cargando: boolean = false;
   idSolicitud: number = null;
   detalleMovimientos: DetalleMovimientosSolicitud = new DetalleMovimientosSolicitud();
+  notificacion: Notificacion = new Notificacion;
+  titulo: string = '';
 
   constructor(
+    private router: Router,
+    private notificacionesService: NotificacionesService,
     private movimientoSolicitudService: MovimientoSolicitudService,
     public utilService: UtilService,
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogoDetalleMovimientosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.idSolicitud = data.idSolicitud;
-      this.obtenerDetalleMovimientosSolicitud();
+    this.idSolicitud = data.idSolicitud;
+    this.obtenerDetalleMovimientosSolicitud();
   }
 
   ngOnInit(): void {
+    this.titulo = 'Payments for file ' + this.idSolicitud;
+  }
+
+  goBack() {
+    this.utilService.goBack();
+  }
+
+  verSolicitud() {
+    this.dialogRef.close("");
+    this.router.navigateByUrl('/solicitudes/solicitudes/' + this.idSolicitud);
   }
 
   obtenerDetalleMovimientosSolicitud() {
@@ -51,6 +69,39 @@ export class DialogoDetalleMovimientosComponent implements OnInit {
   //   .catch((reason) => this.utilService.manejarError(reason))
   //   .then(() => (this.cargando = false));
   // }
+
+  enviarRecordatorio() {
+    this.dialog.open(DialogoSimpleComponent, {
+      data: {
+        titulo: 'No-show',
+        texto: 'Do you really want to do this action?',
+        botones: [
+          { texto: 'Cancel', color: '', valor: '' },
+          { texto: 'Yes', color: 'primary', valor: 'ok' },
+        ]
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'ok') {
+        console.log('Enviar recordatorio');
+        this.cargando = true;
+        this.notificacion.layout = 'Payment';
+        this.notificacion.mensaje = true;
+        this.notificacion.mail = true;
+        this.notificacion.idSolicitud = this.idSolicitud;
+        this.notificacion.usuario = "1";
+        this.notificacionesService.enviarNotificacion(this.notificacion, null)
+          .then(() => {
+            this.cargando = false;
+            this.cerrar('enviado');
+
+          })
+          .catch((reason) => this.utilService.manejarError(reason))
+          .then(() => (this.cargando = false));
+
+      }
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
 
   cerrar(accion: string = "") { this.dialogRef.close(accion); }
 }

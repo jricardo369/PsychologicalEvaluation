@@ -62,7 +62,7 @@ export class DialogoSiguienteProcesoComponent implements OnInit {
     this.disponibilidadUsuariosService.obtenerDisponibilidadUsuariosPorDia(this.fecha, this.fechaAnterior, (this.interviewerScales ? 8 : 5))
       .then((disponibilidadUsuarios) => {
         this.arrDisponibilidadUsuario = disponibilidadUsuarios;
-        this.paginacion.setArray(this.arrDisponibilidadUsuario);
+        this.paginacion.setArray(this.arrDisponibilidadUsuario,10);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

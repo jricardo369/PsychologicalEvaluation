@@ -108,7 +108,7 @@ export class DialogoUsuarioComponent implements OnInit {
     this.dialog.open(DialogoSimpleComponent, {
       data: {
         titulo: 'Delete user',
-        texto: 'Do you really want to delete the user? Requests related to him will be deleted.',
+        texto: 'Do you really want to delete the user? This action is not reversible.',
         botones: [
           { texto: 'Cancel', color: '', valor: '' },
           { texto: 'Delete user', color: 'primary', valor: 'eliminar' },

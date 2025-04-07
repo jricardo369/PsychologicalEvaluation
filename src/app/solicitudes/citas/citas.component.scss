@@ -36,6 +36,15 @@
   letter-spacing: 3px;
 }
 
+.header-dia-fecha {
+  font-size: 12px;
+  margin-top: 0;
+  letter-spacing: 3px;
+  margin-bottom: 3px;
+  align-items: center;
+  text-align: center;
+}
+
 .cita-dia {
   border: solid 1px rgba(0, 0, 0, 0.2);
   display: grid;
@@ -44,12 +53,12 @@
   margin: 1px;
   cursor: pointer;
   // border-right: solid 3px rgb(66, 170, 122);
-  width: 350px;
+  width: 200px;
   margin-bottom: 7px;
 
   // border-right-color: #612c7e99;
-  border-right-width: 3px;
-  border-right-style: solid;
+  border-top-width: 3px;
+  border-top-style: solid;
 }
 
 .cita-dia p {

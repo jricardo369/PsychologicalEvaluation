@@ -44,11 +44,12 @@
             <th class=''>File</th>
             <th class=''>Id Schedule</th>
             <th class=''>Date</th>
-            <th class=''>Code</th>
+            <th class=''>Case Number</th>
             <th class=''>Customer</th>
             <th class=''>Phone</th>
             <th class=''>Email</th>
             <th class=''>Amount</th>
+            <th class=''>Date paid</th>
             <th class=''>Comment</th>
             <th class=''>Pay Status</th>
           </tr>
@@ -56,11 +57,12 @@
             <td class='accent'>{{e.idFile}}</td>
             <td>{{e.idCita}}</td>
             <td>{{e.fecha | dateMMDDYYYY}}</td>
-            <td>{{e.code}}</td>
+            <td>{{e.caseNumber}}</td>
             <td class='accent'>{{e.cliente}}</td>
             <td>{{e.telefono | phone}}</td>
             <td>{{e.email}}</td>
             <td class="number">{{e.amount | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
+            <td>{{e.fechaPagado | dateMMDDYYYY}}</td>
             <td style="font-style: italic;">{{e.comentario}}</td>
             <td style="text-align: center;">
               <span class="badge-status badge-color-paid" style="margin: 0;" *ngIf="e.pagado">Paid</span>

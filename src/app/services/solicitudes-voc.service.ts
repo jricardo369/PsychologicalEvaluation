@@ -102,14 +102,15 @@ export class SolicitudesVocService {
 
   obtenerReporteSolicitudesFilters(idUsuario: number, campo: string, valor: string, fecha1: string, fecha2: string, myFiles: boolean): Promise<SolicitudVoc[]> {
     let queryParams: string = "";
-    if(campo == "All" || campo == "File" || campo == "Customer" || campo == "Phone" || campo == "Email" || campo == "File Status" || campo == "Payment Status" || campo == "Responsible User" || campo == "Waiver") {
+    if(campo == "All" || campo == "File" || campo == "Customer" || campo == "Case number" || campo == "Email" || campo == "File Status" || campo == "Payment Status" || campo == "Responsible User" || campo == "Has document 2") {
       queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles;
-    } else if (campo == "Date") {
+    } else if (campo == "Creation Date") {
       queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&fecha1=" + fecha1 + "&fecha2=" + fecha2 + "&myFiles=" + myFiles;
     }
     return new Promise<SolicitudVoc[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "solicitudes-voc/reporte-solicitudes-filters?" + queryParams, {
+        //.get(API_URL + "solicitudes-voc/reporte-solicitudes-filters?" + queryParams, {
+          .get(API_URL + "solicitudes-voc/solicitudes-de-usuario/" + idUsuario +'?'+ queryParams, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

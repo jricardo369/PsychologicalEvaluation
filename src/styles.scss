@@ -296,7 +296,7 @@ app-bar .app-nav-right label {
 .workspace-nav {
 	/*background:pink;*/
 	background: hsla(0, 0%, 97%, 1);
-	width: 245px;
+	width: 215px;
 	height: calc(100% - 48px);
 	top: 48px;
 	position: fixed;
@@ -408,7 +408,7 @@ label.fake-button {
 
 .workspace {
 	position: fixed;
-	left: 256px;
+	left: 215px;
 	right: 0;
 	top: 48px;
 	transition: 0.2s;
@@ -1363,7 +1363,7 @@ not-found-component ul li {
 .app-nav-menu-panel {
 	position: fixed;
 	top: 0;
-	width: 250px;
+	width: 220px;
 	bottom: 0;
 	left: 0;
 	background: white;
@@ -2051,6 +2051,7 @@ p.accent {
 	background-color: mat-color($app-secondary);
 	border-radius: 10px;
 	margin-left: 4px;
+	
 }
 
 .badge-color-blue {
@@ -2126,6 +2127,60 @@ p.accent {
 	color: #6B9112;
 }
 
+//ESTATUS DE SOLICITUD SOLO LETRA
+// 1 - Received - color fondo: B8E8B6 y letra 144C11
+.badge-color-received-sl {
+	color: #144C11;
+}
+// 2 - Reviewing - color fondo: 97E0FC y letra 2F687E
+.badge-color-reviewing-sl {
+	color: #2F687E;
+}
+// 3 - Interview - color fondo FFCFE8 y letra 830E4C
+.badge-color-interview-sl {
+	color: #830E4C;
+}
+// 4 - Refused - color fondo FFE0C6 y letra AE6534
+.badge-color-refused-sl {
+	color: #AE6534;
+}
+// 5 - No show - color fondo C5F6E3 y letra 31453D
+.badge-color-no_show-sl {
+	color: #31453D;
+}
+// 6 - Case - color fondo ECFFBE y letra 6B9112
+.badge-color-case-sl {
+	color: #6B9112;
+}
+// 7 - Lost - - color fondo FFDBCC y letra AA7159
+.badge-color-lost-sl {
+	color: #AA7159;
+}
+// 8 - Won - color fondo B7E4CB y letra 3B7856
+.badge-color-won-sl {
+	color: #3B7856;
+}
+// 9 - Open - color fondo B5E2E9 y letra 088395
+.badge-color-open-sl {
+	color: #088395;
+}
+// 10 - Ready on draft - color fondo C5C0F1 y letra 4C3BCF
+.badge-color-ready_on_draft-sl {
+	color: #4C3BCF;
+}
+// 11 - Closed - color fondo AF47D2 y letra EFBFFF
+.badge-color-closed-sl {
+	color: #EFBFFF;
+}
+// 13 - In approval - color fondo 97E0FC y letra 2F687E
+.badge-color-in_approbal-sl {
+	color: #2F687E;
+}
+// 14 - Process - color fondo ECFFBE y letra 6B9112
+.badge-color-process-sl {
+	color: #6B9112;
+}
+
 //ESTATUS DE PAGO
 // 1 - Partially - color fondo FAC2FB y letra 744674
 .badge-color-partially {
@@ -2163,6 +2218,11 @@ p.accent {
 .badge-color-3 {
 	background-color: #F77E7E;
 	color: #9E2626;
+}
+// 3 - color fondo: F77E7E y letra 9E2626
+.badge-color-4 {
+	background-color: #abebc6;
+	color: #1d8348;
 }
 // 0
 .badge-color-0 {

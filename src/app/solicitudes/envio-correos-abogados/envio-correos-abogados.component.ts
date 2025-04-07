@@ -48,7 +48,7 @@ export class EnvioCorreosAbogadosComponent implements OnInit {
     this.reportesService.obtenerCorreosEnviados(this.fechaI, this.fechaF)
       .then((reporteCorreosEnviados) => {
         this.arrReporteCorreosEnviados = reporteCorreosEnviados;
-        this.paginacion.setArray(this.arrReporteCorreosEnviados);
+        this.paginacion.setArray(this.arrReporteCorreosEnviados,10);
         this.seleccion = [];
       })
       .catch((reason) => this.utilService.manejarError(reason))

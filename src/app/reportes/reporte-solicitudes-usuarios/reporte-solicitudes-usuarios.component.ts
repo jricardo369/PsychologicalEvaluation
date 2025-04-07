@@ -39,7 +39,7 @@ export class ReporteSolicitudesUsuariosComponent implements OnInit {
         this.reportesService.obtenerUsersRequests(this.fechaI, this.fechaF)
             .then((reporteSolicitudesUsuarios) => {
                 this.arrReporteSolicitudesUsuarios = reporteSolicitudesUsuarios;
-                this.paginacion.setArray(this.arrReporteSolicitudesUsuarios);
+                this.paginacion.setArray(this.arrReporteSolicitudesUsuarios,10);
             })
             .catch((reason) => this.utilService.manejarError(reason))
             .then(() => (this.cargando = false));

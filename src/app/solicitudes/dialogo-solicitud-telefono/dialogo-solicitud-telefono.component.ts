@@ -40,7 +40,7 @@ export class DialogoSolicitudTelefonoComponent implements OnInit {
         if(!(this.arrSolicitudTelefono.length > 0)) {
           this.cerrar("vacio");
         }
-        this.paginacion.setArray(this.arrSolicitudTelefono);
+        this.paginacion.setArray(this.arrSolicitudTelefono,10);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));

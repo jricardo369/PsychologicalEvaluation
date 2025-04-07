@@ -44,7 +44,7 @@ export class EventosSolicitudVocComponent implements OnInit {
           .obtenerEventosSolicitud(Number.parseInt(this.idSolicitud), this.usuario.idUsuario)
           .then(response => {
               this.arrEventoSolicitud = response;
-              this.paginacion.setArray(this.arrEventoSolicitud);
+              this.paginacion.setArray(this.arrEventoSolicitud,10);
           })
           .catch(reason => this.utilService.manejarError(reason))
           .then(() => this.cargando = false)

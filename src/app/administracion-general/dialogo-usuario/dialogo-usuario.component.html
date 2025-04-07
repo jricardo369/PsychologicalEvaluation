@@ -103,6 +103,11 @@
         <input type="text" [(ngModel)]="usuario.disponibilidad">
       </div>
 
+      <div class="iigwo-input" *ngIf="usuario.rol == '10'">
+        <label>Rate</label>
+        <input type="number" min="0" [(ngModel)]="usuario.rate">
+      </div>
+
       <div style="display:flex; margin-bottom: 12px;">
         <div style="min-width: 332px; margin-right: 12px;">
           <div class="iigwo-input" style="margin: 0;" *ngIf="!creando">
