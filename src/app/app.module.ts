@@ -25,6 +25,8 @@ import { registerLocaleData } from '@angular/common';
 // import localeMx from '@angular/common/locales/es-MX';
 import { TusCredencialesComponent } from './common/tus-credenciales/tus-credenciales.component';
 
+
+
 // registerLocaleData(localeMx, 'es-Mx');
 
 @NgModule({

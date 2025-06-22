@@ -14,7 +14,7 @@ import { DialogoSiguienteProcesoComponent } from "../dialogo-siguiente-proceso/d
 import { DialogoNotificacionesComponent } from "../dialogo-notificaciones/dialogo-notificaciones.component";
 import { Scale } from 'src/model/scale';
 import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
-import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, CLINICIAN, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
 import { EventosSolicitudComponent } from '../eventos-solicitud/eventos-solicitud.component';
 import { AdjuntosComponent } from '../adjuntos/adjuntos.component';
 import { MovimientosSolicitudComponent } from '../movimientos-solicitud/movimientos-solicitud.component';
@@ -29,6 +29,9 @@ import { DialogoCancelarCitaSolicitudComponent } from '../dialogo-cancelar-cita-
   styleUrls: ["./solicitud.component.css"],
 })
 export class SolicitudComponent implements OnInit {
+
+  arrAssignedClinicians: Usuario[] = [];
+
   cargando: boolean = false;
   usuario: Usuario = new Usuario();
   titulo: string = "";
@@ -59,6 +62,7 @@ export class SolicitudComponent implements OnInit {
   isTemplateCreator: boolean = false;
   isInterviewerScales: boolean = false;
   isGhostwriting: boolean = false;
+  isClinician: boolean = false;
 
   arrStates: any[] = [];
   arrLanguages: any = [];
@@ -91,6 +95,7 @@ export class SolicitudComponent implements OnInit {
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+    this.isClinician = this.usuario.rol == CLINICIAN ? true : false;
 
     route.params.subscribe((params) => {
       let codigo = params["id"];
@@ -103,12 +108,16 @@ export class SolicitudComponent implements OnInit {
         this.solicitud.paralegalEmails = null;
         this.solicitud.paralegalTelefonos = null;
         this.obtenerTiposSolicitud();
+        
         this.solicitud.external = false;
       } else {
         this.editando = true;
         this.obtenerSolicitud(Number.parseInt(codigo));
       }
+     
     });
+
+    this.obtenerUsuariosAssignedClinician();
 
     this.arrStates = [
       {
@@ -386,7 +395,7 @@ export class SolicitudComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void { console.log("MOVIMIENTOS: " + this.isBackOffice); localStorage.setItem('backSolicitud', '1');}
+  ngOnInit(): void { console.log("MOVIMIENTOS: " + this.isBackOffice); localStorage.setItem('backSolicitud', '1'); console.log(this.solicitud);}
 
   obtenerSolicitud(idSolicitud: number) {
     this.cargando = true;
@@ -460,11 +469,22 @@ export class SolicitudComponent implements OnInit {
     this.solicitud.idTipoSolicitud = this.inputTipoSolicitud.idTipoSolicitud;
     this.solicitud.tipoSolicitud = this.inputTipoSolicitud.nombre;
     this.cargando = true;
-    this.solicitudesService.actualizarSolicitud(this.solicitud).then((solicitud) => {
+    this.solicitudesService.actualizarSolicitud(this.solicitud,false,this.usuario.idUsuario).then((solicitud) => {
       this.obtenerSolicitud(this.solicitud.idSolicitud);
     })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));
+  }
+
+  guardarCambiosClosed() {
+    this.solicitud.idTipoSolicitud = this.inputTipoSolicitud.idTipoSolicitud;
+    this.solicitud.tipoSolicitud = this.inputTipoSolicitud.nombre;
+    this.cargando = true;
+    this.solicitudesService.actualizarSolicitud(this.solicitud,true,this.usuario.idUsuario).then((solicitud) => {
+      this.obtenerSolicitud(this.solicitud.idSolicitud);
+    })
+      .catch((reason) => this.utilService.manejarError(reason))
+      .then(() => {this.cargando = false;this.refreshSolicitudCompleta()});
   }
 
   goBack() {
@@ -484,6 +504,7 @@ export class SolicitudComponent implements OnInit {
         if (valor == 'enviado') {
           if (this.isMaster || this.isVendor || this.isBackOffice) {
             this.obtenerSolicitud(this.solicitud.idSolicitud);
+            this.refreshSolicitudCompleta();
           }
           else {
             this.goBack();
@@ -539,10 +560,37 @@ export class SolicitudComponent implements OnInit {
       if (valor == 'enviado') {
         if (this.isMaster || this.isVendor || this.isBackOffice) {
           this.obtenerSolicitud(this.solicitud.idSolicitud);
+          this.refreshSolicitudCompleta();
         }
         else {
           this.goBack();
         }
+      }
+    }).catch(reason => this.utilService.manejarError(reason));
+  }
+
+  envioFinEntrevistaClinician() {
+    this.dialog.open(DialogoSimpleComponent, {
+      data: {
+        titulo: 'Finish review file',
+        texto: 'Do you really want to do this action?',
+        botones: [
+          { texto: 'Cancel', color: '', valor: '' },
+          { texto: 'Yes', color: 'primary', valor: 'ok' },
+        ]
+      },
+      disableClose: true,
+    }).afterClosed().toPromise().then(valor => {
+      if (valor == 'ok') {
+        this.cargando = true;
+        this.solicitudesService.envioFinEntrevistaClinician(this.solicitud.idSolicitud, this.usuario.idUsuario)
+          .then(() => {
+            this.cargando = false;
+            this.goBack();
+          }).catch(e => {
+            this.utilService.manejarError(e);
+            this.cargando = false;
+          });
       }
     }).catch(reason => this.utilService.manejarError(reason));
   }
@@ -598,6 +646,47 @@ export class SolicitudComponent implements OnInit {
     });
   }
 
+  cancelTemplate() {
+    let usuariosOptions: any[] = [];
+        this.cargando = true;
+        this.usuariosService.obtenerUsuariosPorRol(4, 1).then(usuarios => {
+          this.cargando = false;
+          usuarios.forEach(usuario => usuariosOptions.push({ display: usuario.nombre, value: usuario.idUsuario }));
+
+          if (usuariosOptions.length > 0) {
+            let campos = [];
+            if (!this.isInterviewerScales) campos.push({ label: "User to asign", type: "select", placeholder: "select user", value: usuariosOptions[0].value, options: usuariosOptions });
+            campos.push({ label: "Cancel assign Template", type: "textarea", placeholder: "Enter your rejection reason", value: "", maxLength: 500 });
+            this.utilService
+              .mostrarDialogoConFormulario(
+                "Cancel assign Template",
+                "Complete the information",
+                "Send",
+                "Cancel",
+                campos
+              ).then(valor => {
+                if (valor == 'ok') {
+                  if (this.isInterviewerScales) campos.splice(0, 0, { value: 0 });
+                  this.cargando = true;
+                  this.solicitudesService.cancelTemplate(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value)
+                    .then(() => {
+                      this.cargando = false;
+                      this.goBack();
+                    }).catch(e => {
+                      this.utilService.manejarError(e);
+                      this.cargando = false;
+                    });
+                }
+              }).catch(reason => this.utilService.manejarError(reason));
+          } else {
+            this.utilService.mostrarDialogoSimple("Warning", "There are no users available");
+          }
+        }).catch(e => {
+          this.utilService.manejarError(e);
+          this.cargando = false;
+        });
+  }
+
   cancelarCita() {
     this.dialog.open(DialogoCancelarCitaSolicitudComponent, {
       data: {
@@ -606,26 +695,15 @@ export class SolicitudComponent implements OnInit {
       },
       disableClose: true,
     }).afterClosed().toPromise().then(valor => {
-      if (valor == 'enviado') this.obtenerSolicitud(this.solicitud.idSolicitud);
-      else if (valor == 'vacio') this.utilService.mostrarDialogoSimple("Warning", "Has no appointments yet.");
+      if (valor == 'enviado') {this.obtenerSolicitud(this.solicitud.idSolicitud);this.refreshSolicitudCompleta();}
+      else if (valor == 'vacio') {this.utilService.mostrarDialogoSimple("Warning", "Has no appointments yet.");}
     }).catch(reason => this.utilService.manejarError(reason));
   }
 
   cambiarEstatusSolicitud(idEstatusSolicitud: number, closed?: boolean) {
     switch (idEstatusSolicitud) {
       case 4: //Reject Request
-        /*this.dialog.open(DialogoSimpleComponent, {
-          data: {
-            titulo: 'Reject File',
-            texto: 'Do you really want to reject the File?',
-            botones: [
-              { texto: 'Cancel', color: '', valor: '' },
-              { texto: 'Reject', color: 'primary', valor: 'ok' },
-            ]
-          },
-          disableClose: true,
-        }).afterClosed().toPromise()*/
-
+    
         let usuariosOptions: any[] = [];
         this.cargando = true;
         this.usuariosService.obtenerUsuariosPorRol(4, 1).then(usuarios => {
@@ -665,6 +743,7 @@ export class SolicitudComponent implements OnInit {
           this.cargando = false;
         });
         break;
+
       case 5: //No-show
         this.dialog.open(DialogoSimpleComponent, {
           data: {
@@ -864,5 +943,15 @@ export class SolicitudComponent implements OnInit {
       this.utilService.saveByteArray("invoice_file-" + this.solicitud.idSolicitud, response, 'pdf');
     }).catch(e => this.utilService.manejarError(e))
       .finally(() => this.cargando = false);
+  }
+
+  obtenerUsuariosAssignedClinician() {
+    this.cargando = true;
+    this.usuariosService.obtenerUsuariosAssignedClinician()
+      .then(usuarios => {
+        this.arrAssignedClinicians = usuarios;
+      })
+      .catch((reason) => this.utilService.manejarError(reason))
+      .then(() => (this.cargando = false));
   }
 }

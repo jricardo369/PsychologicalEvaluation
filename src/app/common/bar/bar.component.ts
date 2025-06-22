@@ -62,6 +62,12 @@ export class BarComponent {
 
     usuario: Usuario = new Usuario();
 
+    imageUsuario: string = '';
+    tieneImagen: boolean = false;
+    color: string = '';
+    iniciales: string = '';
+
+
     foto: any;
 
     constructor(
@@ -78,12 +84,26 @@ export class BarComponent {
             .obtenerUsuarioPorUsuario(localStorage.getItem('usuario'))
             .then(u => {
                 this.usuariosService
-                    .obtenerUsuarioPorId(u.idUsuario)
+                    .obtenerUsuarioPorIdObj(u.idUsuario)
                     .then(u => {
                         this.usuario = u;
                         /*this.usuario.rol.forEach(rol => {
                             rol.descripcion = rol.descripcion.toUpperCase();
                         });*/
+
+                        if(this.usuario.image != null){
+                            this.imageUsuario = this.usuario.image;
+                            //this.imageUsuario = 'http://ec2-54-215-12-132.us-west-1.compute.amazonaws.com:8080/fileSystem/2025/3628/0833baa3-8f9a-4898-9d25-154d939eb69a.png';
+                            this.tieneImagen = true;
+                        }else{
+                            this.tieneImagen = false;
+                            this.iniciales = this.usuario.iniciales;
+                            this.color = this.usuario.color;
+                            this.imageUsuario = this.baseHref+'assets/img/portrait-demo.png';
+                            
+                        }
+
+                        console.log("iu:"+this.imageUsuario);
 
                         let items = [
                             ADMIN_GENERAL_ITEMS,

@@ -30,13 +30,11 @@ export class SolicitudesService {
     );
   }
 
-  obtenerSolicitudesUsuario(fechai: string, fechaf: string, ordenarPor: string, orden: string, idUsuario: number,campo: string, valor: string,myFiles: boolean,closed: boolean): Promise<SolicitudList[]> {
+  obtenerSolicitudesUsuario(fechai: string, fechaf: string, ordenarPor: string, orden: string, idUsuario: number,campo: string, valor: string,myFiles: boolean,closed: string,primeraVez: boolean): Promise<SolicitudList[]> {
 
     let queryParams: string = "";
-    queryParams = "fechai=" + fechai + "&fechaf=" + fechaf + "&ordenarPor=" + ordenarPor + "&orden=" + orden + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles + "&cerradas=" + closed;
+    queryParams = "fechai=" + fechai + "&fechaf=" + fechaf + "&ordenarPor=" + ordenarPor + "&orden=" + orden + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles + "&cerradas=" + closed +'&primeraVez='+primeraVez;
  
-
-
     return new Promise<SolicitudList[]>((resolve, reject) =>
       this.http
         .get(API_URL + "solicitudes/solicitudes-de-usuario/" + idUsuario + "?" + queryParams, {
@@ -90,16 +88,10 @@ export class SolicitudesService {
     );
   }
 
-  obtenerReporteSolicitudesFilters(idUsuario: number, campo: string, valor: string, fecha1: string, fecha2: string, myFiles: boolean): Promise<SolicitudList[]> {
-    let queryParams: string = "";
-    if (campo == "All" || campo == "File" || campo == "Customer" || campo == "Phone" || campo == "Email" || campo == "File Status" || campo == "Payment Status" || campo == "Responsible User" || campo == "Waiver") {
-      queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles;
-    } else if (campo == "Date") {
-      queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&fecha1=" + fecha1 + "&fecha2=" + fecha2 + "&myFiles=" + myFiles;
-    }
-    return new Promise<SolicitudList[]>((resolve, reject) =>
+  obtenerTextosOrdenarPor(idUsuario: number): Promise<string[]> {
+    return new Promise<string[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "solicitudes/reporte-solicitudes-filters?" + queryParams, {
+        .get(API_URL + "solicitudes/obtener-textos-ordenar-por/" + idUsuario, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
@@ -108,16 +100,16 @@ export class SolicitudesService {
         })
         .toPromise()
         .then((response) => {
-          resolve(response.body as SolicitudList[]);
+          resolve(response.body as string[]);
         })
         .catch((reason) => reject(reason))
     );
   }
 
-  obtenerTextosOrdenarPor(idUsuario: number): Promise<string[]> {
+  obtenerTextosTipoParaFiltros(idUsuario: number): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "solicitudes/obtener-textos-ordenar-por/" + idUsuario, {
+        .get(API_URL + "solicitudes/obtener-textos-tipo-para-filtro/" + idUsuario, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
@@ -174,10 +166,17 @@ export class SolicitudesService {
     );
   }
 
-  actualizarSolicitud(solicitud: Solicitud): Promise<any> {
+  actualizarSolicitud(solicitud: Solicitud,cerrado: boolean,idUsuario: number): Promise<any> {
+    console.log('s:'+cerrado);
+    let c = '';
+    if(cerrado){
+     c = "?estatus=cerrado&idUsuario="+idUsuario;
+    }else{
+      c = "?idUsuario="+idUsuario;
+    }
     return new Promise<any>((resolve, reject) =>
       this.http
-        .put(API_URL + "solicitudes", solicitud, {
+        .put(API_URL + "solicitudes"+c, solicitud, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
@@ -248,10 +247,46 @@ export class SolicitudesService {
     );
   }
 
+  envioFinEntrevistaClinician(idSolicitud: number,  idUsuario: number): Promise<any> {
+    return new Promise<any>((resolve, reject) =>
+      this.http
+        .put(API_URL + "solicitudes/envio-fin-entrevista-clinician/" + idSolicitud + "?idUsuarioCambio=" + idUsuario , {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
   reasignarSolicitud(idSolicitud: number, idUsuarioEnvio: number, idUsuarioSeleccionado: number, motivo: string, esRechazo: boolean = false): Promise<any> {
     return new Promise<any>((resolve, reject) =>
       this.http
         .put(API_URL + "solicitudes/reasignar/" + idSolicitud + "/" + idUsuarioSeleccionado + "?idUsuarioEnvio=" + idUsuarioEnvio + (esRechazo ? "&motivo=" + motivo : ""), {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
+  cancelTemplate(idSolicitud: number, idUsuarioEnvio: number, idUsuarioSeleccionado: number, motivo: string): Promise<any> {
+    return new Promise<any>((resolve, reject) =>
+      this.http
+        .put(API_URL + "solicitudes/cancel-template/" + idSolicitud + "/" + idUsuarioSeleccionado + "?idUsuarioEnvio=" + idUsuarioEnvio + "&motivo=" + motivo , {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

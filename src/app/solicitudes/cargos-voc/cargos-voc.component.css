@@ -19,3 +19,7 @@
 .flex {
   display: flex;
 }
+
+.pagado{
+  color: #117a65;font-style: oblique;
+}

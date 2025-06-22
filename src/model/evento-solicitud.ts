@@ -8,4 +8,5 @@ export class EventoSolicitud {
     usuario: string;
     hora: string;
     tipoSchedule: string;
+    timeZone: string;
   }

@@ -8,5 +8,6 @@ export class CargoVoc {
   idCita: number;
   idFile: number;
   pagado: boolean;
-  telefono: string
+  telefono: string;
+  terapeuta: string;
 }

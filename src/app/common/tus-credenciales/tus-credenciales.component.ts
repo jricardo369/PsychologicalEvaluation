@@ -17,6 +17,9 @@ export class TusCredencialesComponent {
 
   cambiandoContrasena: boolean = false;
   cambiandoCorreo: boolean = false;
+  cambiandoImage: boolean = false;
+
+  public file: File[] = [];
 
   password: string = "";
   confirmPassword: string = "";
@@ -90,4 +93,32 @@ export class TusCredencialesComponent {
         }
       });
   }
+
+  onFileSelected(files: FileList) {
+    // this.file[0] = files.length && files.item(0).type.startsWith('image/') ? files.item(0) : null;
+    for (let i = 0; i < files.length; i++) {
+      this.file.push(files.item(i));
+    }
+  }
+
+  quitarAdjunto(archivo: File) {
+    let start = this.file.findIndex(f => f == archivo);
+    this.file.splice(start, 1);
+  }
+
+  cargarAdjunto() {
+   let promises = [];
+    this.file.forEach(f => promises.push(this.usuariosService.actualizarImagen(f,this.usuario.idUsuario)));
+
+    this.cargando = true;
+    Promise
+      .all(promises)
+      .then(results => {
+        console.log(results);
+        this.file = [];
+        this.cambiandoImage = false;
+      }).catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
+
 }

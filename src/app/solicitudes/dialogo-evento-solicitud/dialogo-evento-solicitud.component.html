@@ -3,10 +3,7 @@
 <mat-dialog-content style="padding-right: 12px;">
 
     <div style="width: 450px;">
-        <div class="iigwo-input">
-            <label>Comments</label>
-            <textarea [(ngModel)]="eventoSolicitud.descripcion"></textarea>
-        </div>
+        
 
         <div style="display: flex;">
 
@@ -17,34 +14,59 @@
                     <option value="Schedule">Schedule</option>
                     <option value="Important">Important</option>
                     <option value="Suicide">Suicide</option>
-                    <option value="Amanda Interview">Amanda Interview</option>
+                    <option *ngIf="rol == '11' || rol == '5'" value="Interview review">Interview review</option>
                 </select>
             </div>
-
-            <!-- <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
-                <label>Date and Time</label>
-                <input type="datetime-local" [(ngModel)]="eventoSolicitud.fecha">
-            </div> -->
-
-            <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
-              <label>Date</label>
-              <input type="date" [(ngModel)]="eventoSolicitud.fecha">
-            </div>
-            <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
-              <label>Time</label>
-              <select [(ngModel)]="eventoSolicitud.hora" style="min-width: 74px;">
-                <option *ngFor="let time of arrTime" [ngValue]="time">
-                  {{time}}</option>
-              </select>
-            </div>
-            <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
-              <label>Type</label>
-              <select [(ngModel)]="eventoSolicitud.tipoSchedule" style="min-width: 60px;">
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
-              </select>
-            </div>
+           
         </div>
+
+        <div class="iigwo-input" *ngIf="eventoSolicitud.tipo != 'Interview review'">
+          <label>Comments</label>
+          <textarea [(ngModel)]="eventoSolicitud.descripcion"></textarea>
+      </div>
+
+        <div style="display: flex;">
+
+          
+
+          <!-- <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
+              <label>Date and Time</label>
+              <input type="datetime-local" [(ngModel)]="eventoSolicitud.fecha">
+          </div> -->
+
+          <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule' || eventoSolicitud.tipo == 'Interview review'">
+            <label>Date</label>
+            <input type="date" [(ngModel)]="eventoSolicitud.fecha">
+          </div>
+          <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule' || eventoSolicitud.tipo == 'Interview review'">
+            <label>Time</label>
+            <select [(ngModel)]="eventoSolicitud.hora" style="min-width: 74px;">
+              <option *ngFor="let time of arrTime" [ngValue]="time">
+                {{time}}</option>
+            </select>
+          </div>
+          <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule' || eventoSolicitud.tipo == 'Interview review'">
+            <label>Type</label>
+            <select [(ngModel)]="eventoSolicitud.tipoSchedule" style="min-width: 60px;">
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+
+          <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule' || eventoSolicitud.tipo == 'Interview review'">
+            <label>Time zone</label>
+            <select [(ngModel)]="eventoSolicitud.timeZone" style="min-width: 60px;">
+              <option value="PST">PST</option>
+              <option value="EST">EST</option>
+              <option value="CST">CST</option>
+              <option value="MST">MST</option>
+              <option value="AKST">AKST</option>
+              <option value="HAST">HAST</option>
+            </select>
+          </div>
+      </div>
+
+
     </div>
 </mat-dialog-content>
 

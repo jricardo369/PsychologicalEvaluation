@@ -15,7 +15,8 @@ td {
 }
 
 .paid{
-  color: #41949B;
+  color: #117a65;
   text-align: right;
   font-weight: bold;
+  font-style: oblique;
 }

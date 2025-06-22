@@ -42,4 +42,8 @@ export class SolicitudVoc {
   apellidosSinNull: string;
   code: string;
   nombreTerapeuta: string;
+  sexo: string;
+  purposeTreatament: string;
+  participation: string;
+  recommendations: string;
 }

@@ -5,24 +5,33 @@
   <div class='main'>
 
     <app-experimental-menu titulo="Files">
+      
 
-      <button (click)='crearSolicitud()'
+      <!--<button (click)='crearSolicitud()'
         style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="add-box"></mat-icon>
         <label>Create File</label>
-      </button>
+      </button>-->
 
-      <button (click)='refrescar()'
-        style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
-        <mat-icon svgIcon="refresh"></mat-icon>
-        <label>Refresh</label>
-      </button>
+      <button (click)='crearSolicitud()' class="btn"
+            style="color: #FFFFFF;background: #239B56; border-radius: 5px; height: 20px; line-height: 20px;">
+            <mat-icon svgIcon="add-box" style="color:rgba(255, 255, 255, 0.7); width: 15px; height: 15px;margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+            <label style="margin: auto;color: #FFFFFF;text-transform: none;">Create File</label>
+          </button>
 
-      <button (click)='showClosedRequests()'
-        style="color: #681C69;background: #E9E9E9;border-radius: 5px; height: 28px; line-height: 28px;">
-        <mat-icon svgIcon="closed"></mat-icon>
-        <label>Show Closed Files</label>
-      </button>
+      <!--<div class="iigwo-input" style="margin: 0;" >
+        <label for="closed"
+          style="display: inline-block;line-height: 24px;margin-right: 5px;font-size: 12px;">Closed</label>
+        <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
+          id="closed" [checked]="filterClosed" (change)="filterClosed = !filterClosed">
+      </div>-->
+
+      <div class="iigwo-input" style="margin-bottom: 0px; ">
+        <select [(ngModel)]="filterClosed" [ngModelOptions]="{standalone: true}" style="font-size: 12px;height: 20px;">
+          <option *ngFor="let e of arrFilterClosed" [ngValue]="e">
+            {{e}}</option>
+        </select>
+      </div>
 
     </app-experimental-menu>
 
@@ -30,21 +39,29 @@
 
       <!-- FILTRO -->
       <div class="container" style="margin-bottom: 20px;">
-        <div class="right">
-          <div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">
+        <div class="left">
+          <div style="display: flex; align-items: center;">
+          <!--<div style="display: flex; align-items: center; justify-content: flex-end; min-width: 228px;">-->
+            <div class="iigwo-input">
+              <label>Start Date</label>
+              <input type="date" [(ngModel)]="filterInputDate1" >
+            </div>
+            <div class="iigwo-input">
+              <label>End Date</label>
+              <input type="date" [(ngModel)]="filterInputDate2" >
+            </div>
             <div class="iigwo-input">
               <label>Type</label>
-              <select [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;"
-                (change)="clearInputs()">
+              <select [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
                 <option *ngFor="let e of arrFilterTypes" [ngValue]="e">
                   {{e}}</option>
               </select>
             </div>
-            <div class="iigwo-input" style="text-align: center;">
+            <!--<div class="iigwo-input" style="text-align: center;">
               <label for="myFiles" style="font-size: 12px;">My Files</label>
               <input type="checkbox" style="width: 15px;line-height: 18px;margin: 0 6px 0 4px;" id="myFiles"
                 [checked]="filterMyFiles" (change)="filterMyFiles = !filterMyFiles">
-            </div>
+            </div>-->
             <div class="iigwo-input"
               *ngIf="filterType == 'All' || filterType == 'File' || filterType == 'Customer' || filterType == 'Case number' ||  filterType == 'Email' ">
               <label>Value</label>
@@ -74,16 +91,18 @@
                   {{e.descripcion}}</option>
               </select>
             </div>
-            <div class="iigwo-input" *ngIf="filterType == 'Has document 2'">
-              <label>Waiver</label>
+            <div class="iigwo-input" *ngIf="filterType == 'Treatment plan'">
+              <label>Has treatment plan</label>
               <select [(ngModel)]="filterInputText" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
                 <option *ngFor="let e of arrFilterWaiver" [ngValue]="e.value">
                   {{e.display}}</option>
               </select>
             </div>
-            <button class="accent iigwo small" style="margin-bottom: -6px;"
-              [disabled]="filterInputText == '' || (filterInputDate1 == '' && filterInputDate2 == '')"
+            <button class="accent iigwo small" style="margin-top: 12px;"
+             
               (click)="explorar()">Explore</button>
+              <button class="iigwo" style="margin-top: 12px" (click)='limpiarFechas()'>Clear dates</button>
+              
           </div>
         </div>
       </div>
@@ -109,7 +128,7 @@
             <th class=''>Schedules</th>
             <th class=''>Pending Sessions</th>
             <th class=''>Email</th>
-            <th class='' *ngIf="(isVOC)">Has document 2</th>
+            <th class='' *ngIf="(isVOC)">Treatment plan</th>
             <th class='' *ngIf="!(isTherapist)">Payment Status</th>
             <th class=''>File Status</th>
           </tr>
@@ -130,7 +149,7 @@
               'badge-color-2': (e.sesionesPendientes > 5 && e.sesionesPendientes <= 15)}">{{e.sesionesPendientes}}</span></td>
             <td class='accent'>{{e.email}}</td>
             <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="(isVOC)">
-              <mat-icon svgIcon="done" *ngIf="e.documento2"></mat-icon>
+              <mat-icon svgIcon="done" *ngIf="e.documento2" class="my-icon-pequenio"></mat-icon>
             </td>
             <td style="text-align: center;" *ngIf="!(isTherapist)"><span class="badge-status" style="margin: 0;"
                 [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,

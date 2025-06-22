@@ -1,6 +1,6 @@
-import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader,HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, CLINICIAN, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC, } from 'src/app/app.config';
 import { EstatusPagoService } from 'src/app/services/estatus-pago.service';
 import { EstatusSolicitudService } from 'src/app/services/estatus-solicitud.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
@@ -41,8 +41,10 @@ export class SolicitudesComponent implements OnInit {
   isTemplateCreator: boolean = false;
   isInterviewerScales: boolean = false;
   isGhostwriting: boolean = false;
+  isClinician: boolean = false;
 
-  arrFilterTypes: any[] = ["All", "File", "Customer", "Phone", "Email", "File Status", "Payment Status", "Responsible User", "Waiver"];
+  //arrFilterTypes: any[] = ["All", "File", "Customer", "Phone", "Email", "File Status", "Payment Status", "Responsible User", "Waiver"];
+
   arrFilterFileStatus: EstatusSolicitud[] = [{
     "idEstatusSolicitud": 0,
     "descripcion": "All"
@@ -63,7 +65,6 @@ export class SolicitudesComponent implements OnInit {
   }];
   filterType: string = "All";
   filterMyFiles: boolean = true;
-  filterClosed: boolean = true;
   filterInputText: string = "";
   filterInputDate1: string = "";
   filterInputDate2: string = "";
@@ -72,11 +73,14 @@ export class SolicitudesComponent implements OnInit {
   filterEndDate: string;
   filterSortBy: string = '';
   filterOrder: string = '';
+  filterClosedS: string = '';
 
   filtros: string = '';
 
+  arrFilterTypes: string[] = [];
   arrFilterSortBy: string[] = [];
   arrFilterOrder: string[] = ['ASC','DESC'];
+  arrFilterClosed: string[] = ['OPEN','CLOSED'];
 
   filtrosObj: Filtros = new Filtros;
 
@@ -98,13 +102,20 @@ export class SolicitudesComponent implements OnInit {
     this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+    this.isClinician = this.usuario.rol == CLINICIAN ? true : false;
 
     var today = new Date().toISOString();
     this.filterEndDate = today.split('T', 1)[0];
-    this.filterClosed = false;
+    this.filterClosedS = 'OPEN';
 
     var date = new Date();
-    date.setMonth(date.getMonth() - 1);
+    if(this.isTemplateCreator){
+      date.setMonth(date.getMonth() - 8);
+    }else{
+      date.setMonth(date.getMonth() - 1);
+    }
+    
+
     date.setDate(1);
     this.filterStartDate = ((date.toISOString()).split('T', 1))[0];
 
@@ -112,17 +123,32 @@ export class SolicitudesComponent implements OnInit {
     this.obtenerEstatusPagos();
     //this.clearInputs();
     this.obtenerTextosOrdenarPor();
+    this.obtenerTextosTipoParaFiltros();
    
    
   }
 
-  ngOnInit(): void {
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.explorar();
+    }
+  }
 
+  ngOnInit(): void {
 
     var today = new Date().toISOString();
     var date = new Date();
-    date.setMonth(date.getMonth() - 1);
+    if(this.isBackOffice && this.usuario.revisor){
+      date.setMonth(date.getMonth() - 6);
+    }else if(this.isTemplateCreator){
+      date.setMonth(date.getMonth() - 8);
+    }else{
+      date.setMonth(date.getMonth() - 1);
+    }
     date.setDate(1);
+
+    this.filterClosedS = 'OPEN';
 
      //localStorage.setItem('filtros','');
      console.log('f:' + localStorage.getItem('filtros'));
@@ -142,43 +168,50 @@ export class SolicitudesComponent implements OnInit {
            this.filterType = this.filtrosObj.campo;
            this.filterInputText = this.filtrosObj.valor;
            this.filterMyFiles = this.filtrosObj.myfiles;
-           this.filterClosed = this.filtrosObj.closed;
+           console.log('f:'+this.filtrosObj.closed);
+           
+           this.filterClosedS = this.filtrosObj.closed;
  
          }
        }
- 
+       console.log(this.filterClosedS);
        if (localStorage.getItem('backSolicitud') === '1') {
          localStorage.setItem('backSolicitud', '');
-         this.filterType = 'All';
+         this.explorar();
+         console.log('explorar');
+         //this.filterType = 'All';
+        
        } else {
          this.limpiarFiltros();
          localStorage.setItem('filtros', '');
          this.filterEndDate = today.split('T', 1)[0];
          this.filterStartDate = ((date.toISOString()).split('T', 1))[0];
-         this.filterClosed = false;
-         this.filterType = 'All';
+         this.filterClosedS = 'OPEN';
+         this.filterType = 'File';
+         console.log('refrescar');
+         this.refrescar();
        }
      } else {
        localStorage.setItem('backSolicitud', '');
        this.filterEndDate = today.split('T', 1)[0];
        this.filterStartDate = ((date.toISOString()).split('T', 1))[0];
-       this.filterClosed = false;
-       this.filterType = 'All';
- 
- 
+       this.filterClosedS = 'OPEN';
+       this.filterType = 'File';
+       console.log('refrescar');
+       this.refrescar();
      }
-
-    this.refrescar();
+     
     //console.log('list:'+this.route.snapshot.paramMap.get('valor'));
-
-    
+    console.log(this.filterClosedS);
     
   }
+
+  
 
   obtenerEstatusSolicitudes() {
     this.cargando = true;
     this.estatusSolicitudService
-      .obtenerEstatusSolicitudes()
+      .obtenerEstatusSolicitudesDeUsuario(this.usuario.idUsuario)
       .then(estatusSolicitudes => {
         this.arrFilterFileStatus = estatusSolicitudes;
         this.arrFilterFileStatus = [{
@@ -202,6 +235,17 @@ export class SolicitudesComponent implements OnInit {
       .then(() => this.cargando = false)
   }
 
+  obtenerTextosTipoParaFiltros() {
+    this.cargando = true;
+    this.solicitudesService
+      .obtenerTextosTipoParaFiltros(this.usuario.idUsuario)
+      .then(textos => {
+        this.arrFilterTypes = textos;
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false)
+  }
+
   obtenerEstatusPagos() {
     this.cargando = true;
     this.estatusPagoService
@@ -218,10 +262,15 @@ export class SolicitudesComponent implements OnInit {
       .then(() => this.cargando = false)
   }
 
+  botonRefrescar(){
+    this.limpiarFiltros();
+    this.refrescar()
+  }
+
   refrescar() {
     this.cargando = true;
     this.solicitudesService
-      .obtenerSolicitudesUsuario(this.filterStartDate, this.filterEndDate, this.filterSortBy, this.filterOrder, this.usuario.idUsuario,this.filterType, this.filterInputText, this.filterMyFiles, this.filterClosed)
+      .obtenerSolicitudesUsuario(this.filterStartDate, this.filterEndDate, this.filterSortBy, this.filterOrder, this.usuario.idUsuario,this.filterType, this.filterInputText, this.filterMyFiles, this.filterClosedS,true)
       .then(solicitudes => {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
@@ -272,10 +321,11 @@ export class SolicitudesComponent implements OnInit {
   }
 
   explorar() {
+    console.log(this.filterClosedS);
     this.cargando = true;
     this.solicitudesService
       //.obtenerReporteSolicitudesFilters(this.usuario.idUsuario, this.filterType, this.filterInputText, this.filterInputDate1, this.filterInputDate2, this.filterMyFiles)
-      .obtenerSolicitudesUsuario(this.filterStartDate, this.filterEndDate, this.filterSortBy, this.filterOrder, this.usuario.idUsuario,this.filterType, this.filterInputText, this.filterMyFiles, this.filterClosed)
+      .obtenerSolicitudesUsuario(this.filterStartDate, this.filterEndDate, this.filterSortBy, this.filterOrder, this.usuario.idUsuario,this.filterType, this.filterInputText, this.filterMyFiles, this.filterClosedS,false)
       .then(solicitudes => {
         this.solicitudesSinFiltrar = solicitudes;
         this.solicitudes = this.solicitudesSinFiltrar.filter(e => true);
@@ -288,8 +338,8 @@ export class SolicitudesComponent implements OnInit {
 
   setearFiltros(){
     //this.filtros = this.filterStartDate +","+ this.filterEndDate +","+  this.filterSortBy+","+  this.filterOrder+","+  this.usuario.idUsuario+","+ this.filterType+","+  this.filterInputText+","+  this.filterMyFiles;
-    this.filtros = "{ \"fechainicio\": \""+this.filterStartDate+"\", \"fechafin\": \""+this.filterEndDate+"\" , \"sort\": \""+this.filterSortBy+"\" , \"order\": \""+this.filterOrder+"\" , \"campo\": \""+this.filterType+"\" , \"valor\": \""+this.filterInputText+"\" , \"myfiles\": \""+this.filterMyFiles+"\", \"closed\": \""+this.filterClosed
-    +"\"}";     
+    console.log('filtros closed:'+this.filterClosedS);
+    this.filtros = "{ \"fechainicio\": \""+this.filterStartDate+"\", \"fechafin\": \""+this.filterEndDate+"\" , \"sort\": \""+this.filterSortBy+"\" , \"order\": \""+this.filterOrder+"\" , \"campo\": \""+this.filterType+"\" , \"valor\": \""+this.filterInputText+"\" , \"myfiles\": \""+this.filterMyFiles+"\", \"closed\": \""+this.filterClosedS+"\"}";     
     console.log('filtros a guardar:'+this.filtros);
     localStorage.setItem('filtros', this.filtros);
   }
@@ -299,10 +349,12 @@ export class SolicitudesComponent implements OnInit {
       this.filterInputText = "";
       this.filterInputDate1 = "none";
       this.filterInputDate2 = "none";
+      this.filterClosedS = 'OPEN';
     } else if (this.filterType == "Date") {
       this.filterInputText = "none";
       this.filterInputDate1 = "";
       this.filterInputDate2 = "";
+      this.filterClosedS = 'OPEN';
     }
   }
 
@@ -310,10 +362,10 @@ export class SolicitudesComponent implements OnInit {
       this.filterInputText = "";
       this.filterInputDate1 = "";
       this.filterInputDate2 = "";
-      this.filterType = "";
+      this.filterType = 'File';
       this.filterSortBy = "";
       this.filterOrder = "";
-    
+      this.filterClosedS = 'OPEN';
   }
   limpiarFiltrosSinFecha() {
     this.filterInputText = "";

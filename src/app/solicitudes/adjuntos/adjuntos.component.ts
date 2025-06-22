@@ -6,6 +6,8 @@ import { Adjunto } from 'src/model/adjunto';
 import { SolicitudComponent } from '../solicitud/solicitud.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
+import { Usuario } from 'src/model/usuario';
+import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
 
 @Component({
   selector: 'app-adjuntos',
@@ -23,17 +25,70 @@ export class AdjuntosComponent implements OnInit {
 
   cargando: boolean = false;
 
+  usuario: Usuario = new Usuario();
+
+  isAdministrator: boolean = false;
+  isMaster: boolean = false;
+  isVendor: boolean = false;
+  isBackOffice: boolean = false;
+  isInterviewer: boolean = false;
+  isVOC: boolean = false;
+  isTemplateCreator: boolean = false;
+  isInterviewerScales: boolean = false;
+  isGhostwriting: boolean = false;
+  isTherapist: boolean = false;
+
+  puedeVerlo: boolean = true;
+
   public file: File[] = [];
 
   constructor(private adjuntosService: AdjuntosService, private utilService: UtilService,
     private dialog: MatDialog,
     @Optional() public parent: SolicitudComponent) {
+
+    this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
+    this.isAdministrator = this.usuario.rol == ADMINISTRATOR ? true : false;
+    this.isMaster = this.usuario.rol == MASTER ? true : false;
+    this.isVendor = this.usuario.rol == VENDOR ? true : false;
+    this.isBackOffice = this.usuario.rol == BACKOFFICE ? true : false;
+    this.isInterviewer = this.usuario.rol == INTERVIEWER ? true : false;
+    this.isVOC = this.usuario.rol == VOC ? true : false;
+    this.isTemplateCreator = this.usuario.rol == TEMPLATE_CREATOR ? true : false;
+    this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
+    this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
+
     this.mostrarAdjuntos = true;
   }
 
   ngOnInit(): void {
+
+   
+
     this.refresh();
     this.mostrarAdjuntos = true;
+    console.log('idusuario:------' + this.idUsuario);
+  }
+
+  mostrarContenido(idUsuarioCargo: number) {
+
+   
+
+    if (idUsuarioCargo != 0) {
+      if (this.isInterviewer) {
+        if (this.idUsuario != idUsuarioCargo) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+
+     
+
   }
 
 

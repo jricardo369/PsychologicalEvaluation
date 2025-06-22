@@ -1,13 +1,23 @@
+
 <div *ngIf="mostrarEventos" style="
                 overflow-y: auto;">
 
+<div *ngIf="verEventos">
     <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div class="div-img-label" >
+        <img style="margin-top: 2px;" width="15px" height="15px" src="assets/svg/listD.svg">
         <h4>Events</h4>
-        <button (click)='crearEvento()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
+      </div>
+       <!-- <button (click)='crearEvento()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
             style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
             <mat-icon svgIcon="add"></mat-icon>
             <label>Add Event</label>
-        </button>
+        </button>-->
+        <button *ngIf="idEstatusSolicitud != 11" (click)='crearEvento()' class="btn"
+        style="color: #FFFFFF;background: #239B56; border-radius: 5px; height: 20px; line-height: 20px;margin-left: 10px;">
+        <mat-icon svgIcon="add" style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">Add Event</label>
+      </button>
     </div>
 
     <table class="informative" *ngIf="arrEventoSolicitud.length > 0">
@@ -55,7 +65,15 @@
           </td>
         </tr>
     </table>
+  </div>
 </div>
+
+<br>
+<p>
+  <span *ngIf="!verEventos" style="font-size: 14px;">The file has events. </span>
+  <span *ngIf="!verEventos" (click)="verEventos=true;refresh()" class="link" style="font-size: 14px;">Show events</span>
+  <span *ngIf="verEventos" (click)="verEventos=false" class="link" style="font-size: 14px;">Hide events</span>
+</p>
 
 <!--Cargando-->
 <div class='iigwo-loading' *ngIf="cargando">

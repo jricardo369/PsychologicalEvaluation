@@ -18,6 +18,7 @@ export class EventosSolicitudVocComponent implements OnInit {
   @Input() idEstatusSolicitud: number;
 
   mostrarEventos: boolean = true;
+  verEventos: boolean = true;
   arrEventoSolicitud: EventoSolicitud[] = [];
   paginacion: PaginationManager = new PaginationManager();
 
@@ -30,11 +31,13 @@ export class EventosSolicitudVocComponent implements OnInit {
       private dialog: MatDialog) {
       this.mostrarEventos = true;
       this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
+      this.verEventos = false;
   }
 
   ngOnInit(): void {
       this.refresh();
       this.mostrarEventos = true;
+      this.verEventos = false;
   }
 
 

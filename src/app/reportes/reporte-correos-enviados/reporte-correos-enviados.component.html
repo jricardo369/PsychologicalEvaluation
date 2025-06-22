@@ -4,13 +4,25 @@
 <div class='workspace'>
   <div class='main'>
 
-    <app-experimental-menu titulo="Sent Emails">
+    <app-experimental-menu titulo="Law Firm Files">
 
-      <button (click)='obtenerCorreosEnviados()'
+      <!--<button (click)='obtenerCorreosEnviados()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="refresh"></mat-icon>
         <label>Refresh</label>
-      </button>
+      </button>-->
+
+      <button (click)='obtenerCorreosEnviados()' class="btn"
+      style="color: #FFFFFF;background: #f3c956; border-radius: 5px; height: 20px; line-height: 20px;">
+      <mat-icon svgIcon="refresh" style="color:rgba(255, 255, 255, 0.7); width: 15px; height: 15px;margin-bottom: 0px;margin-right: 5px;"></mat-icon>
+      <label style="margin: auto;color: #FFFFFF;text-transform: none;">Refresh</label>
+    </button>
+
+    <button (click)='descargarExcel()' class="btn"
+      style="color: #FFFFFF;background: #b2de93; border-radius: 5px; height: 20px; line-height: 20px;">
+      <mat-icon svgIcon="excelD" style="color:rgba(255, 255, 255, 0.7); width: 13px; height: 13px;margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+      <label style="margin: auto;color: #FFFFFF;text-transform: none;">Download Data</label>
+    </button>
 
     </app-experimental-menu>
 
@@ -33,12 +45,15 @@
 
       <table class="informative">
         <tr>
-          <th>Lawyer</th>
-          <th>Number of Emails</th>
+          <th>Law Firm</th>
+          <th>Number of files</th>
         </tr>
         <tr *ngFor='let e of arrReporteCorreosEnviados | slice:paginacion.begin:paginacion.end'>
           <td class='accent'>{{e.nombre}}</td>
-          <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.numero == 0,
+          <td (click)="verSolicitudesLawyer(e.nombre)" style="text-align: center;"><span class="badge-status" style="margin: 0;cursor: pointer;
+            * {
+                cursor: pointer;
+            }" [ngClass]="{'badge-color-0': e.numero == 0,
             'badge-color-1': e.numero >= 1}">{{e.numero}}</span></td>
         </tr>
         <tr>
@@ -47,9 +62,9 @@
               Records per page</label>
             <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
               style="margin: 0 8px; font-family: regular; height: 24px;">
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="45">45</option>
               <option value="100">100</option>
             </select>
             {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}

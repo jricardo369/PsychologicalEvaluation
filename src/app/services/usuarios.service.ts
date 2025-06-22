@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Usuario } from "../../model/usuario";
+import { Rol } from "../../model/rol";
 import { API_URL } from "../app.config";
 
 @Injectable({
@@ -33,6 +34,24 @@ export class UsuariosService {
     return new Promise<Usuario[]>((resolve, reject) =>
       this.http
         .get(API_URL + "usuarios/por-rol/" + rol + (revisor > 0 ? "?revisor=" + revisor : ""), {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as Usuario[]);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
+  obtenerUsuariosAssignedClinician(): Promise<Usuario[]> {
+    return new Promise<Usuario[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "usuarios/assigned-clinicians", {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
@@ -111,6 +130,25 @@ export class UsuariosService {
     return this.usuarioPromise;
   }
 
+  obtenerUsuarioPorIdObj(idUsuario: number): Promise<Usuario> {
+    this.usuarioPromise = new Promise((resolve, reject) =>
+      this.http
+        .get(API_URL + "usuarios/usuario-obj/" + idUsuario, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as Usuario);
+        })
+        .catch((reason) => reject(reason))
+    );
+    return this.usuarioPromise;
+  }
+
   insertarUsuario(usuario: Usuario): Promise<Usuario> {
     this.usuarioPromise = new Promise((resolve, reject) =>
       this.http
@@ -167,4 +205,47 @@ export class UsuariosService {
     );
     return this.usuarioPromise;
   }
+
+  actualizarImagen(archivo: File,idUsuario: number) {
+    let formData = new FormData();
+    formData.append('archivo', archivo);
+
+    let params = new HttpParams();
+    params = params.set("idUsuario", idUsuario.toString());
+
+    return new Promise((resolve, reject) => this.http
+        .post(API_URL + 'usuarios/actualizar-imagen/' + idUsuario, formData,
+            {
+                params: params,
+                withCredentials: true,
+                observe: 'response',
+                headers: new HttpHeaders().append('Authorization', localStorage.getItem('auth_token'))
+            })
+        .toPromise()
+        .then(response => {
+            console.log(response);
+            resolve(response.body);
+        })
+        .catch(reason => reject(reason))
+    );
+  }
+
+  obtenerRoles(): Promise<Rol[]> {
+    return new Promise<Rol[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "usuarios/roles", {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as Rol[]);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
 }

@@ -19,21 +19,34 @@ export class CargosVocComponent implements OnInit {
   usuario: Usuario = new Usuario;
   paginacion: PaginationManager = new PaginationManager();
 
-  filterInputText: string = "";
+ 
   filterInputDate1: string = "";
   filterInputDate2: string = "";
+  arrFilterType: string[] = ['All','Unpaid','Paid'];
+  arrFilterTypeF: string[] = ['All','Case number','Customer','Phone','Email'];
+  filterType: string = "";
+  filterTypeF: string = "";
+  filterInputText: string = "";
 
   constructor(
     private citaSolicitudService: CitaSolicitudService,
     private dialog: MatDialog,
     public utilService: UtilService
   ) {
+
+    var date = new Date();
+
     this.usuario = JSON.parse(localStorage.getItem('objUsuario'));
     let hoy: Date = new Date(Date.now());
-    let primerDiadelMes: Date = new Date(Date.now());
+    //let primerDiadelMes: Date = new Date(Date.now());
+    let primerDiadelMes: Date =  new Date();
+    primerDiadelMes.setMonth(date.getMonth() - 8);
     primerDiadelMes.setDate(1);
+
     this.filterInputDate1 = this.utilService.dateAsYYYYMMDD(primerDiadelMes);
     this.filterInputDate2 = this.utilService.dateAsYYYYMMDD(hoy);
+    this.filterType = 'Unpaid';
+    this.filterTypeF = 'All';
   }
 
   ngOnInit(): void {
@@ -43,7 +56,7 @@ export class CargosVocComponent implements OnInit {
   refrescar() {
     this.cargando = true;
     this.citaSolicitudService
-      .obtenerCargosPendientes(this.filterInputDate1, this.filterInputDate2, this.filterInputText, this.usuario.idUsuario)
+      .obtenerCargosPendientes(this.filterInputDate1, this.filterInputDate2, this.filterInputText, this.usuario.idUsuario,this.filterTypeF,this.filterInputText,this.filterType)
       .then(cargos => {
         this.arrCargos = cargos;
         this.paginacion.setArray(this.arrCargos,20);
@@ -51,6 +64,11 @@ export class CargosVocComponent implements OnInit {
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
   }
+
+  limpiarFechas() {
+    this.filterInputDate1 = "";
+    this.filterInputDate2 = "";  
+}
 
   pagado(cargo: CargoVoc) {
     this.dialog.open(DialogoSimpleComponent, {
@@ -76,4 +94,23 @@ export class CargosVocComponent implements OnInit {
       }
     }).catch(reason => this.utilService.manejarError(reason));
   }
+
+  descargarExcel(){
+    this.cargando = true;
+    this.citaSolicitudService.obtenerCargosPendientesExcel(this.filterInputDate1, this.filterInputDate2, this.filterInputText, this.usuario.idUsuario,this.filterTypeF,this.filterInputText,this.filterType) 
+      .subscribe(
+        data =>{
+          const file = new Blob([data], {type: 'application/vnd.ms-excel'});
+          var fileUrl = URL.createObjectURL(file);
+          let link: any = window.document.createElement('a');
+          link.href = fileUrl;
+          let aux = fileUrl.split('/');
+          link.download = aux[aux.length -1]+".xlsx";
+          link.click();
+          this.cargando = false;
+        }
+      )
+  }
+
+
 }

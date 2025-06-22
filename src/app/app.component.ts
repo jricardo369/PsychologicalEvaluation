@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { query, trigger, transition, style, animateChild, group, animate } from '@angular/animations';
 import { UtilService } from './services/util.service';
 import { Usuario } from 'src/model/usuario';
-import { BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, MASTER, THERAPIST, VENDOR } from './app.config';
+import { BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, MASTER, THERAPIST, VENDOR,VOC } from './app.config';
 
 export const slideInAnimation =
     trigger('myAnimationGus', [
@@ -82,7 +82,8 @@ export class AppComponent implements OnInit, SessionServiceListener {
             'agenda', 'cita', 'historia', 'historial', 'pacientes', 'pago', 'pagos', 'administracion', 'users2', 'attach_file',
             'eye', 'external-link', 'scales', 'availability', 'users-report', 'payment', 'mail-sent',
             'reports', 'planning', 'closed', 'comments', 'comparison', 'schedule', 'pay-per-click-payment',
-            'calendar-slash'
+            'calendar-slash','trashD','eyeD','downloadD','calendarD','userD','fileD','moneyD','actionsD','listD','atachmentsD','moneyListD',
+            'seenD','attachD','message-sendD','excelD','bellD','reassignD','pletterD','completeD','sendD','assignD','reopenD','assignD2','saveD','playD'
         ].forEach(e => iconRegistry.addSvgIcon(e, sanitizer.bypassSecurityTrustResourceUrl(document.baseURI + '/assets/svg/' + e + '.svg')));
 
         //localStorage.clear();
@@ -109,7 +110,7 @@ export class AppComponent implements OnInit, SessionServiceListener {
                 this.isAppBarVisible = true;
                 //this.isRouterOutletVisible = true;
                 let usuario: Usuario = JSON.parse(localStorage.getItem('objUsuario'));
-                if ([MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST].some(rol => rol == usuario.rol)) {
+                if ([MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST,VOC].some(rol => rol == usuario.rol)) {
                   this.router.navigateByUrl('/solicitudes/citas');
                 }
                 else {

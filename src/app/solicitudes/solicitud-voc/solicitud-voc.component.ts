@@ -14,6 +14,7 @@ import { Scale } from 'src/model/scale';
 import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
 import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC } from 'src/app/app.config';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { DialogoSolicitudCasenumberComponent } from '../dialogo-solicitud-casenumber/dialogo-solicitud-casenumber.component';
 import { DialogoSolicitudTelefonoComponent } from '../dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 import { ReportesService } from '../../services/reportes.service';
 import { SolicitudVoc } from 'src/model/solicitud-voc';
@@ -395,7 +396,22 @@ export class SolicitudVocComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void { console.log("MOVIMIENTOS: " + this.isBackOffice); }
+  ngOnInit(): void { console.log("MOVIMIENTOS: " + this.isBackOffice);localStorage.setItem('backSolicitudVOC', '1'); }
+
+  validateCS(){
+    if (this.solicitud.numeroDeCaso === null || typeof this.solicitud.numeroDeCaso === 'undefined' || this.solicitud.numeroDeCaso.length === 0) {
+      this.utilService.mostrarDialogoSimple("Warning", "The case number field is empty.");
+    } else {
+      this.dialog.open(DialogoSolicitudCasenumberComponent, {
+        data: {
+          numeroCaso: this.solicitud.numeroDeCaso
+        },
+        disableClose: true,
+      }).afterClosed().toPromise().then(valor => {
+        if (valor == 'vacio') this.utilService.mostrarDialogoSimple("Warning", "No files were found with this phone.");
+      }).catch(reason => this.utilService.manejarError(reason));
+    }
+  }
 
   obtenerSolicitud(idSolicitud: number) {
     this.cargando = true;

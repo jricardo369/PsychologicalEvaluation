@@ -1,20 +1,5 @@
 export class Solicitud {
-  /*idSolicitud: number;
-  fechaInicio: Date;
-  cliente: string;
-  telefono: string;
-  email: string;
-  docusign: string;
-  amount: number;
-  abogado: string;
-  email_abogado: string;
-  firmaAbogados: string;
-  numeroDeCaso: string;
-  tipoSolicitud: TipoSolicitud;
-  estatusSolicitud: EstatusSolicitud;
-  estatusPago: EstatusPago;
-  usuarioRevisor: number;
-  usuarioRevisando: number;*/
+
   idSolicitud: number;
   fechaInicio: Date;
   fechaNacimiento: Date;
@@ -67,4 +52,10 @@ export class Solicitud {
   usuarioExternal: number;
 
   dueDate: Date;
+  finIntIni: boolean;
+  finIntSc: boolean;
+
+  assignedClinician: number;
+  usuarioInterview: number;
+
 }

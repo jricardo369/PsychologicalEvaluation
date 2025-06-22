@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { UtilService } from 'src/app/services/util.service';
 import { CitaActivaSolicitud } from 'src/model/cita-activa-solicitud';
 import { EventoSolicitudService } from 'src/app/services/evento-solicitud.service';
+import { Usuario } from "src/model/usuario";
 
 @Component({
   selector: 'app-dialogo-cancelar-cita-solicitud',
@@ -17,6 +18,7 @@ export class DialogoCancelarCitaSolicitudComponent implements OnInit {
   idEventoSelected: string = "";
   idSolicitud: number = null;
   idUsuarioEntrada: number = null;
+  usuario: Usuario = new Usuario();
 
   constructor(
     private eventoSolicitudService: EventoSolicitudService,
@@ -26,6 +28,7 @@ export class DialogoCancelarCitaSolicitudComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.idSolicitud = data.idSolicitud;
     this.idUsuarioEntrada = data.idUsuario;
+    this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     this.obtenerCitasActivas();
   }
 
@@ -46,7 +49,11 @@ export class DialogoCancelarCitaSolicitudComponent implements OnInit {
 
   obtenerCitasActivas() {
     this.cargando = true;
-    this.eventoSolicitudService.obtenerCitasActivas(this.idSolicitud)
+    var usuarioEnvio: number  = 0;
+    if(this.usuario.rol == '11'){
+      usuarioEnvio = this.usuario.idUsuario;
+    }
+    this.eventoSolicitudService.obtenerCitasActivas(this.idSolicitud,usuarioEnvio)
       .then(citasActivas => {
         this.arrCitasActivas = citasActivas;
         if (this.arrCitasActivas.length == 0) this.cerrar('vacio');

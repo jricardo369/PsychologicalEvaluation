@@ -6,7 +6,7 @@
 
         <app-experimental-menu titulo="Users">
 
-            <button (click)='crearUsuario()'
+            <!--<button (click)='crearUsuario()'
                 style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px;">
                 <mat-icon svgIcon="add-box"></mat-icon>
                 <label>New User</label>
@@ -21,7 +21,25 @@
                 style="color: #CB4335;background: #FDEDEC;border-radius: 5px; height: 28px;">
                 <mat-icon svgIcon="delete"></mat-icon>
                 <label>Delete</label>
-            </button>
+            </button>-->
+
+            <button  (click)='crearUsuario()' class="btn"
+        style="color: #FFFFFF;background: #239B56; border-radius: 5px; height: 20px; line-height: 20px;margin-left: 10px;">
+        <mat-icon svgIcon="add" style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">New User</label>
+      </button>
+
+      <button (click)='refrescar()' class="btn"
+        style="color: #FFFFFF;background: #f3c956; border-radius: 5px; height: 20px; line-height: 20px;margin-left: 10px;">
+        <mat-icon svgIcon="refresh" style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">Refresh</label>
+      </button>
+
+      <button [disabled]='seleccion.length == 0' (click)='eliminar()' class="btn"
+        style="color: #FFFFFF;background: #CB4335; border-radius: 5px; height: 20px; line-height: 20px;margin-left: 10px;">
+        <mat-icon svgIcon="trashD" style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">Delete</label>
+      </button>
 
         </app-experimental-menu>
 
@@ -86,14 +104,14 @@
             </div>
 
             <!-- TABLA CON REGISTROS -->
-            <div style="display:flex; flex-flow: column; overflow: auto;">
+            <div style="">
                 <table class='big' *ngIf="!(usuarios.length == 0)">
                     <tr>
                         <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()"
                                 (change)="checkAll($event)"></th>
                         <th class=''>User</th>
                         <th class=''>Name</th>
-                        <th class=''>Address</th>
+                        <!--<th class=''>Address</th>-->
                         <th class=''>Phone</th>
                         <th class=''>Type</th>
                     </tr>
@@ -102,7 +120,7 @@
                                 (change)="check($event, e.idUsuario)"></td>
                         <td class=''><a (click)="editarUsuario(e.idUsuario)">{{e.usuario}}</a></td>
                         <td class=''><a (click)="editarUsuario(e.idUsuario)">{{e.nombre}}</a></td>
-                        <td class='accent'>{{e.direccion}}</td>
+                        <!--<td class='accent'>{{e.direccion}}</td>-->
                         <td class='accent'>{{e.telefono | phone}}</td>
                         <td class='accent' [ngSwitch]="e.rol">
                             <label *ngSwitchCase="1">Administrator</label>
@@ -115,6 +133,7 @@
                             <label *ngSwitchCase="8">Interviewer Scales</label>
                             <label *ngSwitchCase="9">Ghostwriting</label>
                             <label *ngSwitchCase="10">Therapist</label>
+                            <label *ngSwitchCase="11">Clinician</label>
                             <label *ngSwitchDefault>{{e.rol}}</label>
                         </td>
                     </tr>
@@ -124,8 +143,8 @@
                             <label>Records per page</label>
                             <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
                                 style="margin: 0 8px; font-family: regular; height: 24px;">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
                             </select>

@@ -15,6 +15,8 @@ import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuari
 import { HomeComponent } from './home/home.component';
 import { DialogoDetalleMovimientosComponent } from './dialogo-detalle-movimientos/dialogo-detalle-movimientos.component';
 import { ReporteComparacionAniosComponent } from './reporte-comparacion-anios/reporte-comparacion-anios.component';
+import { DialogoSolicitudesUsuarioComponent } from './dialogo-solicitudes-usuario/dialogo-solicitudes-usuario.component';
+import { DialogoFilesLawyerComponent } from './dialogo-files-lawyer/dialogo-files-lawyer.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { ReporteComparacionAniosComponent } from './reporte-comparacion-anios/re
 	],
 	entryComponents: [
     DialogoDetalleMovimientosComponent,
+	DialogoSolicitudesUsuarioComponent,
+	DialogoFilesLawyerComponent,
   ],
 	declarations: [
 		ReportesNavComponent,
@@ -40,6 +44,8 @@ import { ReporteComparacionAniosComponent } from './reporte-comparacion-anios/re
     HomeComponent,
     DialogoDetalleMovimientosComponent,
     ReporteComparacionAniosComponent,
+    DialogoSolicitudesUsuarioComponent,
+    DialogoFilesLawyerComponent,
 	],
 	exports: []
 })

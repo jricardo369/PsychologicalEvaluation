@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventoSolicitud } from 'src/model/evento-solicitud';
 import { API_URL } from '../app.config';
 import { CitaSolicitud } from 'src/model/cita-solicitud';
 import { CargoVoc } from 'src/model/cargo-voc';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -106,9 +107,10 @@ export class CitaSolicitudService {
     );
   }
 
-  obtenerCargosPendientes(fechai: string, fechaf: string, filtro: string, idUsuario: number): Promise<CargoVoc[]> {
+  obtenerCargosPendientes(fechai: string, fechaf: string, filtro: string, idUsuario: number, campo: string,valor: string,tipo: string): Promise<CargoVoc[]> {
     return new Promise<CargoVoc[]>((resolve, reject) => this.http
-      .get(API_URL + 'citas/cargos-pendientes?idUsuario=' + idUsuario + "&fechai=" + fechai + "&fechaf=" + fechaf + "&filtro=" + filtro,
+      .get(API_URL + 'citas/cargos-pendientes?idUsuario=' + idUsuario + "&fechai=" + fechai + "&fechaf=" + fechaf 
+        + "&campo=" + campo+ "&valor=" + valor+ "&tipo=" + tipo,
         {
           withCredentials: true,
           observe: 'response',
@@ -121,6 +123,32 @@ export class CitaSolicitudService {
       .catch(reason => reject(reason))
     );
   }
+
+  obtenerCargosPendientesExcel(fechai: string, fechaf: string, filtro: string, idUsuario: number, campo: string,valor: string,tipo: string): Observable<Blob> {
+      let params = new HttpParams();
+    params = params.set('idUsuario', idUsuario.toString());
+    params = params.set('fechai', fechai);
+    params = params.set('fechaf', fechaf);
+    params = params.set('valor', valor);
+    params = params.set('campo', campo);
+    params = params.set('tipo', tipo);
+    
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('auth_token'),
+    });
+    const options = {
+      params: params,
+      headers: httpHeaders,
+      responseType: 'blob' as 'json'
+    };
+    return this.http.get<any>(
+        
+        API_URL + 'citas/cargos-pendientes-excel',
+        options
+    );
+  
+    }
 
   pagado(idCita: number, pagado: boolean, idUsuario: number): Promise<any> {
     return new Promise<any>((resolve, reject) =>

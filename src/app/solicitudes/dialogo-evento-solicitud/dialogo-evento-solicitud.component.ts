@@ -15,6 +15,7 @@ export class DialogoEventoSolicitudComponent implements OnInit {
   cargando: boolean = false;
   public eventoSolicitud: EventoSolicitud = new EventoSolicitud;
   usuario: Usuario = new Usuario;
+  rol: string;
 
   arrTime: string[] = [
     '12:00',
@@ -52,6 +53,9 @@ export class DialogoEventoSolicitudComponent implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
     this.eventoSolicitud.idSolicitud = data.idSolicitud;
     this.eventoSolicitud.usuario = this.usuario.nombre;
+    this.eventoSolicitud.tipo = 'Info';
+    this.rol = this.usuario.rol;
+    this.eventoSolicitud.timeZone = 'PST';
   }
 
   ngOnInit(): void {
@@ -62,7 +66,7 @@ export class DialogoEventoSolicitudComponent implements OnInit {
   crear() {
     this.cargando = true;
     this.eventoSolicitudService
-      .crearEventoSolicitud(this.eventoSolicitud)
+      .crearEventoSolicitud(this.eventoSolicitud,this.usuario.idUsuario)
       .then(() => {
         this.cerrar('creado');
       })

@@ -6,11 +6,11 @@
 
     <app-experimental-menu titulo="VOC Charges">
 
-      <button (click)='refrescar()'
+      <!--<button (click)='refrescar()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="refresh"></mat-icon>
         <label>Refresh</label>
-      </button>
+      </button>-->
 
     </app-experimental-menu>
 
@@ -22,24 +22,57 @@
           <div style="display: flex; align-items: center;">
             <div class="iigwo-input">
               <label>Start Date</label>
-              <input type="date" [(ngModel)]="filterInputDate1" (change)="refrescar()">
+              <input type="date" [(ngModel)]="filterInputDate1">
             </div>
             <div class="iigwo-input">
               <label>End Date</label>
-              <input type="date" [(ngModel)]="filterInputDate2" (change)="refrescar()">
+              <input type="date" [(ngModel)]="filterInputDate2">
             </div>
-            <div class="iigwo-input">
+            <!--<div class="iigwo-input">
               <label>File</label>
               <input type="text" placeholder="Enter a value" [(ngModel)]="filterInputText"
                 (ngModelChange)="refrescar()">
+            </div>-->
+            <div class="iigwo-input">
+              <label>Type</label>
+              <select [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let e of arrFilterType" [ngValue]="e">
+                  {{e}}</option>
+              </select>
             </div>
+            <div class="iigwo-input">
+              <label>Filter Type</label>
+              <select [(ngModel)]="filterTypeF" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
+                <option *ngFor="let e of arrFilterTypeF" [ngValue]="e">
+                  {{e}}</option>
+              </select>
+            </div>
+            <div class="iigwo-input">
+              <label>Value</label>
+              <input type="text" placeholder="Enter a value" [(ngModel)]="filterInputText">
+            </div>
+            <button class="accent iigwo small" style="margin-top: 12px" (click)="refrescar()">Explore</button>
+            <button class="iigwo" style="margin-top: 12px" (click)='limpiarFechas()'>Clear dates</button>
+            <div style="margin-right: 5px;margin-left: -5px;color: gray;">&#9679;</div>
+            <!--<button class="iigwo" style="margin-top: 12px;" (click)="descargarExcel()">
+              <mat-icon svgIcon="excelD" style="color:#b2de93; width: 13px; height: 13px;margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+              Export excel
+            </button>-->
+
+            <button (click)='descargarExcel()' class="btn"
+              style="color: #FFFFFF;background: #b2de93; border-radius: 3px; height: 30px; line-height: 30px;">
+              <mat-icon svgIcon="excelD"
+                style="color:rgba(255, 255, 255, 0.7); width: 13px; height: 13px;margin-bottom: 12px;margin-right: 5px;"></mat-icon>
+              <label style="margin: auto;color: #FFFFFF;text-transform: none;">Export excel</label>
+            </button>
           </div>
         </div>
+
       </div>
 
       <!-- TABLA CON REGISTROS -->
-      <div style="display:flex; flex-flow: column; overflow: auto;">
-        <table class='big' *ngIf="!(arrCargos.length == 0)">
+      <div>
+        <table class="informative" *ngIf="!(arrCargos.length == 0)">
           <tr>
             <th class=''>File</th>
             <th class=''>Id Schedule</th>
@@ -49,8 +82,9 @@
             <th class=''>Phone</th>
             <th class=''>Email</th>
             <th class=''>Amount</th>
-            <th class=''>Date paid</th>
+            <th class=''>Therapist</th>
             <th class=''>Comment</th>
+            <th class=''>Date paid</th>
             <th class=''>Pay Status</th>
           </tr>
           <tr *ngFor='let e of arrCargos | slice:paginacion.begin:paginacion.end'>
@@ -61,11 +95,16 @@
             <td class='accent'>{{e.cliente}}</td>
             <td>{{e.telefono | phone}}</td>
             <td>{{e.email}}</td>
-            <td class="number">{{e.amount | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</td>
-            <td>{{e.fechaPagado | dateMMDDYYYY}}</td>
+            <td *ngIf="e.pagado === false" class="number" style="color:red">{{e.amount | currency : 'USD' : 'symbol' :
+              undefined : 'en-US'}}</td>
+            <td *ngIf="e.pagado === true" class="number">{{e.amount | currency : 'USD' : 'symbol' : undefined :
+              'en-US'}}</td>
+            <td>{{e.terapeuta}}</td>
             <td style="font-style: italic;">{{e.comentario}}</td>
+            <td>{{e.fechaPagado | dateMMDDYYYY}}</td>
             <td style="text-align: center;">
-              <span class="badge-status badge-color-paid" style="margin: 0;" *ngIf="e.pagado">Paid</span>
+              <label class="pagado" style="margin: 0;" *ngIf="e.pagado"> <mat-icon svgIcon="done"
+                  style="color: #117a65; width: 15px; height: 15px;"></mat-icon> Paid</label>
               <button (click)='pagado(e)' class="btn badge-color-pay" *ngIf="!e.pagado"
                 style="border-radius: 5px; height: 25px; line-height: 25px; padding-left: 12px; margin: 0 auto;">
                 <label style="margin: auto;">Pay</label>

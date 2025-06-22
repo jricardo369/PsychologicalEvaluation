@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AppBarNavItem } from '../app-nav-item';
 import { Routes, RouterModule } from '@angular/router';
-import { BACKOFFICE, GHOSTWRITING, MASTER, VENDOR } from '../app.config';
+import { BACKOFFICE, GHOSTWRITING, MASTER, VENDOR, VOC } from '../app.config';
 import { ReporteSolicitudesUsuariosComponent } from './reporte-solicitudes-usuarios/reporte-solicitudes-usuarios.component';
 import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/reporte-correos-enviados.component';
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';
@@ -24,7 +24,7 @@ const MODULE: AppBarNavItem = {
 	subtitle: null,
 	uri: 'reportes',
 	svgName: 'reports',
-	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, GHOSTWRITING].some(rol => rol == u.rol)
+	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, GHOSTWRITING, VOC].some(rol => rol == u.rol)
 };
 
 export const REPORTES_ITEMS: AppBarNavItem[] = [
@@ -34,7 +34,7 @@ export const REPORTES_ITEMS: AppBarNavItem[] = [
 		title: 'Users Files',
 		subtitle: 'Reporting of users files',
 		uri: 'solicitudes-usuarios',
-		isVisibleFor: u => [MASTER].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER,BACKOFFICE].some(rol => rol == u.rol)
 	},
 	{
 		module: MODULE,
@@ -46,11 +46,11 @@ export const REPORTES_ITEMS: AppBarNavItem[] = [
 	},
 	{
 		module: MODULE,
-		svgName: 'mail-sent',
-		title: 'Sent Emails',
-		subtitle: 'Report of sent emails',
+		svgName: 'clasesg',
+		title: 'Law Firm Files',
+		subtitle: 'Report of Law Firm Files',
 		uri: 'correos-enviados',
-		isVisibleFor: u => [MASTER].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER,BACKOFFICE,VOC].some(rol => rol == u.rol)
 	},
 	{
 		module: MODULE,
@@ -58,7 +58,7 @@ export const REPORTES_ITEMS: AppBarNavItem[] = [
 		title: 'Comparison by Years',
 		subtitle: 'Report of files comparison by years.',
 		uri: 'comparacion-anios',
-		isVisibleFor: u => [MASTER, VENDOR].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER].some(rol => rol == u.rol) || u.usuario == 'edgar' || u.usuario == 'juan'
 	},
 ]
 

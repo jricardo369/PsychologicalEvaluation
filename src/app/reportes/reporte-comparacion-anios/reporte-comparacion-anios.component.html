@@ -6,11 +6,17 @@
 
     <app-experimental-menu titulo="Comparison by Years">
 
-      <button (click)='obtenerReporteComparacionAnios()'
+      <!--<button (click)='obtenerReporteComparacionAnios()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="refresh"></mat-icon>
         <label>Refresh</label>
-      </button>
+      </button>-->
+
+      <button (click)='obtenerReporteComparacionAnios()' class="btn"
+            style="color: #FFFFFF;background: #f3c956; border-radius: 5px; height: 20px; line-height: 20px;">
+            <mat-icon svgIcon="refresh" style="color:rgba(255, 255, 255, 0.7); width: 15px; height: 15px;margin-bottom: 0px;margin-right: 5px;"></mat-icon>
+            <label style="margin: auto;color: #FFFFFF;text-transform: none;">Refresh</label>
+          </button>
 
     </app-experimental-menu>
 
@@ -34,7 +40,8 @@
       <div class='content' style="padding-top: 0; display:flex; flex-flow: row; flex-wrap: wrap;">
 
         <div class="column">
-          <h4 class="color-primary" style="margin-bottom: 10px;">Year {{reporteComparacionAnios.anioAnterior}}</h4>
+          <h4 class="color-primary" style="margin-bottom: 10px;"><mat-icon svgIcon="calendarD"
+              style="color:rgba(0, 0, 0, 0.7); width: 15px; height: 15px;margin-bottom: 8px;margin-right: 3px;"></mat-icon>Year {{reporteComparacionAnios.anioAnterior}}</h4>
           <table>
             <tr>
               <th>Month</th>
@@ -49,7 +56,8 @@
           </table>
         </div>
         <div class="column">
-          <h4 class="color-primary" style="margin-bottom: 10px;">Year {{reporteComparacionAnios.anioActual}}</h4>
+          <h4 class="color-primary" style="margin-bottom: 10px;"><mat-icon svgIcon="calendarD"
+              style="color:rgba(0, 0, 0, 0.7); width: 15px; height: 15px;margin-bottom: 8px;margin-right: 3px;"></mat-icon>Year {{reporteComparacionAnios.anioActual}}</h4>
           <table>
             <tr>
               <th>Month</th>

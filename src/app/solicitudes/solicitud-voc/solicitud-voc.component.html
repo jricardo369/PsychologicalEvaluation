@@ -63,9 +63,12 @@
             </div> -->
 
             <div class="iigwo-input">
-              <label>Case number</label>
+              <div class="wrapper">
+              <label>Case number<a (click)="validateCS()">Validate case number</a></label>
               <input type="text" [(ngModel)]="solicitud.numeroDeCaso" [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
+            </div>
+
 
             <div class="iigwo-input">
               <label>Code</label>
@@ -96,7 +99,7 @@
                 [readOnly]="solicitud.idEstatusSolicitud == 11">
             </div>
             <div class="iigwo-input" *ngIf="editando">
-              <label>Document 1</label>
+              <label>Intake form</label>
               <div style="display: flex;">
                 <input type="checkbox" style="width: 15px; margin: 0 6px 0 4px;" [checked]="solicitud.documento1"
                   (change)="document1CheckChange()" [readOnly]="solicitud.idEstatusSolicitud == 11">
@@ -105,7 +108,7 @@
               </div>
             </div>
             <div class="iigwo-input" *ngIf="editando">
-              <label>Document 2</label>
+              <label>Treatment plan</label>
               <div style="display: flex;">
                 <input type="checkbox" style="width: 15px; margin: 0 6px 0 4px;" [checked]="solicitud.documento2"
                   (change)="document2CheckChange()" [readOnly]="solicitud.idEstatusSolicitud == 11">
@@ -113,6 +116,46 @@
                   [readOnly]="!solicitud.documento2 || solicitud.idEstatusSolicitud == 11">
               </div>
             </div>
+            <div class="iigwo-input">
+              <label>Birth Date</label>
+              <input [ngModel]="solicitud.fechaNacimiento" (ngModelChange)='solicitud.fechaNacimiento = $event'
+                type="date">
+            </div>
+            <div class="iigwo-input" *ngIf="editando && !(isInterviewer || isInterviewerScales)">
+              <label>Address (Number, City and Postal Code)</label>
+              <input type="text" [(ngModel)]="solicitud.direccion">
+            </div>
+            <div class="iigwo-input">
+              <label>Gender</label>
+              <select [(ngModel)]="solicitud.sexo">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <div style="display:flex; flex-flow: row; flex-wrap: wrap;">
+          <div class="iigwo-input">
+            <label>Purpose of treatament (Symptoms, Topics & Goals)</label>
+            <textarea [(ngModel)]="solicitud.purposeTreatament"></textarea>
+          </div>
+       
+          
+        </div>
+
+        <div style="display:flex; flex-flow: row; flex-wrap: wrap;">
+          <div class="iigwo-input">
+            <label>Participation & Engagement</label>
+            <textarea [(ngModel)]="solicitud.participation"></textarea>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-flow: row; flex-wrap: wrap;">
+          <div class="iigwo-input">
+            <label>Recommendations</label>
+            <textarea [(ngModel)]="solicitud.recommendations"></textarea>
           </div>
         </div>
 
@@ -126,9 +169,15 @@
         </button>
 
         <!-- CITAS DE LA SOLICITUD -->
-        <div style="display:flex; flex-flow: row;" *ngIf="solicitud.idSolicitud && isTherapist">
+        <div style="display:flex; flex-flow: row;" *ngIf="solicitud.idSolicitud">
           <app-citas-solicitud [idSolicitud]="solicitud.idSolicitud"
             [idUsuario]="usuario.idUsuario"></app-citas-solicitud>
+        </div>
+
+        <!-- ADJUNTOS DE LA SOLICITUD -->
+        <div style="display:flex; flex-flow: row;" *ngIf="solicitud.idSolicitud">
+          <app-adjuntos-voc [idSolicitud]="solicitud.idSolicitud" [idUsuario]="usuario.idUsuario"
+            [idEstatusSolicitud]="solicitud.idEstatusSolicitud"></app-adjuntos-voc>
         </div>
 
         <!-- EVENTOS DE LA SOLICITUD -->
@@ -137,21 +186,23 @@
             [idEstatusSolicitud]="solicitud.idEstatusSolicitud"></app-eventos-solicitud-voc>
         </div>
 
-        <!-- ADJUNTOS DE LA SOLICITUD -->
-        <div style="display:flex; flex-flow: row;" *ngIf="solicitud.idSolicitud">
-          <app-adjuntos-voc [idSolicitud]="solicitud.idSolicitud" [idUsuario]="usuario.idUsuario"
-            [idEstatusSolicitud]="solicitud.idEstatusSolicitud"></app-adjuntos-voc>
-        </div>
+        
       </div>
       <div class='content-right' *ngIf="editando"
         style="display:flex; flex-flow: column; border-left: solid 1px rgba(0, 0, 0, 0.2);">
         <div class="iigwo-input">
-          <label>Creation Date</label>
+          <div class="div-img-label">
+            <mat-icon svgIcon="calendarD" style="color:rgba(0, 0, 0, 0.7); width: 10px; height: 10px;margin-bottom: 8px;"></mat-icon>
+            <label>Creation Date</label>
+          </div>
           <input [ngModel]="solicitud.fechaInicio | dateMMDDYYYY" readOnly>
         </div>
 
         <div class="iigwo-input">
-          <label>File Status</label>
+          <div class="div-img-label">
+            <mat-icon svgIcon="fileD" style="color:rgba(48, 48, 48, 0.7); width: 12px; height: 12px;margin-bottom: 5px;"></mat-icon>
+            <label>File Status</label>
+          </div>
           <span class="badge-status" [ngClass]="{'badge-color-received': solicitud.idEstatusSolicitud == 1,
                     'badge-color-reviewing': solicitud.idEstatusSolicitud == 2,
                     'badge-color-interview': solicitud.idEstatusSolicitud == 3,
@@ -168,7 +219,10 @@
         </div>
 
         <div class="iigwo-input" *ngIf="!(isTherapist)">
-          <label>Payment Status</label>
+          <div class="div-img-label">
+            <mat-icon svgIcon="moneyD" style="color:rgba(101, 101, 101, 0.7); width: 12px; height: 12px;margin-bottom: 7px;"></mat-icon>
+            <label>Payment Status</label>
+          </div>
           <span class="badge-status" [ngClass]="{'badge-color-partially': solicitud.idEstatusPago == 1,
                     'badge-color-complete': solicitud.idEstatusPago == 2,
                     'badge-color-hold': solicitud.idEstatusPago == 3,
@@ -177,7 +231,10 @@
         </div>
 
         <div class="iigwo-input" *ngIf="!(isTherapist)">
-          <label>Therapist</label>
+          <div class="div-img-label">
+            <mat-icon svgIcon="userD" style="color:rgba(101, 101, 101, 0.7); width: 10px; height: 10px;margin-bottom: 8px;"></mat-icon>
+            <label>Therapist</label>
+          </div>
           <input [ngModel]="solicitud.nombreTerapeuta" readOnly style="font-weight: 600;"
             *ngIf="solicitud.nombreTerapeuta else notIntSc">
           <ng-template #notIntSc>
@@ -186,7 +243,7 @@
         </div>
 
         <div class="iigwo-input" *ngIf="solicitud.info !== null">
-          <label style="color:red">{{solicitud.info}}</label>
+          <label style="color:red;font-style: oblique;">{{solicitud.info}}</label>
         </div>
 
         <!-- <div class="iigwo-input" style="margin: 0;" *ngIf="editando">
@@ -196,47 +253,107 @@
         </div> -->
 
         <div style="margin: 0; display:flex; flex-flow: column;">
-          <h4 style="margin: 0; margin-top: 40px;">Actions</h4>
+          <div class="div-img-label" style="margin-top: 15px;">
+            <img style="margin-top: 2px;" width="15px" height="15px" src="assets/svg/actionsD.svg">
+            <h4 style="margin: 0; ">Actions</h4>
+          </div>
 
           <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud != 11">
-            <button (click)='cambiarEstatusSolicitud(13, false)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
+           
+            <!--<button (click)='cambiarEstatusSolicitud(13, false)' class="btn" *ngIf="solicitud.idEstatusSolicitud == 1"
               style="color: #FFFFFF; background: #15B392; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
               <label style="margin: auto;">Send for Approval</label>
-            </button>
+            </button>-->
 
-            <button (click)='asignarTerapeuta()' class="btn"
+            <button *ngIf="solicitud.idEstatusSolicitud == 1" (click)="cambiarEstatusSolicitud(13, false)" 
+            class="btn" style="color: #FFFFFF; background: #15B392; border-radius: 5px; height: 23px; margin-top: 12px;
+                     display: flex; align-items: center; justify-content: center; padding: 0 8px; gap: 4px;">
+              <span style="color: #FFFFFF; font-size: 13px;">Send for Approval</span>
+              <mat-icon svgIcon="sendD"
+                style="color: rgba(255, 255, 255, 0.7); width: 14px;  vertical-align: middle;"></mat-icon>
+            </button>
+            
+
+            <!--<button (click)='asignarTerapeuta()' class="btn"
               *ngIf="solicitud.terapeuta == 0 && solicitud.idEstatusSolicitud != 1"
               style="color: #FFFFFF;background: #9340D3; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
               <label style="margin: auto;">Assign Therapist</label>
+            </button>-->
+
+             <button *ngIf="solicitud.terapeuta == 0 && solicitud.idEstatusSolicitud != 1" (click)="asignarTerapeuta()" 
+             class="btn" style="color: #FFFFFF; background: #9340D3; border-radius: 5px; height: 23px; margin-top: 12px;
+                     display: flex; align-items: center; justify-content: center; padding: 0 8px; gap: 4px;">
+              <span style="color: #FFFFFF; font-size: 13px;">Assign Therapist</span>
+              <mat-icon svgIcon="assignD"
+                style="color: rgba(255, 255, 255, 0.7); width: 14px;  vertical-align: middle;"></mat-icon>
             </button>
 
-            <button (click)='asignarTerapeuta()' class="btn" *ngIf="solicitud.terapeuta != 0 && isVOC"
+
+            <!--<button (click)='asignarTerapeuta()' class="btn" *ngIf="solicitud.terapeuta != 0 && isVOC"
               style="color: #FFFFFF;background: #CE3FC4; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
+              <mat-icon svgIcon="reasignD"
+                style="color:rgba(255, 255, 255, 0.7); width: 18px; height: 18px;margin-bottom: 2px;margin-right: 5px;"></mat-icon>
               <label style="margin: auto;">Reassign Therapist</label>
+            </button>-->
+
+            <button *ngIf="solicitud.terapeuta != 0 && isVOC" (click)="asignarTerapeuta()" 
+            class="btn" style="color: #FFFFFF; background: #CE3FC4; border-radius: 5px; height: 23px; margin-top: 12px;
+                     display: flex; align-items: center; justify-content: center; padding: 0 8px; gap: 4px;">
+              <span style="color: #FFFFFF; font-size: 13px;">Reassign Therapist</span>
+               <mat-icon svgIcon="reassignD"
+                style="color: rgba(255, 255, 255, 0.7); width: 14px;  vertical-align: middle;"></mat-icon>
+            </button>
+            
+            <div style="margin-top: 12px;">
+            </div>
+            
+            <!--<button (click)='generateProcessLetter()' class="btn"
+                          style="color: #FFFFFF;background: #2A9AC7; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
+                          <label style="margin: auto;">Generate Progress Letter</label>
+                        </button>-->
+            
+            <button (click)="generateProcessLetter()" class="btn" 
+            style="color: #FFFFFF; background: #2A9AC7; border-radius: 5px; height: 23px; margin-top: 12px;
+                     display: flex; align-items: center; justify-content: center; padding: 0 8px; gap: 4px;">
+              <span style="color: #FFFFFF; font-size: 13px;">Generate Progress Letter</span>
+              <mat-icon svgIcon="pletterD"
+                style="color: rgba(255, 255, 255, 0.7); width: 14px;  vertical-align: middle;"></mat-icon>
             </button>
 
-            <button (click)='generateProcessLetter()' class="btn"
-              style="color: #FFFFFF;background: #2A9AC7; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
-              <label style="margin: auto;">Generate Progress Letter</label>
-            </button>
-
-            <button (click)='completeFile()' class="btn" *ngIf="isVOC"
+            <!--<button (click)='completeFile()' class="btn" *ngIf="isVOC"
               style="color: #FFFFFF;background: #D34272; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
               <label style="margin: auto;">Complete File</label>
+            </button>-->
+
+            <button *ngIf="isVOC" (click)="completeFile()" class="btn" 
+            style="color: #FFFFFF; background: #D34272; border-radius: 5px; height: 23px; margin-top: 12px;
+                     display: flex; align-items: center; justify-content: center; padding: 0 8px; gap: 4px;">
+              <span style="color: #FFFFFF; font-size: 13px;">Complete File</span>
+               <mat-icon svgIcon="completeD"
+                style="color: rgba(255, 255, 255, 0.7); width: 14px;  vertical-align: middle;"></mat-icon>
             </button>
+
+
           </div>
+
           <div style="margin: 0; display:flex; flex-flow: column;" *ngIf="solicitud.idEstatusSolicitud == 11">
-            <button (click)='reopenFile()' class="btn"
+
+            <!--<button (click)='reopenFile()' class="btn"
               style="color: #FFFFFF;background: #F26C4F; border-radius: 5px; height: 28px; line-height: 28px; margin-top: 12px;">
-              <!-- <mat-icon svgIcon="add-box"></mat-icon> -->
               <label style="margin: auto;">Reopen File</label>
+            </button>-->
+          
+            <button (click)="reopenFile()" class="btn" style="color: #FFFFFF; background: #F26C4F; border-radius: 5px; height: 23px; margin-top: 12px;
+                               display: flex; align-items: center; justify-content: center; padding: 0 8px; gap: 4px;">
+             
+              <span style="color: #FFFFFF; font-size: 13px;">Reopen File</span>
+               <mat-icon svgIcon="reopenD"
+                style="color: rgba(255, 255, 255, 0.7); width: 14px;  vertical-align: middle;"></mat-icon>
             </button>
+          
           </div>
+
+          
 
           <br>
 

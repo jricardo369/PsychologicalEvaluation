@@ -6,5 +6,5 @@ export class Filtros {
     campo: string;
     valor: string;
     myfiles: boolean;
-    closed: boolean;
+    closed: string;
 }

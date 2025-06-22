@@ -4,6 +4,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Usuario } from './../../../model/usuario';
 import { Permiso } from './../../../model/permiso';
+import { Rol } from './../../../model/rol';
 import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
 
 @Component({
@@ -18,18 +19,34 @@ export class DialogoUsuarioComponent implements OnInit {
   titulo: string = 'Usuario';
   usuario: Usuario = new Usuario();
   permisos: Permiso[] = [];
+  roles: Rol[] = [];
 
+  public file: File[] = [];
+
+  isAdministrator: boolean = false;
+  isMaster: boolean = false;
+  isVendor: boolean = false;
+  isBackOffice: boolean = false;
+  isInterviewer: boolean = false;
+  isVOC: boolean = false;
+  isTemplateCreator: boolean = false;
+  isInterviewerScales: boolean = false;
+  isGhostwriting: boolean = false;
+  isTherapist: boolean = false;
 
   constructor(
+
     private usuariosService: UsuariosService,
     public utilService: UtilService,
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogoUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+
     this.permisos.push({ id: 1, nombre: "Send Notifications" });
     this.permisos.push({ id: 2, nombre: "Add Events" });
     this.permisos.push({ id: 3, nombre: "Add Payments" });
     this.permisos.push({ id: 4, nombre: "Edit requests" });
+
     if (data.idUsuario) {
       this.titulo = "Edit User"
       this.usuario.idUsuario = data.idUsuario;
@@ -40,9 +57,12 @@ export class DialogoUsuarioComponent implements OnInit {
       this.creando = true;
       this.usuario.permisos = [];
     }
+
+   
   }
 
   ngOnInit(): void {
+    this.obtenerRoles();
   }
 
   estaSeleccionado(permiso: Permiso) {
@@ -130,5 +150,44 @@ export class DialogoUsuarioComponent implements OnInit {
   }
 
   cerrar(accion: string = "") { this.dialogRef.close(accion); }
+
+  onFileSelected(files: FileList) {
+    // this.file[0] = files.length && files.item(0).type.startsWith('image/') ? files.item(0) : null;
+    for (let i = 0; i < files.length; i++) {
+      this.file.push(files.item(i));
+    }
+  }
+
+  cargarAdjunto() {
+    let promises = [];
+    /*this.file.forEach(f => promises.push(this.adjuntosService.insertarAdjunto(Number.parseInt(this.idSolicitud), f, this.idUsuario)));
+
+    this.cargando = true;
+    Promise
+      .all(promises)
+      .then(results => {
+        console.log(results);
+        this.file = [];
+        this.refresh();
+        this.parent.refreshEventosSolicitud();
+      }).catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);*/
+  }
+
+  quitarAdjunto(archivo: File) {
+    let start = this.file.findIndex(f => f == archivo);
+    this.file.splice(start, 1);
+  }
+
+  obtenerRoles() {
+    this.cargando = true;
+    this.usuariosService
+     .obtenerRoles()
+      .then(roles => {
+        this.roles = roles;
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
 
 }

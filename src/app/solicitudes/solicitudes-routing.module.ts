@@ -4,7 +4,7 @@ import { AppBarNavItem } from '../app-nav-item';
 import { Routes, RouterModule } from '@angular/router';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
-import { BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC } from '../app.config';
+import { BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC,CLINICIAN } from '../app.config';
 import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-correos-abogados.component';
 import { SolicitudesVocComponent } from './solicitudes-voc/solicitudes-voc.component';
 import { SolicitudVocComponent } from './solicitud-voc/solicitud-voc.component';
@@ -35,7 +35,7 @@ const MODULE: AppBarNavItem = {
 	subtitle: null,
 	uri: 'solicitudes',
 	svgName: 'assignment',
-	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING, THERAPIST].some(rol => rol == u.rol)
+	isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, VOC, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING, THERAPIST,CLINICIAN].some(rol => rol == u.rol)
 };
 
 export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
@@ -45,7 +45,7 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		title: 'Files',
 		subtitle: 'Manage Files',
 		uri: 'solicitudes',
-		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, TEMPLATE_CREATOR, INTERVIEWER_SCALES, GHOSTWRITING,CLINICIAN].some(rol => rol == u.rol)
 	},
   {
 		module: MODULE,
@@ -69,7 +69,7 @@ export const SOLICITUDES_ITEMS: AppBarNavItem[] = [
 		title: 'Schedules',
 		subtitle: 'See scheduled appointments',
 		uri: 'citas',
-		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST].some(rol => rol == u.rol)
+		isVisibleFor: u => [MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST,CLINICIAN].some(rol => rol == u.rol)
 	},
   {
 		module: MODULE,

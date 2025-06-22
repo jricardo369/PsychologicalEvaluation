@@ -5,7 +5,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SessionService } from 'src/app/services/session.service';
 import { UtilService } from 'src/app/services/util.service';
-import { BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST, VENDOR } from 'src/app/app.config';
+import { BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST, VENDOR,VOC,TEMPLATE_CREATOR,CLINICIAN } from 'src/app/app.config';
 import { MASTER } from '../../app.config';
 
 interface CustomSearchItem {
@@ -85,9 +85,12 @@ export class InicioComponent implements OnInit {
                 this.grupos.push(key);
             }
 
-            if ([MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST].some(rol => rol == usuario.rol)) {
+            if ([MASTER, VENDOR, BACKOFFICE, INTERVIEWER, INTERVIEWER_SCALES, THERAPIST, CLINICIAN].some(rol => rol == usuario.rol)) {
               this.router.navigateByUrl('/solicitudes/citas');
             }
+            if ([VOC,TEMPLATE_CREATOR].some(rol => rol == usuario.rol)) {
+                this.router.navigateByUrl('/solicitudes');
+              }
         }).then(() => this.loading = false);
     }
 

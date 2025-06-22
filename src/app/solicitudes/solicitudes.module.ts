@@ -17,7 +17,7 @@ import { MovimientosSolicitudComponent } from './movimientos-solicitud/movimient
 import { DialogoMovimientoSolicitudComponent } from './dialogo-movimiento-solicitud/dialogo-movimiento-solicitud.component';
 import { DialogoSiguienteProcesoComponent } from './dialogo-siguiente-proceso/dialogo-siguiente-proceso.component';
 import { DialogoNotificacionesComponent } from './dialogo-notificaciones/dialogo-notificaciones.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DialogoSolicitudTelefonoComponent } from './dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 import { EnvioCorreosAbogadosComponent } from './envio-correos-abogados/envio-correos-abogados.component';
 import { SolicitudesVocComponent } from './solicitudes-voc/solicitudes-voc.component';
@@ -32,6 +32,8 @@ import { DialogoCitaSolicitudComponent } from './dialogo-cita-solicitud/dialogo-
 import { DialogoCancelarCitaSolicitudComponent } from './dialogo-cancelar-cita-solicitud/dialogo-cancelar-cita-solicitud.component';
 import { CitasComponent } from './citas/citas.component';
 import { CargosVocComponent } from './cargos-voc/cargos-voc.component';
+import { DialogoSolicitudCasenumberComponent } from './dialogo-solicitud-casenumber/dialogo-solicitud-casenumber.component';
+
 
 @NgModule({
 	imports: [
@@ -43,18 +45,19 @@ import { CargosVocComponent } from './cargos-voc/cargos-voc.component';
 		DentalUiModule,
 		MatDialogModule,
 		SolicitudesRoutingModule,
-    MatCheckboxModule
+		MatCheckboxModule
 	],
 	entryComponents: [
-    DialogoEventoSolicitudComponent,
-    DialogoMovimientoSolicitudComponent,
-    DialogoSiguienteProcesoComponent,
-    DialogoNotificacionesComponent,
-    DialogoSolicitudTelefonoComponent,
-    DialogoEventoSolicitudVocComponent,
-    DialogoAsignarTerapeutaComponent,
-    DialogoCitaSolicitudComponent,
-    DialogoCancelarCitaSolicitudComponent
+		DialogoEventoSolicitudComponent,
+		DialogoMovimientoSolicitudComponent,
+		DialogoSiguienteProcesoComponent,
+		DialogoNotificacionesComponent,
+		DialogoSolicitudTelefonoComponent,
+		DialogoEventoSolicitudVocComponent,
+		DialogoAsignarTerapeutaComponent,
+		DialogoCitaSolicitudComponent,
+		DialogoCancelarCitaSolicitudComponent,
+		DialogoSolicitudCasenumberComponent,
 	],
 	declarations: [
 		SolicitudesNavComponent,
@@ -81,18 +84,19 @@ import { CargosVocComponent } from './cargos-voc/cargos-voc.component';
 		DialogoCancelarCitaSolicitudComponent,
 		CitasComponent,
 		CargosVocComponent,
+		DialogoSolicitudCasenumberComponent
 	],
 	exports: [
 		EventosSolicitudComponent,
 		AdjuntosComponent,
-    MovimientosSolicitudComponent,
-    DialogoEventoSolicitudComponent,
-    DialogoMovimientoSolicitudComponent,
-    AdjuntosVocComponent,
-    EventosSolicitudVocComponent,
-    DialogoEventoSolicitudVocComponent,
-    CitasSolicitudComponent,
-    DialogoCitaSolicitudComponent
+		MovimientosSolicitudComponent,
+		DialogoEventoSolicitudComponent,
+		DialogoMovimientoSolicitudComponent,
+		AdjuntosVocComponent,
+		EventosSolicitudVocComponent,
+		DialogoEventoSolicitudVocComponent,
+		CitasSolicitudComponent,
+		DialogoCitaSolicitudComponent
 	]
 })
 export class SolicitudesModule { }

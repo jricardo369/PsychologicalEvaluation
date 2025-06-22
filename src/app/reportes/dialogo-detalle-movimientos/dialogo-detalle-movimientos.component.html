@@ -6,7 +6,11 @@
       <p class="text-body-secondary fs-9 mb-0">Pending Amount</p>
       <h4 class="mb-0 mt-0" style="color: red;">{{(detalleMovimientos.pendiente ? detalleMovimientos.pendiente: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
     </div>
-    <button class="iigwo accent" style="background: #088395;" (click)='enviarRecordatorio()'>Send reminder</button>
+    <button (click)='enviarRecordatorio()' class="btn"
+      style="color: #FFFFFF;background: #088395; border-radius: 5px; height: 20px; line-height: 20px;">
+      <mat-icon svgIcon="bellD" style="color:rgba(255, 255, 255, 0.7); width: 13px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+      <label style="margin: auto;color: #FFFFFF;text-transform: none;">Send reminder</label>
+    </button>
   </div>
 
   <div *ngIf="detalleMovimientos.pendiente === 0" style="display: flex;">

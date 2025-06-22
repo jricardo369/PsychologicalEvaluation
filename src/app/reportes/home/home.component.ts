@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BACKOFFICE, GHOSTWRITING, MASTER, VENDOR } from 'src/app/app.config';
+import { BACKOFFICE, GHOSTWRITING, MASTER, VENDOR, VOC} from 'src/app/app.config';
 import { Usuario } from 'src/model/usuario';
 
 @Component({
@@ -19,6 +19,9 @@ export class HomeComponent {
     }
     else if (this.usuario.rol == VENDOR || this.usuario.rol == BACKOFFICE || this.usuario.rol == GHOSTWRITING) {
       this.router.navigateByUrl('/reportes/pagos');
+    }
+    else if (this.usuario.rol == VOC) {
+      this.router.navigateByUrl('/reportes/correos-enviados');
     }
   }
 

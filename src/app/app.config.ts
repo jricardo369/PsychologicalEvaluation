@@ -1,7 +1,7 @@
 import { environment } from '../environments/environment';
 
 export const VERSION_PORTAL = 'Versión 2022.11.15-13:24';
-export const EMPRESA_PORTAL = '© / 2022';
+export const EMPRESA_PORTAL = '© / 2025';
 
 // =====================================================
 /*
@@ -56,3 +56,4 @@ export const TEMPLATE_CREATOR = '7';
 export const INTERVIEWER_SCALES = '8';
 export const GHOSTWRITING = '9';
 export const THERAPIST = '10';
+export const CLINICIAN = '11';

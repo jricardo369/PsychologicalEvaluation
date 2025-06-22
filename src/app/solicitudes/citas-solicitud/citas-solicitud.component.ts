@@ -84,7 +84,7 @@ export class CitasSolicitudComponent implements OnInit {
     this.dialog.open(DialogoSimpleComponent, {
       data: {
         titulo: 'No-show',
-        texto: 'Do you really want to mark your appointment as a no-show?',
+        texto: 'Do you really want to mark your appointment as a No show"?',
         botones: [
           { texto: 'Cancel', color: '', valor: '' },
           { texto: 'Yes', color: 'primary', valor: 'ok' },

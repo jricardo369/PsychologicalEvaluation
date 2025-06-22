@@ -6,7 +6,7 @@ import { CitaSolicitud } from 'src/model/cita-solicitud';
 import { CitaSolicitudService } from 'src/app/services/cita-solicitud.service';
 import { Usuario } from 'src/model/usuario';
 import { DialogoCitaSolicitudComponent } from '../dialogo-cita-solicitud/dialogo-cita-solicitud.component';
-import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC } from 'src/app/app.config';
+import { ADMINISTRATOR, BACKOFFICE, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, THERAPIST, VENDOR, VOC,CLINICIAN } from 'src/app/app.config';
 import { UsuariosService } from '../../services/usuarios.service';
 
 export class Semana {
@@ -53,6 +53,7 @@ export class CitasComponent implements OnInit {
   isInterviewerScales: boolean = false;
   isGhostwriting: boolean = false;
   isTherapist: boolean = false;
+  isClinician: boolean = false;
 
   lunes: string = '';
   martes: string = '';
@@ -63,6 +64,7 @@ export class CitasComponent implements OnInit {
   domingo: string = '';
 
   constructor(
+
     private citaSolicitudService: CitaSolicitudService,
     private usuariosService: UsuariosService,
     private router: Router,
@@ -82,17 +84,17 @@ export class CitasComponent implements OnInit {
     this.isInterviewerScales = this.usuario.rol == INTERVIEWER_SCALES ? true : false;
     this.isGhostwriting = this.usuario.rol == GHOSTWRITING ? true : false;
     this.isTherapist = this.usuario.rol == THERAPIST ? true : false;
+    this.isClinician = this.usuario.rol == CLINICIAN ? true : false;
 
     if (this.isMaster || this.isVendor || this.isBackOffice) {
       this.usuarioAll.idUsuario = 0;
       this.usuarioAll.nombre = "All";
       this.arrFilterUsuarios.push(this.usuarioAll);
       this.obtenerUsuariosParaCitas();
-    }
-    
-    
+    } 
 
     this.refrescar();
+    
   }
 
   ngOnInit(): void {
@@ -113,7 +115,7 @@ export class CitasComponent implements OnInit {
       .then(usuarios => {
         this.arrFilterUsuarios = usuarios;
         this.arrFilterUsuarios = [this.usuarioAll].concat(this.arrFilterUsuarios);
-        console.log(this.arrFilterUsuarios)
+        //console.log(this.arrFilterUsuarios)
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false)
@@ -122,6 +124,7 @@ export class CitasComponent implements OnInit {
   refrescar() {
     this.cargando = true;
     this.diasSemana();
+    //console.log("Filter fecha:"+this.filterFecha);
     this.citaSolicitudService
       .obtenerCitasPorSemana(this.filterFecha, this.filterUsuario, this.filterViewAvalability, this.usuario.idUsuario)
       .then(citas => {
@@ -142,21 +145,28 @@ export class CitasComponent implements OnInit {
   }
 
   diasSemana(){
+
     let fechaSeleccionada: Date = new Date(this.filterFecha);
-    console.log(this.getMonday(fechaSeleccionada));
-    var lunesD = this.getMonday(fechaSeleccionada);
-    var martesD = this.getMonday(fechaSeleccionada);
-    var miercolesD = this.getMonday(fechaSeleccionada);
-    var juevesD = this.getMonday(fechaSeleccionada);
-    var viernesD = this.getMonday(fechaSeleccionada);
-    var sabadoD = this.getMonday(fechaSeleccionada);
-    var domingoD = this.getMonday(fechaSeleccionada);
+    //console.log('ff:'+this.filterFecha);7
+    const [year, month, day] = this.filterFecha.split('-').map(Number);
+    const fechaLocal = new Date(year, month - 1, day);
+    //console.log('fechaLocal:'+fechaLocal);
+    //console.log('fechaSeleccionada:'+fechaSeleccionada);
+    
+    //console.log(this.getMonday(fechaLocal));
+    var lunesD = this.getMonday(fechaLocal);
+    var martesD = new Date(lunesD);
     martesD.setDate(lunesD.getDate() +1); 
-    miercolesD.setDate(lunesD.getDate() +2);
-    juevesD.setDate(lunesD.getDate() +3);
-    viernesD.setDate(lunesD.getDate() +4);
-    sabadoD.setDate(lunesD.getDate() +5);
-    domingoD.setDate(lunesD.getDate() +6);
+    var miercolesD = new Date(martesD);
+    miercolesD.setDate(martesD.getDate() +1);
+    var juevesD = new Date(miercolesD);
+    juevesD.setDate(miercolesD.getDate() +1);
+    var viernesD = new Date(juevesD);
+    viernesD.setDate(juevesD.getDate() +1);
+    var sabadoD =new Date(viernesD);
+    sabadoD.setDate(viernesD.getDate() +1);
+    var domingoD = new Date(sabadoD);
+    domingoD.setDate(sabadoD.getDate() +1);
     this.lunes = this.utilService.dateAsMMDDYYYY(lunesD);
     this.martes = this.utilService.dateAsMMDDYYYY(martesD);
     this.miercoles = this.utilService.dateAsMMDDYYYY(miercolesD);
@@ -247,7 +257,7 @@ export class CitasComponent implements OnInit {
       this.router.navigateByUrl('/solicitudes/solicitudes/nueva-solicitud');
     }
     else {
-      if (this.isMaster || this.isVendor || this.isBackOffice || this.isInterviewer || this.isInterviewerScales) {
+      if (this.isMaster || this.isVendor || this.isBackOffice || this.isInterviewer || this.isInterviewerScales || this.isClinician) {
         this.router.navigateByUrl('/solicitudes/solicitudes/' + cita.idSolicitud);
       }
       else if (this.isTherapist) {

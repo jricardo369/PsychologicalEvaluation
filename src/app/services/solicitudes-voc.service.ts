@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { API_URL } from "../app.config";
+import { SolicitudNumeroCaso } from "src/model/solicitud-numerocaso";
 import { SolicitudTelefono } from "src/model/solicitud-telefono";
 import { SolicitudVoc } from "src/model/solicitud-voc";
 
@@ -27,6 +28,8 @@ export class SolicitudesVocService {
         .catch((reason) => reject(reason))
     );
   }
+
+  SolicitudesVocService
 
   obtenerSolicitudesUsuario(idUsuario: number): Promise<SolicitudVoc[]> {
     return new Promise<SolicitudVoc[]>((resolve, reject) =>
@@ -100,13 +103,10 @@ export class SolicitudesVocService {
     );
   }
 
-  obtenerReporteSolicitudesFilters(idUsuario: number, campo: string, valor: string, fecha1: string, fecha2: string, myFiles: boolean): Promise<SolicitudVoc[]> {
+  obtenerReporteSolicitudesFilters(idUsuario: number, campo: string, valor: string, fecha1: string, fecha2: string, myFiles: boolean, fechai: string,fechaf: string,cerradas: string): Promise<SolicitudVoc[]> {
     let queryParams: string = "";
-    if(campo == "All" || campo == "File" || campo == "Customer" || campo == "Case number" || campo == "Email" || campo == "File Status" || campo == "Payment Status" || campo == "Responsible User" || campo == "Has document 2") {
-      queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles;
-    } else if (campo == "Creation Date") {
-      queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&fecha1=" + fecha1 + "&fecha2=" + fecha2 + "&myFiles=" + myFiles;
-    }
+      queryParams = "idUsuario=" + idUsuario + "&campo=" + campo + "&valor=" + valor + "&myFiles=" + myFiles+ "&fechai=" + fechai+"&fechaf=" + fechaf+"&cerradas=" + cerradas;
+    
     return new Promise<SolicitudVoc[]>((resolve, reject) =>
       this.http
         //.get(API_URL + "solicitudes-voc/reporte-solicitudes-filters?" + queryParams, {
@@ -266,6 +266,24 @@ export class SolicitudesVocService {
           resolve(response.body);
         }).catch(reason => reject(reason));
     });
+  }
+
+  obtenerSolicitudesDeNumerosCasos(numcaso: string): Promise<SolicitudNumeroCaso[]> {
+    return new Promise<SolicitudNumeroCaso[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "solicitudes-voc/solicitudes-de-numerocasos/" + numcaso, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as SolicitudNumeroCaso[]);
+        })
+        .catch((reason) => reject(reason))
+    );
   }
 
 }

@@ -6,4 +6,7 @@ export class DisponibilidadUsuario {
   nombreUsuario: string;
   resumen: string;
   tipo: string;
+  zonaHoraria: string;
+  timeFile: string;
+  rol: string;
 }

@@ -52,12 +52,15 @@
     ">{{usuario.nombre}}</label>
 
 <button id='user-button' class='iigwo' (click)='focusUserDiv()'>
-    <img src="{{baseHref}}assets/img/portrait-demo.png" style="
+    <!--{{baseHref}}assets/img/portrait-demo.png-->
+    <img src="{{this.imageUsuario}}" style="
             height: 32px;
             width: 32px;
             margin: 0;
             border-radius: 50%;
         ">
+
+         <!--<div *ngIf="!tieneImagen" class="avatar-circle" style="background-color:{{color}}">{{iniciales}}</div>-->
 </button>
 
 <!-- ============================================================================================ -->
@@ -73,8 +76,7 @@
             border-radius: 1px;
             ">
         -->
-
-
+            
         <div class='app-nav-right'>
             <label>{{usuario.usuario}}</label>
             <label>{{usuario.nombre}}</label>
@@ -83,7 +85,7 @@
 
             <button class='iigwo' (click)='logout()' (focus)="focusUserDiv()" style="display: block;margin-top: 16px;"
                >Logout</button>
-
+               
             <!--
             <div class='vendor-rating' *ngIf="usuario.rol && usuario.rol.id == 3">
                 <mat-icon svgIcon="star"></mat-icon>

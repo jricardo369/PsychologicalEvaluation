@@ -6,11 +6,17 @@
 
     <app-experimental-menu titulo="Users Files">
 
-      <button (click)='obtenerSolicitudesUsuarios()'
+      <!--<button (click)='obtenerSolicitudesUsuarios()'
         style="color: #D4AC0D;background: #FEF9E7;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="refresh"></mat-icon>
         <label>Refresh</label>
-      </button>
+      </button>-->
+
+      <button (click)='obtenerSolicitudesUsuarios()' class="btn"
+      style="color: #FFFFFF;background: #f3c956; border-radius: 5px; height: 20px; line-height: 20px;">
+      <mat-icon svgIcon="refresh" style="color:rgba(255, 255, 255, 0.7); width: 15px; height: 15px;margin-bottom: 0px;margin-right: 5px;"></mat-icon>
+      <label style="margin: auto;color: #FFFFFF;text-transform: none;">Refresh</label>
+    </button>
 
     </app-experimental-menu>
 
@@ -37,8 +43,26 @@
           <th>Number of Files</th>
         </tr>
         <tr *ngFor='let e of arrReporteSolicitudesUsuarios | slice:paginacion.begin:paginacion.end'>
-          <td class='accent'>{{e.nombre}}</td>
-          <td style="text-align: center;"><span class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-0': e.numero == 0,
+          <td class='accent'>
+            <!--<img src="http://ec2-54-215-12-132.us-west-1.compute.amazonaws.com:8080/fileSystem/2025/3628/0833baa3-8f9a-4898-9d25-154d939eb69a.png" style="
+            height: 32px;
+            width: 32px;
+            margin: 0;
+            border-radius: 50%;
+        ">{{e.nombre}}-->
+      
+        <div class="user-info">
+          <!--<img *ngIf="e.image != null" src="http://ec2-54-215-12-132.us-west-1.compute.amazonaws.com:8080/fileSystem/2025/3628/0833baa3-8f9a-4898-9d25-154d939eb69a.png"  class="avatarr">-->
+          <img *ngIf="e.image != null" src="{{e.image}}"  class="avatarr">
+          <div *ngIf="e.image == null" class="avatar-circle" style="background-color:{{e.color}}">{{e.iniciales}}</div>
+          <span class="user-text">{{e.nombre}}</span>
+        </div>
+      
+      </td>
+          <td (click)="verSolicitudesUsuario(e.idUsuario,e.nombre)" style="text-align: center;"><span class="badge-status" style="margin: 0;cursor: pointer;
+            * {
+                cursor: pointer;
+            }" [ngClass]="{'badge-color-0': e.numero == 0,
             'badge-color-1': e.numero >= 1}">{{e.numero}}</span></td>
         </tr>
         <tr>
@@ -47,9 +71,9 @@
               Records per page</label>
             <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
               style="margin: 0 8px; font-family: regular; height: 24px;">
-              <option value="10">10</option>
               <option value="20">20</option>
-              <option value="50">50</option>
+              <option value="40">40</option>
+              <option value="80">80</option>
               <option value="100">100</option>
             </select>
             {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}

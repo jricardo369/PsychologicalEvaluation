@@ -29,10 +29,10 @@ export class EventoSolicitudService {
     );
   }
 
-  obtenerCitasActivas(idSolicitud: number): Promise<CitaActivaSolicitud[]> {
+  obtenerCitasActivas(idSolicitud: number,idUsuario: number): Promise<CitaActivaSolicitud[]> {
     return new Promise<CitaActivaSolicitud[]>((resolve, reject) =>
       this.http
-        .get(API_URL + "eventos-solicitud/schedules-activas/" + idSolicitud, {
+        .get(API_URL + "eventos-solicitud/schedules-activas/" + idSolicitud+"?idUsuario="+idUsuario, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()
@@ -47,10 +47,10 @@ export class EventoSolicitudService {
     );
   }
 
-  crearEventoSolicitud(eventoSolicitud: EventoSolicitud): Promise<any> {
+  crearEventoSolicitud(eventoSolicitud: EventoSolicitud,idUsuarioSchedule: number): Promise<any> {
     return new Promise<any>((resolve, reject) =>
       this.http
-        .post(API_URL + "eventos-solicitud", eventoSolicitud, {
+        .post(API_URL + "eventos-solicitud?idUsuarioSchedule="+idUsuarioSchedule, eventoSolicitud, {
           withCredentials: true,
           observe: "response",
           headers: new HttpHeaders()

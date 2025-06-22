@@ -2,42 +2,75 @@
                 overflow-y: auto;">
 
   <div style="display: flex; align-items: center; justify-content: space-between;">
-    <h4>Schedules</h4>
-    <button (click)='crearCita()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
+    <div class="div-img-label" >
+      <img style="margin-top: 2px;" width="15px" height="15px" src="assets/svg/calendarD.svg">
+      <h4>Schedules</h4>
+    </div>
+    <!--<button (click)='crearCita()' class="btn m-l-40" *ngIf="idEstatusSolicitud != 11"
       style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
       <mat-icon svgIcon="add"></mat-icon>
       <label>Add Schedule</label>
-    </button>
+    </button>-->
+
+    <button *ngIf="idEstatusSolicitud != 11" (click)='crearCita()' class="btn"
+        style="color: #FFFFFF;background: #239B56; border-radius: 5px; height: 20px; line-height: 20px;margin-left: 10px;">
+        <mat-icon svgIcon="add" style="color:rgba(255, 255, 255, 0.7); width: 15px; height: 15px;margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">Add Schedule</label>
+      </button>
   </div>
 
   <table class="informative" *ngIf="arrCitaSolicitud.length > 0">
     <tr>
-      <th colspan="2">Hour</th>
+      <th >Hour</th>
     </tr>
     <tr *ngFor='let e of arrCitaSolicitud | slice:paginacion.begin:paginacion.end'>
-      <td style="width: 100%;">{{e.fecha}} {{e.hora}} {{e.tipo}}</td>
-      <td style="display: flex;" *ngIf="e.tieneNota == false">
-        <button (click)='verCita(e)' class="btn m-l-40" 
-          style="color: #808080;background: #d0d0d0;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;" matTooltip="Open" >
-      <mat-icon class="icono-btn" svgIcon="add"></mat-icon>
-          <label>Add note</label>
+      <td >{{e.fecha}} {{e.hora}} {{e.tipo}}   <span *ngIf="e.dosCitas" style="color: #41949B; font-weight: bold;">Dos citas</span></td>
+      <!--<td >
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <span>{{ e.fecha }}</span>
+          <span>{{ e.hora }}</span>
+          <span>{{ e.tipo }}</span>
           
+          <button>Ver</button>
+          <button>Editar</button>
+        </div>
+      </td>-->
 
-         
+      <td style="display: flex;" *ngIf="e.tieneNota == false">
+
+        <button (click)='verCita(e)' class="btn m-l-40" *ngIf="!e.noShow"
+          style="color: #808080;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;padding: 0px;margin: 0px; margin-right: 20px;"
+          matTooltip="Open">
+          <mat-icon class="icono-btn" svgIcon="add-box"></mat-icon>
+          <label>Add note</label>
         </button>
 
-     
-        <button (click)='no_show(e)' class="btn m-l-40" style="color: #d59c51;background:#f9d8ab;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;" matTooltip="No-show" *ngIf="!e.noShow">
+        <button (click)='no_show(e)' class="btn m-l-40"
+          style="color: #d59c51;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;padding: 0px;margin: 0px; margin-right: 20px;"
+          matTooltip="No-show" *ngIf="!e.noShow">
           <mat-icon class="icono-btn" svgIcon="calendar-slash"></mat-icon>
           <label>No show</label>
         </button>
+
+        <button  class="btn m-l-40"
+          style="color: #ac4a4a;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;padding: 0px;margin: 0px; margin-right: 12px;font-style: oblique;font-size: 12px;"
+          matTooltip="No-show" *ngIf="e.noShow">
+          <label>No show appointment</label>
+        </button>
+
       </td>
+
+      
+
       <td style="display: flex;" *ngIf="e.tieneNota == true">
-        <button (click)='verCita(e)' class="btn m-l-40" 
-        style="color: #808080;background: #d0d0d0;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;" matTooltip="View" >
+
+        <button (click)='verCita(e)' class="btn m-l-40"
+          style="color: #dc83d2;border-radius: 2px; height: 23px; line-height: 23px;border-radius: 10px;text-decoration: underline;padding: 0px;margin: 0px;margin-right: 20px;"
+          matTooltip="View">
           <mat-icon class="icono-btn" svgIcon="comments"></mat-icon>
           <label>View note</label>
         </button>
+
       </td>
     </tr>
     <tr>
