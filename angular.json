@@ -144,7 +144,6 @@
       }
     }
   },
-  "defaultProject": "contelec-app",
   "cli": {
     "analytics": false
   }
