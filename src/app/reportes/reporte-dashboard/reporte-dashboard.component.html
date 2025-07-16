@@ -1,0 +1,228 @@
+<app-workspace-nav>
+    <app-reportes-nav></app-reportes-nav>
+</app-workspace-nav>
+<div class='workspace'>
+    <div class='main'>
+
+        <app-experimental-menu titulo="Dashboard">
+
+             <button (click)='obtenerDetalleSolicitudes()' class="btn"
+        style="color: #FFFFFF;background: #f3c956; border-radius: 5px; height: 20px; line-height: 20px;">
+        <mat-icon svgIcon="refresh"
+          style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">Refresh</label>
+      </button>
+
+        </app-experimental-menu>
+
+        <div class='content'>
+            <div style="display: inline-flex;">
+
+                <div class="iigwo-input">
+                    <label>Start Date</label>
+                    <input type="date" [(ngModel)]="fechaI">
+                </div>
+
+                <div class="iigwo-input">
+                    <label>End Date</label>
+                    <input type="date" [(ngModel)]="fechaF">
+                </div>
+
+                <div class="iigwo-input" style="min-width: 120px;">
+                    <label>User</label>
+                    <select [(ngModel)]="filterUsuario" [ngModelOptions]="{standalone: true}" >
+                        <option *ngFor="let e of arrFilterUsuarios" [ngValue]="e.idUsuario">
+                            {{e.nombre}}</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tiles" class='content' style="margin-top: 80px;padding-top: 0;">
+
+            <div class="stats-container">
+                <!-- Archivos activos -->
+                <div sytle="" class="stat-card" (click)='obtenerDetalleSolicitudes()'>
+                    <div class="stat-title">Total active files</div>
+                    <div class="stat-content">
+                        <div class="stat-icon">
+                             <mat-icon svgIcon="star" style="color:rgba(0, 0, 0, 0.7); width: 40px; height: 40px;"></mat-icon>
+                        </div>
+                        <div class="stat-value">{{stats?.activeFiles || 0}}</div>
+                    </div>
+                </div>
+
+                <!-- Archivos completados -->
+                <div class="stat-card">
+                    <div class="stat-title">Total complete files</div>
+                    <div class="stat-content">
+                        <div class="stat-icon">
+                           <mat-icon svgIcon="completeD" style="color:rgba(0, 0, 0, 0.7); width: 40px; height: 40px;"></mat-icon>
+                        </div>
+                        <div class="stat-value">{{stats?.completeFiles || 0}}</div>
+                    </div>
+                </div>
+
+                <!-- Archivos cancelados -->
+                <div class="stat-card">
+                    <div class="stat-title">Total canceled files</div>
+                    <div class="stat-content">
+                        <div class="stat-icon">
+                            <mat-icon svgIcon="cancel" style="color:rgba(0, 0, 0, 0.7); width: 40px; height: 40px;"></mat-icon>
+                        </div>
+                        <div class="stat-value">{{stats?.canceledFiles || 0}}</div>
+                    </div>
+                </div>
+
+                <!-- No shows -->
+                <div class="stat-card">
+                    <div class="stat-title">Total no show files</div>
+                    <div class="stat-content">
+                        <div class="stat-icon">
+                           <mat-icon svgIcon="calendar-slash" style="color:rgba(0, 0, 0, 0.7); width: 40px; height: 40px;"></mat-icon>
+                        </div>
+                        <div class="stat-value">{{stats?.noShowFiles || 0}}</div>
+                    </div>
+                </div>
+
+                <!-- Archivos rechazados -->
+                <div class="stat-card">
+                    <div class="stat-title">Total refused files</div>
+                    <div class="stat-content">
+                        <div class="stat-icon">
+                             <mat-icon svgIcon="refused" style="color:rgba(0, 0, 0, 0.7); width: 40px; height: 40px;"></mat-icon>
+                        </div>
+                        <div class="stat-value">{{stats?.refusedFiles || 0}}</div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="num-reg-tablas" *ngIf="!(solicitudes.length == 0)">25 Files actives</div>
+            <!-- TABLA CON REGISTROS -->
+      <div style="display:flex; flex-flow: column; overflow: auto;">
+        <table class='big' *ngIf="!(solicitudes.length == 0)">
+          <tr>
+            <!-- <th class=''><input type="checkbox" [checked]="estanTodosSeleccionados()" (change)="checkAll($event)"></th> -->
+            <th class=''>File</th>
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">Creation Date</th>
+            <th class=''>Due Date</th>
+            <th class='' *ngIf="isMaster">Assigned</th>
+            <th class=''>Customer Name</th>
+            <th class=''>Phone</th>
+            <th class=''>Type</th>
+            <th class=''>Additional</th>
+            <th class=''>Responsible User</th>
+            <th class=''>Email</th>
+            <!--<th class=''>Importance</th>-->
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales || isClinician)">Assignment
+              editor</th>
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales || isClinician)">
+              Payment Status
+            </th>
+            <th class=''>File Status</th>
+            <th class='' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">Interview Appointment</th>
+            <th class='' *ngIf="!(isInterviewer || isGhostwriting || isClinician)">Scales Appointment</th>
+            <th class='' *ngIf="(isMaster || isVendor || isBackOffice)">Interview review</th>
+            <th class='' *ngIf="isTemplateCreator">Interview Scale</th>
+          </tr>
+          <tr *ngFor='let e of solicitudes | slice:paginacion.begin:paginacion.end'>
+            <!-- <td class=''><input type="checkbox" [checked]="estaSeleccionado(e.idSolicitud)"
+                (change)="check($event, e.idSolicitud)"></td> -->
+            <td class=''><a routerLink="{{e.idSolicitud}}">{{e.idSolicitud}}</a></td>
+            <td class='accent' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales)">{{e.fechaInicio |
+              dateMMDDYYYY}}</td>
+            <td class='accent'>{{e.dueDate | dateMMDDYYYY}}</td>
+            <td class='accent' *ngIf="isMaster">{{e.abogado}}</td>
+            <td class=''><a routerLink="{{e.idSolicitud}}">{{e.cliente}}</a></td>
+            <td class='accent'>{{e.telefono | phone}}</td>
+            <td class='accent'>{{e.tipoSolicitud}}</td>
+            <td class='accent'>{{e.adicional}}</td>
+            <td class='accent'>{{e.usuarioRevisandoNombre}}</td>
+            <td class='accent'>{{e.email}}</td>
+            <!--<td style="text-align: center;"><span class="badge-status badge-color-important" style="margin: 0;"
+                *ngIf="e.importante.length > 0">{{e.importante}}</span></td>-->
+            <td *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales || isClinician)"
+              style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;">
+              <mat-icon svgIcon="done" *ngIf="e.asignacionTemplate" class="my-icon-pequenio"></mat-icon>
+            </td>
+            <td style="text-align: center;"
+              *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales || isClinician)"><span
+                class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
+                            'badge-color-complete': e.idEstatusPago == 2,
+                            'badge-color-hold': e.idEstatusPago == 3,
+                            'badge-color-na': e.idEstatusPago == 4}">{{e.estatusPago}}</span></td>
+            <td style="text-align: center;">
+              <div class="badge-wrapper">
+                <span class="badge-status" style="margin: 0;" [ngClass]="{
+                                    'badge-color-received': e.idEstatusSolicitud == 1,
+                                    'badge-color-reviewing': e.idEstatusSolicitud == 2,
+                                    'badge-color-interview': e.idEstatusSolicitud == 3,
+                                    'badge-color-refused': e.idEstatusSolicitud == 4,
+                                    'badge-color-no_show': e.idEstatusSolicitud == 5,
+                                    'badge-color-case': e.idEstatusSolicitud == 6,
+                                    'badge-color-lost': e.idEstatusSolicitud == 7,
+                                    'badge-color-won': e.idEstatusSolicitud == 8,
+                                    'badge-color-open': e.idEstatusSolicitud == 9,
+                                    'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
+                                    'badge-color-closed': e.idEstatusSolicitud == 11
+                                  }">
+                  {{ e.estatusSolicitud }}
+                </span>
+
+                <!-- Badge adicional -->
+                <span class="status-badge" *ngIf="e.importante">I</span>
+              </div>
+            </td>
+            <td style="font-size: 11.5px;" class='accent' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">{{e.fecha_schedule |
+              dateMMDDYYYY:'datetime'}}
+               <mat-icon *ngIf="e.finIntIni && e.fecha_schedule != ''" svgIcon="seenD" style="color:#00949B; width: 10px; height: 10px;margin-bottom: 5px;"></mat-icon>
+            </td>
+            <td style="font-size: 11.5px;" class='accent' *ngIf="!(isInterviewer || isGhostwriting || isClinician)">{{e.fecha_schedule_scales |
+              dateMMDDYYYY:'datetime'}}
+               <mat-icon *ngIf="e.finIntSc && e.fecha_schedule_scales != ''" svgIcon="seenD" style="color:#00949B; width: 10px; height: 10px;margin-bottom: 5px;"></mat-icon>
+            </td>
+            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;"
+              *ngIf="(isMaster || isVendor || isBackOffice)">
+              <mat-icon svgIcon="done" *ngIf="e.interviewMaster" class="my-icon-pequenio"></mat-icon>
+            </td>
+            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;"
+              *ngIf="isTemplateCreator">
+              <mat-icon svgIcon="done" *ngIf="e.tieneScale" class="my-icon-pequenio"></mat-icon>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="99" style="text-align: right;line-height: 24px;" class="mini">
+              <label>
+                Records per page</label>
+              <select [(ngModel)]="paginacion.size" (ngModelChange)="paginacion.fix()"
+                style="margin: 0 8px; font-family: regular; height: 24px;">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              {{paginacion.begin + 1}}-{{paginacion.end}} of {{paginacion.array.length}}
+              <button class="iigwo small" style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+                (click)="paginacion.back();">
+                <mat-icon svgIcon="arrow-back"></mat-icon>
+              </button>
+              <button class="iigwo small" style="margin: 0 0 0 8px; padding:0; height: 24px; min-height: 24px;"
+                (click)="paginacion.forward();">
+                <mat-icon svgIcon="arrow-forward"></mat-icon>
+              </button>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+
+     
+     
+
+        </div>
+
+
+    </div>
+</div>

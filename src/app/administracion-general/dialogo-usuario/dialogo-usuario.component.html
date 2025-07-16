@@ -9,6 +9,20 @@
 
       <h4 style="margin: 0 0 12px 0">Personal information</h4>
 
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style='margin-left: 0px;
+        margin-bottom: 10px;' class="badge-status" [ngClass]="{'badge-color-active': usuario.estatus == '1',
+                                'badge-color-inaactive': usuario.estatus == '2',
+                                'badge-color-bloqueo': usuario.estatus == '3'}"> {{ getEstatusTexto(usuario.estatus)
+          }}</span>
+
+        <button (click)='desbloquear()' class="btn m-l-40" *ngIf="usuario.estatus == '3'" style="color: #d59c51;border-radius: 2px; height: 23px; line-height: 23px;
+             text-decoration: underline;padding: 0px;margin: 0px; margin-right: 20px;margin-bottom: 10px;"
+          matTooltip="Unlock">
+          <label>Unlock</label>
+        </button>
+      </div>
+
       <div class="iigwo-input">
         <label>Name</label>
         <input type="text" [(ngModel)]="usuario.nombre">
@@ -42,43 +56,6 @@
         </select>
       </div>
 
-    <!--<div style="display: flex; align-items: center; justify-content: space-between;">
-        <h4>Attachments</h4>
-        <button (click)='cargarAdjunto()' class="btn m-l-40" *ngIf="file.length > 0"
-            style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
-            <mat-icon svgIcon="file-upload"></mat-icon>
-            <label>Upload File(s)</label>
-        </button>
-    </div>
-
-    <div>
-
-        <label for='fileId' [class]='file.length == 0 ?"fake-button accent":"fake-button"' tabindex="0" >
-            <span *ngIf="file.length == 0">Select File</span>
-            <span *ngIf="file.length > 0">Selected File</span>
-        </label>
-
-        <label style="display: inline-block; line-height: 32px; font-size: 13px; color:rgba(0,0,0,0.5);"
-            *ngIf="file.length == 0">No file selected</label>
-
-        <div *ngFor="let f of file" style="display: inline-block;">
-            <span class="badge-file-icon"><mat-icon svgIcon="attach_file"></mat-icon></span>
-            <span class="badge-file" style="padding-right: 21px;">{{f.name}}</span>
-            <span style="margin-left: -18px;">
-                <button class="iigwo adjuntos-options" (click)="quitarAdjunto(f)">
-                    <mat-icon style="margin-top: 1px;" svgIcon="close"></mat-icon>
-                </button>
-            </span>
-        </div>
-
-        <input id='fileId' type="file" #fileInput (change)="onFileSelected(fileInput.files)"
-            style='display:none;' multiple>
-    </div>-->
-      
-    </div>
-
-    <div style="min-width: 332px;">
-
       <div class="iigwo-input">
         <label>Phone</label>
         <input type="tel" [(ngModel)]="usuario.telefono">
@@ -88,6 +65,23 @@
         <label>Email</label>
         <input type="email" [(ngModel)]="usuario.correoElectronico">
       </div>
+
+       <div style="display:flex; margin-bottom: 12px;">
+        <div style="min-width: 332px; margin-right: 12px;">
+          <div class="iigwo-input" style="margin: 0;" *ngIf="!creando">
+            <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
+              id="ausencia" [checked]="usuario.ausencia" (change)="usuario.ausencia = !usuario.ausencia">
+            <label for="ausencia"
+              style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Absence</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="min-width: 332px;">
+
+
 
       <h4 style="margin: 24px 0 12px 0">User Information</h4>
 
@@ -101,34 +95,19 @@
         <input type="password" [(ngModel)]="usuario.contrasenia">
       </div>
 
-      <!--<div class="iigwo-input">
-        <label>Type</label>
-        <select [(ngModel)]="usuario.rol" (ngModelChange)="rolSelected()">
-          <option value="1">Administrator</option>
-          <option value="2">Master</option>
-          <option value="3">Vendor</option>
-          <option value="4">BackOffice</option>
-          <option value="5">Case manager</option>
-          <option value="6">VOC</option>
-          <option value="7">Template Creator</option>
-          <option value="8">Interviewer Scales</option>
-          <option value="9">Ghostwriting</option>
-          <option value="10">Therapist</option>
-          <option value="11">Clinician</option>
-        </select>
-      </div>-->
-
       <div class="iigwo-input">
         <label>Type</label>
-        <select [(ngModel)]="usuario.rol" >
+        <select [(ngModel)]="usuario.rol">
           <option *ngFor="let r of roles" [ngValue]="r.idRol">
             {{r.nombre}}</option>
         </select>
       </div>
 
-      <div *ngIf="usuario.rol == '5' || usuario.rol == '8' || usuario.rol == '10' || usuario.rol == '11' " class="iigwo-input">
+      <div
+        *ngIf="usuario.rol == '5' || usuario.rol == '7' || usuario.rol == '8' || usuario.rol == '10' || usuario.rol == '11' "
+        class="iigwo-input">
         <label>Color</label>
-        <input style="width:80px" type="color" id="colorPicker" [(ngModel)]="usuario.color">
+        <input style="width:60px" type="color" id="colorPicker" [(ngModel)]="usuario.color">
         <p style="margin-top: 4px;font-size: 12px;">Código color: {{ usuario.color }}</p>
       </div>
 
@@ -159,19 +138,24 @@
 
       <div style="display:flex; margin-bottom: 12px;">
         <div style="min-width: 332px; margin-right: 12px;">
-          <div class="iigwo-input" style="margin: 0;" *ngIf="!creando">
-            <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
-              id="ausencia" [checked]="usuario.ausencia" (change)="usuario.ausencia = !usuario.ausencia">
-            <label for="ausencia"
-              style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Absence</label>
-          </div>
           <div class="iigwo-input" style="margin: 0;" *ngIf="usuario.rol == '4' || usuario.rol == '9'">
             <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
               id="revisor" [checked]="usuario.revisor" (change)="usuario.revisor = !usuario.revisor">
             <label for="revisor"
               style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">Reviewer</label>
           </div>
+          <div class="iigwo-input" style="margin: 0;" *ngIf="usuario.rol == '10'">
+            <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 0;"
+              id="withSupervision" [checked]="usuario.withSupervision" (change)="usuario.withSupervision = !usuario.withSupervision">
+            <label for="withSupervision"
+              style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">With supervision</label>
+          </div>
         </div>
+      </div>
+
+      <div class="iigwo-input" *ngIf="usuario.withSupervision && usuario.rol == '10'">
+        <label>Supervisor</label>
+        <input type="text" [(ngModel)]="usuario.supervisor">
       </div>
 
       <br>

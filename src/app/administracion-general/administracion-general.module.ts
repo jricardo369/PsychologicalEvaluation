@@ -13,6 +13,9 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DialogoUsuarioComponent } from './dialogo-usuario/dialogo-usuario.component';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { TareasProgramadasComponent } from './tareas-programadas/tareas-programadas.component';
+import { AbogadosComponent } from './abogados/abogados.component';
+import { DialogoAbogadoComponent } from './dialogo-abogado/dialogo-abogado.component';
+import { RedirectInicioComponent } from './redirect-inicio.component';
 
 @NgModule({
     imports: [
@@ -27,6 +30,7 @@ import { TareasProgramadasComponent } from './tareas-programadas/tareas-programa
     ],
     entryComponents: [
         DialogoUsuarioComponent,
+        DialogoAbogadoComponent,
     ],
     declarations: [
         GeneralNavComponent,
@@ -34,8 +38,16 @@ import { TareasProgramadasComponent } from './tareas-programadas/tareas-programa
         DialogoUsuarioComponent,
         ConfiguracionesComponent,
         TareasProgramadasComponent,
+        AbogadosComponent,
+        DialogoAbogadoComponent,
+        RedirectInicioComponent,
     ],
     providers: [
     ]
 })
-export class AdministracionGeneralModule { }
+export class AdministracionGeneralModule {
+
+
+ }
+
+

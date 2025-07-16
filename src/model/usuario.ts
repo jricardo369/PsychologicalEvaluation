@@ -29,5 +29,8 @@ export class Usuario {
     color: string;
     image: string;
     iniciales: string;
+    
+    withSupervision: boolean;
+    supervisor: string;
 
 }

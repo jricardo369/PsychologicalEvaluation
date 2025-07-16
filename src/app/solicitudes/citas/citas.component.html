@@ -35,6 +35,7 @@
     <div class='content'>
 
       <div style="display:flex; justify-content: space-between; align-items: flex-end;">
+
         <div style="display: inline-flex;">
           <div class="iigwo-input" style="margin-right: 12px;">
             <label>Date</label>
@@ -48,18 +49,18 @@
             </select>
           </div>
           <div class="iigwo-input" style="display: flex; align-items: flex-end;"
-            *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isInterviewerScales)">
+            *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isInterviewerScales || isClinician)">
             <input type="checkbox" style="width: 15px;display: inline-block;line-height: 18px;margin: 0 6px 0 4px;"
               id="viewAvalability" [checked]="filterViewAvalability"
               (change)="filterViewAvalability = !filterViewAvalability; refrescar()">
-            <label for="viewAvalability" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">View
-              Availability</label>
+            <label for="viewAvalability" style="display: inline-block;line-height: 24px;margin: 0;font-size: 12px;">View Availability</label>
           </div>
         </div>
 
         <button class='accent iigwo' (click)='citasDia()'>
           <label>{{citasPorDia}}</label>
         </button>
+
       </div>
 
       <div *ngIf="mostrarDatosDia">

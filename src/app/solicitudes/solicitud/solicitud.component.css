@@ -96,3 +96,52 @@ color:gray;
 .form-grid > .iigwo-input {
   flex: 1 1 280px;
 }
+
+
+.custom-form-field {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+   margin-top: 0 !important;
+  padding-top: 0 !important;
+  .custom-form-field {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+}
+
+.custom-form-field .mat-form-field-wrapper {
+ padding-bottom: 0;
+  margin-bottom: -18px;
+}
+
+::ng-deep .custom-form-field .mat-form-field-wrapper {
+  margin-bottom: -18px;
+}
+
+::ng-deep .custom-form-field .mat-form-field-infix {
+  margin-top: -20px;
+}
+
+.custom-form-field .mat-form-field-flex {
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding-top: 0 !important;
+}
+
+.custom-form-field label,
+.custom-form-field .mat-form-field-label {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+
+.custom-form-field .mat-form-field-underline {
+  background-color: mat-color(#cacaca, 500);
+}
+
+.label-prefix {
+  color: rgb(0, 0, 0);
+  font-weight: bold; 
+}

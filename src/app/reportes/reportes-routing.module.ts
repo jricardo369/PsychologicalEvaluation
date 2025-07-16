@@ -7,12 +7,14 @@ import { ReporteCorreosEnviadosComponent } from './reporte-correos-enviados/repo
 import { ReporteMovimientosUsuarioComponent } from './reporte-movimientos-usuario/reporte-movimientos-usuario.component';
 import { HomeComponent } from './home/home.component';
 import { ReporteComparacionAniosComponent } from './reporte-comparacion-anios/reporte-comparacion-anios.component';
+import { ReporteDashboardComponent } from './reporte-dashboard/reporte-dashboard.component';
 
 const routes: Routes = [
-	{ path: 'solicitudes-usuarios', component: ReporteSolicitudesUsuariosComponent, },
+	{ path: 'solicitudes-usuarios', component: ReporteSolicitudesUsuariosComponent },
 	{ path: 'pagos', component: ReporteMovimientosUsuarioComponent, },
 	{ path: 'correos-enviados', component: ReporteCorreosEnviadosComponent, },
 	{ path: 'comparacion-anios', component: ReporteComparacionAniosComponent, },
+	{ path: 'reporte-dashboard', component: ReporteDashboardComponent, },
 
   { path: 'home', component: HomeComponent },
 	{ path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -56,9 +58,17 @@ export const REPORTES_ITEMS: AppBarNavItem[] = [
 		module: MODULE,
 		svgName: 'comparison',
 		title: 'Comparison by Years',
-		subtitle: 'Report of files comparison by years.',
+		subtitle: 'Report of files comparison by years',
 		uri: 'comparacion-anios',
 		isVisibleFor: u => [MASTER].some(rol => rol == u.rol) || u.usuario == 'edgar' || u.usuario == 'juan'
+	},
+	{
+		module: MODULE,
+		svgName: 'dashboard',
+		title: 'Dashboard',
+		subtitle: 'Dashboard',
+		uri: 'reporte-dashboard',
+		isVisibleFor: u => [MASTER].some(rol => rol == u.rol) 
 	},
 ]
 

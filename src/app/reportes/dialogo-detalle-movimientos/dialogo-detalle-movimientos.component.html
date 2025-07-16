@@ -4,7 +4,7 @@
   <div *ngIf="detalleMovimientos.pendiente !== 0" style="display: flex;">
     <div class="mb-20">
       <p class="text-body-secondary fs-9 mb-0">Pending Amount</p>
-      <h4 class="mb-0 mt-0" style="color: red;">{{(detalleMovimientos.pendiente ? detalleMovimientos.pendiente: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
+      <h4 class="mb-0 mt-0" style="color: red;margin-top: 5px;">{{(detalleMovimientos.pendiente ? detalleMovimientos.pendiente: 0) | currency : 'USD' : 'symbol' : undefined : 'en-US'}}</h4>
     </div>
     <button (click)='enviarRecordatorio()' class="btn"
       style="color: #FFFFFF;background: #088395; border-radius: 5px; height: 20px; line-height: 20px;">

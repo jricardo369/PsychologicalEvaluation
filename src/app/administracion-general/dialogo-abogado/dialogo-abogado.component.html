@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>{{titulo}}</h2>
+
+<mat-dialog-content style="padding-right: 12px;">
+
+
+  <div style="display:flex; margin-bottom: 12px;">
+
+    <div style="min-width: 332px; margin-right: 12px;">
+
+      <h4 style="margin: 0 0 12px 0">Lawyer information</h4>
+
+      <div class="iigwo-input">
+        <label>Law Firm</label>
+        <input type="text" [(ngModel)]="abogado.firma">
+      </div>
+
+      <div class="iigwo-input">
+        <label>Lawyer name</label>
+        <input type="text" [(ngModel)]="abogado.nombre">
+      </div>
+
+      <div class="iigwo-input">
+        <label>Emails</label>
+        <input type="text" [(ngModel)]="abogado.email">
+      </div>
+
+      <div class="iigwo-input">
+        <label>Phone</label>
+        <input type="text" [(ngModel)]="abogado.telefono">
+      </div>
+
+      <div class="iigwo-input">
+        <label>Synonyms</label>
+        <input type="text" min="0" [(ngModel)]="abogado.sinonimos">
+      </div>
+
+      <div *ngIf="!creando" class="iigwo-input">
+        <label>Creation date</label>
+        <input type="text" min="0" [(ngModel)]="abogado.fechaCreacion" readonly>
+      </div>
+
+   
+      
+    </div>
+
+
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <!--<button *ngIf="!creando" class="iigwo" (click)='eliminar()'>Delete</button>-->
+  <button class="iigwo" style="margin-left:auto;" (click)='cerrar()'>Cancel</button>
+  <button *ngIf="creando" class="iigwo accent" style="margin-right:0;" (click)='crear()'>Create</button>
+  <button *ngIf="!creando" class="iigwo accent" style="margin-right:0;" (click)='editar()'>Save changes</button>
+
+</mat-dialog-actions>
+
+<!-- CARGANDO-->
+<div class='iigwo-loading' *ngIf="cargando">
+  <mat-spinner></mat-spinner>
+</div>

@@ -58,4 +58,6 @@ export class Solicitud {
   assignedClinician: number;
   usuarioInterview: number;
 
+  idAbogado: number;
+
 }

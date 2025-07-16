@@ -33,7 +33,10 @@ import { DialogoCancelarCitaSolicitudComponent } from './dialogo-cancelar-cita-s
 import { CitasComponent } from './citas/citas.component';
 import { CargosVocComponent } from './cargos-voc/cargos-voc.component';
 import { DialogoSolicitudCasenumberComponent } from './dialogo-solicitud-casenumber/dialogo-solicitud-casenumber.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
 	imports: [
@@ -45,7 +48,11 @@ import { DialogoSolicitudCasenumberComponent } from './dialogo-solicitud-casenum
 		DentalUiModule,
 		MatDialogModule,
 		SolicitudesRoutingModule,
-		MatCheckboxModule
+		MatCheckboxModule,
+		ReactiveFormsModule,
+		MatAutocompleteModule,
+		MatInputModule,
+		MatFormFieldModule
 	],
 	entryComponents: [
 		DialogoEventoSolicitudComponent,

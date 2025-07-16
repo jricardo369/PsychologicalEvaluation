@@ -206,6 +206,25 @@ export class UsuariosService {
     return this.usuarioPromise;
   }
 
+   desbloquearUsuario(idUsuario: number): Promise<Usuario> {
+     this.usuarioPromise = new Promise((resolve, reject) =>
+      this.http
+        .put(API_URL + "usuarios/desbloquear/"+idUsuario, null, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as Usuario);
+        })
+        .catch((reason) => reject(reason))
+    );
+    return this.usuarioPromise;
+  }
+
   actualizarImagen(archivo: File,idUsuario: number) {
     let formData = new FormData();
     formData.append('archivo', archivo);

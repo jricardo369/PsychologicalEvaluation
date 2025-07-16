@@ -14,7 +14,7 @@
                     <option value="Schedule">Schedule</option>
                     <option value="Important">Important</option>
                     <option value="Suicide">Suicide</option>
-                    <option *ngIf="rol == '11' || rol == '5'" value="Interview review">Interview review</option>
+                    <option *ngIf="rol == '11' || rol == '5' || rol == '2'" value="Interview review">Interview review</option>
                 </select>
             </div>
            
@@ -26,8 +26,6 @@
       </div>
 
         <div style="display: flex;">
-
-          
 
           <!-- <div class="iigwo-input" *ngIf="eventoSolicitud.tipo == 'Schedule'">
               <label>Date and Time</label>

@@ -13,22 +13,24 @@
       </button>-->
 
       <button (click)='botonRefrescar()' class="btn"
-            style="color: #FFFFFF;background: #f3c956; border-radius: 5px; height: 20px; line-height: 20px;">
-            <mat-icon svgIcon="refresh" style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
-            <label style="margin: auto;color: #FFFFFF;text-transform: none;">Refresh</label>
-          </button>
-      
-    <!--<button (click)='crearSolicitud()' *ngIf="!(isInterviewer || isInterviewerScales)"
+        style="color: #FFFFFF;background: #f3c956; border-radius: 5px; height: 20px; line-height: 20px;">
+        <mat-icon svgIcon="refresh"
+          style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">Refresh</label>
+      </button>
+
+      <!--<button (click)='crearSolicitud()' *ngIf="!(isInterviewer || isInterviewerScales)"
         style="color: #239B56;background: #EAFAF1;border-radius: 5px; height: 28px; line-height: 28px;">
         <mat-icon svgIcon="add-box"></mat-icon>
         <label>Create File</label>
       </button>-->
 
       <button (click)='crearSolicitud()' *ngIf="!(isInterviewer || isInterviewerScales)" class="btn"
-      style="color: #FFFFFF;background: #239B56; border-radius: 5px; height: 20px; line-height: 20px;">
-      <mat-icon svgIcon="add-box" style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
-      <label style="margin: auto;color: #FFFFFF;text-transform: none;">Create File</label>
-    </button>
+        style="color: #FFFFFF;background: #239B56; border-radius: 5px; height: 20px; line-height: 20px;">
+        <mat-icon svgIcon="add-box"
+          style="color:rgba(255, 255, 255, 0.7); width: 15px; margin-bottom: 2px;margin-right: 5px;"></mat-icon>
+        <label style="margin: auto;color: #FFFFFF;text-transform: none;">Create File</label>
+      </button>
 
       <!--<div class="iigwo-input" style="margin: 0;" >
         <label for="closed"
@@ -58,32 +60,34 @@
       <div class="container" style="margin-bottom: 15px;">
         <div class="left">
           <div style="display: inline-flex;">
-            
+
             <div class="iigwo-input" style="margin-right: 0px;">
               <label>Start Date</label>
-              <input style="width: 90%;" type="date" [(ngModel)]="filterStartDate" (change)="refrescar()">
+              <!--<input style="width: 90%;" type="date" [(ngModel)]="filterStartDate" (change)="refrescar()">-->
+              <input style="width: 90%;" type="date" [(ngModel)]="filterStartDate">
             </div>
             <div class="iigwo-input" style="margin-right: 0px;">
               <label>End Date </label>
-              <input style="width: 90%;" type="date" [(ngModel)]="filterEndDate" (change)="refrescar()">
+              <!--<input style="width: 90%;" type="date" [(ngModel)]="filterEndDate" (change)="refrescar()">-->
+              <input style="width: 90%;" type="date" [(ngModel)]="filterEndDate">
             </div>
 
             <!--<div class="" style="margin-top: 8px;text-decoration: underline;font-size: 12px;margin-left: 4px;" (click)='limpiarFechas()'>
               <label style="cursor: pointer;">Clear dates </label>
             </div>-->
 
-            <div class="iigwo-input" >
+            <div class="iigwo-input">
               <label>Sort by</label>
               <!--<select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" (change)="refrescar()">-->
-                <select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" >
+              <select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
                 <option *ngFor="let e of arrFilterSortBy" [ngValue]="e">
                   {{e}}</option>
               </select>
             </div>
             <div class="iigwo-input">
               <label>Order</label>
-             <!-- <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}" (change)="refrescar()">-->
-              <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}" >
+              <!-- <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}" (change)="refrescar()">-->
+              <select [(ngModel)]="filterOrder" [ngModelOptions]="{standalone: true}">
                 <option *ngFor="let e of arrFilterOrder" [ngValue]="e">
                   {{e}}</option>
               </select>
@@ -100,15 +104,16 @@
                   {{e}}</option>
               </select>
             </div>-->
-            <div class="iigwo-input" >
+            <div class="iigwo-input">
               <label>Type</label>
               <!--<select [(ngModel)]="filterSortBy" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" (change)="refrescar()">-->
-                <select [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;" >
+              <select [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}" style="margin-right: 10px;">
                 <option *ngFor="let e of arrFilterTypes" [ngValue]="e">
                   {{e}}</option>
               </select>
             </div>
-            <div class="iigwo-input" *ngIf="filterType == 'All' || filterType == 'File' || filterType == 'Customer' || filterType == 'Phone' || filterType == 'Email' || filterType == 'Responsible User'">
+            <div class="iigwo-input"
+              *ngIf="filterType == 'All' || filterType == 'File' || filterType == 'Customer' || filterType == 'Phone' || filterType == 'Email' || filterType == 'Responsible User'">
               <!--<div class="iigwo-input" >-->
               <label>Value</label>
               <input type="text" placeholder="Enter a value" [(ngModel)]="filterInputText">
@@ -164,18 +169,18 @@
               <input type="checkbox" style="width: 15px;line-height: 18px;margin: 0 6px 0 4px;"
                 id="myFiles" [checked]="filterMyFiles" (change)="filterMyFiles = !filterMyFiles">
             </div>-->
-           
 
-            <button class="accent iigwo small" style="margin-top: 12px" (click)="explorar()" >Explore</button>
-          <button class="iigwo" style="margin-top: 12px" (click)='limpiarFiltros()'>Clear all filters</button>
-          <button class="iigwo" style="margin-top: 12px" (click)='limpiarFechas()'>Clear dates</button>
+
+            <button class="accent iigwo small" style="margin-top: 12px" (click)="explorar()">Explore</button>
+            <button class="iigwo" style="margin-top: 12px" (click)='limpiarFiltros()'>Clear all filters</button>
+            <button class="iigwo" style="margin-top: 12px" (click)='limpiarFechas()'>Clear dates</button>
 
           </div>
         </div>
-        
+
       </div>
 
-      
+
 
       <!-- TABLA CON REGISTROS -->
       <div style="display:flex; flex-flow: column; overflow: auto;">
@@ -193,8 +198,10 @@
             <th class=''>Responsible User</th>
             <th class=''>Email</th>
             <!--<th class=''>Importance</th>-->
-            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales || isClinician)">Assignment editor</th>
-            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales || isClinician)">Payment Status
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales || isClinician)">Assignment
+              editor</th>
+            <th class='' *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales || isClinician)">
+              Payment Status
             </th>
             <th class=''>File Status</th>
             <th class='' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">Interview Appointment</th>
@@ -218,20 +225,19 @@
             <td class='accent'>{{e.email}}</td>
             <!--<td style="text-align: center;"><span class="badge-status badge-color-important" style="margin: 0;"
                 *ngIf="e.importante.length > 0">{{e.importante}}</span></td>-->
-            <td *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales || isClinician)" style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" >
+            <td *ngIf="!(isInterviewer || isTemplateCreator || isInterviewerScales || isClinician)"
+              style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;">
               <mat-icon svgIcon="done" *ngIf="e.asignacionTemplate" class="my-icon-pequenio"></mat-icon>
             </td>
             <td style="text-align: center;"
-              *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales || isClinician)"><span class="badge-status"
-                style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
+              *ngIf="!(isInterviewer || isTemplateCreator || isVOC || isInterviewerScales || isClinician)"><span
+                class="badge-status" style="margin: 0;" [ngClass]="{'badge-color-partially': e.idEstatusPago == 1,
                             'badge-color-complete': e.idEstatusPago == 2,
                             'badge-color-hold': e.idEstatusPago == 3,
                             'badge-color-na': e.idEstatusPago == 4}">{{e.estatusPago}}</span></td>
-                            <td style="text-align: center;">
-                              <div class="badge-wrapper">
-                                <span class="badge-status"
-                                  style="margin: 0;"
-                                  [ngClass]="{
+            <td style="text-align: center;">
+              <div class="badge-wrapper">
+                <span class="badge-status" style="margin: 0;" [ngClass]="{
                                     'badge-color-received': e.idEstatusSolicitud == 1,
                                     'badge-color-reviewing': e.idEstatusSolicitud == 2,
                                     'badge-color-interview': e.idEstatusSolicitud == 3,
@@ -244,20 +250,27 @@
                                     'badge-color-ready_on_draft': e.idEstatusSolicitud == 10,
                                     'badge-color-closed': e.idEstatusSolicitud == 11
                                   }">
-                                  {{ e.estatusSolicitud }}
-                                </span>
-                            
-                                <!-- Badge adicional -->
-                                <span class="status-badge" *ngIf="e.importante">I</span>
-                              </div>
-                            </td>
-            <td class='accent' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">{{e.fecha_schedule | dateMMDDYYYY:'datetime'}}
-            <td class='accent' *ngIf="!(isInterviewer || isGhostwriting || isClinician)">{{e.fecha_schedule_scales | dateMMDDYYYY:'datetime'}}
+                  {{ e.estatusSolicitud }}
+                </span>
+
+                <!-- Badge adicional -->
+                <span class="status-badge" *ngIf="e.importante">I</span>
+              </div>
             </td>
-            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="(isMaster || isVendor || isBackOffice)">
+            <td style="font-size: 11.5px;" class='accent' *ngIf="isMaster || isVendor || isBackOffice || isInterviewer">{{e.fecha_schedule |
+              dateMMDDYYYY:'datetime'}}
+               <mat-icon *ngIf="e.finIntIni && e.fecha_schedule != ''" svgIcon="seenD" style="color:#00949B; width: 10px; height: 10px;margin-bottom: 5px;"></mat-icon>
+            </td>
+            <td style="font-size: 11.5px;" class='accent' *ngIf="!(isInterviewer || isGhostwriting || isClinician)">{{e.fecha_schedule_scales |
+              dateMMDDYYYY:'datetime'}}
+               <mat-icon *ngIf="e.finIntSc && e.fecha_schedule_scales != ''" svgIcon="seenD" style="color:#00949B; width: 10px; height: 10px;margin-bottom: 5px;"></mat-icon>
+            </td>
+            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;"
+              *ngIf="(isMaster || isVendor || isBackOffice)">
               <mat-icon svgIcon="done" *ngIf="e.interviewMaster" class="my-icon-pequenio"></mat-icon>
             </td>
-            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;" *ngIf="isTemplateCreator">
+            <td style="padding-top: 4px; padding-bottom: 3px; text-align: center; color: #75518c;"
+              *ngIf="isTemplateCreator">
               <mat-icon svgIcon="done" *ngIf="e.tieneScale" class="my-icon-pequenio"></mat-icon>
             </td>
           </tr>

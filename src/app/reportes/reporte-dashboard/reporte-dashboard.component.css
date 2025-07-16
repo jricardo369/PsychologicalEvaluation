@@ -1,0 +1,58 @@
+.num-reg-tablas{
+  font-size: 14px;
+  margin-bottom: 10px;
+  color:#555;
+}
+
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /*justify-content: center;*/
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  /*padding: 20px;*/
+  width: 150px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+
+.stat-title {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.clickable-div {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}

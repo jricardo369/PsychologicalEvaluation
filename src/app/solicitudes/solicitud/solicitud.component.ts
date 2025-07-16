@@ -13,6 +13,7 @@ import { Usuario } from "src/model/usuario";
 import { DialogoSiguienteProcesoComponent } from "../dialogo-siguiente-proceso/dialogo-siguiente-proceso.component";
 import { DialogoNotificacionesComponent } from "../dialogo-notificaciones/dialogo-notificaciones.component";
 import { Scale } from 'src/model/scale';
+import { Abogado } from 'src/model/abogado';
 import { DialogoSimpleComponent } from 'src/app/common/dialogo-simple/dialogo-simple.component';
 import { ADMINISTRATOR, BACKOFFICE, CLINICIAN, GHOSTWRITING, INTERVIEWER, INTERVIEWER_SCALES, MASTER, TEMPLATE_CREATOR, VENDOR, VOC } from 'src/app/app.config';
 import { EventosSolicitudComponent } from '../eventos-solicitud/eventos-solicitud.component';
@@ -21,7 +22,12 @@ import { MovimientosSolicitudComponent } from '../movimientos-solicitud/movimien
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { DialogoSolicitudTelefonoComponent } from '../dialogo-solicitud-telefono/dialogo-solicitud-telefono.component';
 import { ReportesService } from '../../services/reportes.service';
+import { AbogadosService } from '../../services/abogados.service';
 import { DialogoCancelarCitaSolicitudComponent } from '../dialogo-cancelar-cita-solicitud/dialogo-cancelar-cita-solicitud.component';
+import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap,startWith } from 'rxjs/operators';
+
 
 @Component({
   selector: "app-solicitud",
@@ -38,6 +44,12 @@ export class SolicitudComponent implements OnInit {
 
   solicitud: Solicitud = new Solicitud;
   comentarios: string = "";
+
+  lawyerFirm: string = "";
+  lawyerName: string = "";
+  lawyerEmail: string = "";
+  lawyerPhone: string = "";
+  lawyerSyn: string = "";
 
   public arrTipoSolicitud: TipoSolicitud[] = [];
   public inputTipoSolicitud: TipoSolicitud = new TipoSolicitud;
@@ -69,6 +81,7 @@ export class SolicitudComponent implements OnInit {
   arrTypesOfInterview: any = [];
   arrReferralSources: any = [];
   arrUsuariosExternal: Usuario[] = [];
+  abogadosFiltrados!: Observable<Abogado[]>;
 
   @ViewChild(EventosSolicitudComponent, { static: false }) eventosSolicitudComponent: EventosSolicitudComponent;
   @ViewChild(AdjuntosComponent, { static: false }) adjuntosComponent: AdjuntosComponent;
@@ -76,6 +89,7 @@ export class SolicitudComponent implements OnInit {
 
   constructor(
     route: ActivatedRoute,
+    private router: Router,
     public utilService: UtilService,
     private solicitudesService: SolicitudesService,
     private tiposSolicitudService: TiposSolicitudService,
@@ -83,6 +97,7 @@ export class SolicitudComponent implements OnInit {
     private scalesService: ScalesService,
     private usuariosService: UsuariosService,
     private reportesService: ReportesService,
+    private abogadosService: AbogadosService,
     private dialog: MatDialog
   ) {
     this.usuario = JSON.parse(localStorage.getItem("objUsuario"));
@@ -113,6 +128,7 @@ export class SolicitudComponent implements OnInit {
       } else {
         this.editando = true;
         this.obtenerSolicitud(Number.parseInt(codigo));
+        
       }
      
     });
@@ -395,7 +411,41 @@ export class SolicitudComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void { console.log("MOVIMIENTOS: " + this.isBackOffice); localStorage.setItem('backSolicitud', '1'); console.log(this.solicitud);}
+  abogadoControl = new FormControl();
+  abogados: Abogado[] = [];
+  abogadoSeleccionado?: Abogado;
+
+
+  ngOnInit(): void { 
+    /*this.abogadoControl.valueChanges
+      .pipe(
+        startWith(''),
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((valor) =>
+          typeof valor === 'string' && valor.length > 1
+            ? this.abogadosService.obtenerAbogadosPorNombre(valor)
+            : of([])
+        )
+      )
+      .subscribe((res) => (this.abogados = res));*/
+    console.log("MOVIMIENTOS: " + this.isBackOffice); localStorage.setItem('backSolicitud', '1'); console.log(this.solicitud);
+
+    
+  }
+
+  limpiarAssignedClinician(){
+    this.solicitud.assignedClinician = null;
+  }
+
+   displayFn(abogado: Abogado): string {
+    return abogado ? abogado.nombre : '';
+  }
+
+  onOptionSelected(event: any): void {
+    this.abogadoSeleccionado = event.option.value;
+    console.log('Abogado seleccionado:', this.abogadoSeleccionado);
+  }  
 
   obtenerSolicitud(idSolicitud: number) {
     this.cargando = true;
@@ -415,9 +465,27 @@ export class SolicitudComponent implements OnInit {
         //this.inputTipoPago = this.arrTipoPago[this.arrTipoPago.findIndex(tipo => tipo.idTipoPago == this.solicitud.id)];
         this.onPhoneNumberInput(this.solicitud.telefono);
         this.titulo = "File " + this.solicitud.idSolicitud;
+
+      /*  
+      if (this.solicitud.idAbogado > 0) {
+          this.abogadosService.obtenerUsuarioPorId(this.solicitud.idAbogado).then(abogado => {
+
+            this.abogadoSeleccionado = abogado;
+            this.lawyerName = abogado.nombre;
+            this.lawyerFirm =  abogado.firma;
+            this.lawyerEmail = abogado.email;
+            this.lawyerPhone = abogado.telefono;
+            this.lawyerSyn = abogado.sinonimos;
+          })
+            .catch((reason) => this.utilService.manejarError(reason))
+            .then(() => (this.cargando = false));
+
+        }*/
+
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));
+
   }
 
   obtenerTiposSolicitud() {
@@ -459,13 +527,30 @@ export class SolicitudComponent implements OnInit {
                         '/solicitudes/solicitudes/' + solicitud.idSolicitud);
                     this.creando = false;
                     this.obtenerSolicitud(solicitud.idSolicitud);*/
-        this.goBack();
+        //this.goBack();
+         this.router.navigate(['/solicitudes/solicitudes']);
       })
       .catch((reason) => this.utilService.manejarError(reason))
       .then(() => (this.cargando = false));
   }
 
   guardarCambios() {
+
+    /*const valor = this.abogadoControl.value;
+
+    // Si escribió algo pero no seleccionó un objeto válido
+    if (typeof valor !== 'object') {
+      this.utilService.mostrarDialogoSimple("Error", "You must select the right lawyer"); 
+      return;
+    }
+    
+    if(this.abogadoSeleccionado != null){
+
+   
+      console.log("idAbogadoseleccionado:"+this.abogadoSeleccionado.idAbogado);
+      this.solicitud.idAbogado = this.abogadoSeleccionado.idAbogado;
+      
+    }*/
     this.solicitud.idTipoSolicitud = this.inputTipoSolicitud.idTipoSolicitud;
     this.solicitud.tipoSolicitud = this.inputTipoSolicitud.nombre;
     this.cargando = true;
@@ -489,6 +574,7 @@ export class SolicitudComponent implements OnInit {
 
   goBack() {
     this.utilService.goBack();
+   
   }
 
   siguienteProceso() {
@@ -507,7 +593,8 @@ export class SolicitudComponent implements OnInit {
             this.refreshSolicitudCompleta();
           }
           else {
-            this.goBack();
+            //this.goBack();
+             this.router.navigate(['/solicitudes/solicitudes']);
           }
         }
       }).catch(reason => this.utilService.manejarError(reason));
@@ -535,7 +622,8 @@ export class SolicitudComponent implements OnInit {
             this.solicitudesService.envioSiguienteProceso(this.solicitud.idSolicitud, false, this.usuario.idUsuario)
               .then(() => {
                 this.cargando = false;
-                this.goBack();
+                //this.goBack();
+                 this.router.navigate(['/solicitudes/solicitudes']);
               }).catch(e => {
                 //window.alert("ALGO NO SALIO BIEN");
                 this.utilService.manejarError(e);
@@ -563,7 +651,8 @@ export class SolicitudComponent implements OnInit {
           this.refreshSolicitudCompleta();
         }
         else {
-          this.goBack();
+          //this.goBack();
+           this.router.navigate(['/solicitudes/solicitudes']);
         }
       }
     }).catch(reason => this.utilService.manejarError(reason));
@@ -586,7 +675,8 @@ export class SolicitudComponent implements OnInit {
         this.solicitudesService.envioFinEntrevistaClinician(this.solicitud.idSolicitud, this.usuario.idUsuario)
           .then(() => {
             this.cargando = false;
-            this.goBack();
+            //this.goBack();
+             this.router.navigate(['/solicitudes/solicitudes']);
           }).catch(e => {
             this.utilService.manejarError(e);
             this.cargando = false;
@@ -630,7 +720,8 @@ export class SolicitudComponent implements OnInit {
               this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, "")
                 .then(() => {
                   this.cargando = false;
-                  this.goBack();
+                  //this.goBack();
+                   this.router.navigate(['/solicitudes/solicitudes']);
                 }).catch(e => {
                   this.utilService.manejarError(e);
                   this.cargando = false;
@@ -671,7 +762,8 @@ export class SolicitudComponent implements OnInit {
                   this.solicitudesService.cancelTemplate(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value)
                     .then(() => {
                       this.cargando = false;
-                      this.goBack();
+                      //this.goBack();
+                       this.router.navigate(['/solicitudes/solicitudes']);
                     }).catch(e => {
                       this.utilService.manejarError(e);
                       this.cargando = false;
@@ -728,7 +820,8 @@ export class SolicitudComponent implements OnInit {
                   this.solicitudesService.reasignarSolicitud(this.solicitud.idSolicitud, this.usuario.idUsuario, campos[0].value, campos[1].value, true)
                     .then(() => {
                       this.cargando = false;
-                      this.goBack();
+                      //this.goBack();
+                       this.router.navigate(['/solicitudes/solicitudes']);
                     }).catch(e => {
                       this.utilService.manejarError(e);
                       this.cargando = false;
@@ -761,7 +854,8 @@ export class SolicitudComponent implements OnInit {
             this.solicitudesService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario)
               .then(() => {
                 this.cargando = false;
-                this.goBack();
+                //this.goBack();
+                 this.router.navigate(['/solicitudes/solicitudes']);
               }).catch(e => {
                 this.utilService.manejarError(e);
                 this.cargando = false;
@@ -799,7 +893,8 @@ export class SolicitudComponent implements OnInit {
           this.solicitudesService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario, closed)
             .then(() => {
               this.cargando = false;
-              this.goBack();
+              //this.goBack();
+               this.router.navigate(['/solicitudes/solicitudes']);
             })
             .catch((reason) => this.utilService.manejarError(reason))
             .then(() => (this.cargando = false));
@@ -820,7 +915,8 @@ export class SolicitudComponent implements OnInit {
               this.solicitudesService.actualizarEstatusSolicitud(this.solicitud.idSolicitud, idEstatusSolicitud, this.usuario.idUsuario)
                 .then(() => {
                   this.cargando = false;
-                  this.goBack();
+                  //this.goBack();
+                   this.router.navigate(['/solicitudes/solicitudes']);
                 })
                 .catch((reason) => this.utilService.manejarError(reason))
                 .then(() => (this.cargando = false));
@@ -865,6 +961,8 @@ export class SolicitudComponent implements OnInit {
           .then(response => {
             this.arrScales = response;
             this.arrScales.sort((a, b) => b.idScale - a.idScale);
+            this.eventosSolicitudComponent.refresh();
+            this.inputScale.scale = '';
           })
           .catch((reason) => this.utilService.manejarError(reason))
       })

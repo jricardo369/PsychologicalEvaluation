@@ -5,6 +5,7 @@ import { ReporteSolicitudesUsuarios } from 'src/model/reporte-solicitudes-usuari
 import { ReporteSolicitudesUsuario } from 'src/model/reporte-solicitudes-usuario';
 import { ReporteFilesFirma } from 'src/model/reporte-files-firma';
 import { ReporteCorreosEnviados } from 'src/model/reporte-correos-enviados';
+import { SolicitudList } from 'src/model/solicitud-list';
 import { Observable } from 'rxjs';
 
 
@@ -148,4 +149,23 @@ export class ReportesService {
         }).catch(reason => reject(reason));
     });
   }
+
+  obtenerDetalleDashboard(fechaInicio: string, fechaFin: string,usuario: number,idUsuarioLogeado: number): Promise<SolicitudList[]> {
+    return new Promise<SolicitudList[]>((resolve, reject) =>
+      this.http
+        .get(API_URL + "reportes/solicitudes-dashboard/"+idUsuarioLogeado+"?fechai=" + fechaInicio + "&fechaf=" + fechaFin+ "&usuario=" + usuario, {
+          withCredentials: true,
+          observe: "response",
+          headers: new HttpHeaders()
+            .append("Content-Type", "application/json")
+            .append("Authorization", localStorage.getItem("auth_token")),
+        })
+        .toPromise()
+        .then((response) => {
+          resolve(response.body as SolicitudList[]);
+        })
+        .catch((reason) => reject(reason))
+    );
+  }
+
 }

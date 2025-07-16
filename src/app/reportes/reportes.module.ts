@@ -17,6 +17,7 @@ import { DialogoDetalleMovimientosComponent } from './dialogo-detalle-movimiento
 import { ReporteComparacionAniosComponent } from './reporte-comparacion-anios/reporte-comparacion-anios.component';
 import { DialogoSolicitudesUsuarioComponent } from './dialogo-solicitudes-usuario/dialogo-solicitudes-usuario.component';
 import { DialogoFilesLawyerComponent } from './dialogo-files-lawyer/dialogo-files-lawyer.component';
+import { ReporteDashboardComponent } from './reporte-dashboard/reporte-dashboard.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { DialogoFilesLawyerComponent } from './dialogo-files-lawyer/dialogo-file
     ReporteComparacionAniosComponent,
     DialogoSolicitudesUsuarioComponent,
     DialogoFilesLawyerComponent,
+    ReporteDashboardComponent,
 	],
 	exports: []
 })

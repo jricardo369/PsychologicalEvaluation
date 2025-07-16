@@ -87,6 +87,19 @@ export class DialogoUsuarioComponent implements OnInit {
     //this.usuario.rol = this.usuario.rol == "5" ? this.usuario.rol : null;
   }
 
+  getEstatusTexto(estatus: string): string {
+  switch (estatus) {
+    case '1':
+      return 'Active';
+    case '2':
+      return 'Inactive';
+    case '3':
+      return 'Blocking by attempts';
+    default:
+      return 'Unknown';
+  }
+}
+
   refrescar() {
     this.cargando = true;
     this.usuariosService
@@ -94,6 +107,17 @@ export class DialogoUsuarioComponent implements OnInit {
       .then(usuario => {
         this.usuario = usuario;
         this.checkAllPermisos(this.usuario.permisos);
+      })
+      .catch(reason => this.utilService.manejarError(reason))
+      .then(() => this.cargando = false);
+  }
+
+  desbloquear() {
+    this.cargando = true;
+    this.usuariosService
+      .desbloquearUsuario(this.usuario.idUsuario)
+      .then(usuario => {
+        this.cerrar('editando');
       })
       .catch(reason => this.utilService.manejarError(reason))
       .then(() => this.cargando = false);
@@ -114,6 +138,14 @@ export class DialogoUsuarioComponent implements OnInit {
   }
 
   editar() {
+    
+    if(this.usuario.withSupervision){
+      if(this.usuario.supervisor == null || this.usuario.supervisor == ''){
+          this.utilService.mostrarDialogoSimple("Error", "You must enter the supervisor"); 
+          return; // Salir de la función si no hay supervisor
+      }
+    }
+
     this.cargando = true;
     this.usuariosService
       .editarUsuario(this.usuario)
@@ -160,18 +192,7 @@ export class DialogoUsuarioComponent implements OnInit {
 
   cargarAdjunto() {
     let promises = [];
-    /*this.file.forEach(f => promises.push(this.adjuntosService.insertarAdjunto(Number.parseInt(this.idSolicitud), f, this.idUsuario)));
-
-    this.cargando = true;
-    Promise
-      .all(promises)
-      .then(results => {
-        console.log(results);
-        this.file = [];
-        this.refresh();
-        this.parent.refreshEventosSolicitud();
-      }).catch(reason => this.utilService.manejarError(reason))
-      .then(() => this.cargando = false);*/
+    
   }
 
   quitarAdjunto(archivo: File) {

@@ -24,14 +24,18 @@
 
       <span class="badge-status badge-color-schedule-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isInterviewer || isTemplateCreator) && solicitud.fecha_schedule">Schedule
-        {{solicitud.fecha_schedule | dateMMDDYYYY:'datetime'}}</span>
+        {{solicitud.fecha_schedule | dateMMDDYYYY:'datetime'}}
+        <mat-icon *ngIf="solicitud.finIntIni" svgIcon="seenD" style="color:#612B7C; width: 10px; height: 10px;margin-bottom: 5px;"></mat-icon>
+      </span>
 
         <a *ngIf="solicitud.finIntIni && isInterviewer" class="attended-titulo-solicitud">Attended</a>
 
       <span class="badge-status badge-color-schedule-scales-title"
         *ngIf="(isMaster || isVendor || isBackOffice || isTemplateCreator || isInterviewerScales) && solicitud.fecha_schedule_scales">Int.
         Scale
-        {{solicitud.fecha_schedule_scales | dateMMDDYYYY:'datetime'}}</span>
+        {{solicitud.fecha_schedule_scales | dateMMDDYYYY:'datetime'}}
+        <mat-icon *ngIf="solicitud.finIntSc" svgIcon="seenD" style="color:#00949B; width: 10px; height: 10px;margin-bottom: 5px;"></mat-icon>
+      </span>
 
         <a *ngIf="solicitud.finIntSc && isInterviewerScales" class="attended-titulo-solicitud">Attended</a>        
 
@@ -210,22 +214,52 @@
         <input type="text" [(ngModel)]="solicitud.numeroDeCaso">
     </div>
 
-    <div class="iigwo-input" *ngIf="(isMaster  || isBackOffice)">
-        <label>Assigned clinician</label>
+    <div class="iigwo-input" *ngIf="(isMaster  || isBackOffice || isTemplateCreator)">
+         <div class="wrapper">
+        <label>Assigned clinician <a *ngIf="solicitud.interviewMaster" class="attended">   Appointment attended</a> <a *ngIf="solicitud.assignedClinician > 0 && !solicitud.interviewMaster" (click)="limpiarAssignedClinician()">Clear</a> </label>
         <select [(ngModel)]="solicitud.assignedClinician" [disabled]="solicitud.idEstatusSolicitud == 11">
             <option *ngFor="let o of arrAssignedClinicians" [ngValue]="o.idUsuario">
                 {{o.nombre}}</option>
         </select>
+          </div>
     </div>
 
 </div>
 
 <div class="column">
 
+ 
+    <!--<div class="iigwo-input"
+      *ngIf="!(isInterviewer || isInterviewerScales || isTemplateCreator || isVendor || isClinician)">
+      <label>Lawyer</label>
+      <mat-form-field appearance="standard" class="custom-form-field" style="width: 100%;">
+        <input type="text" placeholder="Find lawyer" matInput [formControl]="abogadoControl" [matAutocomplete]="auto"
+          [value]="abogadoSeleccionado ? abogadoSeleccionado.nombre : ''" />
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)" [displayWith]="displayFn">
+          <mat-option style="font-size: 12px" *ngFor="let a of abogados" [value]="a">
+            {{ a.nombre }} <span *ngIf="a.email">({{ a.email }})</span> <span *ngIf="a.email">- {{ a.telefono }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    
+    <div class="iigwo-input"
+      *ngIf="!(isInterviewer || isInterviewerScales || isTemplateCreator || isVendor || isClinician) && solicitud.idAbogado > 0">
+      <label><span class="label-prefix">Lawyer Firm: </span>{{lawyerFirm}}</label>
+      <label><span class="label-prefix">Lawyer: </span>{{lawyerName}}</label>
+      <label><span class="label-prefix">Email(s): </span>{{lawyerEmail}}</label>
+      <label><span class="label-prefix">Phone(s): </span>{{lawyerPhone}}</label>
+      <label><span class="label-prefix">Sinonymous(s): </span>{{lawyerSyn}}</label>
+    </div>
+   
+    <label style="color: rgb(159, 111, 24); font-size: 0.9em;margin-bottom: 10px;" 
+    *ngIf="!(isInterviewer || isInterviewerScales || isTemplateCreator || isVendor || isClinician)">
+      ⚠️ This fields will be deprecated, use the new "Lawyer" field.
+       </label>-->
 
     <div class="iigwo-input"
         *ngIf="!(isInterviewer || isInterviewerScales || isTemplateCreator || isVendor || isClinician)">
-        <label>Lawyer</label>
+        <label >Lawyer name</label>
         <input type="text" [(ngModel)]="solicitud.abogado">
     </div>
 
@@ -372,7 +406,7 @@
           <div class="div-img-label">
             <mat-icon svgIcon="userD"
               style="color:rgba(48, 48, 48, 0.7); width: 10px; height: 10px;margin-bottom: 8px;"></mat-icon>
-            <label>Editor user</label>
+            <label>Editor user<a *ngIf="solicitud.finAsgTmp" class="attended"> - Attended</a> </label>
           </div>
 
           <input [ngModel]="solicitud.usuarioTemplate" readOnly style="font-weight: 600;">
@@ -455,8 +489,7 @@
           <button (click)='siguienteProceso()' class="btn-color"
             *ngIf="solicitud.idEstatusSolicitud != 11 && solicitud.idEstatusSolicitud != 6 && (isBackOffice || isMaster || isVendor || isGhostwriting) "
             style="color: #FFFFFF; background: #9340D3;">
-            <span style="color: #FFFFFF; font-size: 13px;">{{solicitud.idEstatusSolicitud == 1 && !isInterviewerScales ? "Send to
-              Case Manager" : "Send to next process"}}</span>
+            <span style="color: #FFFFFF; font-size: 13px;">{{solicitud.idEstatusSolicitud == 1 && !isInterviewerScales ? "Send to Interview" : "Send to next process"}}</span>
             <mat-icon svgIcon="sendD"
                 style="color: rgba(255, 255, 255, 0.7); width: 14px;  vertical-align: middle;"></mat-icon>
           </button>
@@ -583,7 +616,7 @@
            <!--  INICIO TEMPLATE -->
 
            <button (click)='siguienteProceso()' class="btn-color"
-           *ngIf="isTemplateCreator && solicitud.idUsuarioRevisando == usuario.idUsuario"
+           *ngIf="isTemplateCreator && (solicitud.idEstatusSolicitud == 2||solicitud.idEstatusSolicitud == 3)"
            style="color: #FFFFFF; background: #9340D3;">
             <span style="color: #FFFFFF; font-size: 13px;">Send to next process</span>
             <mat-icon svgIcon="sendD"
@@ -591,7 +624,7 @@
          </button>
 
          <button (click)='cambiarEstatusSolicitud(4)' class="btn-color"
-           *ngIf="isTemplateCreator && solicitud.idUsuarioRevisando == usuario.idUsuario"
+           *ngIf="isTemplateCreator && (solicitud.idEstatusSolicitud == 2||solicitud.idEstatusSolicitud == 3)"
            style="color: #FFFFFF;background: #4094D3;">
             <span style="color: #FFFFFF; font-size: 13px;">Reject File</span>
              <mat-icon svgIcon="cancel"

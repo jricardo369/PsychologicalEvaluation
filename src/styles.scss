@@ -434,6 +434,11 @@ label.fake-button {
 	left: 64px;
 }
 
+.mat-form-field-infix {
+  padding-top: 0px !important;
+}
+
+
 /* ----------------------------------------------------- */
 
 .workspace {
@@ -2233,6 +2238,19 @@ p.accent {
 .badge-color-na {
 	background-color: #B7B5B7;
 	color: #000000;
+}
+
+.badge-color-active {
+	background-color: #e1eab5;
+	color: rgb(36, 125, 51);
+}
+.badge-color-inactive {
+	background-color: #f98d8d;
+	color: rgb(133, 46, 27);
+}
+.badge-color-bloqueo {
+	background-color: #e9c389;
+	color: rgb(174, 139, 35);
 }
 
 //EDAD

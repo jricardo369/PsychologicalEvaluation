@@ -5,13 +5,17 @@ import { CustomI18nService } from '../custom-i18n.service';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { TareasProgramadasComponent } from './tareas-programadas/tareas-programadas.component';
+import { AbogadosComponent } from './abogados/abogados.component';
+import { RedirectInicioComponent } from './redirect-inicio.component';
+ 
 
 const routes: Routes = [
+    { path: '', component: RedirectInicioComponent }, // 👈 Ruta inicial dinámica
     { path: 'usuarios', component: UsuariosComponent, },
     { path: 'configuraciones', component: ConfiguracionesComponent, },
     { path: 'tareas-programadas', component: TareasProgramadasComponent, },
-
-    { path: '', pathMatch: 'full', redirectTo: 'usuarios' },
+    { path: 'abogados', component: AbogadosComponent, },
+    //{ path: '', pathMatch: 'full', redirectTo: 'usuarios' },
 ];
 
 const MODULE: AppBarNavItem = {
@@ -20,7 +24,7 @@ const MODULE: AppBarNavItem = {
     subtitle: null,
     uri: 'administracion-general',
     svgName: 'administracion',
-    isVisibleFor: u => u.rol == "1"
+    isVisibleFor: u => u.rol == "1" || u.rol == "6" || u.rol == "3" || u.rol == "4"
 };
 
 export const ADMIN_GENERAL_ITEMS: AppBarNavItem[] = [
@@ -31,6 +35,15 @@ export const ADMIN_GENERAL_ITEMS: AppBarNavItem[] = [
         subtitle: 'Manage the users and their permissions',
         uri: 'usuarios',
         isVisibleFor: u => u.rol == "1"
+    },
+    {
+        module: MODULE,
+        svgName: 'lawyers',
+        title: 'Lawyers',
+        subtitle: 'Manage the lawyers',
+        uri: 'abogados',
+        //isVisibleFor: u => u.rol == "1" || u.rol == "6" || u.rol == "3" || u.rol == "4"
+        isVisibleFor: u => u.rol == "0"
     },
     {
         module: MODULE,

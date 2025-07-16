@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { CitasComponent } from './citas/citas.component';
 import { CargosVocComponent } from './cargos-voc/cargos-voc.component';
 
+
 const routes: Routes = [
 	{ path: 'solicitudes-voc', component: SolicitudesVocComponent, },
 	{ path: 'solicitudes-voc/:id', component: SolicitudVocComponent, },

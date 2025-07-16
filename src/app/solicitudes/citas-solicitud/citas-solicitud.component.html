@@ -22,9 +22,10 @@
   <table class="informative" *ngIf="arrCitaSolicitud.length > 0">
     <tr>
       <th >Hour</th>
+      <th >Actions</th>
     </tr>
     <tr *ngFor='let e of arrCitaSolicitud | slice:paginacion.begin:paginacion.end'>
-      <td >{{e.fecha}} {{e.hora}} {{e.tipo}}   <span *ngIf="e.dosCitas" style="color: #41949B; font-weight: bold;">Dos citas</span></td>
+      <td >{{e.fecha}} {{e.hora}} {{e.tipo}}   <span *ngIf="e.dosCitas" style="color: #41949B; font-weight: bold;font-style: oblique;">Two schedules</span></td>
       <!--<td >
         <div style="display: flex; align-items: center; gap: 15px;">
           <span>{{ e.fecha }}</span>
